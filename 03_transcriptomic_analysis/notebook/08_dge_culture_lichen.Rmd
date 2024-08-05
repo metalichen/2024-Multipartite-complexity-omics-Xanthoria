@@ -164,6 +164,26 @@ plot_bootstrap(so,
 ## 2.5. GO enrichment analysis on sleuth
 * Upregulated in lichen: largely consistent wiht the edgeR results
 ```{r,fig.width=12,fig.height=14 }
+###make table with GO annotations
+go_df <-funannot %>% select(TranscriptID,GO.Terms_new) %>% 
+  mutate(GO.Terms_new = strsplit(GO.Terms_new, ",")) %>%
+        unnest(GO.Terms_new) %>%
+  mutate(GO.Terms=sub(".*? ", "", GO.Terms_new),
+         short_term = substr(GO.Terms, 1,40))
+
+go_data <- list(
+    term2protein = data.frame(
+                        term = go_df$GO.Terms_new,
+                        gene = go_df$TranscriptID
+                        ),
+    term2name = data.frame(
+                        term = go_df$GO.Terms_new,
+                        name = go_df$short_term
+                        ),
+    
+    universe = unique(as.character(go_df$TranscriptID))
+)
+
 
 ### select genes upregulated in lichens and order them by fold change
 geneList5 = sig$b[sig$change=="lichen"]
@@ -222,6 +242,26 @@ enrichplot::emapplot(enrich6_pairwise)
 ## 2.6. InterPro enrichment analysis on sleuth
 * Upregulated in lichen
 ```{r,fig.width=12,fig.height=14 }
+###make table with IPS annotations
+ips_df <-funannot %>% select(TranscriptID,InterPro_new) %>% 
+  mutate(InterPro_new = strsplit(InterPro_new, ", I")) %>%
+        unnest(InterPro_new) %>% mutate(InterPro_new=str_replace(InterPro_new,"^PR","IPR")) %>%
+  mutate(short_term = substr(InterPro_new, 1,40))
+
+
+ips_data <- list(
+    term2protein = data.frame(
+                        term = ips_df$InterPro_new,
+                        gene = ips_df$TranscriptID
+                        ),
+    term2name = data.frame(
+                        term = ips_df$InterPro_new,
+                        name = ips_df$short_term
+                        ),
+    
+    universe = unique(as.character(ips_df$TranscriptID))
+)
+
 enrich7<-clusterProfiler::enricher(geneList5,
     pAdjustMethod = "none",
     minGSSize = 1,
@@ -387,117 +427,6 @@ dge_plot+all_plot
 dev.off()
 ```
 
-## 2.8. Differentially expressed effectors
-* Used the list of effectors identified in `10_lichen effectors`. Those are proteins identified as secreted by 3 tools and identified as effectors by 2 tools
-
-#### Upregulated in lichens
-* of 91 potential effectors, 27 are upregulated in lichen
-```{r kable3, results = "asis"}
-eff_list<- eff_list %>%
-  left_join(sig, by = c("TranscriptID"="target_id")) 
-
-  eff_list %>% filter(change=="lichen") %>%
-  kable(format = "html", col.names = colnames(eff_list)) %>%
-  kable_styling() %>%
-  kableExtra::scroll_box(width = "100%", height = "600px")
-```
-
-#### Visualize expression profiles. Manually checked all graphs, which all look legit
-* some have strong and obvious effect: e.g. XANPAGTX0501_005675-T1
-```{r, message = FALSE,fig.show="hold"}
-lichen_eff<-eff_list$TranscriptID[eff_list$TranscriptID %in% sig$target_id[sig$change=="lichen"]]
-plot_bootstrap(so, 
-               target_id = lichen_eff[11], 
-               units = "est_counts", 
-               color_by = "condition")
-```
-
-* some have small effect: e.g. XANPAGTX0501_003186-T1
-```{r, message = FALSE,fig.show="hold"}
-plot_bootstrap(so, 
-               target_id = lichen_eff[7], 
-               units = "est_counts", 
-               color_by = "condition")
-```
-
-* some have uneven effect between lichen samples
-  * XANPAGTX0501_007280-T1 upregulted in bark samples, but not stone samples
-  * XANPAGTX0501_009026-T1 upregulted in stone samples more than in bark samples
-  * XANPAGTX0501_009606-T1 upregulated in all but 3 samples
-```{r, message = FALSE,fig.show="hold"}
-plot_bootstrap(so, 
-               target_id = lichen_eff[18], 
-               units = "est_counts", 
-               color_by = "condition")
-plot_bootstrap(so, 
-               target_id = lichen_eff[20], 
-               units = "est_counts", 
-               color_by = "condition")
-plot_bootstrap(so, 
-               target_id = lichen_eff[23], 
-               units = "est_counts", 
-               color_by = "condition")
-```
-* two odd ones: XANPAGTX0501_008875-T1, XANPAGTX0501_006291-T1
-```{r, message = FALSE,fig.show="hold"}
-plot_bootstrap(so, 
-               target_id = lichen_eff[15], 
-               units = "est_counts", 
-               color_by = "condition")
-plot_bootstrap(so, 
-               target_id = lichen_eff[19], 
-               units = "est_counts", 
-               color_by = "condition")
-```
-
-  
-
-#### Upregulated in culture
-* And 7 are upregulated in culture
-```{r kable4, results = "asis"}
-  eff_list %>% filter(change=="culture") %>%
-  kable(format = "html", col.names = colnames(eff_list)) %>%
-  kable_styling() %>%
-  kableExtra::scroll_box(width = "100%", height = "600px")
-```
-
-#### Expression profiles
-* Out of 7, 3 look okay
-```{r, message = FALSE,fig.show="hold"}
-culture_eff<-eff_list$TranscriptID[eff_list$TranscriptID %in% sig$target_id[sig$change=="culture"]]
-plot_bootstrap(so, 
-               target_id = culture_eff[1], 
-               units = "est_counts", 
-               color_by = "condition")
-plot_bootstrap(so, 
-               target_id = culture_eff[5], 
-               units = "est_counts", 
-               color_by = "condition")
-plot_bootstrap(so, 
-               target_id = culture_eff[7], 
-               units = "est_counts", 
-               color_by = "condition")
-```
-
-* weird ones, probably due to the low number of counts across all samples
-```{r, message = FALSE,fig.show="hold"}
-plot_bootstrap(so, 
-               target_id = culture_eff[3], 
-               units = "est_counts", 
-               color_by = "condition")
-plot_bootstrap(so, 
-               target_id = culture_eff[2], 
-               units = "est_counts", 
-               color_by = "condition")
-plot_bootstrap(so, 
-               target_id = culture_eff[4], 
-               units = "est_counts", 
-               color_by = "condition")
-plot_bootstrap(so, 
-               target_id = culture_eff[6], 
-               units = "est_counts", 
-               color_by = "condition")
-```
 
 ### 3. Create lists for unique genes
 #### Identified 13 genes expressed in all lichen samples and none of the culture samples. 
@@ -721,7 +650,7 @@ plot_bootstrap(so,
 
 * Highlighting TFs
   * In total, in the genome we have `r funannot %>% filter(grepl(paste(mult_list$ID[mult_list$Function=="Transcription factors"],collapse="|"),InterPro_new)) %>% nrow()` putative TFs
-  * Of them, `r read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t") %>% filter(grepl(paste(mult_list$ID[mult_list$Function=="Transcription factors"],collapse="|"),InterPro_new),lichen_ortho==T) %>% nrow()` are from lichen-enriched orthoproups
+  * Of them, `r read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t") %>% filter(grepl(paste(mult_list$ID[mult_list$Function=="Transcription factors"],collapse="|"),InterPro_new),lichen_ortho==T) %>% nrow()` are from lichen-enriched orthoproups
 ```{r, message = FALSE,fig.width=10,fig.height=10 }
 
 ann_colors = list(
@@ -750,7 +679,7 @@ knitr::include_graphics("../analysis_and_temp_files/08_dge_culture_lichen/heatma
 
 * Highlighting transporters
   * In total, in the genome we have `r funannot %>% filter(grepl(paste(mult_list$ID[mult_list$Function=="Transporters"],collapse="|"),InterPro_new)) %>% nrow()` putative transporters
-  * Of them, `r read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t") %>% filter(grepl(paste(mult_list$ID[mult_list$Function=="Transporters"],collapse="|"),InterPro_new),lichen_ortho==T) %>% nrow()` are from lichen-enriched orthoproups
+  * Of them, `r read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t") %>% filter(grepl(paste(mult_list$ID[mult_list$Function=="Transporters"],collapse="|"),InterPro_new),lichen_ortho==T) %>% nrow()` are from lichen-enriched orthoproups
 ```{r}
 ann_colors = list(
     condition = c("lichen_thallus"="#F8766D","xanthoria_culture"="#619CFF"),
@@ -856,10 +785,10 @@ HM
 
 
 ### 4.4. Genes from lichen-enriched orthogroups
-* The list of lichen-enriched orthogroups is made by Neha, see `../02_long_read_assemblies/notebook/09_lichen_specific_genes.html`
+* The list of lichen-enriched orthogroups, see `../02_mycobiont_genome/notebook/09_lichen_specific_genes.html`
 * Heatmap showing all 1226 lichen-specific genes, regardles of DGE status
 ```{r, message = FALSE,fig.width=10,fig.height=15 }
-funannot2<-read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t")
+funannot2<-read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t")
 png("../analysis_and_temp_files/08_dge_culture_lichen/heatmap_lichen_enriched_all.png",res=300,width=2000,height=1500)
 plot_transcript_heatmap(so, transcripts=funannot2$TranscriptID[funannot2$lichen_ortho==T],
                         cluster_transcripts=T,show_rownames=F,
@@ -883,15 +812,6 @@ dev.off()
 knitr::include_graphics("../analysis_and_temp_files/08_dge_culture_lichen/heatmap_lichen_enriched_dge.png") 
 ```
 
-* Among the DGE lichen-spefic genes, there are 11 putative effectors (10 upregulated in lichen, 1 in culture). This includes a hydrophobin, a lectin and a thaumatin-like protein
-```{r}
-og_eff<-eff_list %>% filter(change %in% c("lichen","culture"),TranscriptID %in% og_sig$target_id)
-
-og_eff %>% 
-  kable(format = "html", col.names = colnames(og_eff)) %>%
-  kable_styling() %>%
-  kableExtra::scroll_box(width = "100%", height = "600px")
-```
 
 * Of 361 DGE lichen-specific genes, `r funannot2  %>% filter(TranscriptID %in% og_sig$target_id[og_sig$change!="low_logFC"],is.na(CAZyme_new), is.na(GO.Terms_new), is.na(InterPro_new),is.na(PFAM_new),is.na(Protease_new),KO=="") %>% nrow()` have no functional annotation. This is 47%, compared to `r (funannot2  %>% filter(is.na(CAZyme_new), is.na(GO.Terms_new), is.na(InterPro_new),is.na(PFAM_new),is.na(Protease_new),KO=="") %>% nrow()) / (funannot2 %>% nrow())`) across the whole genome
 
@@ -927,7 +847,7 @@ knitr::include_graphics("../analysis_and_temp_files/08_dge_culture_lichen/heatma
 
 ```{r}
 library(splitstackshape)
-antismash<-read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/antismash/antismash_summary.txt")
+antismash<-read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/antismash/antismash_summary.txt")
 
 #get a list of all genes in each cluster
 antismash_gene_all<-antismash %>% mutate(start_num=as.numeric(gsub("^.*?_","",Start)),
@@ -1134,7 +1054,7 @@ funannot2 %>% left_join(sig,by=c("TranscriptID"="target_id")) %>%
 * Identitified putative polyol transporter with blast.
   * Used 4 proteins as queries, following Philipp: "AAX98668.1; from Ambrosiozyma monospora, CAR65543.1, CAG86001.1; from Debaryomyces hansenii, NP_010036.1; from Saccharomyces cerevisiae", saved as `analysis_and_temp_files/08_dge_culture_lichen/blastp_polyol_transporters.txt`
 ```{r,eval=F}
-sbatch --mem=5G -c 1 --wrap="source package d6092385-3a81-49d9-b044-8ffb85d0c446; blastp -query analysis_and_temp_files/08_dge_culture_lichen/polyol_transporters_genbank.fa -subject ../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.proteins.fa -outfmt 6 -out analysis_and_temp_files/08_dge_culture_lichen/blastp_polyol_transporters.txt -evalue 1e-100"
+sbatch --mem=5G -c 1 --wrap="source package d6092385-3a81-49d9-b044-8ffb85d0c446; blastp -query analysis_and_temp_files/08_dge_culture_lichen/polyol_transporters_genbank.fa -subject ../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.proteins.fa -outfmt 6 -out analysis_and_temp_files/08_dge_culture_lichen/blastp_polyol_transporters.txt -evalue 1e-100"
 ```
 * Returned 9 proteins (from 8 genes) with matches with e-value<1e-100
 ```{r}
@@ -1191,7 +1111,7 @@ transport_lic %>%
 ### 4.8. All secreted proteins
 * Visualized all 608 putative secreted proteins
 ```{r, message = FALSE,out.width = "100%"}
-secreted<-read.delim2("../../10_lichen_effectors/analysis_and_temp_files/01_predicting_effectors/all_secreted_list.txt",header=F)
+secreted<-read.delim2("../../04_secretome/analysis_and_temp_files/01_predicting_effectors/all_secreted_list.txt",header=F)
 secreted$TranscriptID<-str_replace(secreted$V1,"FUN","XANPAGTX0501")
 
 png("../analysis_and_temp_files/08_dge_culture_lichen/heatmap_secreted_all.png",res=300,width=2000,height=1500)
@@ -1214,7 +1134,7 @@ secreted_sig %>% group_by(change) %>% summarise(n=n())
 
 * Visualize only DGE secreted proteins
 ```{r, message = FALSE,out.width = "100%"}
-secreted<-read.delim2("../../10_lichen_effectors/analysis_and_temp_files/01_predicting_effectors/all_secreted_list.txt",header=F)
+secreted<-read.delim2("../../04_secretome/analysis_and_temp_files/01_predicting_effectors/all_secreted_list.txt",header=F)
 secreted$TranscriptID<-str_replace(secreted$V1,"FUN","XANPAGTX0501")
 
 png("../analysis_and_temp_files/08_dge_culture_lichen/heatmap_secreted_dge.png",res=300,width=2000,height=1500)
@@ -1226,11 +1146,10 @@ knitr::include_graphics("../analysis_and_temp_files/08_dge_culture_lichen/heatma
 ```
 
 * All secreted proteins upregulated in lichen. There are a bunch of lectins there, GHs and other hydrolases, and a killer toxin
-  * Notably, many genes classified as non-effectors have functinal annotations similar to those classified as effectors???
   * Most strongly upregulated are a GH128 (beta-1,3-glucanase / laminarinase), lectins, and a toxin
 ```{r}
 secreted_table_lichen<-secreted_sig %>% 
-  filter(change=="lichen") %>% left_join(funannot2,by = c("target_id"="TranscriptID")) %>% select(target_id,b,Product,CAZyme_new,COG_new,EggNog_new,GO.Terms_new,InterPro_new,PFAM_new,Protease_new,KO,lichen_ortho) %>% mutate(effector_from_small_list=ifelse(target_id %in% eff_list$TranscriptID,T,F))%>%
+  filter(change=="lichen") %>% left_join(funannot2,by = c("target_id"="TranscriptID")) %>% select(target_id,b,Product,CAZyme_new,COG_new,EggNog_new,GO.Terms_new,InterPro_new,PFAM_new,Protease_new,KO,lichen_ortho) %>% 
   arrange(b)
 secreted_table_lichen %>%
   kable(format = "html", col.names = colnames(secreted_table_lichen)) %>%
@@ -1242,7 +1161,7 @@ secreted_table_lichen %>%
   * Most strongly upregulated are AA7, AA5, GH128 and galactose-binding enzymes
 ```{r}
 secreted_table_culture<-secreted_sig %>% 
-  filter(change=="culture") %>% left_join(funannot2,by = c("target_id"="TranscriptID")) %>% select(target_id,b,Product,CAZyme_new,COG_new,EggNog_new,GO.Terms_new,InterPro_new,PFAM_new,Protease_new,KO,lichen_ortho) %>% mutate(effector_from_small_list=ifelse(target_id %in% eff_list$TranscriptID,T,F)) %>%
+  filter(change=="culture") %>% left_join(funannot2,by = c("target_id"="TranscriptID")) %>% select(target_id,b,Product,CAZyme_new,COG_new,EggNog_new,GO.Terms_new,InterPro_new,PFAM_new,Protease_new,KO,lichen_ortho) %>%
   arrange(desc(b))
 secreted_table_culture %>%
   kable(format = "html", col.names = colnames(secreted_table_culture)) %>%
@@ -1255,7 +1174,7 @@ secreted_table_culture %>%
 #### Putative NLRs
 * Got the list of putative NLRs
 ```{r}
-nlr_list<-read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/10_nlr/NLRs.txt")
+nlr_list<-read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/10_nlr/NLRs.txt")
 ```
 * Four upregulated in lichen, one in cluture
 ```{r}
@@ -1302,7 +1221,7 @@ plot_bootstrap(so,
 #### Broader set of NLR-like proteins
 * Got the list of NLR-like proteins, including those without a complete set of domains
 ```{r}
-nlr_like<-read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/10_nlr/NLR_like.txt")
+nlr_like<-read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/10_nlr/NLR_like.txt")
 ```
 * 12 upregulated in lichen, 3 in cluture
 ```{r}
@@ -1717,7 +1636,7 @@ head(core_dge)
   * Include all genes from the 'cluster of interest' form the clustering of secretome based on the structures
 
 ```{r, message = FALSE,fig.width=10,fig.height=10}
-cl_int<-read.delim2("../../10_lichen_effectors/analysis_and_temp_files/05_cluster_structures/clustering_results.txt") %>% filter(ClusterID %in% c("cl04","cl16","cl18","cl19","cl20","cl21","cl22","cl23",
+cl_int<-read.delim2("../../04_secretome/analysis_and_temp_files/05_cluster_structures/clustering_results.txt") %>% filter(ClusterID %in% c("cl04","cl16","cl18","cl19","cl20","cl21","cl22","cl23",
                       "cl24","cl24a","cl37","cl38","cl40","cl41","cl42","cl80",
                       "cl29","cl34"),Gene_Expression!="Non-DGE")
 filt_mat_int<-subset(trans_mat, rownames(trans_mat) %in% cl_int$ProteinID)
@@ -1727,7 +1646,7 @@ ra2<-data.frame("ProteinID"=rownames(filt_mat_int)) %>% left_join(cl_int) %>%
   select(ClusterID)
 
 #define color to match the tree
-col_cl<-read.delim2("../../10_lichen_effectors/analysis_and_temp_files/05_cluster_structures/cluster_col.txt",sep=",") %>% filter(cluster_id %in% cl_int$ClusterID)
+col_cl<-read.delim2("../../04_secretome/analysis_and_temp_files/05_cluster_structures/cluster_col.txt",sep=",") %>% filter(cluster_id %in% cl_int$ClusterID)
 ra2_colors<-as.character(col_cl$color)
 names(ra2_colors)<-as.character(col_cl$cluster_id)
 ra2 = rowAnnotation(df = ra2,col = list(ClusterID = ra2_colors),show_legend = F)
@@ -1751,7 +1670,7 @@ rord<-rownames(filt_mat_int)[rord]
 rord2<-data.frame("ProteinID"=rord) %>% left_join(cl_int)
 
 #get number of DGE per cluster of interest
-t<-read.delim2("../../10_lichen_effectors/analysis_and_temp_files/05_cluster_structures/clustering_results.txt") %>% filter(ClusterID %in% c("cl04","cl16","cl18","cl19","cl20","cl21","cl22","cl23",
+t<-read.delim2("../../04_secretome/analysis_and_temp_files/05_cluster_structures/clustering_results.txt") %>% filter(ClusterID %in% c("cl04","cl16","cl18","cl19","cl20","cl21","cl22","cl23",
                       "cl24","cl24a","cl37","cl38","cl40","cl41","cl42","cl80",
                       "cl29","cl34")) 
 
@@ -1764,8 +1683,8 @@ t%>% group_by(ClusterID,Gene_Expression) %>% summarise(n=n()) %>%
 * Prep files for CROC
 * Used the reference file produced in `../analysis_and_temp_files/09_dge_architecture/`
 ```{r}
-write.table(lichen_upr$target_id,'../analysis_and_temp_files/08_dge_culture_lichen/lichen_upregulated.txt',col.names = F,row.names = F,quote = F)
-write.table(culture_upr$target_id,'../analysis_and_temp_files/08_dge_culture_lichen/culture_upregulated.txt',col.names = F,row.names = F,quote = F)
+write.table(geneList5,'../analysis_and_temp_files/08_dge_culture_lichen/lichen_upregulated.txt',col.names = F,row.names = F,quote = F)
+write.table(geneList6,'../analysis_and_temp_files/08_dge_culture_lichen/culture_upregulated.txt',col.names = F,row.names = F,quote = F)
 ```
 
 * Ran CROC. Used defauls parameters:
@@ -1797,7 +1716,7 @@ croc_l2<-croc_l %>% left_join(funannot2) %>%
   select(cluster,TranscriptID, InterPro_new,secreted_consensus) 
 
 croc_l2 %>% 
-  kable(format = "html", col.names = colnames(croc2)) %>%
+  kable(format = "html", col.names = colnames(croc_l2)) %>%
   kable_styling() %>%
   kableExtra::scroll_box(width = "100%", height = "300px")
 ```

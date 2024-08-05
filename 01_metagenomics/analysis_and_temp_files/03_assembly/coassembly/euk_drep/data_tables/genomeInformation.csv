@@ -1,0 +1,12 @@
+genome,completeness,contamination,location,length,N50
+bin.195.fa,83.0,3.0,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.195.fa,56966617,14713
+bin.321.fa,86.0,5.0,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.321.fa,60246696,21155
+bin.64.fa,60.9,0.38,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.64.fa,22353331,5507
+bin.1.fa,87.8,6.4,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.1.fa,59833070,23985
+bin.378.fa,95.49,1.5,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.378.fa,33057185,11867
+bin.46.fa,84.6,4.6,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.46.fa,55253575,26394
+bin.335.fa,79.7,0.0,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.335.fa,17486084,19201
+bin.76.fa,86.84,1.88,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.76.fa,25481863,12747
+bin.376.fa,87.22,0.38,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.376.fa,23218115,12419
+bin.10.fa,93.23,0.38,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.10.fa,23784779,44391
+bin.142.fa,96.62,0.38,analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.142.fa,26349761,406952

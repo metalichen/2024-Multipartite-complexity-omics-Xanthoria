@@ -1,0 +1,1080 @@
+---
+title: "09_dge_architecture"
+author: "Gulnara Tagirdzhanova"
+date: "2023-11-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(kableExtra)
+knitr::opts_chunk$set(echo = TRUE)
+```
+**Rationale:** This script performs differential gene expression (dge) and calculates the upregulated and downregulated genes in different parts of lichen thallus using Sleuth
+
+## 1. Prepare data
+* list samples to be included
+```{r,message=F}
+library(sleuth)
+library(tidyverse)
+samples<-read.delim("../data/metadata/found_samples_in_sequences_db_thallus.csv",sep=",")
+
+kal_dirs2 <- data.frame("sample"=samples$run_id, "part"= samples$sample_focus,
+                       substrate=samples$growth_site, thallus = samples$thallus_id,
+                       "path"=paste0("../analysis_and_temp_files/06_meta_mapping/kallisto_meta_mapping/",samples$run_id,"_kallisto"))  %>% filter(sample!="MP_I" & sample!="MP_II")
+```
+* define list of genes to be included: only mycobiont and only those that have  read count across whole panel of >=5
+```{r}
+full<-read.delim("../analysis_and_temp_files/08_dge_culture_lichen/counts_table.tsv",row.names=1)
+d<-full %>% select(any_of(kal_dirs2$sample)) #include only lichen samples
+colnames(d)
+
+d$max<-apply(d,1,max)
+min(d$max)
+d1<-d[which(d$max>=5),] #to remove lowly expressed genes, keep rows in which max read count across whole panel is atleast 5
+
+# drop the max column, as its not needed anymore
+raw_counts<-d1 %>% select(-max)
+length(rownames(d1)) # total number of genes
+length(rownames(raw_counts)) 
+
+#make the list of selected genes
+target_id<-rownames(d1)
+```
+
+## 2. Edge / Center comparison
+* read in the data, including only selected genes 
+* modeled the DGE following the [official tutorial](https://pachterlab.github.io/sleuth_walkthroughs/pval_agg/analysis.html)
+* Produced 7 genes upregulated in center, if we apply the thresholds of qvalue<0.05 and abs(b)>1. No genes upregulated in the edge
+```{r}
+ec_dirs<-kal_dirs2 %>% filter(part %in% c("thallus_centre", "thallus_edge") )
+ec_dirs$part <- as.factor(ec_dirs$part)
+
+ec_so <- sleuth_prep(ec_dirs,extra_bootstrap_summary = TRUE,filter_target_id = target_id,transformation_function = function(x) log2(x + 0.1))
+#model that includes only confounding variables
+ec_so <- sleuth_fit(ec_so, ~thallus, 'reduced') 
+#model that includes only both the confounding variable and the variable of interest
+ec_so  <- sleuth_fit(ec_so, ~thallus + part, 'full')
+#compare the models
+ec_so <- sleuth_lrt(ec_so, 'reduced', 'full')
+ec_so <- sleuth_wt(ec_so, 'partthallus_edge')
+
+plot_pca(ec_so, color_by = 'part', text_labels = TRUE,use_filtered=T)
+
+ec_table <- sleuth_results(ec_so, 'partthallus_edge')
+ec_sig <- ec_table %>% tibble::as_tibble() %>% 
+  filter( qval <= 0.05, grepl("GTX0501",target_id) ) %>% 
+  arrange(desc(b)) %>% mutate(change = if_else(b > 1, "edge", ifelse(b< -1, "centre", "low_logFC")))
+
+table(ec_sig$change)
+```
+
+* Bootstrap of the two genes most overexpressed in the center. The difference isn't massive
+```{r,fig.show="hold"}
+ec_dge<-ec_sig$target_id[ec_sig$change!="low_logFC"]
+plot_bootstrap(ec_so, 
+               target_id = ec_dge[7], 
+               units = "est_counts", 
+               color_by = "part")
+plot_bootstrap(ec_so, 
+               target_id = ec_dge[6], 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* About genes upregulated in center, we mostly know nothing. What we do know:
+  * One secreted
+  * Two from lichen-enriched orthogroups
+  * One of them has two InterPro domains: F-box and LRR. This makes it likely to be a part of ubiquitin protein degradation system. F-box connects to the ubiquitin ligase complex, and LRR binds to a specific protein to be degraded (see[https://www.sciencedirect.com/science/article/pii/S0079610799000103](Craig & Tyers 1999))
+  
+```{r,fig.show="hold"}
+library(kableExtra)
+funannot2<-read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t")
+
+center_ec_genes<-ec_sig %>% filter(change=="centre") %>%
+  left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
+  select(target_id,b,InterPro_new,CAZyme_new,Protease_new,KO,secreted_consensus,lichen_ortho)
+center_ec_genes %>% 
+  kable(format = "html", col.names = colnames(center_ec_genes)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+
+* This is the gene the closest to being overexpressed in the edge (b value = 0.9). 
+```{r,fig.show="hold"}
+plot_bootstrap(ec_so, 
+               target_id = ec_sig$target_id[ec_sig$b>0.9], 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* Interestingly, it's a putative effector, which is upregulated in lichen and matches papain inhibitor/cellulose-binding
+```{r,fig.show="hold"}
+edge_ec_genes<-ec_sig %>% filter(b>0.9) %>%
+  left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
+  select(target_id,b,InterPro_new,CAZyme_new,Protease_new,KO,secreted_consensus,lichen_ortho)
+edge_ec_genes %>% 
+  kable(format = "html", col.names = colnames(edge_ec_genes)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+### 2.2. Power analysis: simple
+* Do we have enough samples for this comparison?
+* Looked at the distribution of (non-corrected) p-values. The graph looks good: close to uniform, with an increase close to 0. If our test was underpowered, we would see an increase of p-vlaues along 0->1, but this is not the case
+```{r}
+ggplot(ec_table)+geom_histogram(aes(x=pval))
+```
+
+* QQ-plot also looks good
+```{r}
+library(MKpower)
+qqunif(ec_table$pval, color.line = "orange")
+
+```
+
+* However, when looking at corrected p-values (a.k.a. q-values), the graph looks bad
+```{r}
+ggplot(ec_table)+geom_histogram(aes(x=qval))
+```
+* Perhaps, this particular comparison is underpowered
+```{r}
+library(MKpower)
+qqunif(ec_table$qval, color.line = "orange")
+
+```
+
+## 3. Center / apothetia comparison
+* Only 1 gene upregulated in the center compared to 118 in apothecia
+```{r}
+ca_dirs<-kal_dirs2 %>% filter(part %in% c("thallus_centre", "apothecia") )
+ca_dirs$part <- as.factor(ca_dirs$part)
+ca_dirs$thallus<- as.factor(ca_dirs$thallus)
+
+rhdf5::h5closeAll()
+ca_so <- sleuth_prep(ca_dirs,extra_bootstrap_summary = TRUE,filter_target_id = target_id,transformation_function = function(x) log2(x + 0.1))
+
+#model that includes only confounding variables
+ca_so <- sleuth_fit(ca_so, ~thallus, 'reduced') 
+#model that includes only both the confounding variable and the variable of interest
+ca_so  <- sleuth_fit(ca_so, ~thallus + part, 'full')
+#compare the models
+ca_so <- sleuth_lrt(ca_so, 'reduced', 'full')
+ca_so <- sleuth_wt(ca_so, 'partthallus_centre')
+
+plot_pca(ca_so, color_by = 'part', text_labels = TRUE,use_filtered=T)
+
+ca_table <- sleuth_results(ca_so, 'partthallus_centre')
+ca_sig <- ca_table %>% tibble::as_tibble() %>% 
+  filter( qval <= 0.05, grepl("GTX0501",target_id) ) %>% 
+  arrange(desc(b)) %>% mutate(change = if_else(b > 1, "centre", ifelse(b< -1, "apothecium", "low_logFC")))
+
+table(ca_sig$change)
+```
+
+#### Upregulated in apothecia
+* Bootstrap of the two genes most overexpressed in the apothecium. Why are the boxes so wide?
+```{r,fig.show="hold"}
+plot_bootstrap(ca_so, 
+               target_id = ca_sig$target_id[which.min(ca_sig$b)], 
+               units = "est_counts", 
+               color_by = "part")
+plot_bootstrap(ca_so, 
+               target_id = ca_sig$target_id[which.min(ca_sig$b[-which.min(ca_sig$b)])], 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* Both MAT genes seem upregulated, although XANPAGTX0501_002103-T1 is just below the threshold -0.99
+```{r,fig.show="hold"}
+plot_bootstrap(ca_so, 
+               target_id = "XANPAGTX0501_002103-T1", 
+               units = "est_counts", 
+               color_by = "part")
+plot_bootstrap(ca_so, 
+               target_id = "XANPAGTX0501_002104-T1", 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* Of the 118 upregulated in apothecia, `r ca_sig %>% filter(change=="apothecium") %>% left_join(funannot2,by=c("target_id"="TranscriptID")) %>% filter(is.na(InterPro_new),is.na(CAZyme_new),is.na(Protease_new),KO=="") %>% nrow()` have no functional annotations
+* `r ca_sig %>% filter(change=="apothecium") %>% left_join(funannot2,by=c("target_id"="TranscriptID")) %>% filter(secreted_consensus==T) %>% nrow()` are secreted
+```{r,fig.show="hold"}
+ap_ca_genes<-ca_sig %>% filter(change=="apothecium") %>%
+  left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
+  select(target_id,b,InterPro_new,CAZyme_new,Protease_new,KO,secreted_consensus,lichen_ortho)
+ap_ca_genes %>% 
+  kable(format = "html", col.names = colnames(ap_ca_genes)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+* Selected only genes that are potentially multicellularity related
+```{r,fig.show="hold"}
+mult_list<-read.delim2("../analysis_and_temp_files/08_dge_culture_lichen/multicellularity.txt")
+#select genes that come from one of the categories of interest
+ips_df <-funannot2 %>% select(TranscriptID,InterPro_new) %>% 
+  mutate(InterPro_new = strsplit(InterPro_new, ", I")) %>%
+        unnest(InterPro_new) %>% mutate(InterPro_new=str_replace(InterPro_new,"^PR","IPR")) %>%
+  mutate(short_term = substr(InterPro_new, 1,40))
+
+ips_selected<-ips_df %>% mutate(ID=gsub( " .*$", "", InterPro_new)) %>% inner_join(mult_list,relationship = "many-to-many") %>% select(-c(InterPro_new,short_term))
+ko_cazy_selected<-funannot2 %>% select(TranscriptID,KO,CAZyme_new) %>% 
+  pivot_longer(-TranscriptID,names_to = "Annotation",values_to = "ID") %>% inner_join(mult_list,relationship = "many-to-many") %>% select(-Annotation)
+mult_gene_table<-rbind(ips_selected,ko_cazy_selected)  
+
+mult_gene_table_ap<-mult_gene_table %>% inner_join(ca_sig %>% filter(change=="apothecium") %>% select(target_id,b),by=c("TranscriptID"="target_id")) %>% arrange(Function)
+
+mult_gene_table_ap %>% 
+  kable(format = "html", col.names = colnames(mult_gene_table_ap)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+* Other notable proteins:
+  * Another protein from ubiquitin degrading system with a F-box and LRR domains
+  * Multiple transcription factors with different Zinc finger domains and IPR000210 BTB/POZ domain
+  * IPR031693 Sin3, C-terminal, which is a transcriptional repressor
+  * IPR018824 Conidiation-specific protein 6, function unknown
+  * Secreted IPR035940 CAP superfamily protein (egulation of extracellular matrix and branching morphogenesis, either proteases or protease inhibitors)
+  * Several GHs
+
+* InterPro enrichement analysis
+```{r, message = FALSE,fig.width=15,fig.height=15 }
+###make table with IPS annotations
+ips_df <-funannot2 %>% select(TranscriptID,InterPro_new) %>% 
+  mutate(InterPro_new = strsplit(InterPro_new, ", I")) %>%
+        unnest(InterPro_new) %>% mutate(InterPro_new=str_replace(InterPro_new,"^PR","IPR")) %>%
+  mutate(short_term = substr(InterPro_new, 1,40))
+
+ips_data <- list(
+    term2protein = data.frame(
+                        term = ips_df$InterPro_new,
+                        gene = ips_df$TranscriptID
+                        ),
+    term2name = data.frame(
+                        term = ips_df$InterPro_new,
+                        name = ips_df$short_term
+                        ),
+    
+    universe = unique(as.character(ips_df$TranscriptID))
+)
+
+###enrichment analysis
+enrich<-clusterProfiler::enricher(ap_ca_genes$target_id,
+    pAdjustMethod = "none",
+    minGSSize = 1,
+    maxGSSize = 2000,
+    qvalueCutoff = 1,
+    universe=ips_data$universe,
+    TERM2GENE=ips_data$term2protein,
+    TERM2NAME=ips_data$term2name)
+
+enrich_pairwise<-enrichplot::pairwise_termsim(enrich)
+enrichplot::emapplot(enrich_pairwise)
+```
+
+#### The only gene showed as upregulated in center. 
+* This gene is expressed in most samples, but there is a high level of heterogeneity across different lichen individuals, obscuring the pattern of it being more highly expressed in the center
+
+```{r,fig.show="hold"}
+plot_bootstrap(ca_so, 
+               target_id = ca_sig$target_id[which.max(ca_sig$b)], 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* This is the second, which is just below the threshold (b = 0.98)
+```{r,fig.show="hold"}
+
+plot_bootstrap(ca_so, 
+               target_id = "XANPAGTX0501_004633-T1", 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* Nothing is known about either!
+```{r,fig.show="hold"}
+ce_ca_genes<-ca_sig %>% filter(b>0.9) %>%
+  left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
+  select(target_id,b,InterPro_new,CAZyme_new,Protease_new,KO,secreted_consensus,lichen_ortho)
+ce_ca_genes %>% 
+  kable(format = "html", col.names = colnames(ce_ca_genes)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+### 3.2. Power analysis: simple
+* Do we have enough samples for this comparison?
+* Looked at the distribution of corrected p-values (a.k.a. q-values). The graph looks good: close to uniform, with an increase close to 0. If our test was underpowered, we would see an increase of p-vlaues along 0->1, but this is not the case
+```{r}
+ggplot(ca_table)+geom_histogram(aes(x=qval))
+```
+
+* QQ-plot looks fine
+```{r}
+library(MKpower)
+qqunif(ca_table$qval, color.line = "orange")
+
+```
+
+## 4. Edge / apothetia comparison
+* Only 1 gene upregulated in the center compared to 118 in apothecia
+```{r}
+ea_dirs<-kal_dirs2 %>% filter(part %in% c("thallus_edge", "apothecia") )
+ea_dirs$part <- as.factor(ea_dirs$part)
+ea_dirs$thallus<- as.factor(ea_dirs$thallus)
+
+rhdf5::h5closeAll()
+ea_so <- sleuth_prep(ea_dirs,extra_bootstrap_summary = TRUE,filter_target_id = target_id,transformation_function = function(x) log2(x + 0.1))
+
+#model that includes only confounding variables
+ea_so <- sleuth_fit(ea_so, ~thallus, 'reduced') 
+#model that includes only both the confounding variable and the variable of interest
+ea_so  <- sleuth_fit(ea_so, ~ thallus + part, 'full')
+#compare the models
+ea_so <- sleuth_lrt(ea_so, 'reduced', 'full')
+ea_so <- sleuth_wt(ea_so, 'partthallus_edge')
+
+ea_table <- sleuth_results(ea_so, 'partthallus_edge')
+ea_sig <- ea_table %>% tibble::as_tibble() %>% 
+  filter( qval <= 0.05, grepl("GTX0501",target_id) ) %>% 
+  arrange(desc(b)) %>% mutate(change = if_else(b > 1, "edge", ifelse(b< -1, "apothecium", "low_logFC")))
+
+plot_pca(ea_so, color_by = 'part', text_labels = TRUE,use_filtered=T)
+
+table(ea_sig$change)
+```
+
+#### Upregulated in apothecia
+* Bootstrap of the two genes most overexpressed in the apothecium. 
+```{r,fig.show="hold"}
+plot_bootstrap(ea_so, 
+               target_id = ea_sig$target_id[which.min(ea_sig$b)], 
+               units = "est_counts", 
+               color_by = "part")
+plot_bootstrap(ea_so, 
+               target_id = ea_sig$target_id[which.min(ea_sig$b[-which.min(ea_sig$b)])], 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* Both MAT genes seem upregulated, with b-value of -1.8
+```{r,fig.show="hold"}
+plot_bootstrap(ea_so, 
+               target_id = "XANPAGTX0501_002103-T1", 
+               units = "est_counts", 
+               color_by = "part")
+plot_bootstrap(ea_so, 
+               target_id = "XANPAGTX0501_002104-T1", 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* Of the 371 upregulated in apothecia, `r ea_sig %>% filter(change=="apothecium") %>% left_join(funannot2,by=c("target_id"="TranscriptID")) %>% filter(is.na(InterPro_new),is.na(CAZyme_new),is.na(Protease_new),KO=="") %>% nrow()` have no functional annotations
+* `r ea_sig %>% filter(change=="apothecium") %>% left_join(funannot2,by=c("target_id"="TranscriptID")) %>% filter(secreted_consensus==T) %>% nrow()` are secreted
+```{r,fig.show="hold"}
+ap_ea_genes<-ea_sig %>% filter(change=="apothecium") %>%
+  left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
+  select(target_id,b,InterPro_new,CAZyme_new,Protease_new,KO,secreted_consensus,lichen_ortho)
+ap_ea_genes %>% 
+  kable(format = "html", col.names = colnames(ap_ea_genes)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+* Selected only genes that are potentially multicellularity related
+```{r,fig.show="hold"}
+mult_gene_table_ap2<-mult_gene_table %>% inner_join(ea_sig %>% filter(change=="apothecium") %>% select(target_id,b),by=c("TranscriptID"="target_id")) %>% arrange(Function)
+
+mult_gene_table_ap2 %>% 
+  kable(format = "html", col.names = colnames(mult_gene_table_ap2)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+* Notably, many TFs and ubiquitin degradation proteins
+* Also many transporters, which wasn't the case in other lists here
+
+* Enrichment analysis
+```{r, message = FALSE,fig.width=15,fig.height=15 }
+enrich2<-clusterProfiler::enricher(ap_ea_genes$target_id,
+    pAdjustMethod = "none",
+    minGSSize = 1,
+    maxGSSize = 2000,
+    qvalueCutoff = 1,
+    universe=ips_data$universe,
+    TERM2GENE=ips_data$term2protein,
+    TERM2NAME=ips_data$term2name)
+
+enrich_pairwise2<-enrichplot::pairwise_termsim(enrich2)
+enrichplot::emapplot(enrich_pairwise2)
+```
+
+#### Upregulated in edge
+* Bootstrap of the two genes most overexpressed in the edge 
+```{r,fig.show="hold"}
+plot_bootstrap(ea_so, 
+               target_id = ea_sig$target_id[which.max(ea_sig$b)], 
+               units = "est_counts", 
+               color_by = "part")
+plot_bootstrap(ea_so, 
+               target_id = ea_sig$target_id[which.max(ea_sig$b[-which.max(ea_sig$b)])], 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* Of the 13 upregulated in edge, `r ea_sig %>% filter(change=="edge") %>% left_join(funannot2,by=c("target_id"="TranscriptID")) %>% filter(is.na(InterPro_new),is.na(CAZyme_new),is.na(Protease_new),KO=="") %>% nrow()` have no functional annotations
+* `r ea_sig %>% filter(change=="edge") %>% left_join(funannot2,by=c("target_id"="TranscriptID")) %>% filter(secreted_consensus==T) %>% nrow()` are secreted
+```{r,fig.show="hold"}
+ed_ea_genes<-ea_sig %>% filter(change=="edge") %>%
+  left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
+  select(target_id,b,InterPro_new,CAZyme_new,Protease_new,KO,secreted_consensus,lichen_ortho)
+ed_ea_genes %>% 
+  kable(format = "html", col.names = colnames(ap_ea_genes)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+#### Parietin cluster is upregulated in the edge
+* One of the proteins in the parietin BGC, an extra one 
+```{r,fig.show="hold"}
+plot_bootstrap(ea_so, 
+               target_id = "XANPAGTX0501_008853-T1", 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+* The main PKS gene is just below the threshold (b = 0.92)
+```{r,fig.show="hold"}
+plot_bootstrap(ea_so, 
+               target_id = "XANPAGTX0501_008852-T1", 
+               units = "est_counts", 
+               color_by = "part")
+```
+
+### 4.2. Power analysis: simple
+* Do we have enough samples for this comparison?
+* Looked at the distribution of corrected p-values (a.k.a. q-values). The graph looks good: close to uniform, with an increase close to 0. If our test was underpowered, we would see an increase of p-vlaues along 0->1, but this is not the case
+```{r}
+ggplot(ea_table)+geom_histogram(aes(x=qval))
+```
+
+* QQ-plot looks fine
+```{r}
+library(MKpower)
+qqunif(ea_table$qval, color.line = "orange")
+
+```
+
+## 5. How similar are gene lists between comparisons?
+#### Upregulated in the edge
+* Only one gene upregulated compared to the center, and it is also in the second list
+```{r}
+library(ggVennDiagram)
+venn_e<-list(compared_to_apothecia = ea_sig$target_id[ea_sig$change=="edge"],
+               compared_to_center = ec_sig$target_id[ec_sig$b>0.9])
+e<-ggVennDiagram(venn_e,label_size = 5,set_size=5)+labs(title = "Upregulated in edge")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+e
+```
+
+#### Upregulated in the center
+* Compared to apothecia one is upregulated, and it's **not** in the second list
+```{r}
+venn_c<-list(compared_to_apothecia = ca_sig$target_id[ca_sig$change=="centre"],
+               compared_to_edge = ec_sig$target_id[ec_sig$change=="centre"])
+
+c<-ggVennDiagram(venn_c,label_size = 5,set_size=5)+labs(title = "Upregulated in center")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+c
+```
+
+#### Upregulated in the apothecia
+* These lists are large, and the smaller is almost entirely overlapping with the bigger one
+```{r}
+venn_a<-list(compared_to_center = ca_sig$target_id[ca_sig$change=="apothecium"],
+               compared_to_edge = ea_sig$target_id[ea_sig$change=="apothecium"])
+
+a<-ggVennDiagram(venn_a,label_size = 5,set_size=5)+labs(title = "Upregulated in apothecia")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+a
+```
+
+
+## 6. Comparing apothecia vs center+edge
+* Since there was so little difference between edge and center, pooled them together
+
+* 250 upregulated in apothecia, only 2 in thallus
+```{r}
+kal_dirs2 <-kal_dirs2 %>% mutate(part2 = ifelse(part =="apothecia","apothecia","thallus") )
+kal_dirs2$part2 <- as.factor(kal_dirs2$part2)
+kal_dirs2$thallus<- as.factor(kal_dirs2$thallus)
+
+rhdf5::h5closeAll()
+a_so <- sleuth_prep(kal_dirs2,extra_bootstrap_summary = TRUE,filter_target_id = target_id,transformation_function = function(x) log2(x + 0.1))
+
+#model that includes only confounding variables
+a_so <- sleuth_fit(a_so, ~thallus, 'reduced') 
+#model that includes only both the confounding variable and the variable of interest
+a_so  <- sleuth_fit(a_so, ~ thallus + part2, 'full')
+#compare the models
+a_so <- sleuth_lrt(a_so, 'reduced', 'full')
+a_so <- sleuth_wt(a_so, 'part2thallus')
+
+a_table <- sleuth_results(a_so, 'part2thallus')
+a_sig <- a_table %>% tibble::as_tibble() %>% 
+  filter( qval <= 0.05, grepl("GTX0501",target_id) ) %>% 
+  arrange(desc(b)) %>% mutate(change = if_else(b > 1, "thallus", ifelse(b< -1, "apothecium", "low_logFC")))
+
+table(a_sig$change)
+```
+
+* raw and save PCA
+```{r}
+library(RColorBrewer)
+color_scheme<-c("apothecia"=brewer.pal(3,"Dark2")[1],
+                "thallus_centre"=brewer.pal(3,"Dark2")[2], 
+               "thallus_edge" =brewer.pal(3,"Dark2")[3] )
+
+plot_pca(a_so, color_by = 'part', text_labels = TRUE,use_filtered=T)+
+  theme_bw()+theme(text=element_text(size=7))+
+  scale_color_manual(values=color_scheme)
+ggsave('../results/tissue_pca.pdf',width = 4.5, height = 3)
+
+```
+
+### Upregulated in thallus
+```{r,message = FALSE,fig.show="hold"}
+plot_bootstrap(a_so, 
+               target_id = a_sig$target_id[which.max(a_sig$b)], 
+               units = "est_counts", 
+               color_by = "part2")
+plot_bootstrap(a_so, 
+               target_id = a_sig$target_id[which.max(a_sig$b[-which.max(a_sig$b)])], 
+               units = "est_counts", 
+               color_by = "part2")
+```
+
+* XANPAGTX0501_009376-T1 was not DGE in the edge/apothecia and center/apothecia comparisons
+  * is a ribosomal protein
+* XANPAGTX0501_004633-T1 was upregulated in the edge in the edge/apothecia, and nearly upregulated in center/apothecia (b value = 0.977)
+  * has no annotations, see above
+```{r}
+a_genes<-a_sig %>% filter(b>0.9) %>%
+  left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
+  select(target_id,b,InterPro_new,CAZyme_new,Protease_new,KO,secreted_consensus,lichen_ortho)
+a_genes %>% 
+  kable(format = "html", col.names = colnames(a_genes)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+### Upregulated in apothecia
+* Of the 250 upregulated in apothecia, `r a_sig %>% filter(change=="apothecium") %>% left_join(funannot2,by=c("target_id"="TranscriptID")) %>% filter(is.na(InterPro_new),is.na(CAZyme_new),is.na(Protease_new),KO=="") %>% nrow()` have no functional annotations
+* `r a_sig %>% filter(change=="apothecium") %>% left_join(funannot2,by=c("target_id"="TranscriptID")) %>% filter(secreted_consensus==T) %>% nrow()` are secreted
+```{r}
+ap_a_genes<-a_sig %>% filter(change=="apothecium") %>%
+  left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
+  select(target_id,b,InterPro_new,CAZyme_new,Protease_new,KO,secreted_consensus,lichen_ortho)
+ap_a_genes %>% 
+  kable(format = "html", col.names = colnames(ap_a_genes)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+
+```
+
+* Selected only genes that are potentially multicellularity related
+```{r,fig.show="hold"}
+mult_gene_table_ap3<-mult_gene_table %>% inner_join(a_sig %>% filter(change=="apothecium") %>% select(target_id,b),by=c("TranscriptID"="target_id")) %>% arrange(Function)
+
+mult_gene_table_ap3 %>% 
+  kable(format = "html", col.names = colnames(mult_gene_table_ap3)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+* Enrichment analysis
+```{r, message = FALSE,fig.width=15,fig.height=15 }
+###enrichment analysis
+enrich<-clusterProfiler::enricher(ap_a_genes$target_id,
+    pAdjustMethod = "none",
+    minGSSize = 1,
+    maxGSSize = 2000,
+    qvalueCutoff = 1,
+    universe=ips_data$universe,
+    TERM2GENE=ips_data$term2protein,
+    TERM2NAME=ips_data$term2name)
+
+enrich_pairwise<-enrichplot::pairwise_termsim(enrich)
+enrichplot::emapplot(enrich_pairwise)
+```
+
+* Save
+```{r}
+pdf(file="../results/apothecia_upr.pdf",width=6,height=5)
+enrichplot::emapplot(enrich_pairwise,cex_label_category=0.4,cex_line=0.25,
+                     shadowtext=F,cex_pie2axis=0.1,repel=T)
+dev.off()
+```
+* This new set includes almost all of the genes from the center/apothecia comparison. It also includes 59% of the genes from the edge/apothecia comparison. It also includes 12 genes unique to this set
+```{r}
+venn_a2<-list(compared_to_center = ca_sig$target_id[ca_sig$change=="apothecium"],
+               compared_to_edge = ea_sig$target_id[ea_sig$change=="apothecium"],
+              compared_to_center_edge_pooled=a_sig$target_id[a_sig$change=="apothecium"])
+
+a2<-ggVennDiagram(venn_a2,label_size = 5,set_size=5)+labs(title = "Upregulated in apothecia")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+a2
+```
+
+## 7. Visualize MAT expression
+* Standartd heatmap - not very clear
+```{r, message = FALSE,fig.width=10,fig.height=1.5}
+library(ComplexHeatmap)
+library(viridis)
+#make a matrix
+tabd_df_a <- a_so$obs_norm[a_so$obs_norm$target_id %in% target_id,]
+tabd_df_a <- dplyr::select(tabd_df_a, target_id, sample, 
+            tpm)
+tabd_df_a <- reshape2::dcast(tabd_df_a, target_id ~ sample, 
+            value.var = "tpm") 
+rownames(tabd_df_a) <- tabd_df_a$target_id
+tabd_df_a$target_id <- NULL
+trans_mat_a <- as.matrix(log(tabd_df_a + 1))
+
+#make a top annotation
+#define column annotations
+s2c_a <- a_so$sample_to_covariates
+s2c_a<-data.frame("sample"= colnames(tabd_df_a)) %>% left_join(s2c_a)
+rownames(s2c_a)<-s2c_a$sample
+s2c_a<-s2c_a %>% select(part)
+ta_colors_a = c("apothecia" = "#619CFF", "thallus_edge" = "#F8766D","thallus_centre"="green")
+ta_a = HeatmapAnnotation(df=s2c_a,col = list(condition = ta_colors_a))
+
+#filter to include only MAT locus
+filt_mat_MAT<-subset(trans_mat_a, rownames(trans_mat_a) %in% c("XANPAGTX0501_002103-T1","XANPAGTX0501_002104-T1"))
+HM_mat = Heatmap(filt_mat_MAT, show_row_names = T, show_column_names = T,cluster_rows = T, row_title_rot = 0, col=viridis(100), heatmap_legend_param = list(title = "Expression: log(TPM)"), top_annotation = ta_a)
+
+pdf(file="../results/MAT_heatmap.pdf",width=10,height=2)
+draw(HM_mat)
+dev.off()
+
+HM_mat
+```
+* lolipop plot arranged by specimen
+```{r, message = FALSE,fig.width=10,fig.height=5}
+df<-data.frame(filt_mat_MAT) %>% mutate(target_id=rownames(filt_mat_MAT)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>% left_join(a_so$sample_to_covariates)
+write.table(df, file="../analysis_and_temp_files/09_dge_architecture/mat_expression.txt", quote=F, sep='\t', row.names=F)
+
+#only include thalli that a. have apothecia sample and b. have at least two samples
+incl<-a_so$sample_to_covariates %>% mutate(if_apothecia=ifelse(part=="apothecia",T,F)) %>% 
+  group_by(thallus) %>% summarize(n=n(),n_ap=sum(if_apothecia)) %>% filter(n>1,n_ap>0)
+  
+gg<-ggplot(df %>% filter(thallus %in% incl$thallus), aes(color=part,y=expression,x=part))+
+  geom_segment( aes(x=part, xend=part, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~thallus)+
+  xlab("")+ylab("Expression: log(TPM)")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45))+
+  scale_color_manual( values = color_scheme)+
+  theme(text=element_text(size=6),legend.position="bottom")
+
+ggsave('../results/MAT_lopipop.pdf',gg, width = 4, height = 3)
+gg
+
+```
+
+### Investigate the most apothecia-upregulated proteins
+* XANPAGTX0501_001156-T3 is one variant of Sin3 transcriptional regulator
+* Only one is upregulated
+```{r, message = FALSE,fig.width=10,fig.height=7}
+filt_mat_sin3<-subset(trans_mat_a, rownames(trans_mat_a) %in% c("XANPAGTX0501_001156-T1","XANPAGTX0501_001156-T2","XANPAGTX0501_001156-T3"))
+HM_sin3 = Heatmap(filt_mat_sin3, show_row_names = T, show_column_names = T,cluster_rows = T, row_title_rot = 0, col=viridis(100), heatmap_legend_param = list(title = "Expression: log(TPM)"), top_annotation = ta_a)
+draw(HM_sin3)
+```
+
+```{r,fig.width=10,fig.height=7}
+df_sin3<-data.frame(filt_mat_sin3) %>% mutate(target_id=rownames(filt_mat_sin3)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>% left_join(a_so$sample_to_covariates)
+
+ggplot(df_sin3 %>% filter(thallus %in% incl$thallus), aes(color=part,y=expression,x=part))+
+  geom_segment( aes(x=part, xend=part, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~thallus)+
+  xlab("")+ylab("Expression: log(TPM)")+
+  scale_color_manual( values = color_scheme)+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45))
+
+```
+
+* This is very interesting, but also inconsistent. Looked at the bam file but it didn't clarify much
+
+
+* Visualize several key gene for the suppl. figure
+  * XANPAGTX0501_004521-T1: Serine/threonine-protein kinase
+  * XANPAGTX0501_001958-T1: Homeobox domain
+  * XANPAGTX0501_003775-T1,XANPAGTX0501_004244-T1: argonaute
+  * XANPAGTX0501_002123-T1: RNA-dependent RNA polymerase
+  * XANPAGTX0501_004580-T1: Nuclear fusion protein Kar5
+  * XANPAGTX0501_005735-T1: Conidiation-specific protein 6
+  * XANPAGTX0501_004217-T1, XANPAGTX0501_002123-T1, XANPAGTX0501_002098-T1: RNA-binding domain
+  * XANPAGTX0501_003213-T1, XANPAGTX0501_008856-T1, XANPAGTX0501_009316-T1, XANPAGTX0501_009942-T1, XANPAGTX0501_003212-T1, XANPAGTX0501_001643-T1: F-box
+  * XANPAGTX0501_005815-T1,XANPAGTX0501_007869-T1,XANPAGTX0501_010380-T1: POZ
+  
+  
+```{r, message = FALSE,fig.width=8,fig.height=6}
+library(patchwork)
+ap_genes<-c("XANPAGTX0501_004521-T1","XANPAGTX0501_001958-T1","XANPAGTX0501_004580-T1","XANPAGTX0501_005735-T1","XANPAGTX0501_002123-T1","XANPAGTX0501_003775-T1","XANPAGTX0501_004244-T1","XANPAGTX0501_004217-T1", "XANPAGTX0501_002098-T1")
+
+filt_mat_ap<-subset(trans_mat_a, rownames(trans_mat_a) %in% ap_genes)
+df_ap<-data.frame(filt_mat_ap) %>% mutate(target_id=rownames(filt_mat_ap)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>% left_join(a_so$sample_to_covariates)
+df_ap$target_id<-factor(df_ap$target_id,levels=c("XANPAGTX0501_004521-T1","XANPAGTX0501_001958-T1","XANPAGTX0501_004580-T1","XANPAGTX0501_005735-T1","XANPAGTX0501_002123-T1","XANPAGTX0501_003775-T1","XANPAGTX0501_004244-T1",
+    "XANPAGTX0501_004217-T1", "XANPAGTX0501_002098-T1") )
+
+gg_ap<-ggplot(df_ap %>% filter(thallus %in% incl$thallus), aes(color=part,y=expression,x=part))+
+  geom_segment( aes(x=part, xend=part, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~thallus)+
+  xlab("")+ylab("Expression: log(TPM)")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45))+
+  scale_color_manual( values = color_scheme)+
+  theme(text=element_text(size=6))
+
+ap_genes2<-c("XANPAGTX0501_003213-T1", "XANPAGTX0501_008856-T1", "XANPAGTX0501_009316-T1","XANPAGTX0501_009942-T1", "XANPAGTX0501_003212-T1", "XANPAGTX0501_001643-T1","XANPAGTX0501_005815-T1","XANPAGTX0501_007869-T1",
+                    "XANPAGTX0501_010380-T1")
+
+filt_mat_ap2<-subset(trans_mat_a, rownames(trans_mat_a) %in% ap_genes2)
+df_ap2<-data.frame(filt_mat_ap2) %>% mutate(target_id=rownames(filt_mat_ap2)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>% left_join(a_so$sample_to_covariates)
+df_ap2$target_id<-factor(df_ap2$target_id,levels=c("XANPAGTX0501_003213-T1", "XANPAGTX0501_008856-T1", "XANPAGTX0501_009316-T1","XANPAGTX0501_009942-T1", "XANPAGTX0501_003212-T1", "XANPAGTX0501_001643-T1","XANPAGTX0501_005815-T1","XANPAGTX0501_007869-T1",
+                    "XANPAGTX0501_010380-T1") )
+
+gg_ap2<-ggplot(df_ap2 %>% filter(thallus %in% incl$thallus), aes(color=part,y=expression,x=part))+
+  geom_segment( aes(x=part, xend=part, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~thallus)+
+  xlab("")+ylab("")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45)) +
+  scale_color_manual( values = color_scheme)+
+  theme(text=element_text(size=6))
+
+gg_ap_all<-gg_ap+gg_ap2+ plot_layout(axis_titles = "collect",guides = 'collect')
+ggsave('../results/apothecia_dge_lopipop.pdf',gg_ap_all, width = 8, height = 10)
+```
+
+* Visualize a couple most interesting for the main figure on apothecia
+```{r}
+#get the matrix for all samples, including culture
+tabd_df<-read.delim2("../analysis_and_temp_files/08_dge_culture_lichen/norm_counts_sleuth.txt")
+rownames(tabd_df) <- tabd_df$target_id
+tabd_df$target_id <- NULL
+tabd_df <- mutate_all(tabd_df, function(x) as.numeric(as.character(x)))
+trans_mat_08 <- as.matrix(log(tabd_df + 1))
+
+
+selected_genes<-c("XANPAGTX0501_008856-T1","XANPAGTX0501_002123-T1")
+#graph for the lichen samples
+filt_mat_selected_thalli<-subset(trans_mat_a, rownames(trans_mat_a) %in% selected_genes)
+
+df_thalli<-data.frame(filt_mat_selected_thalli) %>% mutate(target_id=rownames(filt_mat_selected_thalli)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>% left_join(a_so$sample_to_covariates)
+df_thalli$target_id<-factor(df_thalli$target_id,levels=c("XANPAGTX0501_008856-T1","XANPAGTX0501_002123-T1"))
+
+gg_selected_thalli<-ggplot(df_thalli %>% filter(thallus %in% incl$thallus), aes(color=part,y=expression,x=part))+
+  geom_segment( aes(x=part, xend=part, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~thallus)+
+  xlab("")+ylab("Expression: log(TPM)")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45)) +
+  scale_color_manual( values = color_scheme)+
+  theme(text=element_text(size=6),legend.position = "bottom",
+          axis.text.x = element_blank(),axis.ticks.x = element_blank())
+
+#graph for the culture
+filt_mat_selected_culture<-subset(trans_mat_08, rownames(trans_mat_08) %in% selected_genes)
+df_culture<-data.frame(filt_mat_selected_culture) %>% mutate(target_id=rownames(filt_mat_selected_culture)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>%
+  filter(!(sample %in% colnames(filt_mat_selected_thalli)))
+df_culture$target_id<-factor(df_culture$target_id,levels=c("XANPAGTX0501_008856-T1","XANPAGTX0501_002123-T1"))
+
+gg_selected_culture<-ggplot(df_culture, aes(y=expression,x=sample))+
+  geom_segment( aes(x=sample, xend=sample, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~.)+
+  xlab("")+ylab("")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45)) + theme(text=element_text(size=6),axis.text = element_blank(),
+                              axis.ticks = element_blank(),
+                              axis.title.y = element_blank() )
+
+ggsel<-gg_selected_thalli + gg_selected_culture + plot_layout(widths = c(0.6,0.4),nrow = 1) & scale_y_continuous(limits = c(0, 2.5))
+
+#had to make one of them separately baceaus of the axes issue
+selected_genes<-c("XANPAGTX0501_003775-T1")
+
+#graph for the lichen samples
+filt_mat_selected_thalli<-subset(trans_mat_a, rownames(trans_mat_a) %in% selected_genes)
+
+df_thalli<-data.frame(filt_mat_selected_thalli) %>% mutate(target_id=rownames(filt_mat_selected_thalli)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>% left_join(a_so$sample_to_covariates)
+#df_thalli$target_id<-factor(df_selected$target_id,levels=c())
+
+gg_selected_thalli<-ggplot(df_thalli %>% filter(thallus %in% incl$thallus), aes(color=part,y=expression,x=part))+
+  geom_segment( aes(x=part, xend=part, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~thallus)+
+  xlab("")+ylab("Expression: log(TPM)")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45)) +
+  scale_color_manual( values = color_scheme)+
+  theme(text=element_text(size=6),legend.position = "bottom",
+      strip.background.x = element_blank(),strip.text.x = element_blank())
+
+#graph for the culture
+filt_mat_selected_culture<-subset(trans_mat_08, rownames(trans_mat_08) %in% selected_genes)
+df_culture<-data.frame(filt_mat_selected_culture) %>% mutate(target_id=rownames(filt_mat_selected_culture)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>%
+  filter(!(sample %in% colnames(filt_mat_selected_thalli)))
+#df_thalli$target_id<-factor(df_selected$target_id,levels=c())
+
+gg_selected_culture<-ggplot(df_culture, aes(y=expression,x=sample))+
+  geom_segment( aes(x=sample, xend=sample, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~.)+
+  xlab("")+ylab("")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45)) + theme(text=element_text(size=6),axis.text.y = element_blank(),
+                              axis.ticks.y = element_blank(),
+                              axis.title.y = element_blank() )
+
+ggsel2<-gg_selected_thalli + gg_selected_culture + plot_layout(widths = c(0.6,0.4),nrow = 1) & scale_y_continuous(limits = c(0, 5))
+
+sel_final<-ggsel/plot_spacer()/ggsel2+ plot_layout(axis_titles = "collect",guides = "collect",heights = c(0.66,-0.155,0.34)) &theme(legend.position = "bottom")
+ggsave('../results/selected_apothecia_dge_lopipop.pdf',sel_final, width = 7, height = 4)
+
+sel_final
+```
+
+### Visualize interesting edge-upregulated genes
+#get the matrix for all samples, including culture
+```{r}
+selected_genes<-c("XANPAGTX0501_009376-T1","XANPAGTX0501_008852-T1")
+
+#graph for the lichen samples
+filt_mat_selected_thalli<-subset(trans_mat_a, rownames(trans_mat_a) %in% selected_genes)
+
+df_thalli<-data.frame(filt_mat_selected_thalli) %>% mutate(target_id=rownames(filt_mat_selected_thalli)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>% left_join(a_so$sample_to_covariates)
+
+
+gg_selected_thalli<-ggplot(df_thalli %>% filter(thallus %in% incl$thallus), aes(color=part,y=expression,x=part))+
+  geom_segment( aes(x=part, xend=part, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~thallus)+
+  xlab("")+ylab("Expression: log(TPM)")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45)) +
+  scale_color_manual( values = color_scheme)+
+  theme(text=element_text(size=6),legend.position = "bottom",
+              strip.background.x = element_blank(),strip.text.x = element_blank())
+
+#graph for the culture
+filt_mat_selected_culture<-subset(trans_mat_08, rownames(trans_mat_08) %in% selected_genes)
+df_culture<-data.frame(filt_mat_selected_culture) %>% mutate(target_id=rownames(filt_mat_selected_culture)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>%
+  filter(!(sample %in% colnames(filt_mat_selected_thalli)))
+
+
+gg_selected_culture<-ggplot(df_culture, aes(y=expression,x=sample))+
+  geom_segment( aes(x=sample, xend=sample, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~.)+
+  xlab("")+ylab("")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45)) + theme(text=element_text(size=6),axis.text.y = element_blank(),
+                              axis.ticks.y = element_blank(),
+                              axis.title.y = element_blank() )
+
+ggsel<-gg_selected_thalli + gg_selected_culture + plot_layout(widths = c(0.6,0.4),nrow = 1) & scale_y_continuous(limits = c(0, 5))
+
+#had to make one of them separately baceaus of the axes issue
+selected_genes<-c("XANPAGTX0501_001015-T1")
+selected_genes<-c("XANPAGTX0501_001643-T1")
+
+
+#graph for the lichen samples
+filt_mat_selected_thalli<-subset(trans_mat_a, rownames(trans_mat_a) %in% selected_genes)
+
+df_thalli<-data.frame(filt_mat_selected_thalli) %>% mutate(target_id=rownames(filt_mat_selected_thalli)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>% left_join(a_so$sample_to_covariates)
+
+gg_selected_thalli<-ggplot(df_thalli %>% filter(thallus %in% incl$thallus), aes(color=part,y=expression,x=part))+
+  geom_segment( aes(x=part, xend=part, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~thallus)+
+  xlab("")+ylab("Expression: log(TPM)")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45)) +
+  scale_color_manual( values = color_scheme)+
+  theme(text=element_text(size=6),legend.position = "bottom",
+        axis.text.x = element_blank(),
+                              axis.ticks.x = element_blank(),
+                              axis.title.x = element_blank() )
+
+#graph for the culture
+filt_mat_selected_culture<-subset(trans_mat_08, rownames(trans_mat_08) %in% selected_genes)
+df_culture<-data.frame(filt_mat_selected_culture) %>% mutate(target_id=rownames(filt_mat_selected_culture)) %>%
+  pivot_longer(-target_id,names_to="sample",values_to="expression") %>%
+  filter(!(sample %in% colnames(filt_mat_selected_thalli)))
+#df_thalli$target_id<-factor(df_selected$target_id,levels=c())
+
+gg_selected_culture<-ggplot(df_culture, aes(y=expression,x=sample))+
+  geom_segment( aes(x=sample, xend=sample, y=0, yend=expression))+
+  geom_point(stat = "identity",position=position_dodge(width = .5))+
+  facet_grid(target_id~.)+
+  xlab("")+ylab("")+
+  theme_bw()+ scale_x_discrete(guide = guide_axis(angle = 45)) + theme(text=element_text(size=6),axis.text = element_blank(),
+                              axis.ticks = element_blank(),
+                              axis.title = element_blank() )
+
+ggsel2<-gg_selected_thalli + gg_selected_culture + plot_layout(widths = c(0.6,0.4),nrow = 1) & scale_y_continuous(limits = c(0, 7))
+
+sel_final<-ggsel2/plot_spacer()/ggsel+ plot_layout(axis_titles = "collect",guides = "collect",heights = c(0.34,-0.105,0.66)) &theme(legend.position = "bottom")
+ggsave('../results/selected_edge_dge_lopipop.pdf',sel_final, width = 7, height = 4)
+
+sel_final
+```
+
+## 7. Compiling DGE table
+```{r}
+ec_sig$Comparison<-"Edge / Center"
+ea_sig$Comparison<-"Edge / Apothecia"
+ca_sig$Comparison<-"Center / Apothecia"
+a_sig$Comparison<-"Apothecia / Vegetative (edge + center)"
+
+compiled<-rbind(ec_sig,ea_sig,ca_sig,a_sig) %>% filter(change!="low_logFC") %>%
+  left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
+  select(Comparison,change,target_id,b,InterPro_new,CAZyme_new,Protease_new,KO,secreted_consensus,lichen_ortho) %>% arrange(change) %>% arrange(Comparison)
+write.table(compiled, file="../results/tissue_dge.txt", quote=F, sep='\t', row.names=F)
+```
+
+### The gene that are upregulated in the center compared to the edge, are they also apothecia-upregulated?
+* All of them are at least in one apothecia-upregulated list
+```{r}
+apothecia_up<-compiled$target_id[compiled$change=="apothecium"]
+center_up<-ec_sig$target_id[ec_sig$change=="centre"]
+
+ec_sig %>% filter(change=="centre") %>% 
+  mutate(apothecia_upregulated = ifelse(target_id %in%apothecia_up,T,F)) %>%
+  select(target_id,apothecia_upregulated,b)
+```
+
+* All of them were in the apothecia/edge list
+```{r}
+compiled %>% filter(change=="apothecium", target_id %in% center_up) %>%
+   select(target_id,Comparison) %>% mutate(presence=1) %>%
+  pivot_wider(names_from = Comparison,values_from = presence, values_fill=0)
+```
+
+* per functional group, how many of the lichen-upregulated genes are also apothecia-upregulated
+```{r}
+lichen_upr<-read.delim2("../analysis_and_temp_files/08_dge_culture_lichen/upreg_in_lichen_sleuth.txt")
+count_function<-ips_selected %>% filter(TranscriptID %in%lichen_upr$target_id) %>% group_by(Function) %>% summarize(total=n())
+ips_selected %>% filter(TranscriptID %in% lichen_upr$target_id) %>%
+  mutate(is_ap = ifelse(TranscriptID %in% apothecia_up,T,F)) %>%
+  group_by(Function) %>% summarize(in_apothecia_up=sum(is_ap)) %>% left_join(count_function)
+
+```
+
+* None of lichen-upregulated transporters are apothecia-upregulated!
+* Well, there is one protein we can id as a transporter that is upregulated in both, but in addition to that apothecia have 4 more that are not lichen upregulated!
+```{r}
+compiled %>% filter(change=="apothecium", grepl("transporter",InterPro_new)) %>%
+  filter(InterPro_new!="IPR004853 Sugar phosphate transporter domain",
+         !grepl("ABC transporter-like",InterPro_new)) %>%
+  select(target_id,InterPro_new,b,Comparison)  %>% 
+  mutate(lichen_upregulated = ifelse(target_id %in%lichen_upr$target_id,T,F))
+  
+```
+
+
+### Of the tisuue-DGE genes, what portion was lichen/culture DGE?
+```{r}
+culture_upr<-read.delim2("../analysis_and_temp_files/08_dge_culture_lichen/upreg_in_culture_sleuth.txt")
+compiled %>% mutate(lichen_cult = case_when(
+  target_id %in% lichen_upr$target_id ~ "upreg_lichen" ,
+  target_id %in% culture_upr$target_id ~ "upreg_culture",
+  T ~ "non_dge"
+)) %>% group_by(Comparison,change,lichen_cult) %>%
+  summarize(n=n()) %>%
+  pivot_wider(names_from=lichen_cult,values_from = n,values_fill = 0) %>%
+  mutate(total= upreg_lichen+upreg_culture+non_dge)
+
+```
+* look at the culture-upregulated genes
+```{r}
+compiled2 <- compiled %>% mutate(lichen_cult = case_when(
+  target_id %in% lichen_upr$target_id ~ "upreg_lichen" ,
+  target_id %in% culture_upr$target_id ~ "upreg_culture",
+  T ~ "non_dge")) %>% 
+  filter(lichen_cult=="upreg_culture")
+compiled2 %>%  kable(format = "html", col.names = colnames(compiled2)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "400px")
+```
+
+
+## Visualize apothecia-upregulated genes in the genome
+* Prep files for CROC
+```{r}
+#list of upregulated genes
+write.table(ap_a_genes$target_id,'../analysis_and_temp_files/09_dge_architecture/apothectia_upregulated.txt',col.names = F,row.names = F,quote = F)
+
+#first half of the reference file: contig names and lengths
+library(Biostrings)
+fasta<-readDNAStringSet("../../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.scaffolds.fa")
+df<-data.frame("name"=names(fasta),"length"=width(fasta))
+cat("## Chromosome lenghts\n",file='../analysis_and_temp_files/09_dge_architecture/reference.txt')
+write.table(df,'../analysis_and_temp_files/09_dge_architecture/reference.txt',col.names = F,row.names = F,quote = F,append=T,sep="\t")
+cat("\n", file="../analysis_and_temp_files/09_dge_architecture/reference.txt",append = T)
+
+#second half of the reference file: gff
+cat("## refGene\n",file='../analysis_and_temp_files/09_dge_architecture/reference.txt',append=T)
+gff<-read.delim("../../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.gff3", header=F, comment.char="#") 
+
+gff2<-gff %>% filter(V3=="mRNA") %>% 
+  mutate(target_id = str_match(V9,"ID=(.*);Parent")[,2]) %>% 
+  select(target_id,V1,V4,V5)
+gff2$name<- gff2$target_id
+
+write.table(gff2,'../analysis_and_temp_files/09_dge_architecture/reference.txt',col.names = F,row.names = F,quote = F,append=T,sep="\t")
+```
+
+* Ran CROC. Used defauls parameters:
+  * window_size=30000
+  * offset=10000
+  * pval=0.05
+  * min_genes=3
+  * multiple correction=Benjamini & Hochberg
+```
+cd ~/Documents/software/
+git clone https://github.com/emepyc/croc
+cd croc
+perl croc.pl --reg  ~/Documents/Lichen_project_TSL/03_transcriptomic_analysis/analysis_and_temp_files/09_dge_architecture/apothectia_upregulated.txt --ref  ~/Documents/Lichen_project_TSL/03_transcriptomic_analysis/analysis_and_temp_files/09_dge_architecture/reference.txt 
+```
+* As a result, got 17 clusters. 10 of them have only 3 genes. Maximum count is 16!
+```{r}
+croc<-read.delim("../analysis_and_temp_files/09_dge_architecture/croc.txt",header=F)
+croc$cluster<-paste0("cluster",1:nrow(croc))
+croc<-croc %>% separate_longer_delim(V9, delim = " ") %>% filter(V9!="") %>% 
+  select(-c(V7,V8,V2,V3))
+colnames(croc)<-c("contig","start","end","pval","TranscriptID","cluster")
+croc %>% group_by(cluster) %>% summarize(n=n()) %>% arrange(desc(n))
+```
+* Merge it with functional annotations and secreted status
+```{r}
+croc2<-croc %>% left_join(funannot2) %>% 
+  select(cluster,TranscriptID, InterPro_new,secreted_consensus) 
+
+croc2 %>% 
+  kable(format = "html", col.names = colnames(croc2)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "300px")
+```
+
+
+
+

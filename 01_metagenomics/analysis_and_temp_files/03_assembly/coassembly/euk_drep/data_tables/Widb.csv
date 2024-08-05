@@ -1,0 +1,12 @@
+genome,score,completeness,contamination,strain_heterogeneity,size,N50,cluster,taxonomy,tax_confidence,cluster_members,closest_cluster_member,furthest_cluster_member,completeness_metric,contamination_metric
+bin.321.fa,63.16270651483366,NA,NA,NA,NA,NA,1_1,NA,NA,1,NA,NA,NA,NA
+bin.46.fa,63.81075260618025,NA,NA,NA,NA,NA,1_2,NA,NA,1,NA,NA,NA,NA
+bin.1.fa,57.98996986140096,NA,NA,NA,NA,NA,1_3,NA,NA,1,NA,NA,NA,NA
+bin.195.fa,70.08385061748568,NA,NA,NA,NA,NA,1_4,NA,NA,1,NA,NA,NA,NA
+bin.142.fa,97.52477159359972,NA,NA,NA,NA,NA,2_0,NA,NA,1,NA,NA,NA,NA
+bin.76.fa,79.49270399290458,NA,NA,NA,NA,NA,3_0,NA,NA,1,NA,NA,NA,NA
+bin.335.fa,81.84166192380941,NA,NA,NA,NA,NA,4_0,NA,NA,1,NA,NA,NA,NA
+bin.378.fa,90.02717047118254,NA,NA,NA,NA,NA,5_0,NA,NA,1,NA,NA,NA,NA
+bin.64.fa,60.87045753824064,NA,NA,NA,NA,NA,6_0,NA,NA,1,NA,NA,NA,NA
+bin.10.fa,93.65364746426296,NA,NA,NA,NA,NA,7_0,NA,NA,1,NA,NA,NA,NA
+bin.376.fa,87.3670433135416,NA,NA,NA,NA,NA,8_0,NA,NA,1,NA,NA,NA,NA

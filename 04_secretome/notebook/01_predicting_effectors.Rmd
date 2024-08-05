@@ -1,0 +1,292 @@
+---
+title: "01_predicting_effectors.md"
+author: "Gulnara Tagridzhanova"
+date: "12/09/2023"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/10_lichen_effectors/notebook")
+
+```
+* **Summary:** predicting effectors and secreted proteins from the newly annotated genome of Xanthoria parietina mycobiont
+
+## 1. Prepared the data
+### Our Xanthoria parietina genome
+* Used the protein fasta generated on 12.09.2023
+  * Funannotate annotation of GTX0501 mycobiont genome
+  * The pipeline: `funannotate train -> funannotate predict -> funannotate update`
+  * Manually corrected the final files to remove duplicated CDSs (see `../02_long_read_assemblies/notebook/06_annotate_lecanoro`)
+````{r, eval =FALSE}
+cp ../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/update_results/Xanthoria_parietina_GTX0501.proteins.fa data/
+```
+
+## 2. Effector prediction
+* Used two different tools for effector prediction: EffectorP and deepredeff (Dan's tool)
+
+### EffectorP v3
+* Ran on the Xp GTX0501 genome
+```{r, eval =FALSE}
+source package ef7ae5f1-e255-44e4-87c9-7c3cff9b1bbb
+EffectorP.py -f -o analysis_and_temp_files/01_predicting_effectors/effectorp_GTX0501.out -E analysis_and_temp_files/01_predicting_effectors/Xanthoria_parietina_GTX0501.effectorp.fa -i data/Xanthoria_parietina_GTX0501.proteins.fa
+```
+* Predicted ~300 apoplastic and ~3000 cytoplasmic effectors
+```{r, message=FALSE}
+library(tidyverse)
+eff<-read.delim2("../analysis_and_temp_files/01_predicting_effectors/effectorp_GTX0501.out")
+eff %>% group_by(Prediction)%>%summarize(n=n())
+
+eff$prot<-gsub( " .*$", "", eff$X..Identifier)
+effectorp_list<-eff$prot[eff$Prediction!="Non-effector"]
+```
+* Visualized scores. Most have wide ranges, including scores barely above 50% confidence
+```{r, message=FALSE}
+eff<-eff %>% mutate(score=ifelse(Cytoplasmic.effector!="-",Cytoplasmic.effector,
+           ifelse(Apoplastic.effector!="-",Apoplastic.effector,Non.effector)))
+
+eff$score<-stringr::str_extract(eff$score,pattern = "(?<=\\().*(?=\\))") %>% as.numeric()
+
+ggplot(eff)+geom_density(aes(x=score,fill=Prediction))+facet_wrap(Prediction~., nrow=2)+scale_x_continuous(limits=c(0,1))
+```
+
+### deepredeff
+* Run the script on two chunks, otherwise was running out of memory. Output is in, `../analysis_and_temp_files/01_predicting_effectors/deepredeef_prediction_*.csv`
+```{r, eval =FALSE}
+chunk1<-readAAStringSet("../data/Xanthoria_parietina_GTX0501.proteins.fa")[1:5000]
+deepredeef_prediction1 <-  predict_effector(input = chunk1, taxon = "fungi") 
+write.table(deepredeef_prediction1, file = "../analysis_and_temp_files/01_predicting_effectors/deepredeef_prediction_1.csv", sep = ",")
+
+chunk2<-readAAStringSet("../data/Xanthoria_parietina_GTX0501.proteins.fa")[5001:11138]
+deepredeef_prediction2 <-  predict_effector(input = chunk2, taxon = "fungi") 
+write.table(deepredeef_prediction2, file = "../analysis_and_temp_files/01_predicting_effectors/deepredeef_prediction_2.csv", sep = ",")
+```
+* Deepredeff predicted over a half of proteins as effectors!
+```{r, message=FALSE}
+deep1<-read.csv2("../analysis_and_temp_files/01_predicting_effectors/deepredeef_prediction_1.csv",sep=",")
+deep2<-read.csv2("../analysis_and_temp_files/01_predicting_effectors/deepredeef_prediction_2.csv",sep=",")
+deep<-rbind(deep1,deep2)
+
+#made a list of effectors
+deep$prot<-gsub( " .*$", "", deep$name)
+deep_list<-deep$prot[deep$prediction=="effector"]
+
+deep$prediction %>% table()  
+```
+* Similarly, didn't get a separation into two clusters, a lot of proteins have 50%
+```{r, message=FALSE}
+deep$s_score<-as.numeric(deep$s_score)
+ggplot(deep)+geom_density(aes(x=s_score,fill=prediction),alpha=0.5)+ scale_x_continuous(limits=c(0,1))
+```
+
+### Consistency between effector-predicting tools
+* About 2000 proteins were identified as effectors by both
+```{r, message=FALSE}
+library(ggVennDiagram)
+venn_effectors<-list(EffectorP = effectorp_list,
+               deepredeff = deep_list)
+e<-ggVennDiagram(venn_effectors,label_size = 5,set_size=5)+labs(title = "Comparing Effector Predictions")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+e
+```
+
+* Looking at the confidence scores from these consensus proteins, they don't have better scores than average
+```{r, message=FALSE}
+#combine the two datasets
+eff_cons<- eff %>% left_join(deep) %>%
+ mutate(deep_pred=prediction,deep_score=s_score,effectorp_pred=Prediction, effectorp_score=score) %>% 
+  select(prot,deep_pred,deep_score,effectorp_pred, effectorp_score)
+
+#make a temp dataset for visualizing
+eff_viz<-eff_cons %>% filter(deep_pred=="effector",effectorp_pred!="Non-effector") %>%
+  select(-effectorp_pred,-deep_pred) %>%
+  pivot_longer(-prot,names_to = "tool", values_to = "score")
+
+ggplot(eff_viz)+geom_density(aes(x=score,fill=tool))+facet_wrap(.~tool,nrow = 2)
+
+```
+
+
+## 3. Cellular localization
+* Used three tools to predict whether the protein is secreted or not: WolfPSORT, deepTMHMM, and SignalP
+
+### WolfPsort
+* This tool predicts gives score how likely a protein is located in each cell compartment (12 compartments are used, including extracellular, nucleous, mitochondria, etc)
+```{r, eval =FALSE}
+source package 666e3cc4-643e-4667-9235-fe054b436bfd
+runWolfPsortSummary fungi < data/Xanthoria_parietina_GTX0501.proteins.fa > analysis_and_temp_files/01_predicting_effectors/wolfpsort_GTX0501.out
+```
+* Made a list of all proteins, which had >0.6 prediction in favor of extracellular
+  * Got ~800 proteins
+```{r, message=FALSE}
+wolf<-read.delim2("../analysis_and_temp_files/01_predicting_effectors/wolfpsort_GTX0501.out",skip = 1,header=F)
+colnames(wolf)<-'V1'
+wolf2<-separate(wolf,'V1',into=c('ID','pred'),extra='merge',sep=" ")
+predictions<-c('plas', 'extr', 'cyto_nucl', 'nucl', 'cyto', 'pero', 'mito', 'E.R.', 'vacu', 'golg','cyto_mito','cysk')
+
+for (p in predictions){
+  regex<-paste(".*?",p,' ([0-9]+).*$',sep='')
+  vector<-str_extract(wolf2$pred,regex)
+  vector[!is.na(vector)]<-sub(regex, "\\1", vector[!is.na(vector)])
+  wolf2<-cbind(wolf2,as.numeric(as.character(vector)))
+  colnames(wolf2)[ncol(wolf2)]<-p}
+
+wolf2<- wolf2 %>% mutate(X = extr/rowSums(.[3:14],na.rm = T))
+wolf2_extr_list<-wolf2[wolf2$X>=0.6 & !is.na(wolf2$X),1]
+```
+
+### DeepTMHMM
+* This tool uses ML to predict transmembrane domains. Using it is necessary to remove proteins that might have secretion signal, but are actually anchored in the membrane. Compared to the older TMHMM tool, this tool can distinguish between secretion signal and transmembrane domain! 
+* had to split file into 38 chunks of 300 proteins and ran in a loop
+```{r, eval = FALSE}
+library(phylotools)
+library(deepredeff)
+library(Biostrings)
+
+fa<-readAAStringSet("../data/Xanthoria_parietina_GTX0501.proteins.fa")
+df<-aasset_to_df(fa)
+l<-split(df, (as.numeric(rownames(df))-1) %/% 300)
+for (i in 1:9) {
+  df_chunk<-l[[i]]
+  colnames(df_chunk)<-c("seq.name","seq.text")
+  dat2fasta(df_chunk,paste0("../data/Xanthoria_parietina_GTX0501.protein.chunk.0",i,".fa"))
+}
+
+for (i in 10:length(l)) {
+  df_chunk<-l[[i]]
+  colnames(df_chunk)<-c("seq.name","seq.text")
+  dat2fasta(df_chunk,paste0("../data/Xanthoria_parietina_GTX0501.protein.chunk.",i,".fa"))
+}
+```
+* Anlyzied via the deepTMHMM server
+```{r, eval =FALSE}
+for file in data/Xanthoria_parietina_GTX0501.protein.chunk.*.fa; do biolib run  DTU/DeepTMHMM --fasta $file; name="$(basename $file)"; mv biolib_results analysis_and_temp_files/01_predicting_effectors/deeptmhmm/$name; done
+```
+* Prepped files to get proteins with/without transmembrane domain and with a signal
+```{r, eval =FALSE}
+grep "Number of predicted TMRs" analysis_and_temp_files/01_predicting_effectors/deeptmhmm/Xanthoria_parietina_GTX0501.protein.chunk.*/TMRs.gff3 -h > analysis_and_temp_files/01_predicting_effectors/deeptmhmm/TMR_summary.txt
+grep "signal" analysis_and_temp_files/01_predicting_effectors/deeptmhmm/Xanthoria_parietina_GTX0501.protein.chunk.*/TMRs.gff3 -h > analysis_and_temp_files/01_predicting_effectors/deeptmhmm/deepTMHMM_signal.txt
+```
+* Made the list of ~ 1000 proteins. This included all proteins without trans-membrane domains and with a signal (as identified by deepTMHMM, **not** taking the SignalP prediction into account yet)
+```{r, message=FALSE}
+tm<-read.delim2("../analysis_and_temp_files/01_predicting_effectors/deeptmhmm/TMR_summary.txt",header=F,sep=" ") %>% select(V2,V7)
+colnames(tm)<-c("prot","TM_domains")
+
+tm_signal<-read.delim2("../analysis_and_temp_files/01_predicting_effectors/deeptmhmm/deepTMHMM_signal.txt",header=F,sep="\t") %>% select(V1,V2)
+colnames(tm_signal)<-c("prot","signal")
+
+tm<-tm %>% left_join(tm_signal)
+
+tm_list<-tm$prot[!is.na(tm$signal)&tm$TM_domains==0]
+```
+
+### SignalP
+* Tool that predicts secretion signal only
+* Already run SIgnalP on this genome previously. Here, I just copied results from the run in `02_long_read_assemblies`
+```{r, eval =FALSE}
+cp ../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/Xanthoria_parietina_GTX0501.proteins_summary.signalp5 analysis_and_temp_files/01_predicting_effectors/GTX0501_signalp_prediction_results.txt
+```
+* Made a list of ~1000 proteins. This included all proteins in which SignalP predicted a secretion signal 
+```{r, message=FALSE}
+signal<-read.delim2("../analysis_and_temp_files/01_predicting_effectors/GTX0501_signalp_prediction_results.txt",skip=1)
+signal_list<-signal$X..ID[signal$Prediction!="OTHER"]
+```
+
+### Combine predictions on the cellular localization
+* Unlike effector predictions, these three tools are more consistent with each other. Got ~600 proteins which are predicted as secreted by all three tools
+```{r, message=FALSE}
+#make a table will all predictions
+eff2<-eff %>% mutate(EffectorP=Prediction) %>% select(prot,EffectorP)
+deep2 <- deep %>% mutate(deepredeff=prediction) %>% select(prot,deepredeff)
+wolf3<-wolf2 %>% mutate(wolfPSORT=ifelse(is.na(X),0,X),prot=ID) %>%  mutate(wolfPSORT=ifelse(wolfPSORT<0.6,"not-secreted","secreted"),prot=ID) %>% select(prot,wolfPSORT)
+tm2<-tm %>% mutate(signal_deepTMHMM=ifelse(is.na(signal),"no-signal",signal)) %>% 
+  mutate(deepTMHMM=ifelse(signal_deepTMHMM=="signal"&TM_domains==0,"secreted","not-secreted")) %>% select(-signal)
+signal2 <- signal %>% mutate(SignalP=ifelse(Prediction!="OTHER","secreted","not-secreted"),prot=X..ID) %>% select(prot,SignalP)
+all_pred<- eff2 %>% left_join(deep2) %>% left_join(wolf3) %>% left_join(tm2) %>% left_join(signal2)
+
+library(ggVennDiagram)
+
+venn_loc<-list(wolfPSORT = wolf2_extr_list,
+           SignalP = signal_list,
+           deepTMHMM = tm_list)
+l<-ggVennDiagram(venn_loc,label_size = 5,set_size=5)+labs(title = "Cellular Localization: secreted proteins")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+l
+```
+
+* Save it
+```{r}
+l<-ggVennDiagram(venn_loc,label_size = 2.5,set_size=4)+labs(title = "Cellular Localization: secreted proteins")+theme(title=element_text(size=8))+scale_x_continuous(expand = expansion(mult = .4))
+ggsave('../results/secreted_venn.pdf',l, width = 4, height = 5)
+l
+```
+
+## 4. Combining predictions from Effector-predicting tools and cellular localization tools
+* FInally, combined effector predictions and secretion predictions
+* Intersection of all tools has 90 proteins
+```{r, message=FALSE}
+library(ggVennDiagram)
+
+venn_all<-list(EffectorP = effectorp_list,
+               deepredeff = deep_list,
+               wolfPSORT = wolf2_extr_list,
+           SignalP = signal_list,
+           deepTMHMM = tm_list)
+a<-ggVennDiagram(venn_all,label_size = 5,set_size=5)+labs(title = "Combined Effector Predictions")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+a
+```
+* To make this more understandable, here I did a Venn diagram with EffectorP + deepredeff + consensus predictions about the cell localization
+```{r, message=FALSE}
+secreted_consensus<-all_pred$prot[all_pred$wolfPSORT=="secreted" & all_pred$deepTMHMM=="secreted" & all_pred$SignalP=="secreted"]
+
+venn_all<-list(EffectorP = effectorp_list,
+               deepredeff = deep_list,
+               Secreted=secreted_consensus)
+a<-ggVennDiagram(venn_all,label_size = 5,set_size=5)+labs(title = "Combined Effector Predictions")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+a
+
+```
+
+* Remove EffecotrP and deefredeff assignments for non-secreted
+```{r}
+venn_all<-list(EffectorP = effectorp_list[effectorp_list %in% secreted_consensus],
+               deepredeff = deep_list[deep_list %in% secreted_consensus],
+               Secreted=secreted_consensus)
+a<-ggVennDiagram(venn_all,label_size = 5,set_size=5)+labs(title = "Combined Effector Predictions")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+a
+```
+
+* Save
+```{r}
+a<-ggVennDiagram(venn_all,label_size = 2.5,set_size=4)+labs(title = "Combined Effector Predictions")+theme(title=element_text(size=8))+scale_x_continuous(expand = expansion(mult = .4))
+ggsave('../results/effector_venn.pdf',a, width = 4, height = 5)
+a
+```
+
+## 5. Saved the fasta and list of selected 91 proteins
+* Got the list of proteins that qualify all the criteria and saved it as `analysis_and_temp_files/01_predicting_effectors/consensus_list.txt`
+* Saved the fasta as `analysis_and_temp_files/01_predicting_effectors/consensus.fa`
+```{r, eval=FALSE}
+consensus<-all_pred$prot[all_pred$wolfPSORT=="secreted" & all_pred$deepTMHMM=="secreted" & all_pred$SignalP=="secreted" & all_pred$EffectorP!="Non-effector" & all_pred$deepredeff=="effector"]
+write.table(data.frame(consensus), file = "../analysis_and_temp_files/01_predicting_effectors/consensus_list.txt", sep = "\t",col.names = F, quote = F, row.names = F)
+
+library(Biostrings)
+fa<-readAAStringSet("../data/Xanthoria_parietina_GTX0501.proteins.fa")
+names(fa)<-gsub( " .*$", "", names(fa))
+consensus_fa<-fa[consensus]
+writeXStringSet(consensus_fa,"../analysis_and_temp_files/01_predicting_effectors/consensus.fa")
+```
+
+## 6. Saved the fasta and list of all 608 secreted proteins 
+* Got the list of proteins that are secreted according to all three tools and saved it as `analysis_and_temp_files/01_predicting_effectors/all_secreted_list.txt`
+* Saved the fasta as `analysis_and_temp_files/01_predicting_effectors/all_secreted.fa`
+```{r, eval=FALSE}
+secreted<-all_pred$prot[all_pred$wolfPSORT=="secreted" & all_pred$deepTMHMM=="secreted" & all_pred$SignalP=="secreted"]
+write.table(data.frame(secreted), file = "../analysis_and_temp_files/01_predicting_effectors/all_secreted_list.txt", sep = "\t",col.names = F, quote = F, row.names = F)
+
+secreted_fa<-fa[secreted]
+writeXStringSet(secreted_fa,"../analysis_and_temp_files/01_predicting_effectors/all_secreted.fa")
+```
+
+
+

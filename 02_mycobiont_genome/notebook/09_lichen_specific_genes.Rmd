@@ -1,0 +1,353 @@
+---
+title: "09_Lichen_specific_orthogroups"
+output:
+  html_document:
+    df_print: paged
+---
+
+This script was used to do the following tasks:
+
+1. Clean fasta headers and file names for fungal species (lichen and non-lichen fungi)
+
+2. Run orthofinder to group the genes into orthogroups
+
+3. Perform an enrichment analyses to find out genes enriched in lichen-forming fungi
+
+#### Load libraries
+```{r}
+lapply(c("here","tidyverse","dplyr","phylotools","seqinr"), library, character.only = T)
+```
+
+### 1. Clean fasta headers and file names for fungal species (lichen and non-lichen fungi)
+```{r}
+anot<-read_tsv("../analysis_and_temp_files/09_ortho/genomes_for_ortho.txt") #Metadata for 44 fungi - got this file from Gulnara
+head(anot)
+
+#List and read fasta files from the directory input_files
+file_names <- list.files("../analysis_and_temp_files/09_ortho/input_files", full.names=T)
+
+#Read and merge into single data frame
+fas_data <- map_dfr(file_names, ~ cbind(phylotools::read.fasta(.x), filename=basename(.x))) 
+
+#Replace special characters like * and numbers if any from the sequences
+fas_data$seq.text <- gsub("[^a-zA-Z0-9 ]", "", fas_data$seq.text) 
+
+#Add new column for new fasta headers that are simplified or abbreviated
+fasta_data<-left_join(fas_data,anot,by="filename")
+length(unique(fasta_data$ID)) #number of unique IDs - should be 44 in this case
+
+fasta_data <- fasta_data %>%
+  group_by(filename) %>%
+  mutate(new_headers=paste0(ID, "_", row_number())) #Creates a new_headers columns - in JGI mycocosm format
+
+#Save this file for matching old and new fasta headers
+write.table(fasta_data,"../analysis_and_temp_files/09_ortho/headers_dictionary.tsv",row.names=F,quote=F, sep="/t")
+
+#Write each split data frame to a separate fasta file which will be saved in the output_files folder
+fasta_data_split <- split(fasta_data, f=fasta_data$ID) # To write fasta file for each species (i.e. column "ID")
+lapply(names(fasta_data_split), function(x) {
+  write.fasta(as.list(fasta_data_split[[x]]$seq.text), 
+              fasta_data_split[[x]]$new_headers, 
+              paste0("../analysis_and_temp_files/09_ortho/output_files/", fasta_data_split[[x]]$ID[1], ".fasta"), 
+              open="w", 
+              as.string=F)
+})
+```
+
+### 2. Run orthofinder to group the genes into orthogroups
+
+Check the files in the output directory, these will be used to run Orthofinder on the HPC
+```{r}
+#source package fc91613f-1095-4f67-b5aa-b86d702b36da
+#ulimit -Sn 50000
+#orthomatder -f lichen/
+```
+
+### 3. Perform an enrichment analysis to matd out genes enriched in lichen-forming fungi
+
+From orthofinder results, parse the "Orthogroups.txt" file
+
+```{r}
+og<-read_tsv("../analysis_and_temp_files/09_ortho/Orthogroups.txt",show_col_types=F) #added colnames OGID and ProtID, and replaced ": " by "\t" beforehand
+og1<-separate_rows(og, ProtID, sep=" ") #transform into two column table
+head(og1)
+```
+
+#### Use the dictionary file created previously to match ecology to the OGID and ProtIDs
+```{r}
+class<-fasta_data[c(9,7)]
+colnames(class)[1]<-"ProtID"
+og_class<-left_join(og1,class,by="ProtID")
+head(og_class)
+
+```
+
+#### Create the matrix to perform fisher exact test for enrichemt analysis
+```{r}
+enrch<-data.frame(table(og_class$OGID,og_class$Ecology))
+mat<-pivot_wider(enrch,names_from=Var2,values_from=Freq)
+colnames(mat)[1]<-"OGID"
+mat$A<-mat$Lichen #sum of genes in a specific orthogroup in Lichen forming fungi
+mat$B<-mat$Non_lichen #sum of a specific orthogroup in non-lichen forming fungi
+mat$C<-sum(mat$A)-mat$A #sum of genes in remaining genes in lichen forming fungi
+mat$D<-sum(mat$B)-mat$B #sum of genes in remaining genes in non-lichen forming fungi
+
+```
+
+#### Perform the fisher test
+```{r}
+AB<-mat[c(1,4:7)]
+Fstat<-sapply(1:nrow(AB), function(i2) fisher.test(matrix(unlist(AB[i2,2:5]),nrow=2)))
+mat$Pvalue<-unlist(t(Fstat)[,1])
+mat$FDR <- p.adjust(mat$Pvalue, method= "BH") #Benjamin-hochberg FDR correction
+PT<-as_tibble(mat$Pvalue)
+FDR<-as_tibble(mat$FDR)
+FDRL<-abs(log10(FDR[,1]))
+FDRL <- data.frame(lapply(FDRL, function(x) {gsub("Inf", "200", x)}))
+sig<-FDR
+sig[sig[1]<0.0005,]<-4 #significant
+sig[sig[1]<0.005,]<-3 #significant
+sig[sig[1]<0.05,]<-2 #significant
+sig[sig[1]<=1,]<-0 #not significant statistically
+sigm<-sig
+sigm[sigm[1]>1,]<-2 #significant
+sigm[sigm[1]<1,]<-1
+mat$sig<-sig$value
+mat$sigm<-sigm$value
+mat$Dir<-mat$A/mat$B > as.numeric(mat$C)/as.numeric(mat$D) #if TRUE, enriched in lichen, if false enriched in non_lichen forming fungi
+mat$val<-mat$A/mat$B #more it is greater than 1, higher chances of being enriched in Lichen forming fungi
+```
+
+#### List the ProtIDs matching the respective OGIDs
+```{r}
+final<-left_join(mat,og_class,by="OGID")
+head(final)
+write.table(final, file="../analysis_and_temp_files/09_ortho/lichen_enriched_ortho.tsv", quote=F, sep='\t', row.names=F)
+#final<-read.delim("../analysis_and_temp_files/09_ortho/lichen_enriched_ortho.tsv")
+```
+
+The orthogroups __significantly enriched with lichen genes__ (BH corrected p-value <=0.05) are the ones that are __"TRUE"__ in the column __"Dir"__ and have a value of __"2"__ in the column __"sigm"__
+
+Genes corresponding to these orthogroups are provided in the column __"ProtID"__ and __"Ecology"__
+
+
+#### List Xanpa genes from lichen-enriched orthogroups
+* 1226 transcripts in total
+```{r}
+xp<-final %>% filter(Dir==T,sigm==2,grepl("Xanp",ProtID)) %>%
+  left_join(fasta_data,by=c("ProtID"="new_headers")) %>% 
+  mutate(TranscriptID = str_replace(seq.name,"FUN","XANPAGTX0501")) %>%
+  select(OGID,TranscriptID)
+xp$TranscriptID<-gsub( " .*$", "", xp$TranscriptID)
+write.table(xp, file="../analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv", quote=F, sep='\t', row.names=F)
+```
+
+#### Secreted proteins are overrepresented
+* Used the consensus list of secreted proteins based on 3 tools: SignalP, WolfPSORT, and deepTMHMM
+```{r}
+funannot<-read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/Annotation_with_OG.txt",sep="\t")
+secreted<-read.delim2("../../10_lichen_effectors/analysis_and_temp_files/01_predicting_effectors/all_secreted_list.txt",header=F)
+secreted$TranscriptID<-str_replace(secreted$V1,"FUN","XANPAGTX0501")
+
+funannot2<-funannot %>% mutate(lichen_ortho=ifelse(TranscriptID %in% xp$TranscriptID,T,F),
+                               secreted_consensus=ifelse(TranscriptID %in% secreted$TranscriptID,T,F))
+
+write.table(funannot2, file="../analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv", quote=F, sep='\t', row.names=F)
+```
+
+* Lichen-specific orthogroups have disproportionately more secreted proteins:
+  * `r (funannot2 %>% filter(lichen_ortho==T,secreted_consensus==T) %>% nrow())/(funannot2 %>% filter(lichen_ortho==T) %>% nrow())` in lichen-specific orthogroups
+  * Only `r (funannot2 %>% filter(secreted_consensus==T) %>% nrow())/(funannot2 %>% nrow())` in the whole dataset
+
+
+#### Look at CAZymes in the lichen-enriched genes / whole genome
+* The majority of AA7 and AA3 in Xanpa genome are from lichen-enriched orthogroups
+  * AA7: Chitooligosaccharide oxidase, Glucooligosaccharide oxidase, Xylooligosaccharide oxidase, Cellooligosaccharide dehydrogenase. [good paper on fungal AA7](https://www.nature.com/articles/s41467-021-22372-0)
+  * AA3: "belong to the glucose-methanol-choline (GMC) oxidoreductases family. AA3 enzymes are flavoproteins containing a flavin-adenine dinucleotide (FAD)-binding domain. Family AA3 can be divided into 4 subfamilies: AA3_1 (mostly cellobiose dehydrogenases), AA3_2 (including both aryl alcohol oxidase and glucose 1-oxidase), AA3_3 (alcohol oxidase) and AA3_4 (pyranose 2-oxidase)."
+* Otherwise, little CAZyme are present:
+  * two GH128: laminarinase / beta-1,3-glucanase (out of 4 in the whole genome)
+  * one GH30: various GHs, icluding gluconases, galacotanes, etc the only one in the whole genome)
+  * one AA2/AA5: lignin-modifying peroxidase or a copper radical oxidase (one out of many)
+  * one CE4: acetylxylan esterases, chitin deacetylases, chitooligosaccharide deacetylases, and peptidoglycan deacetylases (out of 4 in the whole genome)
+```{r}
+cazy_whole<-funannot2 %>% group_by(CAZyme_new) %>% summarize(n=n()) %>% mutate(dataset="whole genome")
+cazy_lich<-funannot2 %>% filter(lichen_ortho==T) %>%
+  group_by(CAZyme_new) %>% summarize(n=n()) %>% mutate(dataset="lichen-enriched ortho")
+cazy<-rbind(cazy_whole,cazy_lich) %>% pivot_wider(names_from = dataset,values_from = n,values_fill = 0) %>%
+  pivot_longer(-CAZyme_new,names_to = "dataset",values_to = "n") %>% filter(!is.na(CAZyme_new))
+cazy$technical<-1
+cazy$technical[61:120]<-2
+cazy$technical[121:180]<-3
+cazy$CAZyme_new2<-cazy$CAZyme_new %>% substr(start = 1, stop = 15)
+
+ggplot(cazy)+
+  geom_tile(aes(x=CAZyme_new2,y=dataset,fill=n))+
+  geom_text(aes(label=n,x=CAZyme_new2,y=dataset),color="white")+
+  facet_wrap(~technical,nrow=3,scales="free")+xlab("CAZy families")+ylab("")+
+  theme_minimal()+theme(strip.background = element_blank(),
+  strip.text.x = element_blank(),axis.text.x = element_text(angle=90,hjust = 0.95,vjust=0.2))
+
+```
+
+* 56% of lichen-specific CAZymes are potentially secreted
+```{r}
+funannot2 %>% filter(lichen_ortho==T) %>% mutate(Secreted_if=ifelse(secreted_consensus==T,"Secreted","Not secreted")) %>% group_by(CAZyme_new,Secreted_if) %>% summarize(n=n()) %>% pivot_wider(names_from = Secreted_if,values_from = n,values_fill=0) %>% filter(!is.na(CAZyme_new))
+```
+
+* But only 17% (25 out of 144) lichen-specific secreted enzymes are CAZymes
+
+```{r}
+library(ggVennDiagram)
+
+venn1<-list(CAZymes = funannot2$TranscriptID[!is.na(funannot2$CAZyme_new)],
+           Secreted = funannot2$TranscriptID[funannot2$secreted_consensus==T],
+           Lichen_specific = funannot2$TranscriptID[funannot2$lichen_ortho==T])
+l<-ggVennDiagram(venn1,label_size = 5,set_size=5)+labs(title = "Cellular Localization: secreted proteins")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+l
+```
+
+
+#### Look at proteases in the lichen-enriched genes / whole genome
+* Only three families have lichen-enriched orthogroups
+* A1A (from pepsin family): quite numerous in the genome, nearly half of them are lichen specific
+* C19 are ubiquitinyl hydrolases. Also numerous in the genome, but only a few are lichen specific
+* S53 are sedolisins, and are usually serceted prokaryotic enzsymes. 
+```{r}
+protease_whole<-funannot2 %>% group_by(Protease_new) %>% summarize(n=n()) %>% mutate(dataset="whole genome")
+protease_lich<-funannot2 %>% filter(lichen_ortho==T) %>%
+  group_by(Protease_new) %>% summarize(n=n()) %>% mutate(dataset="lichen-enriched ortho")
+protease<-rbind(protease_whole,protease_lich) %>% pivot_wider(names_from = dataset,values_from = n,values_fill = 0) %>%
+  pivot_longer(-Protease_new,names_to = "dataset",values_to = "n") %>% filter(!is.na(Protease_new))
+protease$technical<-1
+protease$technical[61:120]<-2
+protease$technical[121:176]<-3
+
+ggplot(protease)+
+  geom_tile(aes(x=Protease_new,y=dataset,fill=n))+
+  geom_text(aes(label=n,x=Protease_new,y=dataset),color="white")+
+  facet_wrap(~technical,nrow=3,scales="free")+xlab("Protease families")+ylab("")+
+  theme_minimal()+theme(strip.background = element_blank(),
+  strip.text.x = element_blank(),axis.text.x = element_text(angle=90,hjust = 0.95,vjust=0.2))
+
+```
+
+
+#### Enrichment analysis
+* Prep data for interpro and GO trems
+```{r}
+ips_df <-funannot2 %>% select(TranscriptID,InterPro_new) %>% 
+  mutate(InterPro_new = strsplit(InterPro_new, ", I")) %>%
+        unnest(InterPro_new) %>% mutate(InterPro_new=str_replace(InterPro_new,"^PR","IPR")) %>%
+  mutate(short_term = substr(InterPro_new, 1,40))
+
+
+ips_data <- list(
+    term2protein = data.frame(
+                        term = ips_df$InterPro_new,
+                        gene = ips_df$TranscriptID
+                        ),
+    term2name = data.frame(
+                        term = ips_df$InterPro_new,
+                        name = ips_df$short_term
+                        ),
+    
+    universe = unique(as.character(ips_df$TranscriptID))
+)
+
+go_df <-funannot2 %>% select(TranscriptID,GO.Terms_new) %>% 
+  mutate(GO.Terms_new = strsplit(GO.Terms_new, ",")) %>%
+        unnest(GO.Terms_new) %>%
+  mutate(GO.Terms=sub(".*? ", "", GO.Terms_new),
+         short_term = substr(GO.Terms, 1,40))
+
+go_data <- list(
+    term2protein = data.frame(
+                        term = go_df$GO.Terms_new,
+                        gene = go_df$TranscriptID
+                        ),
+    term2name = data.frame(
+                        term = go_df$GO.Terms_new,
+                        name = go_df$short_term
+                        ),
+    
+    universe = unique(as.character(go_df$TranscriptID))
+)
+
+### select genes from lichen specific orthgroups
+geneList_lichspec = xp$TranscriptID
+names(geneList_lichspec) = as.character(xp$TranscriptID)
+geneList_lichspec = sort(geneList_lichspec, decreasing = TRUE)
+geneList_lichspec <- names(geneList_lichspec)
+```
+
+* Intrepro enrichment shows a lot of secondary metabolism-related functions
+```{r}
+###enrichment analysis
+enrich1<-clusterProfiler::enricher(geneList_lichspec,
+    pAdjustMethod = "none",
+    minGSSize = 1,
+    maxGSSize = 2000,
+    qvalueCutoff = 1,
+    universe=ips_data$universe,
+    TERM2GENE=ips_data$term2protein,
+    TERM2NAME=ips_data$term2name)
+
+enrichplot::dotplot(enrich1,showCategory=40,label_format=40)
+
+```
+
+* As a graph
+```{r, message = FALSE,fig.width=12,fig.height=12 }
+enrich1_peirwise<-enrichplot::pairwise_termsim(enrich1)
+enrichplot::emapplot(enrich1_peirwise)
+```
+
+* GO enrichment
+```{r}
+###enrichment analysis
+enrich2<-clusterProfiler::enricher(geneList_lichspec,
+    pAdjustMethod = "none",
+    minGSSize = 1,
+    maxGSSize = 2000,
+    qvalueCutoff = 1,
+    universe=go_data$universe,
+    TERM2GENE=go_data$term2protein,
+    TERM2NAME=go_data$term2name)
+
+enrichplot::dotplot(enrich2,showCategory=40,label_format=40)
+
+```
+
+#### 13% of lichen-specific genes have functions potentially relevant for fungal multicellularity
+* Used a review by [Nagy et al.](https://www.biorxiv.org/content/10.1101/2021.12.09.471732v2.full.pdf) to compile a list of gene families/functions potentially involved in fungal multicellularity
+  * Lists IDs in three databases: InterPRo, CAZy, and KEGG
+  * Includes cell wall remodeling/biosynthesis, transcription factors, lipid metabolism genes, signalling pathways, etc
+  * The whole table is in `../03_transcriptomic_analysis/analysis_and_temp_files/08_dge_culture_lichen/multicellularity.txt`
+* Among the Xanpa annotation, 1552 genes belong to potentially multicellularity-involved families. Of these, 155 are from lichen-enriched orthgroups   
+```{r, message = FALSE,fig.show="hold"}
+library(kableExtra)
+mult_to_gene<-read.delim2("../../03_transcriptomic_analysis/analysis_and_temp_files/08_dge_culture_lichen/multicell_to_genes.txt")
+
+mult_to_gene2<-funannot2 %>% filter(lichen_ortho==T) %>% inner_join(mult_to_gene) %>%
+  select(TranscriptID,Product,Function,CAZyme_new,GO.Terms_new,InterPro_new,PFAM_new,Protease_new,KO,lichen_ortho)
+mult_to_gene2 %>% 
+  kable(format = "html", col.names = colnames(mult_to_gene2)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```  
+
+* Most of them are  ubiquitination-related, transportes, TFs, and cell wall-related
+```{r, message = FALSE,fig.show="hold"}
+mult_to_gene2 %>% group_by(Function) %>% summarize(n=n()) %>% arrange(desc(n))
+```  
+#### Annanotated lichen-specific genes
+* Of 1226 DGE lichen-specific genes, `r funannot2  %>% filter(lichen_ortho==T,is.na(CAZyme_new), is.na(GO.Terms_new), is.na(InterPro_new),is.na(PFAM_new),is.na(Protease_new),KO=="") %>% nrow()` have no functional annotation. This is 45%, compared to `r (funannot2  %>% filter(is.na(CAZyme_new), is.na(GO.Terms_new), is.na(InterPro_new),is.na(PFAM_new),is.na(Protease_new),KO=="") %>% nrow()) / (funannot2 %>% nrow())` across the whole genome
+
+#### G-aplha and GPCRs
+* Out of 15 proteins annotated as G-alpha or GPCR, none were from a lichen-enriched orthogroup
+```{r, message = FALSE,fig.show="hold"}
+funannot2 %>% select(TranscriptID,lichen_ortho,InterPro_new) %>%
+  filter(grepl("IPR011025",InterPro_new)|grepl("IPR001770",InterPro_new)|grepl("IPR001632",InterPro_new)|
+         grepl("IPR017981",InterPro_new)|grepl("IPR000832",InterPro_new)|grepl("IPR0010191",InterPro_new))
+``` 
+

@@ -1,0 +1,61 @@
+#Snakefile for mapping metagenomic reads to the xanthoria long-read genome
+
+import pandas as pd
+import re
+from os.path import join
+from Bio import SeqIO
+import gzip 
+
+#load table with metadata
+input_table = pd.read_csv("data/metadata/fastq_files_metadata.txt", sep="\t").set_index("run_id", drop=False)
+selected_table = input_table.loc[input_table['species'] == 'Xanthoria_parietina']
+SAMPLES = selected_table.index.tolist()
+#SAMPLES=["GTX0465","GTX0466"]
+
+#define variables
+minlen = 100000
+
+rule all:
+    input:
+    	expand("analysis_and_temp_files/07_snp/{sample}_to_longread.bam.sorted",sample=SAMPLES),
+        expand("analysis_and_temp_files/07_snp/{sample}_to_longread.bam.debup.sorted",sample=SAMPLES),
+
+# map
+rule indexbwa:
+    input: "analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa"
+    output: "analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa.bwt"
+    params:
+        mem = "10G",
+        queue="tsl-short",
+        time="3:0:0"
+    threads: 20	
+    shell: "code/index_bwa.sh {input} "
+
+rule bwa:
+    input:
+        index="analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa.bwt",
+        genome="analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa",
+        fq1="../01_Xanthoria_metagenomics/data/fastq/{sample}_trimmed.1.fq.gz",
+        fq2="../01_Xanthoria_metagenomics/data/fastq/{sample}_trimmed.2.fq.gz"
+    output: "analysis_and_temp_files/07_snp/{sample}_to_longread.bam.sorted"
+    params:
+        mem = "40G",
+        queue="tsl-short",
+        time="1-0:0:0",
+        rg = "@RG\\tID:{sample}\\tSM:{sample}\\tPL:illumina"
+    threads: 20	
+    shell: "code/bwa_mem.sh {input.genome} {input.fq1} {input.fq2}  {wildcards.sample} {output} '{params.rg}'"
+
+		
+rule mark_duplicate:
+    input: "analysis_and_temp_files/07_snp/{sample}_to_longread.bam.sorted"
+    output:
+        mdoutput="analysis_and_temp_files/07_snp/{sample}_to_longread.bam.debup.sorted",
+        mdmetrics = "analysis_and_temp_files/07_snp/{sample}_to_longread.bam.debup.sorted.metrics.txt"
+    params:
+        mem = "80G",
+        queue="tsl-short",
+        time="1-0:0:0"
+    threads: 20	
+    shell: "code/picard.sh {input} {output.mdoutput} {output.mdmetrics}"
+        

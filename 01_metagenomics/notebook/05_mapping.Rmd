@@ -1,0 +1,1088 @@
+---
+title: "05_mapping.md"
+author: "Gulnara Tagridzhanova"
+date: "29/05/2023"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/01_Xanthoria_metagenomics/notebook")
+
+```
+
+**Summary:** Mapping occurrence of MAGs
+
+## 1. Mapping
+
+#### Installing metaMAP
+* Used [metaMAP](https://github.com/alexmsalmeida/metamap), a pipeline implemented in snakemake
+* Copied the entire repo into `analysis_and_temp_files/05_mapping/metamap`
+* Modified two files: `tools/map2ref.sh` so it loads software via `source package` and `Snakefile` to change the naming conventions for the fastq files and add sbatch parameters
+
+#### Preparing MAGs for mapping
+* Copied all MAGs into one folder. 
+  * In each modified the fasta headings to include the MAG id (as in `<genome>_contig_id`)
+  * In the case of bins from the sample `GTX0486_487`, had to modify the sample to avoid the underscore (now it's `GTX0486`)
+* Concatenated all renamed fastas into one, removed the renamed files
+* Indexed the concatenated file with bwa
+
+```{r,eval=F}
+mkdir analysis_and_temp_files/05_mapping/MAGs
+
+for file in analysis_and_temp_files/04_phylogenomics/MAGs/prok/*fa ; do assembly="$(basename $file ".fa")"; awk -v var1="$assembly"_ '/>/{{sub(">","&" var1 )}}1' $file > analysis_and_temp_files/05_mapping/MAGs/"$assembly"_renamed.fa; done
+
+for file in analysis_and_temp_files/04_phylogenomics/MAGs/euk/*fa ; do assembly="$(basename $file ".fa")"; awk -v var1="$assembly"_ '/>/{{sub(">","&" var1 )}}1' $file > analysis_and_temp_files/05_mapping/MAGs/"$assembly"_renamed.fa; done
+
+sed -i 's/GTX0486_487/GTX0486/g' analysis_and_temp_files/05_mapping/MAGs/GTX0486_487.*.fa
+cat  analysis_and_temp_files/05_mapping/MAGs/*fa > analysis_and_temp_files/05_mapping/all_mags.fa
+rm -rf analysis_and_temp_files/05_mapping/MAGs/
+
+source package fa33234e-dceb-4a58-9a78-7bcf9809edd7
+bwa index analysis_and_temp_files/05_mapping/all_mags.fa
+```
+
+#### Mapping 
+```{r,eval=F}
+cd analysis_and_temp_files/05_mapping/metamap/
+sbatch -J 05_mapping \
+    -o snakemake.log \
+    --wrap="source snakemake-5.8.1_CBG; snakemake -s Snakefile all --cluster 'sbatch --partition={params.queue} -c {threads} --mem={params.mem} --time={params.time} --constraint="intel" --parsable' -j 2  --latency-wait 60 --cluster-status ../../../code/status.py " \
+    --constraint="intel"    
+```
+
+## 2. General occurrence patterns
+* In total, I detected 3 genomes classified as Lecanoromycetes (preliminary classification by EukCC, needs to be updated after the phylogenomic analysis!) and 4 algal genomes.
+* Multiple samples had several lecanoromycete, or several algal genomes
+* One fungal genome (GTX0494.bin.19.fa) clearly belongs to the mycobiont, given:
+  * its high coverage depth in all samples
+  * the fact that it was present in all samples. It was also identified as present in the GTX0491 sample, which is X. calcicola. Likely, the genomes are similar enough so X. cacicola reads mapped to X. parietina MAG
+* The two other lecanoromycete genomes were present in much lower coverage
+```{r, message=F,fig.width=8}
+library(tidyverse)
+
+###get bwa data
+cov_bredth<-read.csv("../analysis_and_temp_files/05_mapping/summary/bwa_cov-exp.csv")
+cov_reads<-read.csv("../analysis_and_temp_files/05_mapping/summary/bwa_counts-total.csv")
+cov_bredth$Genome<-str_replace(cov_bredth$Genome,"_k141",".fa")
+cov_reads$Genome<-str_replace(cov_reads$Genome,"_k141",".fa")
+cov_bredth$Genome<-str_replace(cov_bredth$Genome,"GTX0486.","GTX0486_487.") #restored the name of the sample, which had to changed for the mapping step
+cov_reads$Genome<-str_replace(cov_reads$Genome,"GTX0486.","GTX0486_487.")
+
+
+###get mag stats, including sizes
+mag_stats<-read.delim2("../analysis_and_temp_files/04_phylogenomics/mags_stats.txt")
+
+###combine all data together, calculate coverage depth
+cov_bredth_long<- cov_bredth %>% pivot_longer(-Genome,names_to = "metagenome", values_to="breadth")
+cov_reads_long<- cov_reads %>% pivot_longer(-Genome,names_to = "metagenome", values_to="read_count")
+
+data<-cov_bredth_long %>% left_join(cov_reads_long) %>% left_join(mag_stats,by=c("Genome"="genome")) %>%
+  mutate(depth_cov=ifelse(breadth>50,read_count*150/genome_size,0)) %>% 
+  mutate(genome_label = ifelse(class=="Lecanoromycetes",
+         "Lecanoromycetes", ifelse(class=="Trebouxiophyceae","Alga",
+          ifelse(phylum=="Ascomycota","Other Fungi","Bacteria")))) %>%
+  mutate(metagenome_label = ifelse(metagenome %in% c("GTX0465_trimmed","GTX0466_trimmed","GTX0484_trimmed"),"Tree Bark",
+          ifelse(metagenome %in% c("GTX0468_trimmed","GTX0486_487_trimmed","GTX0491_trimmed"), "Concrete","Growth Chamber"))) %>% 
+  mutate(metagenome_species = ifelse(metagenome=="GTX0491_trimmed","X. calcicola","X. parietina")) %>%
+  mutate(presence=ifelse(breadth>50,1,0))
+data$metagenome<-str_replace(data$metagenome,"_trimmed","")
+
+#visualize presence/absnce
+data$genome_label <- factor(data$genome_label, levels=c("Lecanoromycetes","Alga","Other Fungi","Bacteria"))
+data$presence <- as.factor(data$presence)
+ggplot(data,aes(x=metagenome,y=Genome,fill=presence))+
+  geom_tile()+
+  theme_minimal()+
+  scale_fill_manual(breaks=c(0,1),values=c("lightgrey","darkgreen"))+
+  facet_grid(genome_label~metagenome_label,scales="free",space="free")+
+  theme(axis.text=element_blank(),
+        strip.text.y.right = element_text(angle = 0))
+
+```
+
+* Algal genomes didn't have a clear "leader". The most frequent occurred in 7/9 samples,
+```{r,message=FALSE}
+data %>% filter(genome_label=="Alga",presence==1) %>% group_by(Genome) %>%
+  summarize(n=n())
+```
+* Non-lecanoromycete fungi occurred in samples from TSL (both from bark and concrete), but not in the growth chamber samples
+
+#### Clustering genomes and samples
+* Now let's cluster the genomes (rows) and samples(columns) based on their occurrence patterns
+* X. calcicola clusters together with X. parietina from concrete
+* Each group of samples have a distinct block of genomes specific to it
+* There is also a large block present in all samples
+
+```{r,message=FALSE,fig.width=8}
+library(seriation)
+library(ComplexHeatmap)
+
+#make the matrix
+M = as.matrix(cov_bredth[,2:ncol(cov_bredth)])
+colnames(M)<-str_replace(colnames(M),"_trimmed","")
+rownames(M) = cov_bredth$Genome
+M  =M[,colSums(M) >0 ]
+N = M
+M[N<50] = 0#"Absent"
+M[N>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M))
+clade[colnames(M)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+row_group = rep("other", nrow(M))
+row_group[rownames(M)  =="GTX0494.bin.19.fa"] = "Mycobiont"
+row_group[rownames(M)  %in% data$Genome[data$genome_label=="Alga"]] = "Alga"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+node_colors2 = c("Mycobiont" = "#F8766D", 
+                "Alga" = "#36ff50",
+                "other" = "grey"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+la = rowAnnotation(df = data.frame(group = row_group), col = list(group = node_colors2))
+HM = Heatmap(M, show_row_names = F, show_column_names = T, name = " ",
+            top_annotation = ta, 
+            left_annotation = la,
+             col = c("0" = "#ffffff", "1" = "#3d749c"))
+HM
+
+```
+
+* Save the image
+```{r}
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors),annotation_name_gp= gpar(fontsize = 7),
+                       annotation_legend_param= list(    substrate = list( 
+      title_gp = gpar(fontsize = 7,
+                      fontface = "bold"), 
+      labels_gp = gpar(fontsize = 7)))
+    )
+la = rowAnnotation(df = data.frame(group = row_group), col = list(group = node_colors2),
+                   annotation_name_gp= gpar(fontsize = 7),
+                   annotation_legend_param= list(group = list( 
+      title_gp = gpar(fontsize = 7, 
+                      fontface = "bold"), 
+      labels_gp = gpar(fontsize = 7))))
+HM<-Heatmap(M, show_row_names = F, show_column_names = T, name = " ",
+            top_annotation = ta, 
+            left_annotation = la,
+             col = c("0" = "#ffffff", "1" = "#3d749c"),
+             column_names_gp = gpar(fontsize = 6, font="Arial"),
+        heatmap_legend_param = list(labels_gp = gpar(fontsize = 6)))
+
+
+pdf(file="../results/mapping_all_calcicola.pdf",width=6,height=4)
+draw(HM)
+dev.off()
+```
+
+* Remove X. calcicola sample
+```{r,message=FALSE,fig.width=8}
+cov_bredth2<- cov_bredth %>% select(-GTX0491_trimmed)
+  
+M = as.matrix(cov_bredth2[,2:ncol(cov_bredth2)])
+colnames(M)<-str_replace(colnames(M),"_trimmed","")
+rownames(M) = cov_bredth2$Genome
+M  =M[,colSums(M) >0 ]
+N = M
+M[N<50] = 0#"Absent"
+M[N>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M))
+clade[colnames(M)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+row_group = rep("other", nrow(M))
+row_group[rownames(M)  =="GTX0494.bin.19.fa"] = "Mycobiont"
+row_group[rownames(M)  %in% data$Genome[data$genome_label=="Alga"]] = "Alga"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e"
+)
+
+node_colors2 = c("Mycobiont" = "#F8766D", 
+                "Alga" = "#36ff50",
+                "other" = "grey"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+la = rowAnnotation(df = data.frame(group = row_group), col = list(group = node_colors2))
+HM = Heatmap(M, show_row_names = F, show_column_names = T, name = " ",
+            top_annotation = ta, 
+            left_annotation = la,
+             col = c("0" = "#ffffff", "1" = "#3d749c"))
+HM
+
+```
+* Save the image
+```{r}
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors),annotation_name_gp= gpar(fontsize = 7),
+                       annotation_legend_param= list(    substrate = list( 
+      title_gp = gpar(fontsize = 7,
+                      fontface = "bold"), 
+      labels_gp = gpar(fontsize = 7)))
+    )
+la = rowAnnotation(df = data.frame(group = row_group), col = list(group = node_colors2),
+                   annotation_name_gp= gpar(fontsize = 7),
+                   annotation_legend_param= list(group = list( 
+      title_gp = gpar(fontsize = 7, 
+                      fontface = "bold"), 
+      labels_gp = gpar(fontsize = 7))))
+HM<-Heatmap(M, show_row_names = F, show_column_names = T, name = " ",
+            top_annotation = ta, 
+            left_annotation = la,
+             col = c("0" = "#ffffff", "1" = "#3d749c"),
+             column_names_gp = gpar(fontsize = 6, font="Arial"),
+        heatmap_legend_param = list(labels_gp = gpar(fontsize = 6)))
+
+
+pdf(file="../results/mapping_all.pdf",width=6,height=4)
+draw(HM)
+dev.off()
+```
+
+#### Co-occurrence network
+* Here, only including X. parietina samples
+* All co-occurrences: the graph shows all species. Color shows mycobiont and algae; for the rest color represent their occurrence patterns: species occurring only in one type of samples have color, species occurring across multiple smaple types are grey. This graph is so tight it's hard to see individual edges
+```{r,message=F,fig.width=8,fig.height=8}
+library(igraph)
+library(qgraph)
+
+#format table. add a label 
+bark_only_genomes<-data %>% filter(presence==1) %>% group_by(Genome,metagenome_label) %>% summarize(n=n()) %>%
+  pivot_wider(names_from = metagenome_label, values_from = n, values_fill = 0) %>%
+  filter(Concrete==0,`Growth Chamber`==0,`Tree Bark`>0)
+concrete_only_genomes<-data %>% filter(presence==1) %>% group_by(Genome,metagenome_label,metagenome_species) %>% summarize(n=n()) %>%
+  pivot_wider(names_from = metagenome_label, values_from = n, values_fill = 0) %>%
+  filter(Concrete>0,metagenome_species=="X. parietina",`Growth Chamber`==0,`Tree Bark`==0)
+chamber_only_genomes<-data %>% filter(presence==1) %>% group_by(Genome,metagenome_label) %>% summarize(n=n()) %>%
+  pivot_wider(names_from = metagenome_label, values_from = n, values_fill = 0) %>%
+  filter(Concrete==0,`Growth Chamber`>0,`Tree Bark`==0)
+
+data$cooc_label<-"other"
+data$cooc_label[data$Genome %in% bark_only_genomes$Genome]<-"Tree Bark"
+data$cooc_label[data$Genome %in% concrete_only_genomes$Genome]<-"Concrete"
+data$cooc_label[data$Genome %in% chamber_only_genomes$Genome]<-"Growth Chamber"
+data$cooc_label[data$Genome=="GTX0494.bin.19.fa"]<-"Mycobiont"
+data$cooc_label[data$genome_label=="Alga"]<-"Alga"
+
+# define colors for plotting
+node_colors = c("Mycobiont" = "#660801",
+                "Alga" = "#00CD6C", 
+                "Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "other"="grey"
+                )
+
+
+# Some R Magic to create a who with who table
+dat = data %>% filter(presence==1) %>% as_tibble() %>% select(Genome,metagenome)
+V <- crossprod(table(dat[c(2,1)]))
+V_orig = V # save this for later, when we need the full object again
+# remove duplicates and diagonal
+V[upper.tri(V) ]<- 0
+diag(V) <- 0
+
+
+# for a graph we create edges 
+edges = V %>% as_tibble() %>%
+  mutate(from = rownames(V)) %>%
+  gather(to, width, -from) %>%
+  filter(width > 0)  
+
+# lets define interesting groups for the graph annotation
+species_labels = tibble(Genome = unique(c(edges$from, edges$to))) %>% 
+  left_join(bind_rows(data %>% select(Genome, cooc_label))) %>% unique()
+# and nodes
+vertices = tibble(name = unique(c(edges$from, edges$to))) %>% 
+  left_join(species_labels, by = c("name" = "Genome")) %>%
+  dplyr::rename(group = cooc_label) %>%
+  mutate(color = node_colors[match(group, names(node_colors))])
+
+g = graph_from_data_frame(edges,vertices = vertices, directed = F)
+# remove isoated verices
+g = delete.vertices(g, which(igraph::degree(g)==0))
+
+
+# lets plot the graph nicely using qgraph
+e <- get.edgelist(g, names=F)
+# Make a layout that looks good
+l = qgraph.layout.fruchtermanreingold(e,vcount=vcount(g),
+                                      area=30*(vcount(g)^2),repulse.rad=(vcount(g)^3.6))
+
+
+plot<-plot(g,layout=l,vertex.size=4,vertex.label=NA, weight=E(g)$weight)
+legend(0.7,1, legend=names(node_colors),box.lty=0,bg=NA,
+       fill=node_colors, cex=1)
+
+
+```
+
+* Only show co-occurrences between species that were detected together in >1 different samples
+```{r,message=F,fig.width=8,fig.height=8}
+edges = edges %>% filter(width>1)
+edges$width=0.5
+
+g = graph_from_data_frame(edges,vertices = vertices, directed = F)
+# remove isoated verices
+g = delete.vertices(g, which(igraph::degree(g)==0))
+
+options(repr.plot.width=30, repr.plot.height=30)
+
+# lets plot the graph nicely using qgraph
+e <- get.edgelist(g, names=F)
+# Make a layout that looks good
+l = qgraph.layout.fruchtermanreingold(e,vcount=vcount(g),
+                                      area=30*(vcount(g)^2),repulse.rad=(vcount(g)^3.6))
+
+plot(g,layout=l,vertex.size=4,vertex.label=NA, weight=E(g)$weight)
+legend(0.7,0.8,legend=names(node_colors),box.lty=0,bg=NA,
+       fill=node_colors, cex=1)
+```
+* Save the image
+```{r}
+pdf(file="../results/coor_network.pdf",width=8,height=6)
+
+plot(g,layout=l,vertex.size=4,vertex.label=NA, weight=E(g)$weight)
+legend(0.9,0.8,legend=names(node_colors),box.lty=0,bg=NA,
+       fill=node_colors, cex=1,text.font=1)
+
+dev.off()
+```
+
+## 3. Identifying core components
+#### What are bacteria that are present in all 8 X. parietina samples 
+* Species-level: 14 species (one Lecanoromycetes, rest bacterial)
+```{r,message=F}
+mag_frequency<-data %>% filter(metagenome!="GTX0491",presence==1) %>% group_by(Genome) %>% summarize(freq=n())  %>%
+  left_join(mag_stats,by=c("Genome"="genome")) %>% select(Genome,freq,domain,phylum,class,order,family,genus) %>% arrange(desc(freq))
+
+mag_frequency %>% filter(freq==8)
+```
+* Genus-level diversity of bacteria: 10 genera, including some high-frequencey from my metagenomic paper, plus Hymenobacter and several Actinobacteria
+```{r,message=F}
+genus_frequency<-data %>% filter(metagenome!="GTX0491",presence==1,genus!="Unknown") %>% select(genus,metagenome) %>%
+ distinct() %>% group_by(genus) %>% summarize(freq=n())  %>%
+  left_join(mag_stats %>% select(genus,domain,phylum,class,order,family) %>% distinct()) %>% select(genus,freq,domain,phylum,class,order,family) %>% arrange(desc(freq))
+
+genus_frequency %>% filter(freq==8)
+```
+* Family-level diversity of bacteria: 8 families. Again, including some high-frequencey from my metagenomic paper, plus several Actinobacteria
+```{r,message=F}
+family_frequency<-data %>% filter(metagenome!="GTX0491",presence==1,family!="Unknown") %>% select(family,metagenome) %>%
+ distinct() %>% group_by(family) %>% summarize(freq=n())  %>%
+  left_join(mag_stats %>% select(domain,phylum,class,order,family) %>% distinct()) %>% select(family,freq,domain,phylum,class,order) %>% arrange(desc(freq))
+
+family_frequency %>% filter(freq==8)
+```
+
+
+#### What are bacteria that are present in all 9 samples (including X.calcicola)?
+* Same 14 species-level as for the 8 samples above
+```{r,message=F}
+mag_frequency2<-data %>% filter(presence==1) %>% group_by(Genome) %>% summarize(freq=n())  %>%
+  left_join(mag_stats,by=c("Genome"="genome")) %>% select(Genome,freq,domain,phylum,class,order,family,genus) %>% arrange(desc(freq))
+
+mag_frequency2 %>% filter(freq==9)
+```
+* Same 10 genera as above
+```{r,message=F}
+genus_frequency2<-data %>% filter(presence==1,genus!="Unknown") %>% select(genus,metagenome) %>%
+ distinct() %>% group_by(genus) %>% summarize(freq=n())  %>%
+  left_join(mag_stats %>% select(genus,domain,phylum,class,order,family) %>% distinct()) %>% select(genus,freq,domain,phylum,class,order,family) %>% arrange(desc(freq))
+
+genus_frequency2 %>% filter(freq==9)
+```
+
+* Same 8 families as above
+```{r,message=F}
+family_frequency2<-data %>% filter(presence==1,family!="Unknown") %>% select(family,metagenome) %>%
+ distinct() %>% group_by(family) %>% summarize(freq=n())  %>%
+  left_join(mag_stats %>% select(domain,phylum,class,order,family) %>% distinct()) %>% select(family,freq,domain,phylum,class,order) %>% arrange(desc(freq))
+
+family_frequency2 %>% filter(freq==9)
+```
+
+#### Summarize by the number of distinct occurrences
+* Only using X. parietina samples
+* Genus-level diversity of bacteria: 	Sphingomonas has by far more than others with almost 120 occurrences in 9 samples (meaning that all samples >1 species of Sphingomonas)
+* Sphingomonsa is followed by Hymenobacter and CAHJXG01
+* Pattern is repeated across all sample types
+```{r,message=F}
+total_occ_gen<-data %>% filter(presence==1,genus!="Unknown",metagenome!="GTX0491") %>% group_by(genus) %>% 
+  summarize(freq=n()) %>% 
+  left_join(mag_stats %>% select(genus,domain,phylum,class,order,family) %>% distinct()) %>%
+ arrange(desc(freq)) %>% select(freq,domain,phylum,class,order,family,genus) 
+
+
+ggplot(total_occ_gen,aes(x=freq))+geom_histogram()+theme_minimal()+xlab("Number of total occurrences per genus")
+```
+
+* Family-level diversity of bacteria: Sphingomonadaceae has by far more than others, followed by other expected groups
+```{r,message=F}
+data %>% filter(presence==1,family!="Unknown",metagenome!="GTX0491") %>% group_by(family) %>% summarize(freq=n()) %>% 
+  left_join(mag_stats %>% select(domain,phylum,class,order,family) %>% distinct()) %>%
+ arrange(desc(freq)) %>% select(family,freq,domain,phylum,class,order) %>% head
+```
+
+#### How many different species were representing each group?
+* Summarized on the genus level; Sphingomonas again is at the top of the list
+```{r,message=F}
+mag_stats %>% filter(genus!="Unknown",) %>% group_by(genus) %>% summarize(freq=n()) %>% 
+  left_join(mag_stats %>% select(genus,domain,phylum,class,order,family) %>% distinct()) %>%
+ arrange(desc(freq)) %>% select(genus,family,freq,domain,phylum,class,order) %>% head
+```
+
+* Summarized on the family level  
+```{r,message=F}
+mag_stats %>% filter(family!="Unknown") %>% group_by(family) %>% summarize(freq=n()) %>% 
+  left_join(mag_stats %>% select(domain,phylum,class,order,family) %>% distinct()) %>%
+ arrange(desc(freq)) %>% select(family,order,freq,domain,phylum,class) %>% head
+```
+
+#### Bacterial abundance
+* Ranked species by their cellular abundance, which highlighted in a bunch of Actinomycetes
+```{r, message=F}
+data %>% filter(metagenome!="GTX0491") %>% group_by(metagenome) %>%  
+  mutate(myco_cov = ifelse(Genome=="GTX0494.bin.19.fa",depth_cov,NA)) %>%  #get the relative abundance for each MAG
+  fill(myco_cov, .direction = 'updown') %>% filter(presence==1,genus!="Unknown") %>% 
+  mutate(relative_cov = depth_cov/myco_cov) %>%
+  group_by(Genome) %>% summarize(median_abundance=median(relative_cov)) %>% arrange(desc(median_abundance)) %>% left_join(mag_stats %>% select(genome,genus,family,order,class),by=c("Genome"="genome")) %>% head(n=8)
+```
+
+* However, when summarized by genus, Sphingomonas and CAHJXG01 are leading. This isn't surprising given that samples tended to contain multiple strains from these genera
+```{r, message=F}
+#calculate relative abundance (relative to the mycobiont)
+abund<-data %>% filter(metagenome!="GTX0491") %>% group_by(metagenome) %>% 
+  mutate(myco_cov = ifelse(Genome=="GTX0494.bin.19.fa",depth_cov,NA)) %>%  #get the relative abundance for each MAG
+  fill(myco_cov, .direction = 'updown') %>% filter(presence==1,genus!="Unknown") %>% 
+  mutate(relative_cov = depth_cov/myco_cov) %>%
+  ungroup() %>% group_by(genus,metagenome) %>% #if one genus had more than one species in a sample, summed their abundance 
+  summarize(total_abundance=sum(relative_cov)) %>% ungroup() %>% 
+  group_by(genus) %>% summarize(median_abundance=median(total_abundance)) %>% arrange(desc(median_abundance)) %>% left_join(mag_stats %>% select(genus,family,order,class) %>% distinct()) 
+head(abund)
+```
+
+## 3. Taxonomic composition in different samples
+
+#### Substrate
+* Concrete has more species specific to it - which is predictable given both other sample types (tree bark and growth chamber) come from epythitic species
+```{r, message=F,fig.width=14,fig.show="hold", out.width="100%"}
+library(ggVennDiagram)
+library(patchwork)
+
+venn_genus<-list("Tree Bark" = data$genus[data$metagenome_label=="Tree Bark" & data$presence==1 & data$metagenome!="GTX0491"] %>% unique(),
+           "Concrete" = data$genus[data$metagenome_label=="Concrete"& data$presence==1& data$metagenome!="GTX0491"] %>% unique(),
+           "Growth Chamber" = data$genus[data$metagenome_label=="Growth Chamber" & data$presence==1& data$metagenome!="GTX0491"] %>% unique())
+
+venn_family<-list("Tree Bark" = data$family[data$metagenome_label=="Tree Bark" & data$presence==1& data$metagenome!="GTX0491"] %>% unique(),
+           "Concrete" = data$family[data$metagenome_label=="Concrete"& data$presence==1& data$metagenome!="GTX0491"] %>% unique(),
+           "Growth Chamber" = data$family[data$metagenome_label=="Growth Chamber" & data$presence==1& data$metagenome!="GTX0491"] %>% unique())
+
+venn_species<-list("Tree Bark" = data$Genome[data$metagenome_label=="Tree Bark" & data$presence==1& data$metagenome!="GTX0491"] %>% unique(),
+           "Concrete" = data$Genome[data$metagenome_label=="Concrete"& data$presence==1& data$metagenome!="GTX0491"] %>% unique(),
+           "Growth Chamber" = data$Genome[data$metagenome_label=="Growth Chamber" & data$presence==1& data$metagenome!="GTX0491"] %>% unique())
+
+g<-ggVennDiagram(venn_genus,label_size = 5,set_size=5)+labs(title = "Bacterial genera")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+f<-ggVennDiagram(venn_family,label_size = 5,set_size=5)+labs(title = "Bacterial families")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+s<-ggVennDiagram(venn_species,label_size = 5,set_size=5)+labs(title = "Bacterial species")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .4))
+s
+g
+f
+
+```
+
+* Save the images
+```{r}
+g<-ggVennDiagram(venn_genus,label_size = 2.5,set_size=2.5,edge_size=0.5)+labs(title = "Bacterial genera")+theme(title=element_text(size=7))+scale_x_continuous(expand = expansion(mult = .4))
+ggsave('../results/bacteria_venn_genus.pdf',g, width = 4, height = 4)
+
+f<-ggVennDiagram(venn_family,label_size = 2.5,set_size=2.5,edge_size=0.5)+labs(title = "Bacterial families")+theme(title=element_text(size=7))+scale_x_continuous(expand = expansion(mult = .4))
+ggsave('../results/bacteria_venn_family.pdf',f, width = 4, height = 4)
+
+s<-ggVennDiagram(venn_species,label_size = 2.5,set_size=2.5,edge_size=0.5)+labs(title = "Bacterial species")+theme(title=element_text(size=7))+scale_x_continuous(expand = expansion(mult = .4))
+ggsave('../results/bacteria_venn_species.pdf',s, width = 4, height = 4)
+```
+
+* Bacterial genera that occur in all non-concrete samples but are missing from concrete, include Lichenihabitans and RH-AL1 (Bejirinckiaceae)
+```{r, message=F,fig.width=14,fig.height=5}
+
+data %>% filter(presence==1,genus!="Unknown",metagenome!="GTX0491") %>% group_by(genus,metagenome_label) %>% 
+  summarize(freq=n()) %>% pivot_wider(names_from = metagenome_label,values_from = freq,values_fill = 0) %>% filter(Concrete==0,`Growth Chamber`==3,`Tree Bark`==3) %>%
+  left_join(mag_stats %>% select(genus,domain,phylum,class,order,family) %>% distinct()) %>%
+  select(genus,family,phylum,class,order) 
+```
+
+#### Comparing X. calcicola sample to X. parietina
+* X. calcicola is predictably similar to the X. parietina samples from concrete
+```{r, message=F,fig.width=14}
+venn_species<-list("X. parietina (tree bark)" = data$Genome[data$metagenome_label=="Tree Bark" & data$presence==1] %>% unique(),
+           "X. parietina (concrete)"  = data$Genome[data$metagenome_label=="Concrete"& data$presence==1  & data$metagenome !="GTX0491"] %>% unique(),
+           "X. parietina(growth chamber)" = data$Genome[data$metagenome_label=="Growth Chamber" & data$presence==1] %>% unique(),
+           "X. calcicola"  = data$Genome[data$metagenome =="GTX0491"& data$presence==1] %>% unique())
+
+ggVennDiagram(venn_species,label_size = 7,set_size=7)+labs(title = "Bacterial species")+theme(title=element_text(size=12))+scale_x_continuous(expand = expansion(mult = .2))
+```
+
+* Save the image
+```{r}
+s<-ggVennDiagram(venn_species,label_size = 2.5,set_size=2.5,edge_size=0.5)+labs(title = "Bacterial species")+theme(title=element_text(size=7))+scale_x_continuous(expand = expansion(mult = .4))
+ggsave('../results/bacteria_venn_calcicola.pdf',s, width = 5, height = 4)
+```
+
+* X. calcicola **did include** 9 genomes unique to it. However, since I made a MAG catalog for X. parietina samples, those genomes don't show up here. Pulled these genomes from the dRep results (the run in which I included MAGs from all individual samples, including X. calcicola), I get one Lecanoromycete (the myciobiont), one alga, and 7 bacteria
+```{r, message=F}
+library(stringr)
+source("../code/utils.R")
+drep<-read.delim("../analysis_and_temp_files/03_assembly/ind_assembly_bins/drep/data_tables/Cdb.csv",sep=",")
+drep$metagenome<-str_extract(drep$genome, "[^\\.]+")
+
+#get list of genomes that represent species unique to X. calcicola
+unique_cluster<-drep %>% group_by(secondary_cluster,metagenome) %>% summarise(n=n()) %>% 
+  pivot_wider(names_from = metagenome,values_from = n,values_fill=0) %>%
+  filter(GTX0491>0, GTX0465==0, GTX0466==0, GTX0468==0, GTX0481==0, GTX0484==0, GTX0486_487==0, GTX0493==0, GTX0494==0) %>% select(secondary_cluster)
+unique_genome<-drep$genome[drep$secondary_cluster %in% unique_cluster$secondary_cluster]
+
+#add annotations
+eukcc<-read.delim("../analysis_and_temp_files/03_assembly/GTX0491_megahit/eukcc.csv")
+  eukcc$completeness<-as.numeric(eukcc$completeness)
+  eukcc$contamination<-as.numeric(eukcc$contamination)
+  eukcc$Genome<-paste0("GTX0491.",eukcc$bin)
+eukcc<-eukcc %>% filter(Genome %in% unique_genome,completeness>=50)  %>% mutate(classification=ifelse(grepl("-13786",ncbi_lng),"Trebouxia",
+    ifelse(grepl("-451870",ncbi_lng),"Chaetothyriales",
+           ifelse(grepl("-147547",ncbi_lng),"Lecanoromycetes","Leotiomyceta")))) %>%
+  select(Genome,classification,completeness,contamination)
+
+
+gtdb2<-read.delim2("../analysis_and_temp_files/03_assembly/ind_assembly_bins/gtdb_out/gtdbtk.bac120.summary.tsv") %>% select(user_genome,classification) %>% filter(user_genome  %in% unique_genome)
+checkm<-read.delim("../analysis_and_temp_files/03_assembly/GTX0491_megahit/checkm_qa.tab") %>%
+  select(Bin.Id, Completeness,Contamination)
+colnames(checkm)<-c("bin","completeness","contamination")
+checkm$completeness<-as.numeric(checkm$completeness)
+checkm$contamination<-as.numeric(checkm$contamination)
+checkm$Genome<-paste("GTX0491",checkm$bin,"fa",sep=".")
+gtdb2<-checkm %>% inner_join(gtdb2,by=c("Genome"="user_genome")) %>% select(-bin)
+
+as_tibble(rbind(eukcc,gtdb2))
+
+```
+
+#### Algal strains in different samples
+* All 4 algal strains co-occurred with each other at least once
+* Zooming in on the algal occurrence shows little pattern in terms of substrate
+* **NB:** These results for the X. calcicola sample as displayed here aren't quite complete: X. calcicola had its own algal MAG that weren't present in any of the X. parieitna samples
+```{r,message=FALSE,fig.width=8}
+algal_species<-data$Genome[data$class=="Trebouxiophyceae"] %>% unique()
+M_alga = as.matrix(cov_bredth[cov_bredth$Genome %in% algal_species,2:ncol(cov_bredth)])
+colnames(M_alga)<-str_replace(colnames(M_alga),"_trimmed","")
+rownames(M_alga) = cov_bredth$Genome[cov_bredth$Genome %in% algal_species]
+M_alga  =M_alga[,colSums(M_alga) >0 ]
+N_alga = M_alga
+M_alga[N_alga<50] = 0#"Absent"
+M_alga[N_alga>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_alga))
+clade[colnames(M_alga)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_alga)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_alga)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_alga)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+HM = Heatmap(M_alga, show_row_names = F, show_column_names = T, name = " ",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+
+```
+
+* Without X. calcicola
+```{r,message=FALSE,fig.width=8}
+algal_species<-data$Genome[data$class=="Trebouxiophyceae"] %>% unique()
+M_alga = as.matrix(cov_bredth2[cov_bredth2$Genome %in% algal_species,2:ncol(cov_bredth2)])
+colnames(M_alga)<-str_replace(colnames(M_alga),"_trimmed","")
+rownames(M_alga) = cov_bredth2$Genome[cov_bredth2$Genome %in% algal_species]
+M_alga  =M_alga[,colSums(M_alga) >0 ]
+N_alga = M_alga
+M_alga[N_alga<50] = 0#"Absent"
+M_alga[N_alga>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_alga))
+clade[colnames(M_alga)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_alga)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_alga)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_alga)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+HM = Heatmap(M_alga, show_row_names = F, show_column_names = T, name = " ",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+
+```
+
+* Save image
+```{r}
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors),annotation_name_gp= gpar(fontsize = 7),
+                       annotation_legend_param= list(    substrate = list( 
+      title_gp = gpar(fontsize = 7,
+                      fontface = "bold"), 
+      labels_gp = gpar(fontsize = 7)))
+    )
+HM<-Heatmap(M_alga, show_row_names = F, show_column_names = T, name = " ",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "#3d749c"),
+             column_names_gp = gpar(fontsize = 6, font="Arial"),
+        heatmap_legend_param = list(labels_gp = gpar(fontsize = 6)))
+
+
+pdf(file="../results/mapping_trebouxia.pdf",width=3.5,height=2)
+draw(HM)
+dev.off()
+```
+
+#### Notable bacterial genera
+* Here, I focues on 3 bacterial genera that were present in all samples and had highest abundance 
+  * Sphingomonas: 18 species
+  * CAHJXG01 (Acetobacteraceae): 9 species
+  * Hymenobacter: 7 species
+* Just as with algae, Sphingomonas and Hymenobacter showed little structure with regards to the substrate. CAHJXG01, hovewer, can be split into epyphitic and saxicolous 
+* **NB:** includes X. calcicola samples
+```{r,message=FALSE,fig.width=8,fig.show="hold", out.width="70%"}
+sphing_species<-data$Genome[data$genus=="Sphingomonas"] %>% unique()
+M_sphing = as.matrix(cov_bredth[cov_bredth$Genome %in% sphing_species,2:ncol(cov_bredth)])
+colnames(M_sphing)<-str_replace(colnames(M_sphing),"_trimmed","")
+rownames(M_sphing) = cov_bredth$Genome[cov_bredth$Genome %in% sphing_species]
+M_sphing  =M_sphing[,colSums(M_sphing) >0 ]
+N_sphing = M_sphing
+M_sphing[N_sphing<50] = 0#"Absent"
+M_sphing[N_sphing>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_sphing))
+clade[colnames(M_sphing)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_sphing)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_sphing)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_sphing)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+HM = Heatmap(M_sphing, show_row_names = F, show_column_names = T, name = "Sphingonomas species",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+
+
+
+hymen_species<-data$Genome[data$genus=="CAHJXG01"] %>% unique()
+M_hymen = as.matrix(cov_bredth[cov_bredth$Genome %in% hymen_species,2:ncol(cov_bredth)])
+colnames(M_hymen)<-str_replace(colnames(M_hymen),"_trimmed","")
+rownames(M_hymen) = cov_bredth$Genome[cov_bredth$Genome %in% hymen_species]
+M_hymen  =M_hymen[,colSums(M_hymen) >0 ]
+N_hymen = M_hymen
+M_hymen[N_hymen<50] = 0#"Absent"
+M_hymen[N_hymen>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_hymen))
+clade[colnames(M_hymen)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_hymen)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_hymen)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_hymen)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+HM = Heatmap(M_hymen, show_row_names = F, show_column_names = T, name = "CAHJXG01 species",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+
+hymen_species<-data$Genome[data$genus=="Hymenobacter"] %>% unique()
+M_hymen = as.matrix(cov_bredth[cov_bredth$Genome %in% hymen_species,2:ncol(cov_bredth)])
+colnames(M_hymen)<-str_replace(colnames(M_hymen),"_trimmed","")
+rownames(M_hymen) = cov_bredth$Genome[cov_bredth$Genome %in% hymen_species]
+M_hymen  =M_hymen[,colSums(M_hymen) >0 ]
+N_hymen = M_hymen
+M_hymen[N_hymen<50] = 0#"Absent"
+M_hymen[N_hymen>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_hymen))
+clade[colnames(M_hymen)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_hymen)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_hymen)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_hymen)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+HM = Heatmap(M_hymen, show_row_names = F, show_column_names = T, name = "Hymenobacter species",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+
+```
+
+* Remove X. calcicola
+```{r,message=FALSE,fig.width=8,fig.show="hold", out.width="70%"}
+sphing_species<-data$Genome[data$genus=="Sphingomonas"] %>% unique()
+M_sphing = as.matrix(cov_bredth2[cov_bredth2$Genome %in% sphing_species,2:ncol(cov_bredth2)])
+colnames(M_sphing)<-str_replace(colnames(M_sphing),"_trimmed","")
+rownames(M_sphing) = cov_bredth2$Genome[cov_bredth2$Genome %in% sphing_species]
+M_sphing  =M_sphing[,colSums(M_sphing) >0 ]
+N_sphing = M_sphing
+M_sphing[N_sphing<50] = 0#"Absent"
+M_sphing[N_sphing>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_sphing))
+clade[colnames(M_sphing)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_sphing)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_sphing)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_sphing)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+HM = Heatmap(M_sphing, show_row_names = F, show_column_names = T, name = "Sphingonomas species",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+
+
+
+CAHJXG01_species<-data$Genome[data$genus=="CAHJXG01"] %>% unique()
+M_CAHJXG01 = as.matrix(cov_bredth2[cov_bredth2$Genome %in% CAHJXG01_species,2:ncol(cov_bredth2)])
+colnames(M_CAHJXG01)<-str_replace(colnames(M_CAHJXG01),"_trimmed","")
+rownames(M_CAHJXG01) = cov_bredth2$Genome[cov_bredth2$Genome %in% CAHJXG01_species]
+M_CAHJXG01  =M_CAHJXG01[,colSums(M_CAHJXG01) >0 ]
+N_CAHJXG01 = M_CAHJXG01
+M_CAHJXG01[N_CAHJXG01<50] = 0#"Absent"
+M_CAHJXG01[N_CAHJXG01>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_hymen))
+clade[colnames(M_hymen)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_hymen)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_hymen)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_hymen)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+HM = Heatmap(M_hymen, show_row_names = F, show_column_names = T, name = "CAHJXG01 species",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+
+hymen_species<-data$Genome[data$genus=="Hymenobacter"] %>% unique()
+M_hymen = as.matrix(cov_bredth2[cov_bredth2$Genome %in% hymen_species,2:ncol(cov_bredth2)])
+colnames(M_hymen)<-str_replace(colnames(M_hymen),"_trimmed","")
+rownames(M_hymen) = cov_bredth2$Genome[cov_bredth2$Genome %in% hymen_species]
+M_hymen  =M_hymen[,colSums(M_hymen) >0 ]
+N_hymen = M_hymen
+M_hymen[N_hymen<50] = 0#"Absent"
+M_hymen[N_hymen>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_hymen))
+clade[colnames(M_hymen)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_hymen)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_hymen)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_hymen)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+HM = Heatmap(M_hymen, show_row_names = F, show_column_names = T, name = "Hymenobacter species",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+```
+
+* Save images
+```{r}
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors),annotation_name_gp= gpar(fontsize = 7),
+                       annotation_legend_param= list(    substrate = list( 
+      title_gp = gpar(fontsize = 7,
+                      fontface = "bold"), 
+      labels_gp = gpar(fontsize = 7)))
+    )
+HM_sphing<-Heatmap(M_sphing, show_row_names = F, show_column_names = T, name = " ",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "#3d749c"),
+             column_names_gp = gpar(fontsize = 6, font="Arial"),
+        heatmap_legend_param = list(labels_gp = gpar(fontsize = 6)))
+
+
+pdf(file="../results/mapping_sphingomonas.pdf",width=3.5,height=2)
+draw(HM_sphing)
+dev.off()
+
+HM_CAHJXG01<-Heatmap(M_CAHJXG01, show_row_names = F, show_column_names = T, name = " ",
+            top_annotation = ta, 
+             col = c("0" = "#ffffff", "1" = "#3d749c"),
+             column_names_gp = gpar(fontsize = 6, font="Arial"),
+        heatmap_legend_param = list(labels_gp = gpar(fontsize = 6)))
+
+
+pdf(file="../results/mapping_CAHJXG01.pdf",width=3.5,height=2)
+draw(HM_CAHJXG01)
+dev.off()
+
+
+```
+
+
+## 4. Co-occurrence of algal species
+* Looked at co-occurring alga: are there any patterns with covereage breadth and depth?
+* Coverage breadth looks legit: in most pairings, we can see that sometimes genome occur together, but sometimes can also be found on their own. This confirms that co-occurring isn't an artifact
+* With coverage depth, don't see any pattern
+* **NB:** includes X. calcicola samples
+```{r, message=F,fig.show="hold", out.width="70%"}
+
+visualize_alga<-function(genome1,genome2){
+t<-data %>% filter(Genome %in% c(genome1,genome2)) %>% select(Genome,metagenome,breadth) %>%
+  pivot_wider(names_from = Genome,values_from = breadth)
+t2<-data %>% filter(Genome %in% c(genome1,genome2)) %>% select(Genome,metagenome,depth_cov) %>%
+  pivot_wider(names_from = Genome,values_from =depth_cov) %>% filter(!!sym(genome1)>0,!!sym(genome2)>0)
+max_depth<-max(data$depth_cov[data$Genome %in% c(genome1,genome2)])
+
+breadth<-ggplot(t,aes(x=!!sym(genome1),y=!!sym(genome2)))+geom_point()+xlim(0,100)+ylim(0,100)+ggtitle("Coverage breadth")+ coord_fixed()
+depth<-ggplot(t2,aes(x=!!sym(genome1),y=!!sym(genome2)))+geom_point()+xlim(0,max_depth)+ylim(0,max_depth)+ggtitle("Coverage depth")+ coord_fixed()
+breadth+depth}
+
+visualize_alga(algal_species[1],algal_species[2]) 
+visualize_alga(algal_species[1],algal_species[3])
+visualize_alga(algal_species[1],algal_species[4])
+visualize_alga(algal_species[2],algal_species[3])
+visualize_alga(algal_species[2],algal_species[4])
+visualize_alga(algal_species[3],algal_species[4])
+
+```
+
+## 4. Fungal MAGs in different samples
+* Final list had 3 Lecanoromycete MAGs plus 4 other fungi
+* How are Lecanoro MAGs distributed?
+  * GTX0494.bin.19.fa was present universally
+  * coassembly.bin.378.fa occurred only in one sample (GTX0481)
+  * coassembly.bin.376.fa occurred in 5 samples
+* **NB:** includes X. calcicola samples
+```{r, message=F,fig.show="hold", out.width="70%"}
+fun_species<-data$Genome[data$phylum=="Ascomycota"] %>% unique()
+M_fun= as.matrix(cov_bredth[cov_bredth$Genome %in% fun_species,2:ncol(cov_bredth)])
+colnames(M_fun)<-str_replace(colnames(M_fun),"_trimmed","")
+rownames(M_fun) = cov_bredth$Genome[cov_bredth$Genome %in% fun_species]
+M_fun  =M_fun[,colSums(M_fun) >0 ]
+N_fun = M_fun
+M_fun[N_fun<50] = 0#"Absent"
+M_fun[N_fun>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_fun))
+clade[colnames(M_fun)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_fun)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_fun)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_fun)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+row_group = rep("other", nrow(M_fun))
+row_group[rownames(M_fun)  %in% data$Genome[data$genome_label=="Lecanoromycetes"]] = "Lecanoromycetes"
+row_group[rownames(M_fun)  %in% data$Genome[data$genome_label=="Other Fungi"]] = "Other Fungi"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+node_colors2 = c("Lecanoromycetes" = "red", 
+                "Other Fungi" = "grey"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+la = rowAnnotation(df = data.frame(group = row_group), col = list(group = node_colors2))
+
+
+HM = Heatmap(M_fun, show_row_names = T, show_column_names = T, name = "Fungal species",
+            top_annotation = ta, 
+             left_annotation = la,
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+
+```
+
+* The heatmap without the X. calcicola sample
+```{r, message=F,fig.show="hold", out.width="70%"}
+fun_species<-data$Genome[data$phylum=="Ascomycota"] %>% unique()
+M_fun= as.matrix(cov_bredth2[cov_bredth2$Genome %in% fun_species,2:ncol(cov_bredth2)])
+colnames(M_fun)<-str_replace(colnames(M_fun),"_trimmed","")
+rownames(M_fun) = cov_bredth2$Genome[cov_bredth2$Genome %in% fun_species]
+M_fun  =M_fun[,colSums(M_fun) >0 ]
+N_fun = M_fun
+M_fun[N_fun<50] = 0#"Absent"
+M_fun[N_fun>=50] =1# "Present"
+
+# define annotation bars
+clade = rep(NA, ncol(M_fun))
+clade[colnames(M_fun)  %in% c("GTX0465","GTX0466","GTX0484")] = "Tree Bark"
+clade[colnames(M_fun)  %in% c("GTX0468","GTX0486_487")] = "Concrete"
+clade[colnames(M_fun)  %in% c("GTX0491")] = "X. calcicola, concrete"
+clade[colnames(M_fun)  %in% c("GTX0493","GTX0494","GTX0481")] = "Growth Chamber"
+
+row_group = rep("other", nrow(M_fun))
+row_group[rownames(M_fun)  %in% data$Genome[data$genome_label=="Lecanoromycetes"]] = "Lecanoromycetes"
+row_group[rownames(M_fun)  %in% data$Genome[data$genome_label=="Other Fungi"]] = "Other Fungi"
+
+#plot
+options(repr.plot.width=15, repr.plot.height=5)
+node_colors = c("Tree Bark" = "#4d6601", 
+                "Concrete" = "#FFC61E",
+                "Growth Chamber" = "#c43b0e",
+                "X. calcicola, concrete" = "#429bf5"
+)
+
+node_colors2 = c("Lecanoromycetes" = "red", 
+                "Other Fungi" = "grey"
+)
+
+ta = HeatmapAnnotation(df = data.frame(substrate = clade), col = list(substrate = node_colors))
+la = rowAnnotation(df = data.frame(group = row_group), col = list(group = node_colors2))
+
+
+HM = Heatmap(M_fun, show_row_names = T, show_column_names = T, name = "Fungal species",
+            top_annotation = ta, 
+             left_annotation = la,
+             col = c("0" = "#ffffff", "1" = "darkgreen"))
+HM
+
+```
+
+* Compared coverage
+  * GTX0494.bin.19.fa is clearly the main mycobiont, judged on its coverage
+  * coassembly.bin.378.fa and coassembly.bin.376.fa present in less than 1:50 ratio to GTX0494.bin.19.fa
+```{r, message=F,fig.show="hold", out.width="70%"}
+lecanoro_species<-data$Genome[data$genome_label=="Lecanoromycetes"] %>% unique()
+
+visualize_alga(lecanoro_species[1],lecanoro_species[2]) 
+visualize_alga(lecanoro_species[1],lecanoro_species[3]) 
+visualize_alga(lecanoro_species[2],lecanoro_species[3]) 
+```
+
+* Compared coverage between the mycobiont and other fungi
+```{r, message=F,fig.show="hold", out.width="70%"}
+
+data %>% filter(phylum=="Ascomycota") %>% select(Genome,metagenome,depth_cov) %>%
+  pivot_wider(names_from = Genome,values_from = depth_cov) 
+
+```
+
+* What's the highest relative abundance of a non-mycobiont fungus in all metagenomes?
+```{r}
+rel_cov<-data %>% filter(phylum=="Ascomycota") %>% select(Genome,metagenome,depth_cov) %>% group_by(metagenome) %>% 
+  mutate(myco_cov = ifelse(Genome=="GTX0494.bin.19.fa",depth_cov,NA)) %>%
+  fill(myco_cov, .direction = 'updown') %>% mutate(relative_cov = depth_cov/myco_cov) %>%
+  ungroup() %>% filter(Genome!="GTX0494.bin.19.fa")
+max(rel_cov$relative_cov)
+
+```
+
+
+## 5. Number of MAGs per sample
+* Seems to have strong correlation with sequencing depth
+```{r}
+data %>% filter(presence==1) %>% group_by(metagenome) %>% summarize(n=n())
+
+```
+* How many Sphinogomonas MAG per sample?
+
+```{r}
+data %>% filter(presence==1,genus=="Sphingomonas") %>% group_by(metagenome) %>% summarize(n=n())
+
+```
+
+
+## 6. Prep table for dominant bacteria
+
+```{r}
+
+```
+
+
+

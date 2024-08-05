@@ -1,0 +1,99 @@
+import glob
+import os
+import pandas as pd
+import re
+
+EUK, = glob_wildcards("analysis_and_temp_files/04_phylogenomics/MAGs/euk/{euk}.fa")
+#PROK = ["GTX0486_487.bin.103"]
+PROK, = glob_wildcards("analysis_and_temp_files/04_phylogenomics/MAGs/prok/{prok}.fa")
+#EUK = ["coassembly.bin.195"]
+
+#define function that will make locus tags out of mag names
+def extract_prefix(wildcards):
+    sample = re.findall("^.{0,7}", wildcards)[0]
+    bin = re.search(r'bin\.(.*?)$', wildcards)[1]
+    return f"{sample}b{bin}"
+    #return sample
+    
+#make a dictionary for separating eukaryotic MAGs by taxonomy
+taxdictionary={'coassembly.bin.195': 'alga',
+'GTX0465.bin.1': 'alga',
+'GTX0468.bin.53': 'alga',
+'GTX0493.bin.23': 'alga',
+'coassembly.bin.376': 'fungus',
+'coassembly.bin.378': 'fungus',
+'coassembly.bin.64': 'fungus',
+'coassembly.bin.76': 'fungus',
+'GTX0466.bin.15': 'fungus',
+'GTX0494.bin.19': 'fungus',
+'GTX0486_487.bin.100': 'fungus'}  
+
+rule all:
+    input:
+        expand("analysis_and_temp_files/06_annotate_mags/euk/{euk}_pred/predict_results/{euk}.proteins.fa", euk = EUK),
+        expand("analysis_and_temp_files/06_annotate_mags/euk/{euk}_cleaned_sorted.fa.masked", euk = EUK),
+        expand("analysis_and_temp_files/06_annotate_mags/prok/{prok}_cleaned_sorted.fa", prok = PROK),
+        expand("analysis_and_temp_files/06_annotate_mags/prok/{prok}/{prok}.faa", prok = PROK)
+    output: touch("touch")
+         
+
+#prepare assemblies
+rule clean_euk:
+    input: "analysis_and_temp_files/04_phylogenomics/MAGs/euk/{euk}.fa"
+    output: "analysis_and_temp_files/06_annotate_mags/euk/{euk}_cleaned_sorted.fa"
+    params:
+        prefix= lambda wildcards: extract_prefix(wildcards.euk),
+        mem = "1G",
+        queue="tsl-short"
+    shell: "bash code/clean_genome.sh {input} {output} {params.prefix}"
+    
+rule clean_prok:
+    input: "analysis_and_temp_files/04_phylogenomics/MAGs/prok/{prok}.fa"
+    output: "analysis_and_temp_files/06_annotate_mags/prok/{prok}_cleaned_sorted.fa"
+    params:
+        prefix= lambda wildcards: extract_prefix(wildcards.prok),
+        mem = "1G",
+        queue="tsl-short",
+    shell: "bash code/clean_genome.sh {input} {output} {params.prefix}"    
+
+
+#annotate prokaryotes
+rule prokka:
+    input: "analysis_and_temp_files/06_annotate_mags/prok/{prok}_cleaned_sorted.fa"   
+    output: "analysis_and_temp_files/06_annotate_mags/prok/{prok}/{prok}.faa",      
+    params:
+        prefix= lambda wildcards: extract_prefix(wildcards.prok),
+        mem = "10G",
+        queue="tsl-short",
+    threads: 10	        
+    shell:
+        "bash code/annotate_prokka.sh {input} {output} {params.prefix} {wildcards.prok} 10"
+
+#annotate eukaryotes
+rule repmask:
+    input: "analysis_and_temp_files/06_annotate_mags/euk/{euk}_cleaned_sorted.fa"   
+    output: "analysis_and_temp_files/06_annotate_mags/euk/{euk}_cleaned_sorted.fa.masked" ,      
+    params:
+        lineage=lambda wildcards: taxdictionary[wildcards.euk],
+        mem = "10G",
+        queue="tsl-short",
+    threads: 10	        
+    shell:
+        "bash code/repmask.sh {input} {params.lineage}"
+
+
+
+
+rule funannotate:
+    input: "analysis_and_temp_files/06_annotate_mags/euk/{euk}_cleaned_sorted.fa.masked"   
+    output: "analysis_and_temp_files/06_annotate_mags/euk/{euk}_pred/predict_results/{euk}.proteins.fa",      
+    params:
+        prefix= lambda wildcards: extract_prefix(wildcards.euk),
+        lineage=lambda wildcards: taxdictionary[wildcards.euk],
+        mem = "70G",
+        queue="tsl-short",
+    threads: 20	        
+    shell:
+        "bash code/annotate_funannotate.sh {input} {output} {params.prefix} 20 {params.lineage} {wildcards.euk}"
+
+

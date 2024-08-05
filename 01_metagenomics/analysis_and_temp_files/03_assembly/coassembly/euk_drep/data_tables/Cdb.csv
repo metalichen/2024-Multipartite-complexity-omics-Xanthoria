@@ -1,0 +1,12 @@
+genome,secondary_cluster,threshold,cluster_method,comparison_algorithm,primary_cluster
+bin.321.fa,1_1,0.050000000000000044,average,ANImf,1
+bin.46.fa,1_2,0.050000000000000044,average,ANImf,1
+bin.1.fa,1_3,0.050000000000000044,average,ANImf,1
+bin.195.fa,1_4,0.050000000000000044,average,ANImf,1
+bin.142.fa,2_0,0.050000000000000044,average,ANImf,2
+bin.76.fa,3_0,0.050000000000000044,average,ANImf,3
+bin.335.fa,4_0,0.050000000000000044,average,ANImf,4
+bin.378.fa,5_0,0.050000000000000044,average,ANImf,5
+bin.64.fa,6_0,0.050000000000000044,average,ANImf,6
+bin.10.fa,7_0,0.050000000000000044,average,ANImf,7
+bin.376.fa,8_0,0.050000000000000044,average,ANImf,8

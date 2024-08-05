@@ -1,0 +1,328 @@
+---
+title: "07_snp.md"
+author: "Gulnara Tagridzhanova"
+date: "22/09/2023"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+* **Rationale:** Looking into SNPs in the Xanthoria parietina genome
+
+## 1. Map short-read data onto the long-read genome
+* Adapted pipeline from [Lore's Letharia paper](https://github.com/johannessonlab/Letharia/blob/master/LichenPloidy/LichenPloidy.smk)
+* Saved as `analysis_and_temp_files/07_snp/Snakefile_snp`. This pipeline was used up until the samtools mpileup step. After that rule, there is no parallel jobs, and I decided to run it directly from the command line, since snakamake was conflicting with biopython
+* Samtools mpileup / Varscan
+```
+#!/bin/bash
+#SBATCH --time=30-00:00:00
+#SBATCH --cpus-per-task=20
+#SBATCH --job-name=varscan
+#SBATCH --output=tmp_varscan.logs.out
+#SBATCH --mem=120G
+
+source package 638df626-d658-40aa-80e5-14a275b7464b
+source package /tsl/software/testing/bin/varscan-2.3.9
+
+samtools mpileup -f analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa analysis_and_temp_files/07_snp/GTX0465_to_longread.bam.debup.sorted analysis_and_temp_files/07_snp/GTX0466_to_longread.bam.debup.sorted analysis_and_temp_files/07_snp/GTX0484_to_longread.bam.debup.sorted analysis_and_temp_files/07_snp/GTX0468_to_longread.bam.debup.sorted analysis_and_temp_files/07_snp/GTX0486_487_to_longread.bam.debup.sorted analysis_and_temp_files/07_snp/GTX0481_to_longread.bam.debup.sorted analysis_and_temp_files/07_snp/GTX0493_to_longread.bam.debup.sorted analysis_and_temp_files/07_snp/GTX0494_to_longread.bam.debup.sorted | varscan mpileup2snp --p-value 0.1 --min-var-freq 0.005 | bgzip > analysis_and_temp_files/07_snp/snps.vcf.gz
+```
+* Varscan results:
+```
+29947057 bases in pileup file
+3013287 variant positions (2897673 SNP, 128818 indel)
+260351 were failed by the strand-filter
+2643743 variant positions reported (2643743 SNP, 12241 indel)
+```
+* Filtering out steps with missing data
+```
+zless analysis_and_temp_files/07_snp/snps.vcf.gz | grep -v ':-:-:-:-' | bgzip > analysis_and_temp_files/07_snp/snps-miss1.vcf.gz
+
+```
+* Remove contigs <100 kbp, plus reformat the output from varscan (replace whitespaces with tabs)
+```
+python code/filter_vcf.py analysis_and_temp_files/07_snp/snps-miss1.vcf.gz analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa analysis_and_temp_files/07_snp/snps-miss1-100kb.vcf 100000
+```
+* Remove SNPs from TEs. NB: got a warning in bcftools
+```
+source package b0ed0698-358b-4c9b-9d21-603ea8d6e478
+source package 638df626-d658-40aa-80e5-14a275b7464b
+
+bcftools view -h analysis_and_temp_files/07_snp/snps-miss1-100kb.vcf > analysis_and_temp_files/07_snp/snps-miss1-100kb-noTEs.vcf
+>[W::bcf_hdr_register_hrec] A FORMAT field has no Number defined. Assuming '.'
+>[W::bcf_hdr_register_hrec] A FORMAT field has no Number defined. Assuming '.'
+>[W::bcf_hrec_check] Invalid tag name: "P-value"
+
+bedtools intersect -a analysis_and_temp_files/07_snp/snps-miss1-100kb.vcf -b analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa.out.gff -v >> analysis_and_temp_files/07_snp/snps-miss1-100kb-noTEs.vcf
+```
+
+## 2. Visualize
+* Processed the vcf file and plotted the coverage
+```{r,message=FALSE}
+library(vcfR)
+library(tidyverse)
+
+vcf <- read.vcfR("../analysis_and_temp_files/07_snp/snps-miss1-100kb-noTEs.vcf", verbose = FALSE)
+gff_file <- "../analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa.out.gff"
+
+# Get the total coverage of the site
+coverage <- extract.gt(vcf, element="Cov", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "cov", -POS)
+# Get depth of the first allele
+reads1 <- extract.gt(vcf, element="Reads1", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "allele1", -POS)
+reads2 <- extract.gt(vcf, element="Reads2", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "allele2", -POS)
+
+## Merge database and filter out sites with more than 2 alleles
+vcfdf <- cbind(coverage, allele1 = reads1$allele1, allele2 = reads2$allele2) %>% filter((allele1 + allele2) == cov)
+# Warning: Notice that done like this some sites will be missing for some
+# species, but because I have so much data I think I can afford a few
+# differences in the total number of sites
+
+## Calculate the Minor Allele Frequency per site and remove homozygous sites
+vcfdf <- mutate(vcfdf, maf = pmin(allele1, allele2)/cov) %>% filter(maf > 0)
+
+#visualize coverage, to pick the coverage range
+covplot <- ggplot(vcfdf %>% filter(cov < 1000), aes(x=sample, y=cov)) + 
+  geom_violin(fill="#C0C0C0", adjust=1.0, scale = "count", trim=TRUE) +
+  theme_bw() + ylab("Depth of coverage") +
+  theme(axis.title.x = element_blank())
+covplot
+```
+
+* Picked range between 250 and 1000 and plote MAF
+* Identified weird multiple peaks in GTX0465 and GTX0466, plus weird distribution in GTX0493 and GTX0494
+```{r,message=F,,fig.width=10,fig.height=14}
+# ============================
+# Plot MAF while excluding sites with bad coverage 
+# ============================
+# The filter for maf >= 0.01 is done because the pure culture has more coverage and thus can get smaller MAF than the metagenomes.
+# The tricky part in geom_histogram is there to rescale the histogram counts so that the bar areas sum 1, but per panel
+# https://stackoverflow.com/questions/4725339/percentage-on-y-lab-in-a-faceted-ggplot-barchart
+mafplot <- ggplot(vcfdf %>% filter(cov < 1000 & cov > 250) %>% filter(maf >=0.01), aes(x = maf, fill = sample)) + 
+  # geom_histogram(fill = "darkgoldenrod3") + ylab("Count") +  ## Plot the raw counts
+  geom_histogram(aes(y=(..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..])) + 
+  facet_grid(sample~.) + xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+  coord_cartesian(ylim=c(0, 0.25)) + # Remove the loooong values to improve clarity 
+  #scale_fill_manual(values = c("L.columbiana" = "#ecbdecff", 
+   #                            "L.lupina" = "#c7e1a8ff", 
+    #                           "L.lupina_culture" = "#c7e1a8ff",
+     #                          "L.rugosa" = "#f9d5bdff", 
+      #                         "L.vulpina" = "#b7d2fdff")) + 
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+mafplot
+ggsave(plot = mafplot, "../results/MAF_plot.pdf", width = 5, height = 10)
+
+
+#plot absolute counts
+mafplot2 <- ggplot(vcfdf %>% filter(cov < 1000 & cov > 250) ) + 
+   geom_histogram(aes(x = maf, fill = sample),binwidth =0.01) + ylab("Count") +  ## Plot the raw counts
+  #geom_histogram(aes(y=(..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..])) + 
+  facet_grid(sample~.) + xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+  #coord_cartesian(ylim=c(0, 0.25)) + # Remove the loooong values to improve clarity 
+  #scale_fill_manual(values = c("L.columbiana" = "#ecbdecff", 
+   #                            "L.lupina" = "#c7e1a8ff", 
+    #                           "L.lupina_culture" = "#c7e1a8ff",
+     #                          "L.rugosa" = "#f9d5bdff", 
+      #                         "L.vulpina" = "#b7d2fdff")) + 
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+mafplot2
+ggsave(plot = mafplot2, "../results/MAF_plot_abs.pdf", width = 5, height = 10)
+
+```
+
+* Save the image for the manuscript
+```{r}
+
+mafplot2 <- ggplot(vcfdf %>% filter(cov < 1000 & cov > 250) ) + 
+   geom_histogram(aes(x = maf, fill = sample),binwidth =0.01) + ylab("Count") +  ## Plot the raw counts
+  #geom_histogram(aes(y=(..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..])) + 
+  facet_wrap(sample~.,ncol=2) + xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+   theme(strip.text.x = element_text(size = 7),
+        axis.title=element_text(size=8),
+        axis.text=element_text(size=6)) + 
+  guides(fill=FALSE) # Remove legend
+mafplot2
+ggsave(plot = mafplot2, "../results/MAF_plot_abs_two_cols.pdf", width = 7, height = 8)
+
+```
+
+* How are these data distributed in the genome assembly? In the case of GTX0465, these weird triple peaks are uniform across all contigs. Checked the rest of samples, they are also uniform
+```{r,message=F,,fig.width=10,fig.height=14}
+#get the contig number
+vcfdf2<-vcfdf %>% filter(cov < 1000 & cov > 250)
+vcfdf2$contig<-sub("^(([^_]*_){2}[^_]*).*", "\\1", vcfdf2$POS)
+
+ggplot(vcfdf2 %>% filter(sample == "GTX0465", cov>250,cov<450)) + 
+   geom_histogram(aes(x = maf, fill = sample),binwidth =0.01) + ylab("Count") +  ## Plot the raw counts
+  facet_wrap(contig~.,nrow=6) + xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+
+```
+
+### Conclusions
+* After consulting with Lore, decided that the most likely explanation is multiple individuals (see also SNPs in MAT loci, in `08_mat`)
+
+## 3. Map long read data onto the genomes assembly to check MAF
+* **Rationale:** for the long-reads, I used lichen sample GT0244, the same one that was used for GTX0466, and which had weird bumps. Notably, for long-reads I made sure to exclude apothecia from the sample prep. Will these data also produce weird bumps? If not, that might be a sign that the bumps are caused by apothecia (spores/other parent)
+* For mapping, used minimap2, which is supposed to work better for long reads
+```{r,eval=F}
+sbatch --mem=5G -c 1 --wrap="source package 222eac79-310f-4d4b-8e1c-0cece4150333; minimap2 -d data/GTX0501_xanthoria_nuclear_mag_clean_sort.mmi data/GTX0501_xanthoria_nuclear_mag_clean_sort.fa; minimap2 -ax map-ont  data/GTX0501_xanthoria_nuclear_mag_clean_sort.mmi data/FG23028_01_PAO53885_dorado_v0.2.4_duplex_pass.fastq.gz > analysis_and_temp_files/07_snp/longread_to_longread.sam"
+```
+
+* Sort and mark duplicates
+```{r,eval=F}
+sbatch --mem=10G -c 10 --partition=tsl-short --wrap="source package 638df626-d658-40aa-80e5-14a275b7464b; (samtools view -Su analysis_and_temp_files/07_snp/longread_to_longread.sam | samtools sort -l 5 -O bam -T longread_to_longread -@ 20 > analysis_and_temp_files/07_snp/longread_to_longread.sorted.bam) 2> analysis_and_temp_files/07_snp/longread_to_longread.log"
+
+sbatch --mem=10G -c 10 --partition=tsl-short --wrap="code/picard.sh analysis_and_temp_files/07_snp/longread_to_longread.sorted.bam analysis_and_temp_files/07_snp/longread_to_longread.sorted.debup.bam analysis_and_temp_files/07_snp/longread_to_longread.sorted.debup.metrics.txt"
+```
+* Samtools mpileup / Varscan
+```{r,eval=F}
+sbatch --mem=200G -c 5 --partition=tsl-medium --wrap="source package 638df626-d658-40aa-80e5-14a275b7464b; source package /tsl/software/testing/bin/varscan-2.3.9; samtools mpileup -f analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa analysis_and_temp_files/07_snp/longread_to_longread.sorted.debup.bam | varscan mpileup2snp --p-value 0.1 --min-var-freq 0.005 | bgzip > analysis_and_temp_files/07_snp/longread_to_longread.snps.vcf.gz"
+```
+
+* Varscan results:
+```
+29954938 bases in pileup file
+447439 variant positions (407178 SNP, 40261 indel)
+987 were failed by the strand-filter
+406236 variant positions reported (406236 SNP, 0 indel)
+```
+* Filtering out steps with missing data
+```{r,eval=F}
+sbatch --mem=10G -c 5 --partition=tsl-medium --wrap="zless analysis_and_temp_files/07_snp/longread_to_longread.snps.vcf.gz | grep -v ':-:-:-:-' | bgzip > analysis_and_temp_files/07_snp/longread_to_longread-miss1.vcf.gz"
+```
+* Remove contigs <100 kbp, plus reformat the output from varscan (replace whitespaces with tabs)
+```{r,eval=F}
+sbatch --mem=10G -c 5 --partition=tsl-short --wrap="source package 6dc9949e-7282-4b10-b6f4-7fed2a08821e8; /software/6dc9949e-7282-4b10-b6f4-7fed2a08821e/bin/python3 code/filter_vcf_longreads.py analysis_and_temp_files/07_snp/longread_to_longread-miss1.vcf.gz analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa analysis_and_temp_files/07_snp/longread_to_longread-miss1-100kb.vcf 100000"
+```
+* Remove SNPs from TEs. NB: got a warning in bcftools
+```{r,eval=F}
+sbatch --mem=10G -c 5 --partition=tsl-short --wrap="source package b0ed0698-358b-4c9b-9d21-603ea8d6e478;source package 638df626-d658-40aa-80e5-14a275b7464b; bcftools view -h analysis_and_temp_files/07_snp/longread_to_longread-miss1-100kb.vcf > analysis_and_temp_files/07_snp/longread_to_longread-miss1-100kb-noTEs.vcf; bedtools intersect -a analysis_and_temp_files/07_snp/longread_to_longread-miss1-100kb.vcf -b analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa.out.gff -v >> analysis_and_temp_files/07_snp/longread_to_longread-miss1-100kb-noTEs.vcf"
+```
+* Processed the vcf file and plotted the coverage
+```{r,message=FALSE}
+vcf2 <- read.vcfR("../analysis_and_temp_files/07_snp/longread_to_longread-miss1-100kb-noTEs.vcf", verbose = FALSE)
+
+# Get the total coverage of the site
+coverage2 <- extract.gt(vcf2, element="Cov", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "cov", -POS)
+# Get depth of the first allele
+reads12 <- extract.gt(vcf2, element="Reads1", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "allele1", -POS)
+reads22 <- extract.gt(vcf2, element="Reads2", as.numeric = TRUE) %>% data.frame() %>% tibble::rownames_to_column("POS") %>% gather("sample", "allele2", -POS)
+
+## Merge database and filter out sites with more than 2 alleles
+vcfdf2 <- cbind(coverage2, allele1 = reads12$allele1, allele2 = reads22$allele2) %>% filter((allele1 + allele2) == cov)
+# Warning: Notice that done like this some sites will be missing for some
+# species, but because I have so much data I think I can afford a few
+# differences in the total number of sites
+
+## Calculate the Minor Allele Frequency per site and remove homozygous sites
+vcfdf2 <- mutate(vcfdf2, maf = pmin(allele1, allele2)/cov) %>% filter(maf > 0)
+
+#visualize coverage, to pick the coverage range
+covplot2 <- ggplot(vcfdf2 %>% filter(cov < 1000), aes(x=sample, y=cov)) + 
+  geom_violin(fill="#C0C0C0", adjust=1.0, scale = "count", trim=TRUE) +
+  theme_bw() + ylab("Depth of coverage") +
+  theme(axis.title.x = element_blank())
+covplot2
+```
+* Picked range between 0 and 100 and ploted MAF
+* Graphs look weird, with flat range between 0.2 and 0.5
+```{r,message=F,,fig.width=10,fig.height=6}
+# ============================
+# Plot MAF while excluding sites with bad coverage 
+# ============================
+# The filter for maf >= 0.01 is done because the pure culture has more coverage and thus can get smaller MAF than the metagenomes.
+# The tricky part in geom_histogram is there to rescale the histogram counts so that the bar areas sum 1, but per panel
+# https://stackoverflow.com/questions/4725339/percentage-on-y-lab-in-a-faceted-ggplot-barchart
+mafplot <- ggplot(vcfdf2 %>% filter(cov < 50) %>% filter(maf >=0.01), aes(x = maf, fill = sample)) + 
+  # geom_histogram(fill = "darkgoldenrod3") + ylab("Count") +  ## Plot the raw counts
+  geom_histogram(aes(y=(..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..])) + 
+  facet_grid(sample~.) + xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+  coord_cartesian(ylim=c(0, 0.25)) + # Remove the loooong values to improve clarity 
+  #scale_fill_manual(values = c("L.columbiana" = "#ecbdecff", 
+   #                            "L.lupina" = "#c7e1a8ff", 
+    #                           "L.lupina_culture" = "#c7e1a8ff",
+     #                          "L.rugosa" = "#f9d5bdff", 
+      #                         "L.vulpina" = "#b7d2fdff")) + 
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+mafplot
+ggsave(plot = mafplot, "../results/longreads_MAF_plot.pdf", width = 5, height = 3)
+
+
+#plot absolute counts
+mafplot2 <- ggplot(vcfdf2 %>% filter(cov < 50) ) + 
+   geom_histogram(aes(x = maf, fill = sample),binwidth =0.01) + ylab("Count") +  ## Plot the raw counts
+  #geom_histogram(aes(y=(..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..])) + 
+  facet_grid(sample~.) + xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+  #coord_cartesian(ylim=c(0, 0.25)) + # Remove the loooong values to improve clarity 
+  #scale_fill_manual(values = c("L.columbiana" = "#ecbdecff", 
+   #                            "L.lupina" = "#c7e1a8ff", 
+    #                           "L.lupina_culture" = "#c7e1a8ff",
+     #                          "L.rugosa" = "#f9d5bdff", 
+      #                         "L.vulpina" = "#b7d2fdff")) + 
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+mafplot2
+ggsave(plot = mafplot2, "../results/longreads_MAF_plot_abs.pdf", width = 5, height = 3)
+
+```
+
+* Comparing side-by-side with GTX0466 (which comes form the same sample)
+```{r,message=F,,fig.width=10,fig.height=7}
+vcfdf_combined <- rbind(vcfdf2 %>% filter(cov < 50),vcfdf %>% filter(cov < 1000 & cov > 250,sample=="GTX0466")) %>% mutate(sample_type=ifelse(sample=="GTX0466","Short-reads\nwith apothecia","Long-reads\nwithout apothecia"))
+
+mafplot_combined <- ggplot(vcfdf_combined %>% filter(maf >=0.01), aes(x = maf, fill = sample_type)) + 
+  # geom_histogram(fill = "darkgoldenrod3") + ylab("Count") +  ## Plot the raw counts
+  geom_histogram(aes(y=(..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..])) + 
+  facet_grid(sample_type~.) + xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+  coord_cartesian(ylim=c(0, 0.25)) + # Remove the loooong values to improve clarity 
+  #scale_fill_manual(values = c("L.columbiana" = "#ecbdecff", 
+   #                            "L.lupina" = "#c7e1a8ff", 
+    #                           "L.lupina_culture" = "#c7e1a8ff",
+     #                          "L.rugosa" = "#f9d5bdff", 
+      #                         "L.vulpina" = "#b7d2fdff")) + 
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+mafplot_combined
+ggsave(plot = mafplot_combined, "../results/long_vs_shortreads_MAF_plot.pdf", width = 5, height = 3)
+
+#plot absolute counts
+mafplot2_combined <- ggplot(vcfdf_combined ) + 
+   geom_histogram(aes(x = maf, fill = sample_type),binwidth =0.01) + ylab("Count") +  ## Plot the raw counts
+  #geom_histogram(aes(y=(..count..)/tapply(..count..,..PANEL..,sum)[..PANEL..])) + 
+  facet_grid(sample_type~.) + xlab("Minor allele frequency") + ylab("Frequency of sites") +
+  theme_light() +
+  #coord_cartesian(ylim=c(0, 0.25)) + # Remove the loooong values to improve clarity 
+  #scale_fill_manual(values = c("L.columbiana" = "#ecbdecff", 
+   #                            "L.lupina" = "#c7e1a8ff", 
+    #                           "L.lupina_culture" = "#c7e1a8ff",
+     #                          "L.rugosa" = "#f9d5bdff", 
+      #                         "L.vulpina" = "#b7d2fdff")) + 
+  theme(strip.text.x = element_text(size = 13),
+        axis.title=element_text(size=13)) + 
+  guides(fill=FALSE) # Remove legend
+mafplot2_combined
+ggsave(plot = mafplot2_combined, "../results/long_vs_shortreads_MAF_plot_abs.pdf", width = 5, height = 3)
+
+```
+
+* **Results:** as expected, the MAF of the long-read library doesn't have the weird bumps. Could it be because the lack of apothecia? Or because the short-read library by mistake included a piece of another thallus? 
+  * Question: why is there no MAFs at <0.1? Could it because the coverage is much lover (20X in long-reads, compared to hundreds in the short-read samples)
+
+
+

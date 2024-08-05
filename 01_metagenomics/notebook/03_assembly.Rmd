@@ -1,0 +1,468 @@
+---
+title: "03_assembly_binning.md"
+author: "Gulnara Tagridzhanova"
+date: "04/04/2023"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/01_Xanthoria_metagenomics/notebook")
+
+```
+
+**Summary:** Here I assemble Xanthoria metagenomes. After treeing the ITS, I discovered one of the samples (GTX0491) is in fact X. calcicola, which is similar to X. parietina. I co-assembled and co-binned the remaining 8 metagenomes (which are confirmed as X. parietina). In parallel, I assembled and binned metagenomes individually, to check which approach results in better MAG quality. In the end, since each approach recovered MAGs missed by the other approach, I combined the two to get the final MAG list
+
+## 1. Checking taxonomy
+* I assembled each metagenome individually, using the same command
+* Implemented as a Snakefile `analysis_and_temp_files/03_assembly/Snakefile_ind_meta_assembly`
+* Extracted ITS sequences from each assembly and made a tree
+* Used reference sequences gathered for the similar analysis in `../../02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/`. These included all available ITS from Xanthoria parietina, representatives of every other Xanthoria species, and a Teloschistes sequence as an outgroup
+* Implemented as a part of the same Snakefile
+* All samples but one fall into the large X. parietina clade. GTX0491 groups with X. calcicola
+
+```{r, message = FALSE,warning=FALSE,fig.width=14,fig.height=50}
+library(ape)
+library(dendextend)
+library(tidyverse)
+library(Biostrings)
+
+tree<-read.tree("../analysis_and_temp_files/03_assembly/its_all.fa_aligned.phyl.treefile")
+tree <- root(tree, outgroup = "JQ301685.1", resolve.root = TRUE)
+tree <- ladderize(tree)
+
+##rename the tree
+names<-read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/its_id.txt",header = F) ##read names from the genbank
+
+fasta<-readDNAStringSet("../analysis_and_temp_files/03_assembly/its_all.fa")
+fasta_names<-data.frame("full_name"=names(fasta))
+added_names <- fasta_names %>% filter(grepl("GTX04",full_name)) %>% mutate(Extraction.Name=sub("\\_contig.*", "", full_name),tree_name=str_extract(full_name, "^.{10}")) ##add names for the sequences form metagenomes
+
+names<-rbind(names,data.frame("V1"=added_names$Extraction.Name,"V2"=added_names$tree_name))
+tree$tip.label<-names[[1]][match(tree$tip.label, names[[2]])] ##rename
+
+##load info about the substrate
+eco<-read.delim2("../analysis_and_temp_files/01_DNA_extraction/metagenomic_dna_roundup.txt")
+eco$substrate<-sub('[0-9]+', '', eco$Sample.description) %>% trimws() %>% str_replace(" ","_") 
+
+#make a vector for color
+df<-data.frame(Extraction.Name=tree$tip.label) %>% left_join(added_names) %>% left_join(eco) %>%
+  mutate(color=ifelse(substrate=="tree_bark","orange",
+                      ifelse(substrate=="concrete","blue",
+                             ifelse(substrate=="growth_chamber","red","black"))))
+plot(tree,tip.color=df$color)
+```
+
+## 2. Co-assembly
+* Used Megahit for co-assemblying all 8 metagenomes identified as X. parietina. This requeired 249 GB RAM
+* This line I incorporated into the Snakefile `analysis_and_temp_files/03_assembly/Snakefile_co_meta_assembly` that I also used for binning
+
+### 2.1. Methods: Binning and MAG identification
+* Implemented as a part of the same Snakefile
+* Aligned reads and binned with Metabat2
+* Bacterial MAGs:
+  * Screened all bins with checkM; selected medium+high quality prokaryotic MAGs (i.e. bins with >=50% completeness and <10% contamination)
+  * Identified bacterial MAGs with GTDB-Tk using GTDB database
+  * Treed them with IQTree
+  * dereplicated with dRep
+* Eukaryotic MAGs:
+  * Screened all bins with EukCC; selected medium+high quality prokaryotic MAGs
+  * Pulled preliminary taxonomic annotations from EukCC
+  * dereplicated with dRep
+
+#### Installing EukCC
+* Pulling image from docker
+```{r, eval = FALSE}
+ssh software
+cd /tsl/scratch/gol22pin/singularity
+singularity pull eukcc.sif docker://quay.io/microbiome-informatics/eukcc
+```
+* Downloading database
+```{r, eval = FALSE}
+ssh gol22pin@v1071.nbi.ac.uk
+mkdir eukccdb
+cd eukccdb
+wget http://ftp.ebi.ac.uk/pub/databases/metagenomics/eukcc/eukcc2_db_ver_1.1.tar.gz
+tar -xzvf eukcc2_db_ver_1.1.tar.gz
+```
+* Test installation on the Xanthoria mycobiont MAG, already identified via BUSCO and phylogenetic,s howed that eukcc jobs need to be submitted via sbatch or Snakemake (MetaEuk is failing if run inside an interactive job). Otherwise, the test worked correctly, corroborating BUSCO results (BUSCO: S=97.2%,D=0.1%; EukCC: completeness=99.62,contamination=0.38). Taxonomic assignment is also mostly right (the lowest NCBI rank is Parmeliaceaea)
+```{r, eval = FALSE}
+#!/bin/bash
+#SBATCH --time=6:00:00
+#SBATCH --cpus-per-task=20
+#SBATCH --job-name=eukcc
+#SBATCH --output=eukcc.logs.out
+
+bash code/eukcc.sh analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/ analysis_and_temp_files/03_assembly/coassembly/eukcc_out/linktable.csv analysis_and_temp_files/03_assembly/coassembly analysis_and_temp_files/03_assembly/coassembly/linktable.csv 20
+```
+
+### 2.2. General results
+* In total, binning produced `r (read.delim2("../analysis_and_temp_files/03_assembly/coassembly/checkm_qa.tab") %>% nrow())` bins
+
+### 2.3. Bacterial MAGs
+* Processed ChckeM and GTDB output and create a table with all stats on bacterial MAGs, saved it as `../analysis_and_temp_files/03_assembly/coassembly/prokaryotic_mags_stats.txt`
+```{r, message = FALSE}
+library(tidyverse)
+source("../code/utils.R")
+checkm<-read.delim2("../analysis_and_temp_files/03_assembly/coassembly/checkm_qa.tab") %>%
+  select(Bin.Id, Completeness,Contamination,Strain.heterogeneity,Genome.size..bp.,X..scaffolds,N50..scaffolds.,Mean.scaffold.length..bp.,Longest.scaffold..bp.,GC)
+colnames(checkm)<-c("genome","completeness","contamination","strain_heterogeneity","genome_size","number_scaffolds","N50","mean_scaffold_length","longest_scaffold","GC")
+checkm$completeness<-as.numeric(checkm$completeness)
+checkm$contamination<-as.numeric(checkm$contamination)
+
+gtdb<-read.delim2("../analysis_and_temp_files/03_assembly/coassembly/gtdb_out/gtdbtk.bac120.summary.tsv") %>% select(user_genome,classification)
+gtdb$phylum <- sapply(gtdb$classification, gtdb_get_clade, clade="p")
+gtdb$class <- sapply(gtdb$classification, gtdb_get_clade, clade="c")
+gtdb$order <- sapply(gtdb$classification, gtdb_get_clade, clade="o")
+gtdb$family <- sapply(gtdb$classification, gtdb_get_clade, clade="f")
+gtdb$genus <- sapply(gtdb$classification, gtdb_get_clade, clade="g")
+gtdb$species <- sapply(gtdb$classification, gtdb_get_clade, clade="s")
+gtdb$domain <-"Bacteria"
+bac_table<-checkm %>% inner_join(gtdb,by=c("genome"="user_genome"))
+write.table(bac_table,"../analysis_and_temp_files/03_assembly/coassembly/prokaryotic_mags_stats.txt",sep="\t",quote = F, row.names = F)
+```
+#### Results
+* In total, the dataset contained `r (checkm %>% filter(completeness>=50, contamination<10) %>% nrow())` medium+high quality bacterial MAGs, all of which we selected for further characterization. Of them, `r (checkm %>% filter(completeness>=90, contamination<5) %>% nrow())` were of high quality
+* During dereplication, didn't identify any MAGs >95% similar
+* Bacterial MAGs dominated by Proteobacteria and Actinobacteria
+
+```{r, message = FALSE}
+library(ggtree)
+library(ggtreeExtra)
+bac_tree<-read.tree("../analysis_and_temp_files/03_assembly/coassembly/gtdb_out/gtdbtk.bac120.user_msa.fasta.contree")
+bac_tree <- as.polytomy(bac_tree, feature='node.label', fun=function(x) as.numeric(x) < 70)
+
+#make a vector for color
+df<-data.frame("genome"=bac_tree$tip.label) %>% left_join(bac_table) 
+
+ggtree(bac_tree,layout="fan", open.angle=10) %<+% df+
+  geom_fruit(
+         geom=geom_tile,
+         mapping=aes(fill=phylum),
+         width=0.2,
+         offset=0.1
+     ) +
+     theme(
+           legend.title=element_text(size=10), 
+           legend.text=element_text(size=8),
+           )
+
+```
+
+### 2.4. Eukaryotic MAGs
+* Proccessed EukCC output and translated taxon IDs into preliminary taxonomic assignments. Kept them on the class level, since EukCC taxonomical assignemnts need to be validated via phylogenetics
+```{r, message = FALSE}
+eukcc<-read.delim2("../analysis_and_temp_files/03_assembly/coassembly/eukcc_out/eukcc.csv")
+eukcc$completeness<-as.numeric(eukcc$completeness)
+eukcc$contamination<-as.numeric(eukcc$contamination)
+eukcc<-eukcc %>% filter(completeness>=50,contamination<10) %>% mutate(genome=str_replace(bin,".fa","")) %>% left_join(checkm %>% select(-completeness,-contamination))
+
+#add prelim taxonomy, did it manually 
+eukcc<-eukcc %>% mutate(classification=ifelse(grepl("-13786",ncbi_lng),"Trebouxia",
+    ifelse(grepl("-34395",ncbi_lng),"Chaetothyriales",
+           ifelse(grepl("-147547",ncbi_lng),"Lecanoromycetes","Leotiomyceta"))))
+eukcc$phylum<-"Ascomycota"
+eukcc$phylum[eukcc$classification=="Trebouxia"]<-"Chlorophyta"
+eukcc$class<-"Lecanoromycetes"
+eukcc$class[eukcc$classification=="Trebouxia"]<-"Trebouxiophyceae"
+eukcc$class[eukcc$classification=="Chaetothyriales"]<-"Eurotiomycetes"
+eukcc$class[eukcc$classification=="Leotiomyceta"]<-"Unknown"
+eukcc$order<-"Unknown"
+eukcc$family<-"Unknown"
+eukcc$genus<-"Unknown"
+eukcc$species<-"Unknown"
+eukcc$domain<-"Eukaryota"
+
+eukcc<-eukcc %>% select(genome,completeness,contamination,strain_heterogeneity,genome_size,number_scaffolds,N50,mean_scaffold_length,longest_scaffold,GC,classification,phylum,class,order,family,genus,species,domain)
+write.table(eukcc,"../analysis_and_temp_files/03_assembly/coassembly/eukaryotic_mags_stats.txt",sep="\t",quote = F, row.names = F)
+```
+* In total, `r (eukcc %>% nrow())` medium+high quality eukaryotic MAGs, all of which we selected for further characterization. Of them, `r (eukcc %>% filter(completeness>=90, contamination<5) %>% nrow())` were of high quality
+* Four Trebouxia genomes, three Lecanoromycetes genomes, plus four other fungal genomes
+  * None of them were >95% similar to each other, according to dRep
+* None of Trebouxia genomes have >90% completeness. Potentially, individual assemblies will be better
+```{r, message = FALSE}
+eukcc %>% select(genome,classification,phylum,class,completeness,contamination)
+```
+
+## 3. Binning and MAG identification in individual assemblies
+* Implemented as a part of the same Snakefile as was used in taxonomic assignments `analysis_and_temp_files/03_assembly/Snakefile_ind_meta_assembly`
+
+### 3.1. Methods: Binning and MAG identification
+* Aligned reads and binned metagenomes as described above
+* Screened all bins with CheckM and EukCC to identify medium+high quality MAGs
+* Pulled all bins together and dereplicated with dRep
+* Bacterial MAGs post-dereplication:
+  * Identified bacterial MAGs with GTDB-Tk using GTDB database
+  * Treed them with IQTree
+* Eukaryotic MAGs post-dereplication:
+  * Pulled preliminary taxonomy from EukCC
+
+### 3.2. General results
+```{r, message=F}
+#read all checkm outputs for all metgaenomes and combine them into one table
+samples<-c("GTX0465","GTX0466","GTX0468","GTX0481","GTX0484","GTX0491","GTX0493","GTX0494","GTX0486_487")
+read_checkm<-function(sample){
+  checkm_sample<-read.delim(paste0("../analysis_and_temp_files/03_assembly/",sample,"_megahit/checkm_qa.tab")) %>%
+  select(Bin.Id, Completeness,Contamination,Strain.heterogeneity,Genome.size..bp.,X..scaffolds,N50..scaffolds.,Mean.scaffold.length..bp.,Longest.scaffold..bp.,GC)
+colnames(checkm_sample)<-c("bin","completeness","contamination","strain_heterogeneity","genome_size","number_scaffolds","N50","mean_scaffold_length","longest_scaffold","GC")
+checkm_sample$completeness<-as.numeric(checkm_sample$completeness)
+checkm_sample$contamination<-as.numeric(checkm_sample$contamination)
+checkm_sample$genome<-paste(sample,checkm_sample$bin,"fa",sep=".")
+checkm_sample<-checkm_sample %>% select(-bin)
+return(checkm_sample)
+}
+l<-lapply(samples, read_checkm)
+checkm_combined<-do.call(rbind,l)
+
+#combine all eukcc outputs
+read_eukcc<-function(sample){
+  eukcc_sample<-read.delim(paste0("../analysis_and_temp_files/03_assembly/",sample,"_megahit/eukcc.csv")) 
+  eukcc_sample$completeness<-as.numeric(eukcc_sample$completeness)
+  eukcc_sample$contamination<-as.numeric(eukcc_sample$contamination)
+  eukcc_sample<-eukcc_sample %>% filter(completeness>=50,contamination<10)
+  eukcc_sample$bin<-str_replace(eukcc_sample$bin,".fa","")
+  eukcc_sample$genome<-paste(sample,eukcc_sample$bin,"fa",sep=".")
+return(eukcc_sample)
+}
+l2<-lapply(samples, read_eukcc)
+eukcc_combined<-do.call(rbind,l2)
+
+#get info on dereplication
+drep<-read.delim("../analysis_and_temp_files/03_assembly/ind_assembly_bins/drep/data_tables/Wdb.csv",sep=",")
+drep_bac<-drep %>% left_join(checkm_combined)
+drep_euk<-drep %>% inner_join(eukcc_combined) %>% select(-score,-cluster,-bin)
+
+```
+* In total, 9 metagenomes produced `r (checkm_combined %>% nrow())` bins
+
+### 3.3. Bacterial MAGs
+* In all metagenomes, identified `r (checkm_combined %>% filter(completeness>=90, contamination<5) %>% nrow())` high quality bacterial MAGs and `r (checkm_combined %>% filter(completeness>=50, contamination<10) %>% nrow())` medium+high quality bacterial MAGs
+* After dereplication, remained `r (drep_bac %>% filter(completeness>=90, contamination<5) %>% nrow())` high quality bacterial MAGs and `r (drep_bac %>% filter(completeness>=50, contamination<10) %>% nrow())` medium+high quality bacterial MAGs
+* Processed CheckM and GTDB output and create a table with all stats on bacterial MAGs, saved it as `../analysis_and_temp_files/03_assembly/ind_assembly_bins/prokaryotic_mags_stats_post_dereplication.txt`
+```{r, message = FALSE}
+gtdb2<-read.delim2("../analysis_and_temp_files/03_assembly/ind_assembly_bins/gtdb_out/gtdbtk.bac120.summary.tsv") %>% select(user_genome,classification)
+gtdb2$phylum <- sapply(gtdb2$classification, gtdb_get_clade, clade="p")
+gtdb2$class <- sapply(gtdb2$classification, gtdb_get_clade, clade="c")
+gtdb2$order <- sapply(gtdb2$classification, gtdb_get_clade, clade="o")
+gtdb2$family <- sapply(gtdb2$classification, gtdb_get_clade, clade="f")
+gtdb2$genus <- sapply(gtdb2$classification, gtdb_get_clade, clade="g")
+gtdb2$species <- sapply(gtdb2$classification, gtdb_get_clade, clade="s")
+gtdb2$domain <-"Bacteria"
+bac_table_ind_drep<-checkm_combined %>% inner_join(gtdb2,by=c("genome"="user_genome"))
+write.table(bac_table_ind_drep,"../analysis_and_temp_files/03_assembly/ind_assembly_bins/prokaryotic_mags_stats_post_dereplication.txt",sep="\t",quote = F, row.names = F)
+```
+
+### 3.4. Eukaryotic MAGs
+* In all metagenomes, identified `r (eukcc_combined %>% filter(completeness>=90, contamination<5) %>% nrow())` high quality eukaryotic MAGs and `r (eukcc_combined %>% nrow())` medium+high quality eukaryotic MAGs
+* After dereplication, remained `r (drep_euk %>% nrow())` eukaryotic MAGs
+
+
+* Preliminary taxonomic assignments pulled from EukCC
+```{r, message=F}
+#add prelim taxonomy, did it manually 
+drep_euk<-drep_euk %>% mutate(classification=ifelse(grepl("-13786",ncbi_lng),"Trebouxia",
+    ifelse(grepl("-451870",ncbi_lng),"Chaetothyriales",
+           ifelse(grepl("-147547",ncbi_lng),"Lecanoromycetes","Leotiomyceta"))))
+drep_euk$phylum<-"Ascomycota"
+drep_euk$phylum[drep_euk$classification=="Trebouxia"]<-"Chlorophyta"
+drep_euk$class<-"Lecanoromycetes"
+drep_euk$class[drep_euk$classification=="Trebouxia"]<-"Trebouxiophyceae"
+drep_euk$class[drep_euk$classification=="Chaetothyriales"]<-"Eurotiomycetes"
+drep_euk$class[drep_euk$classification=="Leotiomyceta"]<-"Unknown"
+drep_euk$order<-"Unknown"
+drep_euk$family<-"Unknown"
+drep_euk$genus<-"Unknown"
+drep_euk$species<-"Unknown"
+drep_euk$domain<-"Eukaryota"
+
+drep_euk<-drep_euk %>% left_join(checkm_combined %>% select(-completeness,-contamination)) %>% select(genome,completeness,contamination,strain_heterogeneity,genome_size,number_scaffolds,N50,mean_scaffold_length,longest_scaffold,GC,classification,phylum,class,order,family,genus,species,domain)
+write.table(drep_euk,"../analysis_and_temp_files/03_assembly/ind_assembly_bins/eukaryotic_mags_stats_post_dereplication.txt",sep="\t",quote = F, row.names = F)
+
+drep_euk %>% select(genome,classification,phylum,class,completeness,contamination)
+
+```
+
+## 4. Comparing coassembly vs individual assembly+dereplication. Which of the methods performed better?
+* Both methods are largely consistent when it comes to the number and taxonomy of recovered genomes
+```{r, message=F,fig.show="hold", out.width="50%"}
+
+#create tables to compare the two methods
+bac_table$genome<-paste("coassembly",bac_table$genome,"fa",sep=".")
+bac_table$method<-"coassembly"
+bac_table_ind_drep$method<-"individual assemblies"
+bac_table_both<-rbind(bac_table,bac_table_ind_drep) 
+
+eukcc$genome<-paste("coassembly",eukcc$genome,"fa",sep=".")
+eukcc$method<-"coassembly"
+drep_euk$method<-"individual assemblies"
+euk_table_both<-rbind(eukcc,drep_euk) 
+
+#summarize number of MAGs with different taxonomy 
+ggplot(bac_table_both %>% group_by(method,phylum) %>% summarize(n=n()))+
+  geom_bar(aes(x=method,y=n,fill=phylum),position="stack", stat="identity") +
+  theme_minimal()+ylab("Number of recovered genomes")+xlab("")+labs(title ="Bacterial genomes")
+ggplot(euk_table_both %>% group_by(method,classification) %>% summarize(n=n()))+
+  geom_bar(aes(x=method,y=n,fill=classification),position="stack", stat="identity") +
+  theme_minimal()+ylab("Number of recovered genomes")+xlab("")+labs(title ="Eukaryotic genomes")
+```
+
+* In terms of quality statistics, both methods had plus and minus sides
+  * Individual assemblies yielded more complete versions of eukaryotic genomes
+  * Individual assemblies yielded more high quality genomes (both eukaryotic and bacterial)
+  * Individual assemblies yielded more high-level bacterial groups
+  * Coassembly yielded more genomes
+  * Coassembly yilded more bacterial genera
+  
+```{r, message=F,fig.width=14}
+#summarize quality and quantity of genomes
+bac_summary<-bac_table_both %>% group_by(method) %>% 
+  summarize(total_bac_genomes=n(),
+            high_quality_bac_genomes=length(genome[completeness>=90 & contamination<5]),
+            bac_genera=length(unique(genus)),
+            bac_family=length(unique(family)),
+            bac_class=length(unique(class)),
+            bac_phyla=length(unique(phylum)))
+euk_summary<-euk_table_both %>% group_by(method) %>% 
+  summarize(total_euk_genomes=n(),
+            high_quality_euk_genomes=length(genome[completeness>=90 & contamination<5]))
+
+most_compl<-data.frame("method"=c("coassembly","individual assemblies"),
+                       "most_complete_lecanoro"=c(eukcc %>% filter(classification=="Lecanoromycetes") %>% summarize(max=max(completeness)) %>% getElement("max"),
+                                                  drep_euk %>% filter(classification=="Lecanoromycetes") %>% summarize(max=max(completeness)) %>% getElement("max")),
+                       "most_complete_trebouxia"=c(eukcc %>% filter(classification=="Trebouxia") %>% summarize(max=max(completeness)) %>% getElement("max"),
+                                                  drep_euk %>% filter(classification=="Trebouxia") %>% summarize(max=max(completeness)) %>% getElement("max")))     
+
+#combine all stats into one table and give the stats descriptive names
+summary_all<- euk_summary %>% left_join(most_compl) %>% left_join(bac_summary) %>%
+  pivot_longer(-method, names_to = "statistic",values_to = "values")
+summary_all$statistic <-as.factor(summary_all$statistic)
+summary_all$statistic <- recode_factor(summary_all$statistic,
+              bac_phyla = "Number of bacterial phyla detected",
+              bac_class = "Number of bacterial classes detected",
+              bac_family = "Number of bacterial families detected",
+              bac_genera = "Number of bacterial genera detected",
+              high_quality_bac_genomes = "Number of high quality bacterial genomes",
+              total_bac_genomes = "Number of high+medium quality bacterial genomes", 
+              most_complete_trebouxia  = "Completeness of the best Trebouxia genome" , 
+              most_complete_lecanoro = "Completeness of the best Lecanoromycetes genome" , 
+              high_quality_euk_genomes = "Number of high quality eukaryotic genomes",
+              total_euk_genomes = "Number of high+medium quality eukaryotic genomes")
+
+#visualize
+ggplot(summary_all,aes(y=statistic,x=values,fill=method))+ geom_bar(,position="dodge",stat="identity")+
+   geom_text(aes(label = values),position = position_dodge(.9),hjust = -0.2,size=3)+
+   ylab("")+xlab("")+ scale_x_continuous(limits = c(0, 134), expand = c(0.2,0))+
+  theme_minimal()+ theme(axis.text.y = element_text(size=12),
+                         legend.text = element_text(size=12))
+
+
+```
+
+* Weirdly enough, both coassembly and individual assembly+dereplication produced unique bacteria. For instance here are: 
+  * bacterial genera that appear in the coassembly but not in the individual assemblies: `r (bac_table$genus[!(bac_table$genus %in% bac_table_ind_drep$genus)] %>% unique())``
+  * conversely, bacterial genera that appear in the individual assemblies but not in the coassembly: `r (bac_table_ind_drep$genus[!(bac_table_ind_drep$genus %in% bac_table$genus)] %>% unique())`
+* This goes all the way to the class level
+  
+```{r, message=F,fig.width=14,fig.height=10}
+library(ggVennDiagram)
+library(patchwork)
+venn_genus<-list(coassembly = bac_table$genus %>% unique(),
+           individual.assemblies = bac_table_ind_drep$genus %>% unique())
+venn_family<-list(coassembly = bac_table$family %>% unique(),
+           individual.assemblies = bac_table_ind_drep$family %>% unique())
+venn_order<-list(coassembly = bac_table$order %>% unique(),
+           individual.assemblies = bac_table_ind_drep$order %>% unique())
+venn_class<-list(coassembly = bac_table$class %>% unique(),
+           individual.assemblies = bac_table_ind_drep$class %>% unique())
+
+g<-ggVennDiagram(venn_genus,label_size = 7,set_size=7)+labs(title = "Bacterial genera")+theme(title=element_text(size=18))+scale_x_continuous(expand = expansion(mult = .2))
+f<-ggVennDiagram(venn_family,label_size = 7,set_size=7)+labs(title = "Bacterial families")+theme(title=element_text(size=18))+scale_x_continuous(expand = expansion(mult = .2))
+o<-ggVennDiagram(venn_order,label_size = 7,set_size=7)+labs(title = "Bacterial orders")+theme(title=element_text(size=18))+scale_x_continuous(expand = expansion(mult = .2))
+c<-ggVennDiagram(venn_class,label_size = 7,set_size=7)+labs(title = "Bacterial classes")+theme(title=element_text(size=18))+scale_x_continuous(expand = expansion(mult = .2))
+(g+f)/(o+c)
+```
+
+## 5. Finalizing genome list
+* Given the fact that both the coassembly and individual assemblies have unique bacteria recovered in them, I decided not to pick betweent hese two options, but combine them
+* I combined the two existing snakefiles into one `analysis_and_temp_files/03_assembly/Snakefile`. This pipeline does the following:
+  * Assembles individual X. parietina metagenomes, pulls Xanthoria ITS from each assemblies and makes a tree with reference ITS sequences
+  * Co-assembles all X. parietina metagenomes
+  * Bins all assemblies
+  * In each assembly individually (both individual and co-assembly), detects prokaryotic and eukaryotic MAGs via CheckM and EukCC. 
+  * Makes a list of all MAGs of high+medium quality (>=50% completeness, <10% contamination)
+  * Puts all bins in one shared folder `analysis_and_temp_files/03_assembly/all_mags`
+  * Runs dereplication on eukaryotic and prokaryotic MAGs separately
+* **NB:** here I included only X. parietina metagenomes! The MAGs from X. calcicola (GTX0491) weren't included in this analysis. If later I want to re-run the analysis including them, I'd need to modify the list_*_mags_ind rules of the pipeline 
+
+### 5.2. Results
+```{r, message=F}
+drep_euk_all<-read.delim("../analysis_and_temp_files/03_assembly/all_mags/euk_drep/data_tables/Wdb.csv",sep=",")
+drep_euk_all<-drep_euk_all %>% left_join(euk_table_both)
+
+drep_bac_all<-read.delim("../analysis_and_temp_files/03_assembly/all_mags/prok_drep/data_tables/Wdb.csv",sep=",")
+checkm$genome<-paste0("coassembly.",checkm$genome,".fa")
+drep_bac_all<-drep_bac_all %>% left_join(rbind(checkm_combined,checkm))
+```
+* In total, identified `r ((drep_euk_all %>% nrow()) + (drep_bac_all %>% nrow()))` genomes
+* Eukaryotic genomes: `r (drep_euk_all %>% filter(completeness>=90, contamination<5) %>% nrow())` high quality bacterial MAGs and `r (drep_euk_all %>% nrow())` medium+high quality bacterial MAGs, which combines strong qualitites of both previous attempts
+
+* Bacterial genomes: `r (drep_bac_all %>% filter(completeness>=90, contamination<5) %>% nrow())` high quality bacterial MAGs and `r (drep_bac_all %>% nrow())` medium+high quality bacterial MAGs. This is better compared to the previous attempts
+
+### 5.3. Conclusions
+* Moved final winning MAGs in `04_phylogenomics/MAGs`, splitting into prokaryotes and eukaryotes
+* Removed files that won't be needed anymore: bin fasta files from shared folders, dRep, eukcc, checkM, and GTDB working 
+```{r, eval=FALSE}
+mkdir analysis_and_temp_files/04_phylogenomics/MAGs/euk -p
+mkdir analysis_and_temp_files/04_phylogenomics/MAGs/prok -p
+mv analysis_and_temp_files/03_assembly/all_mags/prok_drep/dereplicated_genomes/*fa analysis_and_temp_files/04_phylogenomics/MAGs/prok/
+mv analysis_and_temp_files/03_assembly/all_mags/euk_drep/dereplicated_genomes/*fa analysis_and_temp_files/04_phylogenomics/MAGs/euk/
+```
+* Will prepare the final table with MAG stats in `04_phylogenomics`, after proper taxonomic assignments
+
+### 6. Explore individual assemblies via GC/cov plots
+* To check that the lecanoromycete genomes do not have weird problems with ploidy (e.g. similar to Letharia in [Lore's paper](https://www.frontiersin.org/articles/10.3389/ffunb.2021.656386/full?ref=https://githubhelp.com))
+* Easiest way to check, is to make GC/coverage plots on individual assemblies
+* Didn't have any genomes with "double cloud" indicating ploidy problems
+* Some had typical linear shaped cloud ranging between GC% 50% and 35%, and split between several bins (GTX0468, GTX0491, GTX0493, GTX0494)
+* With others it was a bit weirder. 
+  * in GTX0481 the lecanoromycete (bin.18) has a circular shape around 50% GC (there's a second lecanoromycete genome, but distantly related to Xanthoria lecanoromycetes and with low coverage: 10X coverage compared to 500X coverage of the actual lecanoromycete)
+  * others,had the main lecanoromycete bin in a circular shape, and also had separate bins with GC% around 35%. But these bins had much lower coverage, e.g. 200X compared to 900X in the "main" bin (GTX0465, GTX0466, GTX0484, GTX0486_487)
+* Could it be that differenct samples have different repeat content? Or different presence of an auxiliary AT-rich chromosome?
+  
+```{r, message = FALSE,fig.width=14,fig.height=120}
+library(tidyverse)
+library(ggiraph)
+
+#define functions
+gccov_plot<-function(metagenome){
+  gc<-read.delim2(paste0("../analysis_and_temp_files/03_assembly/",metagenome,"_megahit/",metagenome,"_gc.txt"),header=T)
+  gc$GC<-as.numeric(gc$GC)
+  gc$contig<-sub(" .*", "", gc$X.Name)
+  
+  cov<-read.delim2(paste0("../analysis_and_temp_files/03_assembly/",metagenome,"_megahit/final.contigs.fa.cov"))
+  cov$Coverage<-as.numeric(cov$Coverage)
+  df<-left_join(gc,cov,by=c("contig"="Sequence.Id"))
+  df$metagenome<-metagenome
+  df<-df %>% filter(Coverage>0,Bin.Id!="unbinned")
+  return(df)}
+
+#apply to all metagenomes
+metagenomes<-c("GTX0465","GTX0466","GTX0468","GTX0481","GTX0484","GTX0486_487","GTX0491","GTX0493","GTX0494")
+
+l<-lapply(metagenomes,gccov_plot)
+gccov<-do.call(rbind,l)
+
+#plot
+plt<-ggplot(gccov)+ coord_trans(y = "log10")+
+  geom_point_interactive(aes(x=GC,y=Coverage,color=Bin.Id, tooltip = Bin.Id, data_id = Bin.Id))+facet_wrap(.~metagenome,nrow=9)
+
+girafe(ggobj = plt)
+```
+
+
+
+
+
+

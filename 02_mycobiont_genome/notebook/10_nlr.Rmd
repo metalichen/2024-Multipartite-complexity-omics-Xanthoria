@@ -1,0 +1,385 @@
+---
+title: "10_nlr"
+output:
+  html_document:
+    df_print: paged
+---
+
+**Goal:** to identify and annotate NLRs in Xanthoria genome
+```{r setup, include=FALSE}
+library(kableExtra)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Use InterPro annotations to identify putative NLRs
+* To identify NLRs, used info on domains of fungal NLRs from [Uehling et al. 2017](https://journals.plos.org/plospathogens/article/file?id=10.1371/journal.ppat.1006578&type=printable)
+* **NB:** Here, I used InterPro results from funannotate directly NOT the expanded annotations made by Neha with orthogroups. If I base the NLR selection on the expanded annotation, I get more proteins (n=60), but some of them have key NLR domains missing
+* Used two filters:
+  * proteins with at least one nucleotide-binding domain: NACHT (IPR007111), NB-ARC (IPR002182), or AAA (IPR025669)
+  * proteins with a repeat domain: ankyrin (IPR036770, IPR002110,IPR020683), WD40 (IPR001680,IPR036322,IPR015943), or TPR (IPR019734,IPR011990,IPR013026)
+* In total, this yielded 23 proteins
+```{r, message = FALSE,fig.width=10,fig.height=15 }
+library(tidyverse)
+funannot2<-read.delim2("../analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t")
+funannot_nlr<- funannot2 %>% filter(grepl("IPR007111",InterPro) | grepl("IPR002182",InterPro) | grepl("IPR0256691",InterPro) ) %>%
+  filter(grepl("IPR036770",InterPro) | grepl("IPR002110",InterPro) | grepl("IPR001680",InterPro) | grepl("IPR019734",InterPro)| grepl("IPR011990",InterPro) | grepl("IPR036322",InterPro) |
+           grepl("IPR020683",InterPro) | grepl("IPR013026",InterPro) |
+           grepl("IPR015943",InterPro)) %>% 
+  select(TranscriptID,Contig,Start,Stop,Strand,InterPro)
+```
+* What other InterPro domains do they have?
+```{r, message = FALSE,fig.width=10,fig.height=15 }
+ips_nlr <-funannot_nlr %>% select(TranscriptID,InterPro) %>% 
+  mutate(InterPro = strsplit(InterPro, ";I")) %>%
+        unnest(InterPro) %>% mutate(InterPro=str_replace(InterPro,"^PR","IPR")) %>%
+  mutate(short_term = substr(InterPro, 1,40)) 
+ips_nlr %>% group_by(short_term) %>%
+  summarize(n=n())%>%arrange(desc(n))
+```
+* Save fasta of putative NLR sequences
+```{r, message = FALSE,fig.width=10,fig.height=15 }
+library(Biostrings)
+full_fasta<-readAAStringSet("../analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.proteins.fa")
+names(full_fasta)<-str_replace(names(full_fasta),"FUN","XANPAGTX0501")
+names(full_fasta)<-sub(" .*", "", names(full_fasta)) 
+
+nlr_fasta<-full_fasta[names(full_fasta) %in% funannot_nlr$TranscriptID]
+writeXStringSet(nlr_fasta,"../analysis_and_temp_files/10_nlr/putative_NLRs.fa")
+rm(full_fasta)
+```
+
+
+## 2. Visualize NLRs
+* Ran InterPro in Convert mode, to produce GFF3 and tsv version of the annotations
+```{r,eval=F}
+sbatch --mem=10G -c 10 --wrap="source package 0dd71e29-8eb1-4512-b37c-42f7158718f4; source package /tsl/software/testing/bin/gcc-5.2.0; source package 999eb878-6c39-444e-a291-e2e0a86660e6; source package /tsl/software/testing/bin/java-11.0.7; source package 0f2514dd-8288-47ed-96cd-80905f9b0644; source package /tsl/software/production/bin/perl-5.16.2; /tsl/data/interproscan/5.42/interproscan.sh -i analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/interpro/Xanthoria_parietina_GTX0501.proteins.fa.xml -d analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/interpro_extra_formats -cpu 10 -mode convert"
+```
+
+* Make a table with features for the putative NLRs. Assign domain names based on IPR
+```{r, message = FALSE,fig.width=10,fig.height=15 }
+full_ipr<-read.delim("../analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/interpro/Xanthoria_parietina_GTX0501.proteins.fa.xml.tsv",header=F)
+colnames(full_ipr)<-c("TranscriptID","Sequence.MD5","Sequence.length",
+                      "Analysis","Signature.accession","Signature.description",
+                      "Start","End","Score","Status","Date",
+                      "InterPro.accession","InterPro.description",
+                      "GO","Pathway")
+full_ipr$TranscriptID<-str_replace(full_ipr$TranscriptID,"FUN","XANPAGTX0501")
+
+nlr_ipr<-full_ipr %>% filter(TranscriptID %in% funannot_nlr$TranscriptID,InterPro.accession!="") %>%
+  mutate(Domain = 
+           case_when(InterPro.accession %in% c("IPR036770", "IPR002110","IPR020683") ~ "Ankyrin",
+          InterPro.accession == "IPR007111" ~ "NACHT",
+          InterPro.accession == "IPR027417" ~ "P-loop",
+          InterPro.accession %in% c("IPR035994","IPR000845") ~ "Nucleoside phosphorylase",
+          InterPro.accession %in% c("IPR011990","IPR019734","IPR013026") ~ "TPR",
+          InterPro.accession %in% c("IPR003593","IPR041664") ~ "AAA",
+          InterPro.accession == "IPR043145" ~ "ZZ Zinc",
+          InterPro.accession == "IPR002182" ~ "NB-ARC",
+          InterPro.accession %in% c("IPR015943","IPR036322","IPR011047","IPR001680","IPR011044") ~ "WD",
+          InterPro.accession %in% c("IPR029058","IPR012908","IPR007751") ~ "Alpha/Beta",
+          InterPro.accession %in% c("IPR038765","IPR001394","IPR028889") ~ "Papain",
+          InterPro.accession %in% c("IPR031359","IPR031352") ~ "Nacht_N",
+          InterPro.accession == "IPR010730" ~ "HET",
+          InterPro.accession %in% c("IPR038305","IPR029498") ~ "HeLo",
+          InterPro.accession == "IPR031348" ~ "STAND",
+          TRUE ~ InterPro.accession)) 
+rm(full_ipr)
+```
+* Deduplicate overlapping features
+```{r}
+
+ dedupl<-nlr_ipr %>%
+    group_by(TranscriptID,Domain) %>%
+    arrange(TranscriptID, Domain, Start) %>% 
+    mutate(indx = c(0, cumsum(as.numeric(lead(Start)) >
+                                cummax(as.numeric(End)))[-n()])) %>%
+    group_by(TranscriptID,  Domain, indx) %>%
+    summarise(Start = min(Start), End = max(End)) %>%
+    arrange(TranscriptID, Start) 
+    
+dedupl<-dedupl %>%
+    group_by(TranscriptID) %>%
+    arrange(TranscriptID, Start) %>% 
+    mutate(indx = c(0, cumsum(as.numeric(lead(Start)) >
+                                cummax(as.numeric(End)))[-n()])) %>%
+    group_by(TranscriptID, indx) %>%
+    summarise(Start = min(Start), End = max(End),
+              Domain = paste(Domain, collapse="")) %>%
+  arrange(TranscriptID, Start) %>% ungroup() %>%
+  mutate(Domain = case_when(grepl("NACHT", Domain) ~ "NACHT",
+                            grepl("NB-ARC", Domain) ~ "NB-ARC",
+                            TRUE ~ Domain)
+         )
+```
+* Add info on the size of the whole protein
+```{r}
+full_fasta<-readAAStringSet("../analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.proteins.fa")
+names(full_fasta)<-str_replace(names(full_fasta),"FUN","XANPAGTX0501")
+names(full_fasta)<-sub(" .*", "", names(full_fasta)) 
+
+nlr_fasta<-full_fasta[names(full_fasta) %in% funannot_nlr$TranscriptID]
+rm(full_fasta)
+
+prot_info<-data.frame("TranscriptID"=names(nlr_fasta),"size"=width(nlr_fasta)) %>%
+  arrange(TranscriptID) %>% mutate(order=row_number())
+nlr_info<-dedupl %>% left_join(prot_info)
+
+```
+
+* Draw
+```{r, message = FALSE,fig.width=20,fig.height=10 }
+nlr_info$Domain<-factor(nlr_info$Domain,levels=c("NACHT","NB-ARC","P-loop",
+              "Ankyrin" , "TPR", "WD","Alpha/Beta","HeLo",
+             "HET" ,"Nucleoside phosphorylase", "Papain","Nacht_N"))
+nlr_info$label_pos<-nlr_info$Start+(nlr_info$End-nlr_info$Start)/2
+p <- ggplot2::ggplot() +
+    ggplot2::ylim(0.5, max(nlr_info$order)+0.5) +
+    ggplot2::xlim(-max(nlr_info$End, na.rm=TRUE)*0.2,
+                  max(nlr_info$End, na.rm=TRUE) + max(dedupl$End, na.rm=TRUE)*0.1) +
+    ggplot2::scale_x_continuous(breaks = seq(from = 0, to = 100000, by = 250)) + # Arbitrarily large number
+    ggplot2::labs(x = "Amino acid number") + # label x-axis
+    ggplot2::labs(y = "") + # label y-axis
+    ggplot2::theme_bw(base_size = 20) +  # white background and change text size
+    ggplot2::theme(panel.grid.minor=ggplot2::element_blank(),
+                   panel.grid.major=ggplot2::element_blank(),
+                   axis.ticks = ggplot2::element_blank(),
+                   axis.text.y = ggplot2::element_blank(),
+                   panel.border = ggplot2::element_blank(),
+                   legend.key.size = ggplot2::unit(0.5, 'cm'),
+                   legend.title = ggplot2::element_text(size=10),
+                   legend.justification = "right",
+                   legend.text = ggplot2::element_text(size=8))
+
+
+p<-p + ggplot2::geom_rect(nlr_info,
+                              mapping=ggplot2::aes(xmin=0,
+                                                   xmax=size,
+                                                   ymin=order-0.2,
+                                                   ymax=order+0.2),
+                              fill = "grey",
+                             linewidth = 0.5)
+
+  # Add chain labels
+p <- p + ggplot2::annotate("text", x = -10,
+                             y = nlr_info$order,
+                             label = nlr_info$TranscriptID,
+                             hjust = 1,
+                             size = 4)
+
+p <- p + ggplot2::geom_rect(nlr_info, mapping=ggplot2::aes(xmin=Start,
+                                                     xmax=End,
+                                                     ymin=order-0.3,
+                                                     ymax=order+0.3,
+                                                     fill=Domain),show.legend = T) 
+
+p <- p + scale_fill_manual(values = c("NACHT"="#64dbe8","NB-ARC"="#acc4fc",
+              "Ankyrin" ="#309c17", "TPR"="#a3f097", "WD"="#8abda0",
+              "Alpha/Beta"="#fce29a","HeLo"="#ffa230",
+             "HET"="#c9981a","Nucleoside phosphorylase"="#f76757", "Papain"="#edafbb","Nacht_N"="#c39af5","P-loop"="#277ca3"))
+p<-p+ geom_text(nlr_info, mapping=ggplot2::aes(x=label_pos,y=order,label=Domain)) 
+p
+```
+
+* Save the plot as pdf
+```{r}
+p <- ggplot2::ggplot() +
+    ggplot2::ylim(0.5, max(nlr_info$order)+0.5) +
+    ggplot2::xlim(-max(nlr_info$End, na.rm=TRUE)*0.2,
+                  max(nlr_info$End, na.rm=TRUE) + max(dedupl$End, na.rm=TRUE)*0.1) +
+    ggplot2::scale_x_continuous(breaks = seq(from = 0, to = 100000, by = 250)) + # Arbitrarily large number
+    ggplot2::labs(x = "Amino acid number") + # label x-axis
+    ggplot2::labs(y = "") + # label y-axis
+    ggplot2::theme_bw(base_size = 8) +  # white background and change text size
+    ggplot2::theme(panel.grid.minor=ggplot2::element_blank(),
+                   panel.grid.major=ggplot2::element_blank(),
+                   axis.ticks = ggplot2::element_blank(),
+                   axis.text.y = ggplot2::element_blank(),
+                   panel.border = ggplot2::element_blank(),
+                   legend.key.size = ggplot2::unit(0.5, 'cm'),
+                   legend.title = ggplot2::element_text(size=8),
+                   legend.justification = "right",
+                   legend.text = ggplot2::element_text(size=8))
+
+
+p<-p + ggplot2::geom_rect(nlr_info,
+                              mapping=ggplot2::aes(xmin=0,
+                                                   xmax=size,
+                                                   ymin=order-0.2,
+                                                   ymax=order+0.2),
+                              fill = "grey",
+                             linewidth = 0.5)
+
+  # Add chain labels
+p <- p + ggplot2::annotate("text", x = -10,
+                             y = nlr_info$order,
+                             label = nlr_info$TranscriptID,
+                             hjust = 1,
+                             size = 2)
+
+p <- p + ggplot2::geom_rect(nlr_info, mapping=ggplot2::aes(xmin=Start,
+                                                     xmax=End,
+                                                     ymin=order-0.3,
+                                                     ymax=order+0.3,
+                                                     fill=Domain),show.legend = T) 
+
+p <- p + scale_fill_manual(values = c("NACHT"="#64dbe8","NB-ARC"="#acc4fc",
+              "Ankyrin" ="#309c17", "TPR"="#a3f097", "WD"="#8abda0",
+              "Alpha/Beta"="#fce29a","HeLo"="#ffa230",
+             "HET"="#c9981a","Nucleoside phosphorylase"="#f76757", "Papain"="#edafbb","Nacht_N"="#c39af5","P-loop"="#277ca3"))+
+  theme(plot.margin = margin(1,1,1.5,1.2, "cm"),legend.position="bottom")
+p<-p+ geom_text(nlr_info, mapping=ggplot2::aes(x=label_pos,y=order,label=Domain),size = 2) 
+
+ggsave(plot = p, "../results/NLRs.pdf", width = 8, height = 5)
+
+```
+
+## 3. Visualize NLRs + NLR-like proteins
+* List all 60 proteins with a repeat and a nucleotide-binding domain, based on the extended annotations (based on Neha's analysis of orthologs)
+
+```{r, message = FALSE,fig.width=10,fig.height=15 }
+library(tidyverse)
+
+funannot_nlr2<- funannot2 %>% filter(grepl("IPR007111",InterPro_new) | grepl("IPR002182",InterPro_new) | grepl("IPR0256691",InterPro_new)) %>%  filter(grepl("IPR036770",InterPro_new) | grepl("IPR002110",InterPro_new) | grepl("IPR001680",InterPro_new) | grepl("IPR019734",InterPro_new)| grepl("IPR011990",InterPro_new) | grepl("IPR036322",InterPro_new) |
+           grepl("IPR020683",InterPro_new) | grepl("IPR013026",InterPro_new) |
+           grepl("IPR015943",InterPro_new)) %>% 
+  select(TranscriptID,Contig,Start,Stop,Strand,InterPro_new)
+
+ips_nlr2 <-funannot_nlr2 %>% select(TranscriptID,InterPro_new) %>% 
+  mutate(InterPro_new = strsplit(InterPro_new, ", I")) %>%
+        unnest(InterPro_new) %>% mutate(InterPro_new=str_replace(InterPro_new,"^PR","IPR")) %>%
+  mutate(short_term = substr(InterPro_new, 1,40)) 
+ips_nlr2 %>% group_by(short_term) %>%
+  summarize(n=n())%>%arrange(desc(n))
+```
+* Make a table with features for the putative NLRs. Assign domain names based on IPR
+```{r, message = FALSE,fig.width=10,fig.height=15 }
+full_ipr<-read.delim("../analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/interpro/Xanthoria_parietina_GTX0501.proteins.fa.xml.tsv",header=F)
+colnames(full_ipr)<-c("TranscriptID","Sequence.MD5","Sequence.length",
+                      "Analysis","Signature.accession","Signature.description",
+                      "Start","End","Score","Status","Date",
+                      "InterPro.accession","InterPro.description",
+                      "GO","Pathway")
+full_ipr$TranscriptID<-str_replace(full_ipr$TranscriptID,"FUN","XANPAGTX0501")
+
+nlr_ipr2<-full_ipr %>% filter(TranscriptID %in% funannot_nlr2$TranscriptID,InterPro.accession!="") %>%
+  mutate(Domain = 
+           case_when(InterPro.accession %in% c("IPR036770", "IPR002110","IPR020683") ~ "Ankyrin",
+          InterPro.accession == "IPR007111" ~ "NACHT",
+          InterPro.accession == "IPR027417" ~ "P-loop",
+          InterPro.accession %in% c("IPR035994","IPR000845") ~ "Nucleoside phosphorylase",
+          InterPro.accession %in% c("IPR011990","IPR019734","IPR013026") ~ "TPR",
+          InterPro.accession %in% c("IPR003593","IPR041664") ~ "AAA",
+          InterPro.accession == "IPR043145" ~ "ZZ Zinc",
+          InterPro.accession == "IPR002182" ~ "NB-ARC",
+          InterPro.accession %in% c("IPR015943","IPR036322","IPR011047","IPR001680","IPR011044") ~ "WD",
+          InterPro.accession %in% c("IPR029058","IPR012908","IPR007751") ~ "Alpha/Beta",
+          InterPro.accession %in% c("IPR038765","IPR001394","IPR028889") ~ "Papain",
+          InterPro.accession %in% c("IPR031359","IPR031352") ~ "Nacht_N",
+          InterPro.accession == "IPR010730" ~ "HET",
+          InterPro.accession %in% c("IPR038305","IPR029498") ~ "HeLo",
+          InterPro.accession == "IPR031348" ~ "STAND",
+          TRUE ~ InterPro.accession)) 
+rm(full_ipr)
+```
+* Deduplicate overlapping features
+```{r}
+ dedupl2<-nlr_ipr2 %>%
+    group_by(TranscriptID,Domain) %>%
+    arrange(TranscriptID, Domain, Start) %>% 
+    mutate(indx = c(0, cumsum(as.numeric(lead(Start)) >
+                                cummax(as.numeric(End)))[-n()])) %>%
+    group_by(TranscriptID,  Domain, indx) %>%
+    summarise(Start = min(Start), End = max(End)) %>%
+    arrange(TranscriptID, Start) 
+    
+dedupl2<-dedupl2 %>%
+    group_by(TranscriptID) %>%
+    arrange(TranscriptID, Start) %>% 
+    mutate(indx = c(0, cumsum(as.numeric(lead(Start)) >
+                                cummax(as.numeric(End)))[-n()])) %>%
+    group_by(TranscriptID, indx) %>%
+    summarise(Start = min(Start), End = max(End),
+              Domain = paste(Domain, collapse="")) %>%
+  arrange(TranscriptID, Start) %>% ungroup() %>%
+  mutate(Domain = case_when(grepl("NACHT", Domain) ~ "NACHT",
+                            grepl("NB-ARC", Domain) ~ "NB-ARC",
+                            grepl("AAA", Domain) ~ "AAA",
+                            TRUE ~ Domain)
+         )
+```
+* Add info on the size of the whole protein
+```{r}
+full_fasta<-readAAStringSet("../analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.proteins.fa")
+names(full_fasta)<-str_replace(names(full_fasta),"FUN","XANPAGTX0501")
+names(full_fasta)<-sub(" .*", "", names(full_fasta)) 
+
+nlr_fasta2<-full_fasta[names(full_fasta) %in% funannot_nlr2$TranscriptID]
+rm(full_fasta)
+
+prot_info2<-data.frame("TranscriptID"=names(nlr_fasta2),"size"=width(nlr_fasta2)) %>%
+  arrange(TranscriptID) %>% filter(TranscriptID %in% dedupl2$TranscriptID) %>% mutate(order=row_number())
+nlr_info2<-dedupl2 %>% left_join(prot_info2)
+```
+
+* Draw
+```{r, message = FALSE,fig.width=20,fig.height=13 }
+nlr_info2$Domain<-factor(nlr_info2$Domain,levels=c("NACHT","NB-ARC","AAA","P-loop",
+              "Ankyrin" , "TPR", "WD","Alpha/Beta","HeLo",
+             "HET" ,"Nucleoside phosphorylase", "Papain","Nacht_N","ZZ Zinc","STAND" ))
+nlr_info2$label_pos<-nlr_info2$Start+(nlr_info2$End-nlr_info2$Start)/2
+p <- ggplot2::ggplot() +
+    ggplot2::ylim(0.5, max(nlr_info2$order)+0.5) +
+    ggplot2::xlim(-max(nlr_info2$End, na.rm=TRUE)*0.2,
+                  max(nlr_info2$End, na.rm=TRUE) + max(dedupl2$End, na.rm=TRUE)*0.1) +
+    ggplot2::scale_x_continuous(breaks = seq(from = 0, to = 100000, by = 250)) + # Arbitrarily large number
+    ggplot2::labs(x = "Amino acid number") + # label x-axis
+    ggplot2::labs(y = "") + # label y-axis
+    ggplot2::theme_bw(base_size = 20) +  # white background and change text size
+    ggplot2::theme(panel.grid.minor=ggplot2::element_blank(),
+                   panel.grid.major=ggplot2::element_blank(),
+                   axis.ticks = ggplot2::element_blank(),
+                   axis.text.y = ggplot2::element_blank(),
+                   panel.border = ggplot2::element_blank(),
+                   legend.key.size = ggplot2::unit(0.5, 'cm'),
+                   legend.title = ggplot2::element_text(size=10),
+                   legend.justification = "right",
+                   legend.text = ggplot2::element_text(size=8))
+
+
+p<-p + ggplot2::geom_rect(nlr_info2,
+                              mapping=ggplot2::aes(xmin=0,
+                                                   xmax=size,
+                                                   ymin=order-0.2,
+                                                   ymax=order+0.2),
+                              fill = "grey",
+                             linewidth = 0.5)
+
+  # Add chain labels
+p <- p + ggplot2::annotate("text", x = -10,
+                             y = nlr_info2$order,
+                             label = nlr_info2$TranscriptID,
+                             hjust = 1,
+                             size = 4)
+
+p <- p + ggplot2::geom_rect(nlr_info2, mapping=ggplot2::aes(xmin=Start,
+                                                     xmax=End,
+                                                     ymin=order-0.3,
+                                                     ymax=order+0.3,
+                                                     fill=Domain),show.legend = T) 
+
+p <- p + scale_fill_manual(values = c("NACHT"="#64dbe8","NB-ARC"="#acc4fc",
+              "Ankyrin" ="#309c17", "TPR"="#a3f097", "WD"="#8abda0",
+              "Alpha/Beta"="#fce29a","HeLo"="#ffa230",
+             "HET"="#c9981a","Nucleoside phosphorylase"="#f76757", "Papain"="#edafbb","Nacht_N"="#c39af5","P-loop"="#277ca3","AAA"="#d4eefa",
+            "ZZ Zinc"="#d69cd2","STAND" ="#d69cd2"))
+p+ geom_text(nlr_info2, mapping=ggplot2::aes(x=label_pos,y=order,label=Domain)) 
+```
+
+## 4. Save table with the putative NLRs and NLR-like (those that fall into the )
+```{r}
+nlr_table<-nlr_info %>% select(TranscriptID,Start,End,Domain)
+nlr_table2<-nlr_info2 %>% select(TranscriptID,Start,End,Domain)
+write.table(nlr_table, file="../analysis_and_temp_files/10_nlr/NLRs.txt", quote=F, sep='\t', row.names=F)
+write.table(nlr_table2, file="../analysis_and_temp_files/10_nlr/NLR_like.txt", quote=F, sep='\t', row.names=F)
+```
+

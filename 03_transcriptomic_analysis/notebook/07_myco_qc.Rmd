@@ -1,0 +1,146 @@
+---
+title: "Mycobiont data QC"
+author: "Neha Sahu, adopted by Gulnara Tagirdzhanova"
+date: "2023-10-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+**Rationale:** this is basic QC for all samples of pure culture mycobiont and lichen. We will use to select which sample we canuse and comparisons
+
+```{r, message=F, include=FALSE}
+library(here)
+lapply(c("tidyverse","corrplot","dplyr","gplots","limma"), library, character.only = T)
+cl<-c("blue","white","red") #this is the color scheme set in the order low, mid, high values
+col2<-colorRampPalette(cl)
+```
+
+#### Create tpm table from kallisto output
+```{r, message=F}
+counts<-read.delim2("../analysis_and_temp_files/06_meta_mapping/kallisto_mycobiont_only.txt",sep=" ")
+metadata<-read.csv2("../analysis_and_temp_files/06_meta_mapping/metadata_shared_with_neha.csv",sep=",")
+length(unique(counts$sample)) #this should be 31 as in the metadat.csv file
+counts$tpm<-round(as.numeric(counts$tpm),digits = 3) #round off tpm upto 3 decimals
+counts_tab<-pivot_wider(counts[c(1,5,6)],names_from=sample,values_from = tpm) #widen the table
+```
+
+## 1. All Samples (_Xanthoria_ and Lichen)
+#### Calculate and plot pearson's correlation coefficients between all the samples
+```{r fig.width = 10, fig.height = 10, message=F}
+all_counts<- counts_tab[rowSums(counts_tab[c(2:32)])>0,] #remove rows which have 0 in all samples
+all<-cor(all_counts[c(2:32)], method="pearson",use="pairwise.complete.obs")
+ord_all<-c("XBA1","XBA2","XSA1","XSA2","XSA2_2","XTA1","XTA2","XBC1","XBC2","XMC2","XSC1",
+       "XSC2","XTC2","XBE1","XBE2","XSE2","XTE2","MP_I","MP_II","KS48XB1","KS48XB2","KS48XB3",
+       "KS9XB1","KS9XB2","KS9XB3","S_21XB1","KS21XB1","S_21XB3","S_42XB1","S_42XB2","S_42XB3") #arrange order according to biological replicates (optional)
+all1 <- all[, ord_all]
+all1<-all1[ord_all, ]
+
+# For correlation plot
+corrplot(all1,method="color",type="full",is.corr=F, col=col2(200),addgrid.col = 0,tl.cex = 1, tl.col = "black")
+
+# for PCA
+plotMDS(all_counts[c(2:32)],main="All samples") 
+
+# For heatmap
+heat1<-column_to_rownames(all_counts, var = "target_id")
+exp_matrix<-data.matrix(heat1)
+mycols = colorRampPalette(c("blue","white","red"))(100) 
+hc_rows <- hclust(as.dist(1-cor(t(exp_matrix), method="pearson")), method="average") # for clustering genes
+hc_cols <- hclust(as.dist(1 - cor(exp_matrix, method = "pearson")), method = "average") # to arrange the sample names at x-axis according to hierarchical clustering
+htmap<-heatmap.2(exp_matrix, Colv=as.dendrogram(hc_cols),Rowv=as.dendrogram(hc_rows),dendrogram = "both",trace = "none", 
+                 col = mycols, keysize = 1, key.title = "Title",
+                 scale = c("row"), cexRow = 0.75, cexCol = 1, srtCol = NULL,  
+                 srtRow = NULL, adjRow = c(0,NA), sepcolor="white" ,margins = c(7,15), 
+                 lwid = c(2,8),
+                 lhei= c(2,8), main ="All samples", na.color="black") #this is the final one for the heat map
+```
+
+#### Conclusions:
+* Lichen and culture samples broadly form two groups, but with two big buts:
+* 2dpi cultures differ dramatically from the rest
+* MP_I and MP_II lichen samples ("filter") group with the cultures (in the cloud of >2dpi). Perhaps, they were incubated for too long in the lab and weren't happy?
+
+
+## 2. Lichen Samples (excluding MP_I and MP_II)
+#### Calculate and plot pearson's correlation coefficients between Lichen samples
+```{r fig.width = 10, fig.height = 10}
+lich_counts<- counts_tab[rowSums(counts_tab[c(2:14,16:19)])>0,] #remove rows which have 0 in all samples
+lich<-cor(lich_counts[c(2:14,16:19)], method="pearson",use="pairwise.complete.obs")
+lich<-cor(counts_tab[c(2:14,16:19)], method="pearson",use="pairwise.complete.obs")
+ord_lich<-c("XBA1","XBA2","XSA1","XSA2","XSA2_2","XTA1","XTA2","XBC1","XBC2","XMC2","XSC1",
+           "XSC2","XTC2","XBE1","XBE2","XSE2","XTE2")
+lich1 <- lich[, ord_lich]
+lich1<-lich1[ord_lich, ]
+
+# For correlation plot
+corrplot(lich1,method="color",type="full",
+         main="", is.corr=F, col=col2(200),addgrid.col = 0,tl.cex = 1, tl.col = "black")
+
+
+# For multidimensional scaling
+plotMDS(lich_counts[c(2:14,16:19)],main="Lichen samples") 
+
+# For heatmap
+heat<-lich_counts[c(1:14,16:19)]
+heat1<-column_to_rownames(heat, var = "target_id")
+exp_matrix<-data.matrix(heat1)
+mycols = colorRampPalette(c("blue","white","red"))(100) 
+hc_rows <- hclust(as.dist(1-cor(t(exp_matrix), method="pearson")), method="average") # for clustering genes
+hc_cols <- hclust(as.dist(1 - cor(exp_matrix, method = "pearson")), method = "average") # to arrange the sample names at x-axis according to hierarchical clustering
+htmap<-heatmap.2(exp_matrix, Colv=as.dendrogram(hc_cols),Rowv=as.dendrogram(hc_rows),dendrogram = "both",trace = "none", 
+                 col = mycols, keysize = 1, key.title = "Title",
+                 scale = c("row"), cexRow = 0.75, cexCol = 1, srtCol = NULL,  
+                 srtRow = NULL, adjRow = c(0,NA), sepcolor="white" ,margins = c(7,15), 
+                 lwid = c(2,8),
+                 lhei= c(2,8), main ="lich samples", na.color="black") #this is the final one for the heat map
+
+
+```
+
+#### Conclusions:
+* Samples group based on substrate (PC1), with barks and twigs grouping together
+* Some grouping based on the thallus part is present on PC2, where apothecia are mostly in the upper part of the plot
+
+## 3. Culture Samples
+#### Calculate and plot pearson's correlation coefficients between _Xanthoria_ culture samples
+```{r fig.width = 10, fig.height = 10}
+xan_counts<- counts_tab[rowSums(counts_tab[c(21:32)])>0,] #remove rows which have 0 in xan samples
+xan<-cor(xan_counts[c(21:32)], method="pearson",use="pairwise.complete.obs")
+ord_xan<-c("KS48XB1","KS48XB2","KS48XB3",
+           "KS9XB1","KS9XB2","KS9XB3","S_21XB1","KS21XB1","S_21XB3","S_42XB1","S_42XB2","S_42XB3") #arrange order according to biological replicates (optional)
+xan1 <- xan[, ord_xan]
+xan1<-xan1[ord_xan, ]
+corrplot(xan1,method="color",type="full",is.corr=F, col=col2(200),addgrid.col = 0,tl.cex = 1, tl.col = "black")
+
+# For multidimensional scaling
+plotMDS(xan_counts[c(21:32)],main="Xanthoria samples") 
+
+# For heatmap
+heat<-xan_counts[c(1,21:32)]
+heat1<-column_to_rownames(heat, var = "target_id")
+exp_matrix<-data.matrix(heat1)
+mycols = colorRampPalette(c("blue","white","red"))(100) 
+hc_rows <- hclust(as.dist(1-cor(t(exp_matrix), method="pearson")), method="average") # for clustering genes
+hc_cols <- hclust(as.dist(1 - cor(exp_matrix, method = "pearson")), method = "average") # to arrange the sample names at x-axis according to hierarchical clustering
+htmap<-heatmap.2(exp_matrix, Colv=as.dendrogram(hc_cols),Rowv=as.dendrogram(hc_rows),dendrogram = "both",trace = "none",  
+                 col = mycols, keysize = 1, key.title = "Title",
+                 scale = c("row"), cexRow = 0.75, cexCol = 1, srtCol = NULL,  
+                 srtRow = NULL, adjRow = c(0,NA), sepcolor="white" ,margins = c(7,15), 
+                 lwid = c(2,8),
+                 lhei= c(2,8), main ="Xanthoria samples", na.color="black") #this is the final one for the heat map
+```
+
+#### Conclusions:
+* The 2 dpi samples remain well isolated from the rest
+* Samples mostly group together based on the time point, with one exception
+* KS21XB1 is a bit different from the rest 21 dpi samples
+
+## 4. Next steps:
+* Compare all culture samples against all lichen samples (except for MP_I and MP_II)
+* For the lichen samples, do pairwise comparisons between apothecia, edge, and center. Include all samples (except for MP_I and MP_II), even from incomplete sets
+* For the culture samples, do pairwise comparisons between time points
+
+
+

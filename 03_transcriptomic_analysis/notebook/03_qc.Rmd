@@ -1,0 +1,191 @@
+---
+title: "03_qc"
+author: "Gulnara Tagridzhanova"
+date: "18/01/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Rationale:** before anything else, we need to QC all RNA-seq data and trim adapters
+
+## Conclusions from Feb 13 2023:
+Did a quick check and identified three problems with the data: untrimmed adapters, poly-T, and rRNA contamination. These shouldn't matter if we do mapping to reference genome-transcriptome, but it would matter for de-novo transcriptome assembly. Two additional abnormalities are weird GC% and non-random first 10 bp, but these shouldn't cause problems. Here I trimmed adapters and poly-Ts and removed rRNA for the libraries intended for de-novo assembly (i.e. thalli and pure cultures)
+
+Below, see the step-by-step description of the analysis:
+
+## 1. Proof of concept: QC and identifying problem
+#### Ran FastQC on one pair of fastq files
+```
+source package /tsl/software/testing/bin/fastqc-0.11.5 
+mkdir analysis_and_temp_files/03_qc/fastqc_out -p
+fastqc /tsl/data/reads/ntalbot/lichen_coculture_i_42_days/42xt_bmm2_ks/s_42xtb2/raw/S_42XTB2_*.fq.gz -o analysis_and_temp_files/03_qc/fastqc_out
+```
+* The results looked good, with three warnings:
+  * Levels of Illumina Universal Adapter are elevated at the end of reads. This I will fix by trimmind
+  * Non-random per base sequence content and kmer content (first 10 bp). This however [shouldn't be a problem](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/4%20Per%20Base%20Sequence%20Content.html)
+  * FastQC also issued a warning about elevated read duplication levels, but this can be ignored, especially with  RNA-Seq data
+
+#### Trimmed reads with cutadapt
+```
+mkdir -p trimmed_reads
+source package /tgac/software/testing/bin/cutadapt-1.17
+cutadapt -j 8 --adapter=AGATCGGAAGAG -A=AGATCGGAAGAG --minimum-length=25  -o trimmed_reads/S_42XTB1_trimmed.1.fq.gz -p  trimmed_reads/S_42XTB1_trimmed.2.fq.gz  /tsl/data/reads/ntalbot/lichen_coculture_i_42_days/42xt_bmm1_ks/s_42xtb1/raw/S_42XTB1_1.fq.gz /tsl/data/reads/ntalbot/lichen_coculture_i_42_days/42xt_bmm1_ks/s_42xtb1/raw/S_42XTB1_2.fq.gz
+ 
+```
+* Ran FastQC again to confirm that adapter contamination is gone
+* In a different library, (see below), got poly-T overrepresented sequences in the reverse reads. To fix it, change the cutadapt command
+```
+source package /tgac/software/testing/bin/cutadapt-1.17
+cutadapt -u 10 -j 8 --adapter=AGATCGGAAGAG -A=AGATCGGAAGAG -A="T{100}" -n 2 --minimum-length=25  -o trimmed_reads/KS9XB3_trimmed.1.fq.gz -p  trimmed_reads/KS9XB3_trimmed.2.fq.gz  /tsl/data/reads/ntalbot/lichen_coculture_i_9_days/9x_bmm3_ks/ks9xb3/raw/KS9XB3_1.fq.gz /tsl/data/reads/ntalbot/lichen_coculture_i_9_days/9x_bmm3_ks/ks9xb3/raw/KS9XB3_2.fq.gz 
+```
+* Ran FastQC again to confirm that poly-T contamination is gone
+
+
+
+#### Investigated  rRNA contamination
+* Used SortMeRNA
+* First, copied a SILVA database
+```
+cp /qib/platforms/Informatics/databases/silva/SILVA_132_QIIME_release/raw_data/initial_reads_SILVA132.fna.zip ./data
+unzip ./data/initial_reads_SILVA132.fna.zip
+```
+* Compiled the database
+```
+source package /tgac/software/testing/bin/sortmerna-3.0.3 
+indexdb --ref initial_reads_SILVA132.fna,initial_reads_SILVA132.idx -v
+```
+
+* Tried running sortmerna-2.0: it can't work with compressed files, but I had troubles getting sortmerna-3.0.3 to work (probably beceause I was trying to pass two read files, instead of one file with interleaved reads). This didn't work, the rRNA file came empty. Probably, the issue is that I used the sortmerna-3.0.3 to complile the database index, and this version isn't backward compatibile)
+```
+source package /tgac/software/testing/bin/sortmerna-2.0 
+mkdir analysis_and_temp_files/03_qc/sortmerna_tmp/S_42AB1
+
+gzip -d analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.*.fq.gz
+
+#interleave reads. used earlier version sortmerna (just so happened, normally would use bbmap)
+merge-paired-reads.sh analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.1.fq analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.2.fq analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.merged.fq
+
+gzip S_42AB1_trimmed.1.fq
+gzip S_42AB1_trimmed.2.fq
+
+sortmerna --ref data/initial_reads_SILVA132.fna,data/initial_reads_SILVA132.idx \
+          --reads  analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.merged.fq\
+          --fastx --paired_in  \
+          --aligned analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.merged.rRNA --other  analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.merged.non_rRNA -v -a 18
+```
+* Tried sortmerna-3.0.3 on a small subset (500 read pairs), to check if it works correctly. Seems to work fine. In the end, got 9 read pairs identified as rRNA
+```
+
+#take top 1000 reads from S_42AB1_trimmed.merged.fq (interleaved with sortmerna-2.0, see above)
+head ../../03_transcriptomic_analysis/analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.merged.fq -n 4000 > S_42AB1_trimmed.merged_subset.fq
+gzip S_42AB1_trimmed.merged_subset.fq
+
+#run sortmerna
+source package /tgac/software/testing/bin/sortmerna-3.0.3 
+sortmerna --ref ../../03_transcriptomic_analysis/data/initial_reads_SILVA132.fna,../../03_transcriptomic_analysis/data/initial_reads_SILVA132.idx --reads-gz S_42AB1_trimmed.merged_subset.fq.gz --fastx --paired_in        --aligned S_42AB1_trimmed.merged_subset_rRNA --other S_42AB1_trimmed.merged_subset_non_rRNA -v -d ../../03_transcriptomic_analysis/analysis_and_temp_files/03_qc/sortmerna_tmp/S_42AB_subset -a 3
+
+reformat.sh in=S_42AB1_trimmed.merged_subset_non_rRNA.fastq out1=S_42AB1_trimmed.merged_subset_non_rRNA.1.fq out2=S_42AB1_trimmed.merged_subset_non_rRNA.2.fq
+```
+* Sanity-check: what is the taxonomic identity of reads identified as rRNA? They blast to green algae, but not Asterochloris (Stichococcus, Protostichococcus, and such); plus, there's a few bacterial hits. Will need to double-check the identity of the alga, but the method seems to be solid
+```
+cp -r ../../03_transcriptomic_analysis/code/fastq_species_detector/ .
+# change the # of reads to subsample to 18
+source package /tsl/software/testing/bin/blast+-2.9.0
+bash fastq_species_detector/fastq_species_detector.sh S_42AB1_trimmed.merged_subset_rRNA.fastq /tsl/data/ncbi_database/blast/nt_20220819/
+```
+* Now do the same on one complete set of reads. Seems to work, but takes ages
+```
+source package /tgac/software/testing/bin/sortmerna-3.0.3 
+source package /tsl/software/testing/bin/bbmap-37.90  
+
+reformat.sh in1=analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.1.fq.gz in2=analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.2.fq.gz out=analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.1.bbmapmerged.fq.gz
+
+sortmerna --ref data/initial_reads_SILVA132.fna,data/initial_reads_SILVA132.idx --reads-gz analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.1.bbmapmerged.fq.gz --fastx --paired_in        --aligned analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.bbmapmerged.rRNA --other analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.bbmapmerged.non_rRNA -v -d analysis_and_temp_files/03_qc/sortmerna_tmp/S_42AB1 -a 18
+
+```
+* Let's replace the complete SILVA database (uncompressed fasta is ~3.7 Gb) with representative set (90% identity, as advised by [the sortmerna manual](https://bioinfo.lifl.fr/RNA/sortmerna/code/SortMeRNA-user-manual-v2.1.pdf), uncompressed fasta is ~60 Mb) downloaded from [the silva file archive](https://www.arb-silva.de/no_cache/download/archive/qiime/) (QIIME release 132)
+```
+source package /tgac/software/testing/bin/sortmerna-3.0.3 
+cd data/
+indexdb --ref silva132_90.fna,silva132_90.idx -v
+cd ..
+```
+* Now test it on the same small subset (500 read pairs). Results are similar. Surprisingly, now a few more reads are identified as rRNA (24 now vs 18 when I used the full silva database) 
+```
+cd ../testing_soft/sortmerna/
+sortmerna --ref ../../03_transcriptomic_analysis/data/silva132_90.fna,../../03_transcriptomic_analysis/data/silva132_90.idx --reads-gz S_42AB1_trimmed.merged_subset.fq.gz --fastx --paired_in        --aligned S_42AB1_trimmed.merged_subset_rRNA_2 --other S_42AB1_trimmed.merged_subset_non_rRNA_2 -v -d S_42AB_subset -a 3
+```
+* Amended the `code/sortmerna.sh` script to change the db, and ran it on one full library. Went much faster (was done overnight)
+```
+code/sortmerna.sh analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.1.fq.gz analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.2.fq.gz S_42AB1 analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.bbmapmerged.non_rRNA.1.fq 22
+```
+
+## 2. Rarefaction analysis
+* For the transcriptomes, I did a rarefaction analysis, to check whether the sequencing depth was sufficient
+* Used bbmap to plot ["the fraction of unique reads produced by a sequencing run, as a function of the number of reads sequence"](https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/calcuniqueness-guide/)
+* For interpretation, the tool's creator says ["In general, there is no reason to sequence further once "first" approaches zero in non-cumulative mode! ... In some situations, like RNA-seq, single-cell, or metagenomes, in which the sequences have an exponential coverage distribution, you will NEVER reach zero."](https://www.seqanswers.com/forum/bioinformatics/bioinformatics-aa/43538-how-to-plot-the-saturation-curves-to-assess-the-sequencing-depth)
+```
+source package /tsl/software/testing/bin/bbmap-37.90 
+bbcountunique.sh in=analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.bbmapmerged.non_rRNA.1.fq.gz in2=analysis_and_temp_files/03_qc/trimmed_reads/S_42AB1_trimmed.bbmapmerged.non_rRNA.2.fq.gz out=analysis_and_temp_files/03_qc/rarefaction/rarefaction_S_42AB1.txt
+```
+* Visualizing shows that the curve flatten. In general this should be an indication that
+  * Given that we deal with metatranscriptomic data with uneven abundance of organisms, we can't rule out that lower-abundance samples were undersequenced
+  * Still, the data is most probably good to use
+```{r, message = FALSE,fig.width=14,fig.height=6}
+library(tidyverse)
+rare<-read.delim("../analysis_and_temp_files/03_qc/rarefaction/rarefaction_S_42AB1.txt")
+
+rare<-rare %>% select(X.count,first,pair) %>% pivot_longer(-X.count,names_to = "kmer",values_to = "percent_unique")
+
+
+ggplot(rare,aes(x=X.count,y=percent_unique,col=kmer))+geom_line()
+
+```
+
+## 3. Scaled this to the whole dataset
+* Implemented as a snakemake pipeline `analysis/03_qc/Snakefile_qc`
+* Did initial FastQC on all libraries
+* Trimmed adapters on the libraries intended for de novo assemblies (libraries from pure cultures and lichen thalli). Did FastQC on the trimmed libraries
+* Removed rRNA from these libraries
+
+#### Results: Initial FastQC run
+* Most files look normal, but there are several potential problems
+* Abnormal GC%:
+  * Libraries KS9HB1, KS9HB2, KS9HB3, KS48HB1, KS48HB2, KS48HB3, S_21HB3, S_42HB1,S_42HB3 (Chlorella), and S_21XHB1 (Xanthoria + Chlorella)  have a small bump on the GC% plot around 50% (main peak is at 67%)
+  * Libraries KS9XAB1, KS9XAB2, KS9XAB3 (Xanthoria + Asterochloris), KS9XHB3 (Xanthoria + Chlorella), KS48TCB1 (cladonia + trebouxia), KS48XHB1 (Xanthoria + Chlorella) have an asymmetric GC% peak
+  * KS9XHB1, KS9XHB2, S_21XHB3, S_21XHW1, S_21XHW3, S_42XHW1 (Xanthoria + Chlorella) has a weird double-peak in GC%
+* Overrepresented sequences
+  * Many libraries have overrepresented poly-T sequence. Will have to remove them too
+  * KS48NB1, KS48NB2, and KS48NB3 (trebouxia + aspergillus) have one overrepresented sequences with no hits `GGGATACCCGCTGAACTTAAGCATATCAATAAGCGGAGGAAAAGAAACCA`. The sequence blasts as rRNA. This will be taken care of by the rRNA-filtering step
+  
+#### Rarefaction analysis
+* In all samples, percent unique falls below 25% by the end (min is 3%!)
+* Given that this is metatranscriptomic data, it's unlikely that we will get much better results even with deeper sequencing
+
+```{r, message = FALSE,fig.width=14,fig.height=16}
+library(stringr)
+###define function
+read_file<-function(x){
+  rare<-read.delim(paste0("../analysis_and_temp_files/03_qc/rarefaction/",x))
+  sample_id<-str_replace(x,"rarefaction_","") %>% str_replace(".txt","")
+  rare<-rare %>% select(X.count,first,pair) %>% pivot_longer(-X.count,names_to = "kmer",values_to = "percent_unique")
+  rare$sample<-sample_id
+  return(rare)
+}
+
+###apply to all files
+file_list<-list.files("../analysis_and_temp_files/03_qc/rarefaction/","rarefaction_")  
+l<-lapply(file_list,read_file)
+rare_combine<-do.call(rbind,l)
+
+
+ggplot(rare_combine,aes(x=X.count,y=percent_unique,col=kmer))+geom_line()+
+  facet_wrap(.~sample,nrow=7)
+
+```
+
+
+

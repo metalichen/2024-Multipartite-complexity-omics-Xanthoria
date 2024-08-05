@@ -1,0 +1,85 @@
+cluster_id,n_proteins,descrition,interest,color,node
+cl01,2,Amidase,N,#12694F,Node110
+cl02,3,Tyrosinase,N,#903F01,Node111
+cl03,2,No annotation,N,#4D4A77,Node101
+cl04,8,No annotation,Y,#9A1B5B,Node102
+cl05,4,Lipase,N,#446E14,Node96
+cl06,4,Carboxylesterase,N,#997101,Node93
+cl07,4,Esterase,N,#6E4E13,Node74
+cl08,2,Annotations do not match,N,#444444,Node92
+cl09,5,Peptidase S10P,N,#147A5C,Node88
+cl10,2,Pyrethroid Hydrolase and Hydroxynitrile Lyase,N,#A84901,Node87
+cl11,3,Lipase,N,#5A578B,Node85
+cl12,2,Esterase,N,#B31F6B,Node83
+cl13,3,No annotation,N,#4F8117,Node81
+cl14,2,No annotation,N,#B28401,Node66
+cl15,8,No annotation,N,#815B16,Node59
+cl16,2,Ribonuclease/ribotoxin,Y,#4F4F4F,Node9
+cl17,2,Peptidase S53,N,#188C69,Node8
+cl18,6,Match to effector from Zymoseptoria,Y,#C05401,Node12
+cl19,4,No annotation,Y,#67639F,Node54
+cl20,7,No annotation,Y,#CD247A,Node48
+cl21,5,Killer toxin,Y,#5A931A,Node44
+cl22,2,No annotation,Y,#CC9701,Node43
+cl23,3,No annotation,Y,#936819,Node41
+cl24,9,Match to effector from Zymoseptoria,Y,#5A5A5A,Node22
+cl24a,11,Match to effector from Zymoseptoria,Y,#1B9E77,Node31
+cl25,2,Beta lactamase,N,#D95F02,Node390
+cl26,2,DUF3455,N,#7570B3,Node385
+cl27,2,Cetoacetate decarboxylase,N,#E7298A,Node388
+cl28,2,Mettalopeptidase,N,#66A61E,Node387
+cl29,4,Extracellular membrane protein,N,#E6AB02,Node376
+cl30,3,No annotation,N,#A6761D,Node370
+cl31,4,No annotation,N,#666666,Node366
+cl32,12,Mettalopeptidase,N,#34A886,Node354
+cl33,2,Vacuolar protein sorting-associated protein 62,N,#DD701E,Node348
+cl34,4,SnoaL,N,#847FBB,Node349
+cl35,2,Annotations do not match,N,#E94097,Node346
+cl36,2,SUN family,N,#77AF36,Node339
+cl37,2,thaumatin-like,Y,#E8B41E,Node341
+cl38,4,thaumatin-like,Y,#AF8536,Node342
+cl39,2,PIR domain,N,#777777,Node298
+cl40,2,No annotation,N,#4DB395,Node303
+cl41,3,Ricin B-like lectin,N,#E1823A,Node300
+cl42,1,Match to Trichoderma effector,Y,#938FC3,FUN_009887-T1
+cl43,2,GH43,N,#EC58A3,Node288
+cl44,2,Six-bladed beta-propeller, TolB-like,N,#88B950,Node295
+cl45,2,Arylsulfotransferase-like,N,#EBBD3A,Node291
+cl46,3,Annotations do not match,N,#B9944F,Node293
+cl47,2,Germins cupins,N,#888888,Node337
+cl48,3,No annotation,N,#67BEA4,Node335
+cl49,8,GH16,N,#E59456,Node306
+cl50,2,GH12,N,#A39FCC,Node332
+cl51,8,Galactose-binding domain,N,#EF70B1,Node316
+cl52,5,No annotation,N,#99C369,Node328
+cl53,5,Galactose-binding domain Coagulation factor. different otherwise,N,#EEC756,Node324
+cl54,2,Chloroperoxidase,N,#C3A368,Node178
+cl55,3,FAD linked oxidase,N,#999999,Node162
+cl56,15,flavoprotein EncM,N,#80C9B3,Node164
+cl57,2,SGNH hydrolase domain,N,#E9A672,Node153
+cl58,3,GDSL lipase/esterase,N,#B2AFD4,Node154
+cl59,5,GH128,N,#F188BE,Node143
+cl60,2,Spherulation,N,#AACD82,Node142
+cl61,2,GH71,N,#F1D072,Node141
+cl62,2,GH20,N,#CDB281,Node138
+cl63,3,GH5,N,#AAAAAA,Node136
+cl64,2,GH5,N,#99D3C2,Node128
+cl65,8,GH72,N,#EEB78E,Node129
+cl66,2,No annotation,N,#C1BFDD,Node263
+cl67,8,Kremen-like,N,#F49FCB,Node265
+cl68,2,Ferritin-like,N,#BBD79B,Node237
+cl69,2,Purple acid phosphatase-like,N,#F3D98E,Node240
+cl70,2,AA9,N,#D7C29A,Node251
+cl71,5,Chitin-binding. matching by small part,N,#BBBBBB,Node246
+cl72,2,Phosphatidylethanolamine-binding protein,N,#B3DED1,Node260
+cl73,2,No annotation,N,#F2C9AA,Node255
+cl74,2,No annotation,N,#D1CFE5,Node259
+cl75,2,Endonuclease/exonuclease/phosphatase,N,#F7B7D8,Node230
+cl76,2,Aminopeptidase M28,N,#CCE1B3,Node215
+cl77,2,Patulin synthase,N,#F6E3AA,Node226
+cl78,7,Cholin/aryl-alcohol oxidase,N,#E1D1B3,Node220
+cl79,2,No annotation,N,#CCCCCC,Node189
+cl80,2,Gamma-crystallin-like,N,#CCE9E0,Node187
+cl81,8,Aspartic peptidase,N,#F6DBC6,Node202
+cl82,3,No annotation,N,#E0DFEE,Node194
+cl83,5,Papain inbitor,N,#F9CFE4,Node197

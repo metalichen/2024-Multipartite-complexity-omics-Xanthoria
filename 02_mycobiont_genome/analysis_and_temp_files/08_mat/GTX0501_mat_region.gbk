@@ -1,0 +1,150 @@
+LOCUS       Xp_GTX0501_3         1956818 bp    DNA     linear   PLN 12-SEP-2023
+DEFINITION  Xanthoria parietina isolate GTX0501.
+ACCESSION   
+VERSION
+KEYWORDS    .
+SOURCE      Xanthoria parietina
+  ORGANISM  Xanthoria parietina
+            Eukaryota; Fungi; Dikarya; Ascomycota; Pezizomycotina;
+            Lecanoromycetes; OSLEUM clade; Lecanoromycetidae; Teloschistales;
+            Teloschistineae; Teloschistaceae; Xanthorioideae; Xanthoria.
+REFERENCE   1  (bases 1 to 1956818)
+  AUTHORS   Tagirdzhanova,G.
+  TITLE     Genome of Coccomyxa viridis
+  JOURNAL   Unpublished
+REFERENCE   2  (bases 1 to 1956818)
+  AUTHORS   Tagirdzhanova,G.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (12-SEP-2023) Talbot group, The Sainsbury Laboratory,
+            Norwich Research Park, Norwich NR4 7UH, United Kingdom
+COMMENT     'Annotated using Funannotate 1.8.15'.
+FEATURES             Location/Qualifiers
+     source          1..1956818
+                     /organism="Xanthoria parietina"
+                     /mol_type="genomic DNA"
+                     /isolate="GTX0501"
+                     /db_xref="taxon:107463"
+     gene            1114087..1116665
+                     /gene="APN2"
+                     /locus_tag="XANPAGTX0501_002102"
+     mRNA            join(1114087..1114218,1114283..1114295,1114389..1114434,
+                     1114489..1114621,1114677..1115386,1115433..1116665)
+                     /gene="APN2"
+                     /locus_tag="XANPAGTX0501_002102"
+                     /product="Class II abasic (AP) endonuclease"
+     CDS             join(1114194..1114218,1114283..1114295,1114389..1114434,
+                     1114489..1114621,1114677..1115386,1115433..1116506)
+                     /gene="APN2"
+                     /locus_tag="XANPAGTX0501_002102"
+                     /EC_number="4.2.99.18"
+                     /note="EggNog:ENOG503NUNY;
+                     COG:L;
+                     GO_function: GO:0004519 - endonuclease activity [Evidence
+                     IEA];
+                     GO_function: GO:0004518 - nuclease activity [Evidence
+                     IEA];
+                     GO_function: GO:0003677 - DNA binding [Evidence IEA];
+                     GO_process: GO:0006281 - DNA repair [Evidence IEA]"
+                     /codon_start=1
+                     /product="Class II abasic (AP) endonuclease"
+                     /protein_id="ncbi:XANPAGTX0501_002102-T1"
+                     /db_xref="InterPro:IPR004808"
+                     /db_xref="InterPro:IPR005135"
+                     /db_xref="InterPro:IPR020848"
+                     /db_xref="InterPro:IPR036691"
+                     /db_xref="PFAM:PF03372"
+                     /translation="MVRITTWNVNGIRNPFGYQPWRDKRTFAAMFDILEADIVVFQET
+                     KIQRKDLVDDMVLVPGWDCYWSLPKHKKGYAGVVIYTRQSVCAPIRAEEGITGALCPP
+                     GSTTSFSDGPQDQQIGGYPSQAQLEASLVDATTLDSEGRCVILEFPAFVLFGVYSPAN
+                     RDETRDEFRLGFVDVLDARIRNLVAMGKRVILTGDLNISREELDTANAEAAMRKNGYT
+                     AEEYMSTPARRMFNQLLDGGKVLGERDQGREKPILWDICRGFHPTRKGMFTCWEQKVN
+                     ARPGNYGARIDYVLSSLDMKAWFSYSNIQEGLMGSDHCPVYAVIKDQIDVNGEMVHTL
+                     DLMNPQGMFMDGLRQREYSTKDMLPMSGKLIPEFDGRRNIKDMFTRKPPLAKSQSTAT
+                     PLASAEEGEDAKIDEIVGLSRDQIPQADLPTAPLANGQTTVTETVPPVAGKKRSSAPT
+                     STNRPLKRSRSGVSVQAAPANSKGQQSLKGFFTKPTATAQVSSAAPSTTQEIEVQSGA
+                     GPKPGLEAAIVIHSNDTESLTYQKDREPIDSTTPTSPPATQDPDGSTDTLSAQTSPFK
+                     KGVDMEDSDKVHDPIQSKECWSKLFTKPAAPRCESHDEPCKTMLTKKSGMNCGRSFWM
+                     CARPLGPSGAKEKNTQWRCPTFIWCSDWNPNLPTTTTTTTTT"
+     gene            complement(1117891..1118388)
+                     /locus_tag="XANPAGTX0501_002103"
+     mRNA            complement(1117891..1118388)
+                     /locus_tag="XANPAGTX0501_002103"
+                     /product="hypothetical protein"
+     CDS             complement(1117891..1118388)
+                     /locus_tag="XANPAGTX0501_002103"
+                     /note="COG:K;
+                     EggNog:ENOG503P720"
+                     /codon_start=1
+                     /product="hypothetical protein"
+                     /protein_id="ncbi:XANPAGTX0501_002103-T1"
+                     /db_xref="InterPro:IPR036910"
+                     /translation="MTLTDNSVAIILGRQWQNDIKAQFKSLAEKIKKDHQLAYPNYQY
+                     QPRKPAEKKRRMTRSKAEKMEAQAKSSNSSTGAAAVPAFGKSSTGNAVFTLGDDSIED
+                     DATLMAMVQKHNQDVMALTAYPVESAAPVLFHEHSEEAHNDASFYGNLLDFDEMFPNS
+                     FPPPP"
+     gene            complement(1118469..1118834)
+                     /locus_tag="XANPAGTX0501_002104"
+     mRNA            complement(join(1118469..1118631,1118683..1118834))
+                     /locus_tag="XANPAGTX0501_002104"
+                     /product="hypothetical protein"
+     CDS             complement(join(1118469..1118631,1118683..1118834))
+                     /locus_tag="XANPAGTX0501_002104"
+                     /codon_start=1
+                     /product="hypothetical protein"
+                     /protein_id="ncbi:XANPAGTX0501_002104-T1"
+                     /translation="MAVSNLPLADRVWNTHAWAMNHGFTDYVILDSVVTTAIGTDGIA
+                     LIAERFQSMIQAPVKIEKQGPLLTRIRPVDKDGVDAKPKSNMTLKKDKVPRPPNAFIL
+                     YR"
+     gene            complement(1121684..1125494)
+                     /gene="SLA2"
+                     /locus_tag="XANPAGTX0501_002105"
+     mRNA            complement(join(1121684..1121770,1121829..1123046,
+                     1123096..1123245,1123294..1124357,1124413..1124597,
+                     1124647..1124704,1124759..1124839,1124923..1125080,
+                     1125164..1125239,1125295..1125312,1125371..1125417,
+                     1125487..1125494))
+                     /gene="SLA2"
+                     /locus_tag="XANPAGTX0501_002105"
+                     /product="sla2 Src-like adaptor 2"
+     CDS             complement(join(1121684..1121770,1121829..1123046,
+                     1123096..1123245,1123294..1124357,1124413..1124597,
+                     1124647..1124704,1124759..1124839,1124923..1125080,
+                     1125164..1125239,1125295..1125312,1125371..1125417,
+                     1125487..1125494))
+                     /gene="SLA2"
+                     /locus_tag="XANPAGTX0501_002105"
+                     /note="BUSCO:EOG09261A3K;
+                     EggNog:ENOG503Q3C0;
+                     COG:Z;
+                     GO_function: GO:0005543 - phospholipid binding [Evidence
+                     IEA];
+                     GO_function: GO:0003779 - actin binding [Evidence IEA]"
+                     /codon_start=1
+                     /product="sla2 Src-like adaptor 2"
+                     /protein_id="ncbi:XANPAGTX0501_002105-T1"
+                     /db_xref="InterPro:IPR002558"
+                     /db_xref="InterPro:IPR008942"
+                     /db_xref="InterPro:IPR011417"
+                     /db_xref="InterPro:IPR013809"
+                     /db_xref="InterPro:IPR035964"
+                     /db_xref="PFAM:PF01608"
+                     /db_xref="PFAM:PF07651"
+                     /translation="MSRSENDLQVNIRKATSIEETAPKRKHVRACIVYTWDHKSSQSF
+                     WAGMKVQPILADEVQTFKALITVHKVLQEGHPIAVRDAQANVNWLESLTRGVTGEGLR
+                     GYGPLLRDYVYFLMAKLAFHRQHPEFNGLFEYEEYISLKSINDPNEGYETISDLMTLQ
+                     DQIDSFQKLIFAHFRGGANNECRISALVPLVQESYGIYKFITSMLRAMHTTTGDDDAL
+                     SPLRGRYDTQHYRLLKFYYECSNLRYLTSLITVPKLPQEPPNLLSEDEDRPALPRRPA
+                     RDLETKEESAPTPPPPPAAAPDPEPMNEFWKDDQRRQQEEFDAEQRRLQEQWNQQQYQ
+                     QQMAQQQLERDYEEQRRQQAEQQRLAQEQLMQQQLHAQTQGRMAELERENLNARAQYE
+                     QDQLMLQQYDRRMKDLENQLNQLNNNFGQQTASKDDQIRALQEQVNTWRSKYEALAKL
+                     YSQLRSEHLDLLQKFKSVQHKAASAQEAIDKREKLEREIKTKNLELADMIRERDRALH
+                     EKDRVTGGNREEVEKLKRELRLAAERADNAERAKGSELSSMLAKYNREMADLEEALRA
+                     KSRALDDVHSKFGERDGDLERSLREKEEELEIYKSGMDQTLLELNELRMNGGDTDKAL
+                     DEQIDQVLLGNIQKINDIIDSVLQSGVQRVDDALYELDSTMQAGNQNASAPYVLSQVE
+                     KASSSATEFSTAFNNFIADGPNSPHADIIRTINVFSGSIADVLSNTKGLTRFATEEKR
+                     SDQLINAARQSAVSTLSFFRSLQSFRLEGLEDTKKTDVVINSNHEVQMNLQKLSKLAD
+                     AFAPRSSKLTNASGDLGDLVDRELTNAARAIDAAAERLNNMMKKSREGYSTYELRIHD
+                     SILEAAIAVTNAIAQLIKAATASQQEIVKEGRGSSSRTAFYKKNNRWTEGLISAAKAV
+                     ASSTNTLIETADGVISGRNSPEQLIVASNDVTASTAQLVAASRVKANFGSRTQDRLEE
+                     ASKAVGKACRSLVRQVQDIIAQKNRDEGEDVDYGKLSGHEFKVREMEQQVEILQLENN
+                     LAQARQRLGEMRKISYQED"

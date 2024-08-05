@@ -1,0 +1,11 @@
+genome	completeness	contamination	strain_heterogeneity	genome_size	number_scaffolds	N50	mean_scaffold_length	longest_scaffold	GC	classification	phylum	class	order	family	genus	species	domain
+GTX0494.bin.19.fa	98.5	0.38	0	25611674	506	96876	50615	485276	51.9	Lecanoromycetes	Ascomycota	Lecanoromycetes	Unknown	Unknown	Unknown	Unknown	Eukaryota
+GTX0491.bin.13.fa	84.59	0	0	21433045	298	102804	71922	417651	51.5	Lecanoromycetes	Ascomycota	Lecanoromycetes	Unknown	Unknown	Unknown	Unknown	Eukaryota
+GTX0481.bin.1.fa	94.36	1.5	0	29852520	2748	13535	10863	63939	48.4	Lecanoromycetes	Ascomycota	Lecanoromycetes	Unknown	Unknown	Unknown	Unknown	Eukaryota
+GTX0486_487.bin.12.fa	87.22	3.76	0	24644408	3117	9695	7906	56625	52.1	Chaetothyriales	Ascomycota	Eurotiomycetes	Unknown	Unknown	Unknown	Unknown	Eukaryota
+GTX0466.bin.15.fa	99.62	0	0	27330910	110	508503	248462	2020088	51.2	Chaetothyriales	Ascomycota	Eurotiomycetes	Unknown	Unknown	Unknown	Unknown	Eukaryota
+GTX0486_487.bin.100.fa	95.86	0	2.13	24299713	1096	38965	22171	169552	48.2	Leotiomyceta	Ascomycota	Unknown	Unknown	Unknown	Unknown	Unknown	Eukaryota
+GTX0493.bin.23.fa	87	4.2	4.55	55592226	5074	14283	10956	93692	50.3	Trebouxia	Chlorophyta	Trebouxiophyceae	Unknown	Unknown	Unknown	Unknown	Eukaryota
+GTX0468.bin.53.fa	87.8	4.4	0	60640980	5201	15495	11659	97505	50.4	Trebouxia	Chlorophyta	Trebouxiophyceae	Unknown	Unknown	Unknown	Unknown	Eukaryota
+GTX0465.bin.1.fa	89.4	4.4	0	59369835	1796	53632	33056	293819	49.6	Trebouxia	Chlorophyta	Trebouxiophyceae	Unknown	Unknown	Unknown	Unknown	Eukaryota
+GTX0491.bin.33.fa	90.2	5.8	1.35	67503976	3521	28337	19171	161640	50.6	Trebouxia	Chlorophyta	Trebouxiophyceae	Unknown	Unknown	Unknown	Unknown	Eukaryota

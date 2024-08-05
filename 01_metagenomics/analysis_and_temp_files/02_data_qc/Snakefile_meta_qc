@@ -1,0 +1,79 @@
+
+#Snakefile for quality control and trimming of metagenomic data
+
+import pandas as pd
+import re
+from os.path import join
+#configfile: "code/params/config.yaml"
+
+#load table with metadata
+input_table = pd.read_csv("data/metadata/fastq_files_metadata.txt", sep="\t").set_index("run_id", drop=False)
+SAMPLES = input_table.index.tolist()
+#SAMPLES=["GTX0465","GTX0466"]
+
+#define functions, by which I will get file locations for each ran from the table
+def fq1_from_sample(wildcards):
+  folder = input_table.loc[wildcards.sample, "folder"]
+  LIB1, = glob_wildcards(join(folder, '{lib1}_1.fq.gz'))  
+  return sorted(expand(f"{folder}{{lib1}}_1.fq.gz",lib1=LIB1))
+
+def fq2_from_sample(wildcards):
+  folder = input_table.loc[wildcards.sample, "folder"]
+  LIB2, = glob_wildcards(join(folder, '{lib2}_2.fq.gz'))  
+  return sorted(expand(f"{folder}{{lib2}}_2.fq.gz",lib2=LIB2))
+
+rule all:
+    input:
+    	expand("analysis_and_temp_files/02_data_qc/fastqc_out/{sample}_trimmed.2.fastqc.html",sample=SAMPLES),
+    	expand("data/fastq/{sample}_trimmed.2.fq.gz",sample=SAMPLES),
+
+
+#remove human contamination        
+rule filter_human:
+    input:
+        fq1=fq1_from_sample,
+        fq2=fq2_from_sample
+    output:
+        o1="data/fastq/{sample}_hg_removed_1.fastq.gz",
+        o2="data/fastq/{sample}_hg_removed_2.fastq.gz",  
+    params:
+        mem = "20G",
+        queue="tsl-medium",
+        read1_lst=lambda wildcards, input: ','.join(input.fq1),
+        read2_lst=lambda wildcards, input: ','.join(input.fq2)
+    threads: 10	  
+    run: 
+        shell("bash code/filter_human.sh {params.read1_lst} {params.read2_lst} {wildcards.sample} {output.o1} {output.o2}")
+        
+#remove adapters
+rule cutadapt:
+    input:
+        fq1="data/fastq/{sample}_hg_removed_1.fastq.gz",
+        fq2="data/fastq/{sample}_hg_removed_2.fastq.gz"
+    output:
+        o1="data/fastq/{sample}_trimmed.1.fq.gz",
+        o2="data/fastq/{sample}_trimmed.2.fq.gz"
+    params:
+        mem = "30G",
+        queue="tsl-short"
+    threads: 15	
+    shell: "code/run_cutadapt.sh {output.o1} {output.o2} {input.fq1} {input.fq2} 15"
+
+    
+#fastQC 
+rule fastqc:
+    input:
+        fq1="data/fastq/{sample}_trimmed.1.fq.gz",
+        fq2="data/fastq/{sample}_trimmed.2.fq.gz",
+    output: "analysis_and_temp_files/02_data_qc/fastqc_out/{sample}_trimmed.2.fastqc.html"
+    params:
+        mem = "4G",
+        queue="tsl-short"
+    threads: 1	
+    run: 
+        shell("code/run_fastqc.sh {input.fq1};"),
+        shell("code/run_fastqc.sh {input.fq2};")
+
+#remove Xanthoria reads
+
+		

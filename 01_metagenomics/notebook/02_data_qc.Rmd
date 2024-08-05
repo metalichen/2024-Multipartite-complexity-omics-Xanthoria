@@ -1,0 +1,104 @@
+---
+title: "02_data_qc.md"
+author: "Gulnara Tagridzhanova"
+date: "02/03/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/01_Xanthoria_metagenomics/notebook")
+
+```
+ **Rationale:** here I organize the metagenomic data, do QC and trim adapters
+
+# 1. Organize data
+* Saved the spreadsheet as `data/metadata/fastq_files_metadata.csv`
+
+# 2. Proof of concept
+#### Remove human contamination
+* Used bwa-mem, samtools, and hg38 index from the QIB cluster. Used samtools to extract unmapped reads (such as both maits are unmapped). Followed instructions from [Daren Card](https://gist.github.com/darencard/72ddd9e6c08aaff5ff64ca512a04a6dd) to select samtools flags
+```
+source package fa33234e-dceb-4a58-9a78-7bcf9809edd7  
+source package aeee87c4-1923-4732-aca2-f2aff23580cc
+
+bwa mem /qib/platforms/Informatics/databases/hg/hg38.masked.fa /tsl/data/reads/ntalbot/metagenomes_of_xanthoria_parietina_lichens/gtx0466/gtx0466/raw/GTX0466_EKDN230002737-1A_HNJ33DSX5_L4_1.fq.gz /tsl/data/reads/ntalbot/metagenomes_of_xanthoria_parietina_lichens/gtx0466/gtx0466/raw/GTX0466_EKDN230002737-1A_HNJ33DSX5_L4_2.fq.gz -t 20 | samtools view -o data/fastq/GTX0466.bam
+
+samtools sort data/fastq/GTX0466.bam > data/fastq/GTX0466.sorted.bam
+rm data/fastq/GTX0466.bam
+
+samtools fastq -f 12 -F 256 data/fastq/GTX0466.sorted.bam -1 data/fastq/GTX0466_decontam_1.fastq.gz -2 data/fastq/GTX0466_decontam_2.fastq.gz  --threads 20
+>[M::bam2fq_mainloop] processed 368479542 reads
+
+samtools stats data/fastq/GTX0466.sorted.bam > data/fastq/GTX0466_align_against_hg.report
+>reads mapped: 17239714
+>reads mapped and paired: 17116826 
+```
+
+* Check produced fastq files stats with BBMap
+```
+source package /tsl/software/testing/bin/bbmap-37.90  
+reformat.sh in=data/fastq/GTX0466_decontam_1.fastq.gz in2=data/fastq/GTX0466_decontam_2.fastq.gz
+reformat.sh in=/tsl/data/reads/ntalbot/metagenomes_of_xanthoria_parietina_lichens/gtx0466/gtx0466/raw/GTX0466_EKDN230002737-1A_HNJ33DSX5_L4_1.fq.gz in2=/tsl/data/reads/ntalbot/metagenomes_of_xanthoria_parietina_lichens/gtx0466/gtx0466/raw/GTX0466_EKDN230002737-1A_HNJ33DSX5_L4_2.fq.gz
+```
+* Results:  of reads were filtered out
+  * original library: 385842144 reads; 57876321600 bases
+  * filtered library: 
+  
+* Sanity-check let align the filtered-out reads against the human genome, to check that we are removing the right thing
+```
+samtools fastq -f 1 -F 12 data/fastq/GTX0466.sorted.bam -1 data/fastq/GTX0466_human_contam_1.fastq.gz -2 data/fastq/GTX0466_human_contam_2.fastq.gz  --threads 20 
+>[M::bam2fq_mainloop] processed 17119322 reads
+
+samtools view -f 1 -F 12 data/fastq/GTX0466.sorted.bam  --threads 20 > data/fastq/GTX0466_human_contam.bam 
+
+samtools stats data/fastq/GTX0466_human_contam.bam > data/fastq/GTX0466_human_contam.bam.report
+
+bwa mem /qib/platforms/Informatics/databases/hg/hg38.masked.fa data/fastq/GTX0466_human_contam_1.fastq.gz data/fastq/GTX0466_human_contam_2.fastq.gz -t 20 | samtools view -o data/fastq/GTX0466_human_realign.bam
+
+samtools stats data/fastq/GTX0466_human_realign.bam > data/fastq/GTX0466_human_realign.report
+```
+
+#### [Try with bowtie instead](https://www.metagenomics.wiki/tools/short-read/remove-host-sequences)
+* Downloaded human reference into `externalData/ntalbot/lichen_project/human_ref`
+```
+wget https://genome-idx.s3.amazonaws.com/bt/GRCh38_noalt_as.zip
+unzip GRCh38_noalt_as.zip
+```
+* Use bowtie2 to map (0.02% overall alignment rate); in the same command it removes the mapped reads
+```
+source package 29a74b59-88fc-4453-a30b-1310b34910b9
+bowtie2 -p 10 -x /tsl/data/externalData/ntalbot/lichen_project/human_ref/GRCh38_noalt_as/GRCh38_noalt_as  \
+  -1 /tsl/data/reads/ntalbot/metagenomes_of_xanthoria_parietina_lichens/gtx0466/gtx0466/raw/GTX0466_EKDN230002737-1A_HNJ33DSX5_L4_1.fq.gz \
+  -2 /tsl/data/reads/ntalbot/metagenomes_of_xanthoria_parietina_lichens/gtx0466/gtx0466/raw/GTX0466_EKDN230002737-1A_HNJ33DSX5_L4_2.fq.gz \
+  --un-conc-gz \
+  GTX0466_hg_removed \
+  > data/fastq/GTX0466_mapped_and_unmapped.sam
+mv GTX0466_hg_removed.1 data/fastq/GTX0466_hg_removed_1.fastq.gz
+mv GTX0466_hg_removed.2 data/fastq/GTX0466_hg_removed_2.fastq.gz
+```
+
+#### FastQC
+```
+source package /tsl/software/testing/bin/fastqc-0.11.5 
+mkdir analysis_and_temp_files/02_data_qc/fastqc_out -p
+fastqc data/fastq/GTX0466_hg_removed_*.fastq.gz -o analysis_and_temp_files/02_data_qc/fastqc_out
+```
+Results look very good, still will do adapter trimming, since Novogene's report showed some residual contamination
+
+#### Cutadapt
+* Used adapter sequences provided by Novogene
+```
+source package /tgac/software/testing/bin/cutadapt-1.17
+cutadapt -j 20 --adapter=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT -A=GATCGGAAGAGCACACGTCTGAACTCCAGTCACGGATGACTATCTCGTATGCCGTCTTCTGCTTG --minimum-length=25  -o data/fastq/GTX0466_trimmed.1.fq.gz data/fastq/GTX0466_trimmed.2.fq.gz -p $outputo2  data/fastq/GTX0466_hg_removed_1.fastq.gz data/fastq/GTX0466_hg_removed_2.fastq.gz
+
+```
+
+
+## 2. Apply to all files
+* Used Snakemake pipeline `analysis_and_temp_files/02_data_qc/Snakefile_meta_qc`
+
+
+
+
+

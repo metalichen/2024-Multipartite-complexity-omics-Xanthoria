@@ -1,0 +1,65 @@
+---
+title: "04_xanthoria_mag"
+author: "Gulnara Tagridzhanova"
+date: "23/03/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/11_omics_manuscript/repo_public/2024-Multipartite-complexity-omics-Xanthoria/02_mycobiont_genome/notebook")
+```
+**Summary:** 
+Investigated and QC the Xanthoria genome derived from the Nanopore sequencing of thallus DNA.
+
+```
+python code/detect_telomers.py analysis_and_temp_files/02_binning/GTX0501_xanthoria_nuclear_mag.fa > analysis_and_temp_files/04_xanthoria_mag/telomer_detection_GTX0501.txt
+
+source package 46a62eca-4f8f-45aa-8cc2-d4efc99dd9c6
+seqkit sliding analysis_and_temp_files/02_binning/GTX0501_xanthoria_nuclear_mag.fa -s 1000 -W 1000  | seqkit fx2tab -n -g > analysis_and_temp_files/04_xanthoria_mag/GC_sliding_GTX0501.txt
+```
+* Visualize
+```{r, message = FALSE}
+library(tidyverse)
+library(stringr)
+library(viridis)
+gc3<-read.delim2("../analysis_and_temp_files/04_xanthoria_mag/GC_sliding_GTX0501.txt",header=F)[,c(1,4)]
+colnames(gc3)<-c("window","gc_content")
+##get contig name and start of the window
+gc3$contig<-sub("_sliding.*", "", gc3$window)  
+gc3$window<-sub(".*:", "", gc3$window)
+gc3$window_start<-sub("-.*", "", gc3$window) %>% as.numeric()
+gc3$gc_content<-gc3$gc_content %>% as.numeric()
+
+##add data for telomere annotation
+tel<-read.delim2("../analysis_and_temp_files/04_xanthoria_mag/telomer_detection_GTX0501.txt",header=F)[,c(1,2)]
+colnames(tel)<-c("contig","position")
+tel_start_contig_list<-tel[tel$position=="forward",1] #list all contigs that have telomer at the contig start (corresponds to 'forward')
+tel_end_contig_list<-tel[tel$position=="reverse",1] #list all contigs that have telomer at the contig start (corresponds to 'forward')
+
+## get 
+tel_start<-gc3 %>% select(contig,window_start) %>% mutate(telomere="absent") %>% group_by(contig) %>% arrange(window_start) %>% filter(row_number()<25 & contig %in% tel_start_contig_list) %>% mutate(telomere="present") %>% ungroup()
+
+tel_end<-gc3 %>% select(contig,window_start) %>% mutate(telomere="absent") %>% group_by(contig) %>% arrange(window_start) %>% 
+  slice(tail(row_number(), 25)) %>% filter(contig %in% tel_end_contig_list) %>% mutate(telomere="present") %>% ungroup()
+
+gc3<-gc3 %>% left_join(rbind(tel_start,tel_end))
+gc3$telomere[is.na(gc3$telomere)]<-"absent"
+
+##visualize
+ggplot(gc3)+
+  geom_tile(aes(y=fct_reorder(contig,window_start),x=window_start,color=gc_content))+
+  geom_tile(aes(y=fct_reorder(contig,window_start),x=window_start,alpha=telomere),fill="red")+
+  xlab("")+ylab("")+
+   scale_alpha_discrete(range=c(0,1))+
+  scale_color_viridis(begin = 1,end = 0)+
+   scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"))+
+  theme_minimal()
+```
+
+* Mostly doesn't have telomeric repeats
+
+
+
+

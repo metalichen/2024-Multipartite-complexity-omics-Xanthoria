@@ -1,0 +1,6 @@
+bin	BUSCO ascomycota_odb10	EukCC NCBI 78060 (Parmeliaceae)
+bin.8	"C:95.5%[S:95.1%,D:0.4%],F:0.4%,M:4.1%,n:1706"	"96.99% completeness, 0.75% contamination"
+bin.8.11	"C:95.5%[S:95.1%,D:0.4%],F:0.4%,M:4.1%,n:1706Ê"	"96.99% completeness, 0.75% contamination"
+bin.8.unbinned	"C:95.7%[S:95.3%,D:0.4%],F:0.4%,M:3.9%,n:1706"	"97.37% completeness, 0.75% contamination"
+bin.8.11.unbinned	"C:95.7%[S:95.3%,D:0.4%],F:0.4%,M:3.9%,n:1706"	"97.37% completeness, 0.75% contamination"
+candidate_contigs	"C:95.9%[S:95.4%,D:0.5%],F:0.4%,M:3.7%,n:1706"	"97.74% completeness, 1.13% contamination"

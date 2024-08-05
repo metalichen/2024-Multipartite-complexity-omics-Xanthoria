@@ -1,0 +1,565 @@
+05-22 18:20 DEBUG    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+05-22 18:20 DEBUG    ***Logger started up at /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/log/logger.log***
+05-22 18:20 DEBUG    Command to run dRep was: /opt/software/conda_env/bin/dRep dereplicate -p 1 analysis_and_temp_files/03_assembly/coassembly/euk_drep -g analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_fastas.txt -pa 0.80 -sa 0.95 -nc 0.40 -cm larger --genomeInfo analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_table.txt -comp 49 -con 21
+
+05-22 18:20 DEBUG    dRep version 2.5.0 was run 
+
+05-22 18:20 DEBUG    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+05-22 18:20 DEBUG    Namespace(MASH_sketch=1000, N50_weight=0.5, P_ani=0.8, S_algorithm='ANImf', S_ani=0.95, SkipMash=False, SkipSecondary=False, cent_index=None, checkM_method='lineage_wf', clusterAlg='average', completeness=49.0, completeness_weight=1, contamination=21.0, contamination_weight=5, cov_thresh=0.4, coverage_method='larger', debug=False, genomeInfo='analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_table.txt', genomes=['analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_fastas.txt'], ignoreGenomeQuality=False, length=50000, n_PRESET='normal', operation='dereplicate', percent='50', processors=1, run_tax=False, size_weight=0, strain_heterogeneity_weight=1, tax_method='percent', warn_aln=0.25, warn_dist=0.25, warn_sim=0.98, work_directory='analysis_and_temp_files/03_assembly/coassembly/euk_drep')
+05-22 18:20 DEBUG    Starting the dereplicate operation
+05-22 18:20 INFO     ***************************************************
+    ..:: dRep dereplicate Step 1. Filter ::..
+***************************************************
+    
+05-22 18:20 DEBUG    Loading work directory in filter
+05-22 18:20 DEBUG    Located: /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep
+Datatables: []
+Cluster files: []
+Arguments: []
+05-22 18:20 DEBUG    Validating filter arguments
+05-22 18:20 INFO     Will filter the genome list
+05-22 18:20 INFO     Loading genomes from a list
+05-22 18:20 INFO     Calculating genome info of genomes
+05-22 18:20 DEBUG    Filtering genomes by size
+05-22 18:20 INFO     100.00% of genomes passed length filtering
+05-22 18:20 DEBUG    Loading provided genome quality information
+05-22 18:20 WARNING  Provided genome info has full genome path- correcting
+05-22 18:20 DEBUG    Filtering genomes
+05-22 18:20 INFO     100.00% of genomes passed checkM filtering
+05-22 18:20 DEBUG    Storing resulting files
+05-22 18:20 INFO     ***************************************************
+    ..:: dRep dereplicate Step 2. Cluster ::..
+***************************************************
+    
+05-22 18:20 DEBUG    Loading work directory
+05-22 18:20 DEBUG    Located: /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep
+Datatables: ['genomeInfo', 'Bdb']
+Cluster files: []
+Arguments: []
+05-22 18:20 DEBUG    Calling cluster genomes
+05-22 18:20 INFO     Clustering Step 1. Parse Arguments
+05-22 18:20 DEBUG    kwargs to cluster: {'wd': <drep.WorkDirectory.WorkDirectory object at 0x7f9164cc2080>, 'operation': 'dereplicate', 'work_directory': 'analysis_and_temp_files/03_assembly/coassembly/euk_drep', 'processors': 1, 'debug': False, 'length': 50000, 'completeness': 49.0, 'contamination': 21.0, 'ignoreGenomeQuality': False, 'MASH_sketch': 1000, 'S_algorithm': 'ANImf', 'n_PRESET': 'normal', 'P_ani': 0.8, 'S_ani': 0.95, 'SkipMash': False, 'SkipSecondary': False, 'cov_thresh': 0.4, 'coverage_method': 'larger', 'clusterAlg': 'average', 'completeness_weight': 1, 'contamination_weight': 5, 'strain_heterogeneity_weight': 1, 'N50_weight': 0.5, 'size_weight': 0, 'run_tax': False, 'tax_method': 'percent', 'percent': '50', 'cent_index': None, 'warn_dist': 0.25, 'warn_sim': 0.98, 'warn_aln': 0.25, 'checkM_method': 'lineage_wf', 'genomeInfo': 'analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_table.txt'}
+05-22 18:20 INFO     Clustering Step 2. Perform MASH (primary) clustering
+05-22 18:20 INFO     2a. Run pair-wise MASH clustering
+05-22 18:21 INFO     2b. Cluster pair-wise MASH clustering
+05-22 18:21 DEBUG    Clustering MASH database
+05-22 18:21 DEBUG    Saving primary_linkage pickle to /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/Clustering_files/
+05-22 18:21 INFO     8 primary clusters made
+05-22 18:21 INFO     Step 3. Perform secondary clustering
+05-22 18:21 INFO     Running 23 ANImf comparisons- should take ~ 11.5 min
+05-22 18:21 DEBUG    running cluster 1
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.195.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.195.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.195.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.195.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.195.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.321.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.195.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.321.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.321.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.321.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.1.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.195.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.1.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.1.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.1.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.46.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.195.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.46.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.46.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.195.fa/bin.195.fa_vs_bin.46.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.195.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.321.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.195.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.195.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.195.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.321.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.321.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.321.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.321.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.321.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.1.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.321.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.1.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.1.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.1.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.46.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.321.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.46.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.46.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.321.fa/bin.321.fa_vs_bin.46.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.195.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.1.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.195.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.195.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.195.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.321.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.1.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.321.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.321.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.321.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.1.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.1.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.1.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.1.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.1.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.46.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.1.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.46.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.46.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.1.fa/bin.1.fa_vs_bin.46.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.195.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.46.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.195.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.195.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.195.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.321.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.46.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.321.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.321.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.321.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.1.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.46.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.1.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.1.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.1.fa.delta.filtered
+05-22 18:21 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.46.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.46.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.46.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.46.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.46.fa/bin.46.fa_vs_bin.46.fa.delta.filtered
+05-22 19:54 DEBUG    running cluster 2
+05-22 19:54 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.142.fa/bin.142.fa_vs_bin.142.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.142.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.142.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.142.fa/bin.142.fa_vs_bin.142.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.142.fa/bin.142.fa_vs_bin.142.fa.delta.filtered
+05-22 19:55 DEBUG    running cluster 3
+05-22 19:55 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.76.fa/bin.76.fa_vs_bin.76.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.76.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.76.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.76.fa/bin.76.fa_vs_bin.76.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.76.fa/bin.76.fa_vs_bin.76.fa.delta.filtered
+05-22 19:56 DEBUG    running cluster 4
+05-22 19:56 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.335.fa/bin.335.fa_vs_bin.335.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.335.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.335.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.335.fa/bin.335.fa_vs_bin.335.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.335.fa/bin.335.fa_vs_bin.335.fa.delta.filtered
+05-22 19:57 DEBUG    running cluster 5
+05-22 19:57 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.378.fa/bin.378.fa_vs_bin.378.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.378.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.378.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.378.fa/bin.378.fa_vs_bin.378.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.378.fa/bin.378.fa_vs_bin.378.fa.delta.filtered
+05-22 19:58 DEBUG    running cluster 6
+05-22 19:58 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.64.fa/bin.64.fa_vs_bin.64.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.64.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.64.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.64.fa/bin.64.fa_vs_bin.64.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.64.fa/bin.64.fa_vs_bin.64.fa.delta.filtered
+05-22 19:59 DEBUG    running cluster 7
+05-22 19:59 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.10.fa/bin.10.fa_vs_bin.10.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.10.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.10.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.10.fa/bin.10.fa_vs_bin.10.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.10.fa/bin.10.fa_vs_bin.10.fa.delta.filtered
+05-22 19:59 DEBUG    running cluster 8
+05-22 19:59 DEBUG    nucmer --mum -p /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.376.fa/bin.376.fa_vs_bin.376.fa -c 65 -g 90 /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.376.fa /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/bin.376.fa; delta-filter -r -q /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.376.fa/bin.376.fa_vs_bin.376.fa.delta > /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/ANImf_files/bin.376.fa/bin.376.fa_vs_bin.376.fa.delta.filtered
+05-22 20:00 DEBUG    Clustering ANIn database
+05-22 20:00 DEBUG    making dictionary for average_ani
+05-22 20:00 DEBUG    list comprehension for average_ani
+05-22 20:00 DEBUG    averageing done
+05-22 20:00 DEBUG    Clustering ANIn database
+05-22 20:00 DEBUG    Clustering ANIn database
+05-22 20:00 DEBUG    Clustering ANIn database
+05-22 20:00 DEBUG    Clustering ANIn database
+05-22 20:00 DEBUG    Clustering ANIn database
+05-22 20:00 DEBUG    Clustering ANIn database
+05-22 20:00 DEBUG    Clustering ANIn database
+05-22 20:00 DEBUG    Saving secondary_linkage pickle /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/Clustering_files/ to secondary_linkage_cluster_1.pickle
+05-22 20:00 INFO     Step 4. Return output
+05-22 20:00 DEBUG    Main program run complete- saving output to /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data/
+05-22 20:00 INFO     ***************************************************
+    ..:: dRep dereplicate Step 3. Choose ::..
+***************************************************
+    
+05-22 20:00 INFO     Loading work directory
+05-22 20:00 DEBUG    Located: /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep
+Datatables: ['Cdb', 'Ndb', 'genomeInfo', 'Bdb', 'Mdb']
+Cluster files: ['primary_linkage', 'secondary_linkage_cluster_1']
+Arguments: ['cluster']
+05-22 20:00 DEBUG    Loading provided genome quality information
+05-22 20:00 WARNING  Provided genome info has full genome path- correcting
+05-22 20:00 DEBUG    Sdb finished
+05-22 20:00 DEBUG    Wdb finished
+05-22 20:00 DEBUG    saving dereplicated genomes
+05-22 20:01 INFO     ***************************************************
+    ..:: dRep dereplicate Step 4. Bonus ::..
+***************************************************
+    
+05-22 20:01 INFO     Loading work directory
+05-22 20:01 DEBUG    Located: /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep
+Datatables: ['Sdb', 'Cdb', 'Ndb', 'genomeInfo', 'Bdb', 'Mdb', 'Wdb', 'genomeInformation']
+Cluster files: ['primary_linkage', 'secondary_linkage_cluster_1']
+Arguments: ['cluster']
+05-22 20:01 INFO     ***************************************************
+    ..:: dRep dereplicate Step 5. Evaluate ::..
+***************************************************
+    
+05-22 20:01 DEBUG    Loading work directory
+05-22 20:01 DEBUG    Located: /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep
+Datatables: ['Sdb', 'Cdb', 'Ndb', 'genomeInfo', 'Bdb', 'Mdb', 'Wdb', 'genomeInformation']
+Cluster files: ['primary_linkage', 'secondary_linkage_cluster_1']
+Arguments: ['cluster']
+05-22 20:01 DEBUG    evaluating ['2', '3']
+05-22 20:01 INFO     will provide warnings about clusters
+05-22 20:01 INFO     0 warnings generated: saved to /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/log/warnings.txt
+05-22 20:01 INFO     will produce Widb (winner information db)
+05-22 20:01 INFO     Winner database saved to /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drepdata_tables/Widb.csv
+05-22 20:01 INFO     ***************************************************
+    ..:: dRep dereplicate Step 6. Analyze ::..
+***************************************************
+    
+05-22 20:01 INFO     making plots 1, 2, 3, 4, 5, 6
+05-22 20:01 INFO     Plotting primary dendrogram
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=8.0.
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniIta.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralItalic.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmsy10' (cmsy10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Bold.ttf) normal normal bold normal>) = 2.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmmi10' (cmmi10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Italic.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Bold.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Display' (DejaVuSansDisplay.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFiveSym' (STIXSizFiveSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif Display' (DejaVuSerifDisplay.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUni.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmtt10' (cmtt10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBolIta.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Oblique.ttf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Oblique.ttf) oblique normal 400 normal>) = 3.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans.ttf) normal normal 400 normal>) = 2.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-BoldOblique.ttf) oblique normal bold normal>) = 3.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmss10' (cmss10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmex10' (cmex10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmb10' (cmb10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-BoldOblique.ttf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmr10' (cmr10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBolIta.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Bold.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-BoldItalic.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneral.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunsl.otf) italic normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsx.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunbl.otf) italic normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntx.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvi.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunso.otf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunit.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.ttf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunss.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.otf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif Demi Condensed' (cmunssdc.otf) normal normal demi condensed>) = 10.44
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvt.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CircosSymbols' (circossymbols.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbto.otf) oblique normal light normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Upright Italic' (cmunui.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntb.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunorm.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsi.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunrm.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbtl.otf) normal normal light normal>) = 10.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbi.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunoti.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunst.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbbx.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobx.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobi.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Classical Serif' (cmunci.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbxo.otf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbso.otf) oblique normal semibold normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmo.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunrb.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunti.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbsr.otf) normal normal semibold normal>) = 10.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbx.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=8.0 to DejaVu Sans ('/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 2.050000.
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniIta.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralItalic.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmsy10' (cmsy10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Bold.ttf) normal normal bold normal>) = 2.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmmi10' (cmmi10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Italic.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Bold.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Display' (DejaVuSansDisplay.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFiveSym' (STIXSizFiveSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif Display' (DejaVuSerifDisplay.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUni.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmtt10' (cmtt10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBolIta.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Oblique.ttf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Oblique.ttf) oblique normal 400 normal>) = 3.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans.ttf) normal normal 400 normal>) = 2.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-BoldOblique.ttf) oblique normal bold normal>) = 3.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmss10' (cmss10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmex10' (cmex10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmb10' (cmb10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-BoldOblique.ttf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmr10' (cmr10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBolIta.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Bold.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-BoldItalic.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneral.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunsl.otf) italic normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsx.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunbl.otf) italic normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntx.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvi.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunso.otf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunit.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.ttf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunss.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.otf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif Demi Condensed' (cmunssdc.otf) normal normal demi condensed>) = 10.44
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvt.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CircosSymbols' (circossymbols.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbto.otf) oblique normal light normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Upright Italic' (cmunui.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntb.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunorm.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsi.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunrm.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbtl.otf) normal normal light normal>) = 10.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbi.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunoti.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunst.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbbx.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobx.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobi.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Classical Serif' (cmunci.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbxo.otf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbso.otf) oblique normal semibold normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmo.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunrb.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunti.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbsr.otf) normal normal semibold normal>) = 10.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbx.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 2.050000.
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0.
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniIta.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralItalic.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmsy10' (cmsy10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Bold.ttf) normal normal bold normal>) = 2.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmmi10' (cmmi10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Italic.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Bold.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Display' (DejaVuSansDisplay.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFiveSym' (STIXSizFiveSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif Display' (DejaVuSerifDisplay.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUni.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmtt10' (cmtt10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBolIta.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Oblique.ttf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Oblique.ttf) oblique normal 400 normal>) = 3.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans.ttf) normal normal 400 normal>) = 2.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-BoldOblique.ttf) oblique normal bold normal>) = 3.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmss10' (cmss10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmex10' (cmex10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmb10' (cmb10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-BoldOblique.ttf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmr10' (cmr10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBolIta.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Bold.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-BoldItalic.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneral.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunsl.otf) italic normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsx.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunbl.otf) italic normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntx.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvi.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunso.otf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunit.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.ttf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunss.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.otf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif Demi Condensed' (cmunssdc.otf) normal normal demi condensed>) = 10.44
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvt.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CircosSymbols' (circossymbols.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbto.otf) oblique normal light normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Upright Italic' (cmunui.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntb.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunorm.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsi.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunrm.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbtl.otf) normal normal light normal>) = 10.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbi.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunoti.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunst.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbbx.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobx.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobi.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Classical Serif' (cmunci.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbxo.otf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbso.otf) oblique normal semibold normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmo.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunrb.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunti.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbsr.otf) normal normal semibold normal>) = 10.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbx.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=12.0 to DejaVu Sans ('/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 2.050000.
+05-22 20:01 DEBUG    Assigning font /b'F1' = '/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+05-22 20:01 DEBUG    Embedding font /opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+05-22 20:01 DEBUG    Writing TrueType font.
+05-22 20:01 DEBUG    Assigning font /b'F1' = '/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+05-22 20:01 DEBUG    Embedding font /opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+05-22 20:01 DEBUG    Writing TrueType font.
+05-22 20:01 INFO     Plotting secondary dendrograms
+05-22 20:01 DEBUG    Assigning font /b'F1' = '/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=18.0.
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniIta.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralItalic.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmsy10' (cmsy10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Bold.ttf) normal normal bold normal>) = 2.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmmi10' (cmmi10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Italic.ttf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Bold.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Display' (DejaVuSansDisplay.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFiveSym' (STIXSizFiveSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif Display' (DejaVuSerifDisplay.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUni.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmtt10' (cmtt10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBolIta.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Oblique.ttf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Oblique.ttf) oblique normal 400 normal>) = 3.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans.ttf) normal normal 400 normal>) = 2.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-BoldOblique.ttf) oblique normal bold normal>) = 3.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmss10' (cmss10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmex10' (cmex10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmb10' (cmb10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-BoldOblique.ttf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmr10' (cmr10.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymReg.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymBol.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBolIta.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Bold.ttf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-BoldItalic.ttf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif.ttf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneral.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunsl.otf) italic normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsx.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunbl.otf) italic normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntx.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.ttf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvi.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunso.otf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunit.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.ttf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunss.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.otf) normal normal regular normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif Demi Condensed' (cmunssdc.otf) normal normal demi condensed>) = 10.44
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvt.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CircosSymbols' (circossymbols.otf) normal normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbto.otf) oblique normal light normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Upright Italic' (cmunui.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntb.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunorm.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsi.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunrm.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbtl.otf) normal normal light normal>) = 10.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbi.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunoti.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunst.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbbx.otf) normal normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobx.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobi.otf) italic normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Classical Serif' (cmunci.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbxo.otf) oblique normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbso.otf) oblique normal semibold normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmo.otf) oblique normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunrb.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunti.otf) italic normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbsr.otf) normal normal semibold normal>) = 10.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbx.otf) normal normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=18.0 to DejaVu Sans ('/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf') with score of 2.050000.
+05-22 20:01 DEBUG    Embedding font /opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+05-22 20:01 DEBUG    Writing TrueType font.
+05-22 20:01 INFO     Plotting MDS plot
+05-22 20:01 DEBUG    Assigning font /b'F1' = '/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=italic:variant=normal:weight=normal:stretch=normal:size=10.0.
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymReg.ttf) normal normal regular normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniIta.ttf) italic normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralItalic.ttf) italic normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmsy10' (cmsy10.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Bold.ttf) normal normal bold normal>) = 3.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmmi10' (cmmi10.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Italic.ttf) italic normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-Bold.ttf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymReg.ttf) normal normal regular normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Display' (DejaVuSansDisplay.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFiveSym' (STIXSizFiveSymReg.ttf) normal normal regular normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif Display' (DejaVuSerifDisplay.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUni.ttf) normal normal regular normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmtt10' (cmtt10.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBolIta.ttf) italic normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymBol.ttf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Oblique.ttf) oblique normal 400 normal>) = 10.15
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBol.ttf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Oblique.ttf) oblique normal 400 normal>) = 2.15
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymReg.ttf) normal normal regular normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeOneSym' (STIXSizOneSymBol.ttf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans.ttf) normal normal 400 normal>) = 3.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans' (DejaVuSans-BoldOblique.ttf) oblique normal bold normal>) = 2.435
+05-22 20:01 DEBUG    findfont: score(<Font 'cmss10' (cmss10.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmex10' (cmex10.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'cmb10' (cmb10.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-BoldOblique.ttf) oblique normal bold normal>) = 10.434999999999999
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXNonUnicode' (STIXNonUniBol.ttf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeThreeSym' (STIXSizThreeSymBol.ttf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'cmr10' (cmr10.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeFourSym' (STIXSizFourSymReg.ttf) normal normal regular normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXSizeTwoSym' (STIXSizTwoSymBol.ttf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneralBolIta.ttf) italic normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Sans Mono' (DejaVuSansMono-Bold.ttf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif-BoldItalic.ttf) italic normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'DejaVu Serif' (DejaVuSerif.ttf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'STIXGeneral' (STIXGeneral.ttf) normal normal regular normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunsl.otf) italic normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsx.otf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunbl.otf) italic normal roman normal>) = 10.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntx.otf) italic normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.ttf) normal normal regular normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvi.otf) italic normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.otf) normal normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunso.otf) oblique normal bold normal>) = 10.434999999999999
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunit.otf) italic normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmr.ttf) normal normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunss.otf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntt.otf) normal normal regular normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif Demi Condensed' (cmunssdc.otf) normal normal demi condensed>) = 11.44
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text Variable Width' (cmunvt.otf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CircosSymbols' (circossymbols.otf) normal normal 400 normal>) = 11.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbto.otf) oblique normal light normal>) = 10.34
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Upright Italic' (cmunui.otf) italic normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmuntb.otf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunorm.otf) normal normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Sans Serif' (cmunsi.otf) oblique normal 400 normal>) = 10.15
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunrm.otf) normal normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunbtl.otf) normal normal light normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbi.otf) italic normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunoti.otf) italic normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Typewriter Text' (cmunst.otf) oblique normal 400 normal>) = 10.15
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbbx.otf) normal normal bold normal>) = 11.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobx.otf) normal normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Concrete' (cmunobi.otf) italic normal bold normal>) = 10.335
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Classical Serif' (cmunci.otf) italic normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbxo.otf) oblique normal bold normal>) = 10.434999999999999
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbso.otf) oblique normal semibold normal>) = 10.34
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbmo.otf) oblique normal 400 normal>) = 10.15
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif Extra' (cmunrb.otf) normal normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunti.otf) italic normal 400 normal>) = 10.05
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Bright' (cmunbsr.otf) normal normal semibold normal>) = 11.24
+05-22 20:01 DEBUG    findfont: score(<Font 'CMU Serif' (cmunbx.otf) normal normal roman normal>) = 11.145
+05-22 20:01 DEBUG    findfont: Matching :family=sans-serif:style=italic:variant=normal:weight=normal:stretch=normal:size=10.0 to DejaVu Sans ('/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf') with score of 2.150000.
+05-22 20:01 DEBUG    Assigning font /b'F2' = '/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf'
+05-22 20:01 DEBUG    Embedding font /opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf.
+05-22 20:01 DEBUG    Writing TrueType font.
+05-22 20:01 DEBUG    Embedding font /opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+05-22 20:01 DEBUG    Writing TrueType font.
+05-22 20:01 DEBUG    Assigning font /b'F1' = '/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+05-22 20:01 DEBUG    Assigning font /b'F2' = '/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf'
+05-22 20:01 DEBUG    Embedding font /opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans-Oblique.ttf.
+05-22 20:01 DEBUG    Writing TrueType font.
+05-22 20:01 DEBUG    Embedding font /opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+05-22 20:01 DEBUG    Writing TrueType font.
+05-22 20:01 INFO     Plotting scatterplots
+05-22 20:01 DEBUG    Assigning font /b'F1' = '/opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf'
+05-22 20:01 DEBUG    Embedding font /opt/software/conda_env/lib/python3.6/site-packages/matplotlib/mpl-data/fonts/ttf/DejaVuSans.ttf.
+05-22 20:01 DEBUG    Writing TrueType font.
+05-22 20:01 DEBUG    Loading genomeInfo.csv from work directory
+05-22 20:01 INFO     Plotting bin scorring plot
+05-22 20:01 INFO     Failed to make plot #5: Neither the `x` nor `y` variable appears to be numeric.
+05-22 20:01 DEBUG    Loading genomeInfo.csv from work directory
+05-22 20:01 INFO     Plotting winning genomes plot...
+05-22 20:01 DEBUG    len(labels) != len(sizes); 0 vs 1
+05-22 20:01 INFO     Failed to make plot #6: Neither the `x` nor `y` variable appears to be numeric.
+05-22 20:01 INFO     
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+    ..:: dRep dereplicate finished ::..
+
+Dereplicated genomes................. /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/dereplicated_genomes/
+Dereplicated genomes information..... /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/data_tables/Widb.csv
+Figures.............................. /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/figures/
+Warnings............................. /tsl/scratch/gol22pin/01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/coassembly/euk_drep/log/warnings.txt
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+    
+05-22 20:01 DEBUG    Finished the dereplicate operation!

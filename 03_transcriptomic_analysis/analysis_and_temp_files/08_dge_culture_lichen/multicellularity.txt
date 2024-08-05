@@ -1,0 +1,510 @@
+Annotation_type	ID	Description	Function	Function_type
+IPR	IPR004835	Chitin synthase	Cell wall biosynthesis 	Fungal multicellularity
+IPR	IPR018466	"Yeast cell wall synthesis Kre9/Knh1-like, N-terminal"	Cell wall biosynthesis 	Fungal multicellularity
+CAZy	GH18	chitinases	Cell wall remodeling	Fungal multicellularity
+CAZy	GH20	glucosaminidase	Cell wall remodeling	Fungal multicellularity
+CAZy	 CE4	Chitooligosaccharide deacetylase	Cell wall remodeling	Fungal multicellularity
+IPR	IPR003610	Carbohydrate-binding module family 5/12	Cell wall remodeling	Fungal multicellularity
+IPR	IPR036779	LysM domain superfamily	Cell wall remodeling	Fungal multicellularity
+CAZy	AA9	Lytic polysaccharide monooxygenase	Cell wall remodeling	Fungal multicellularity
+CAZy	AA14	Lytic xylan monooxygenase 	Cell wall remodeling	Fungal multicellularity
+IPR	IPR041960	Geranylgeranyl transferase type-1 subunit beta	Cell wall remodeling	Fungal multicellularity
+CAZy	GH17	"beta-1,3-glucanase, beta-1,3-glucosidase"	Cell wall remodeling	Fungal multicellularity
+CAZy	GH16	"act on beta-1,4 or beta-1,3 glycosidic bonds in glucans and galactans"	Cell wall remodeling	Fungal multicellularity
+CAZy	GH30	"beta-xylanase, beta-gluconase"	Cell wall remodeling	Fungal multicellularity
+CAZy	GH5_7	"Endo-beta-1,4-mannanase "	Cell wall remodeling	Fungal multicellularity
+CAZy	 GH5_15	"Endo-beta-1,6-glucanase "	Cell wall remodeling	Fungal multicellularity
+CAZy	 GH5_49	"Endo-beta-1,6-glucanase, exo-beta-1,3-glucanase "	Cell wall remodeling	Fungal multicellularity
+CAZy	 GH5_9 	"Endo-beta-1,6-glucanase, exo-beta-1,3-glucanase "	Cell wall remodeling	Fungal multicellularity
+CAZy	GH55	"beta-1,3-glucanase"	Cell wall remodeling	Fungal multicellularity
+CAZy	 GH128 	"beta-1,3-glucanase "	Cell wall remodeling	Fungal multicellularity
+CAZy	GH71	"Endo-_-1,3-glucanase "	Cell wall remodeling	Fungal multicellularity
+IPR	IPR037176	Osmotin/thaumatin-like superfamily	Cell wall remodeling	Fungal multicellularity
+IPR	IPR002889	Carbohydrate-binding WSC	Cell wall remodeling	Fungal multicellularity
+CAZy	AA1_1	Laccase	Cell wall remodeling	Fungal multicellularity
+IPR	IPR007117	"Expansin, cellulose-binding-like domain"	Cell wall remodeling	Fungal multicellularity
+IPR	IPR000028	Chloroperoxidase	Cell wall misc	Fungal multicellularity
+IPR	IPR006314	Dyp-type peroxidase	Cell wall misc	Fungal multicellularity
+CAZy	AA5_1	Glyoxal oxidase	Cell wall misc	Fungal multicellularity
+CAZy	AA3_1	cellobiose dehydrogenase	Cell wall misc	Fungal multicellularity
+IPR	IPR019778	Hydrophobin; conserved site	Cell surface and cell wall proteins	Fungal multicellularity
+IPR	IPR000772	"Ricin B, lectin domain"	Cell surface and cell wall proteins	Fungal multicellularity
+IPR	IPR018824	Conidiation-specific protein 6	Cell surface and cell wall proteins	Fungal multicellularity
+IPR	IPR032805	Wax synthase domain	Cell surface and cell wall proteins	Fungal multicellularity
+IPR	IPR001461	Aspartic peptidase A1 family	Cell surface and cell wall proteins	Fungal multicellularity
+IPR	IPR004025	Fungal ribotoxin	Defense	Fungal multicellularity
+IPR	IPR015131	"Killer toxin, Kp4"	Defense	Fungal multicellularity
+IPR	IPR001542	"Defensin, invertebrate/fungal"	Defense	Fungal multicellularity
+IPR	IPR025331	Tuberculosis necrotizing toxin	Defense	Fungal multicellularity
+IPR	IPR021765	Mycotoxin biosynthesis protein UstYa-like	Defense	Fungal multicellularity
+IPR	IPR016191	Ribonuclease/ribotoxin	Defense	Fungal multicellularity
+IPR	IPR016491	Septin	Cytoskeleton	Fungal multicellularity
+IPR	IPR030379	Septin-type guanine nucleotide-binding (G) domain	Cytoskeleton	Fungal multicellularity
+IPR	IPR000217	Tubulin	Cytoskeleton	Fungal multicellularity
+IPR	IPR017907	Zinc finger; RING-type; conserved site	Protein ubiquitination	Fungal multicellularity
+IPR	IPR001810	F-box domain	Protein ubiquitination	Fungal multicellularity
+IPR	IPR000210	BTB/POZ domain	Protein ubiquitination	Fungal multicellularity
+IPR	IPR023271	Aquaporin-like	Transporters	Fungal multicellularity
+IPR	IPR036259	MFS transporter superfamily	Transporters	Fungal multicellularity
+IPR	IPR019479	"Peroxiredoxin, C-terminal"	Stress response genes	Fungal multicellularity
+IPR	IPR007173	"D-arabinono-1,4-lactone oxidase, C-terminal domain"	Stress response genes	Fungal multicellularity
+IPR	IPR011614	Catalase core domain	Stress response genes	Fungal multicellularity
+IPR	IPR004584	"DNA repair protein Rad50, eukaryotes"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR024193	Ku80	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR047087	"Ku70, core domain"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR003701	DNA double-strand break repair protein Mre11	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR013765	DNA recombination and repair protein RecA	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR012923	Chromosome segregation in meiosis protein 3	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR013967	"Rad54, N-terminal"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR042525	DNA repair protein Rad52/59/22 superfamily	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR006642	"Rad18, zinc finger UBZ4-type"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR014017	"UvrD-like DNA helicase, C-terminal"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR001564	Nucleoside diphosphate kinase	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR023426	Flap endonuclease 1	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR004584	"DNA repair protein Rad50, eukaryotes"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR013632	"DNA recombination and repair protein Rad51-like, C-terminal"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR003701	DNA double-strand break repair protein Mre11	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR012337	Ribonuclease H-like superfamily	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR011184	DNA mismatch repair Msh2-type	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR004808	AP endonuclease 1	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR036420	BRCT domain superfamily	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR007268	Rad9/Ddc1	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR011084	DNA repair metallo-beta-lactamase	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR041297	"DNA repair protein Crb2, Tudor domain"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR013218	Kinetochore-associated protein Dsn1/Mis13	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR004601	UV-endonuclease UvdE	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR016314	Cell division protein Cdc6/18	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR007150	Checkpoint protein Hus1/Mec3	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR022043	Chromatin assembly factor 1 subunit A	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR001752	Kinesin motor domain	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR014017	"UvrD-like DNA helicase, C-terminal"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR020796	"Origin recognition complex, subunit 5"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR006551	Polynucleotide 3'-phosphatase	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR007199	"Replication factor-A protein 1, N-terminal"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR013627	"DNA polymerase alpha, subunit B, N-terminal"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR001650	"Helicase, C-terminal"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR015661	Mitotic spindle checkpoint protein Bub1/Mad3	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR002043	Uracil-DNA glycosylase family 1	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR013218	Kinetochore-associated protein Dsn1/Mis13	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR007220	"Origin recognition complex, subunit 2"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR024991	"Anaphase-promoting complex subunit 11, RING-H2 finger"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR024704	Structural maintenance of chromosomes protein	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR016558	"DNA primase, large subunit, eukaryotic"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR032682	"Condensin complex subunit 1, C-terminal"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR034157	"DNA topoisomerase 2, TOPRIM domain"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR006134	"DNA-directed DNA polymerase, family B, multifunctional domain"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR039361	Cyclin	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR001752	Kinesin motor domain	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR000953	Chromo/chromo shadow domain	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR013962	DASH complex subunit Dam1	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR021110	DNA replication/checkpoint protein	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR022214	Mitotic-spindle organizing protein 1	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR024790	"Anaphase-promoting complex subunit 4, long domain"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR000571	"Zinc finger, CCCH-type"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR006910	"Rad21/Rec8-like protein, N-terminal"	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR001214	SET domain	"Cell division, proliferation and growth"	Fungal multicellularity
+IPR	IPR002674	Ribosomal protein L37ae	Ribosomal genes	Fungal multicellularity
+IPR	IPR001210	Ribosomal protein S17e	Ribosomal genes	Fungal multicellularity
+IPR	IPR000206	Ribosomal protein L7/L12	Ribosomal genes	Fungal multicellularity
+IPR	IPR016340	Ribosomal protein L31	Ribosomal genes	Fungal multicellularity
+IPR	IPR001380	Ribosomal protein L13e	Ribosomal genes	Fungal multicellularity
+IPR	IPR001971	Ribosomal protein S11	Ribosomal genes	Fungal multicellularity
+IPR	IPR005998	"Ribosomal protein L7, eukaryotic"	Ribosomal genes	Fungal multicellularity
+IPR	IPR000754	Ribosomal protein S9	Ribosomal genes	Fungal multicellularity
+IPR	IPR000589	Ribosomal protein S15	Ribosomal genes	Fungal multicellularity
+IPR	IPR001141	Ribosomal protein L27e	Ribosomal genes	Fungal multicellularity
+IPR	IPR000911	Ribosomal protein L27e	Ribosomal genes	Fungal multicellularity
+IPR	IPR000597	Ribosomal protein L3	Ribosomal genes	Fungal multicellularity
+IPR	IPR005680	"Ribosomal protein S23, eukaryotic/archaeal"	Ribosomal genes	Fungal multicellularity
+IPR	IPR001780	Ribosomal protein L35A	Ribosomal genes	Fungal multicellularity
+IPR	IPR001593	Ribosomal protein S3Ae	Ribosomal genes	Fungal multicellularity
+IPR	IPR000077	Ribosomal protein L39e	Ribosomal genes	Fungal multicellularity
+IPR	IPR022803	Ribosomal protein L5 domain superfamily	Ribosomal genes	Fungal multicellularity
+IPR	IPR027534	Ribosomal protein L12/P1/P2 family	Ribosomal genes	Fungal multicellularity
+IPR	IPR002222	Ribosomal protein S19/S15	Ribosomal genes	Fungal multicellularity
+IPR	IPR001383	Ribosomal protein L28	Ribosomal genes	Fungal multicellularity
+IPR	IPR005633	"Ribosomal protein L23/L25, N-terminal"	Ribosomal genes	Fungal multicellularity
+IPR	IPR001854	Ribosomal protein L29/L35	Ribosomal genes	Fungal multicellularity
+IPR	IPR001971	Ribosomal protein S11	Ribosomal genes	Fungal multicellularity
+IPR	IPR021138	"60S ribosomal protein L18a/ L20, eukaryotes"	Ribosomal genes	Fungal multicellularity
+IPR	IPR002171	Ribosomal protein L2	Ribosomal genes	Fungal multicellularity
+IPR	IPR001684	Ribosomal protein L27	Ribosomal genes	Fungal multicellularity
+IPR	IPR001857	Ribosomal protein L19	Ribosomal genes	Fungal multicellularity
+IPR	IPR002143	Ribosomal protein L1	Ribosomal genes	Fungal multicellularity
+IPR	IPR001266	Ribosomal protein S19e	Ribosomal genes	Fungal multicellularity
+IPR	IPR008195	Ribosomal protein L34Ae	Ribosomal genes	Fungal multicellularity
+IPR	IPR000702	Ribosomal protein L6	Ribosomal genes	Fungal multicellularity
+IPR	IPR001865	Ribosomal protein S2	Ribosomal genes	Fungal multicellularity
+IPR	IPR000529	Ribosomal protein S6	Ribosomal genes	Fungal multicellularity
+IPR	IPR001892	Ribosomal protein S13	Ribosomal genes	Fungal multicellularity
+IPR	IPR000235	Ribosomal protein S5/S7	Ribosomal genes	Fungal multicellularity
+IPR	IPR000630	Ribosomal protein S8	Ribosomal genes	Fungal multicellularity
+IPR	IPR001063	Ribosomal protein L22/L17	Ribosomal genes	Fungal multicellularity
+IPR	IPR002136	Ribosomal protein L4/L1e	Ribosomal genes	Fungal multicellularity
+IPR	IPR004977	Ribosomal protein S25	Ribosomal genes	Fungal multicellularity
+IPR	IPR023442	"Ribosomal protein L24e, conserved site"	Ribosomal genes	Fungal multicellularity
+IPR	IPR002784	Ribosomal protein L14e domain	Ribosomal genes	Fungal multicellularity
+IPR	IPR005485	Ribosomal protein L5 eukaryotic/L18 archaeal	Ribosomal genes	Fungal multicellularity
+IPR	IPR002671	Ribosomal protein L22e	Ribosomal genes	Fungal multicellularity
+IPR	IPR000592	Ribosomal protein S27	Ribosomal genes	Fungal multicellularity
+IPR	IPR001209	Ribosomal protein S14	Ribosomal genes	Fungal multicellularity
+IPR	IPR001147	Ribosomal protein L21e	Ribosomal genes	Fungal multicellularity
+IPR	IPR001569	Ribosomal protein L37e	Ribosomal genes	Fungal multicellularity
+IPR	IPR000876	Ribosomal protein S4e	Ribosomal genes	Fungal multicellularity
+IPR	IPR000530	Ribosomal protein S12e	Ribosomal genes	Fungal multicellularity
+IPR	IPR001351	"Ribosomal protein S3, C-terminal"	Ribosomal genes	Fungal multicellularity
+IPR	IPR000289	Ribosomal protein S28e	Ribosomal genes	Fungal multicellularity
+IPR	IPR005711	"Ribosomal protein S5, eukaryotic/archaeal"	Ribosomal genes	Fungal multicellularity
+IPR	IPR000266	Ribosomal protein S17/S11	Ribosomal genes	Fungal multicellularity
+IPR	IPR002675	Ribosomal protein L38e	Ribosomal genes	Fungal multicellularity
+IPR	IPR000509	Ribosomal protein L36e	Ribosomal genes	Fungal multicellularity
+IPR	IPR000307	Ribosomal protein S16	Ribosomal genes	Fungal multicellularity
+IPR	IPR021131	Ribosomal protein L18e/L15P	Ribosomal genes	Fungal multicellularity
+IPR	IPR000892	Ribosomal protein S26e	Ribosomal genes	Fungal multicellularity
+IPR	IPR006032	Ribosomal protein S12/S23	Ribosomal genes	Fungal multicellularity
+IPR	IPR005756	"Ribosomal protein L26/L24, eukaryotic/archaeal"	Ribosomal genes	Fungal multicellularity
+IPR	IPR005324	"Ribosomal protein S5, C-terminal"	Ribosomal genes	Fungal multicellularity
+IPR	IPR001705	Ribosomal protein L33	Ribosomal genes	Fungal multicellularity
+IPR	IPR001912	"Ribosomal protein S4/S9, N-terminal"	Ribosomal genes	Fungal multicellularity
+IPR	IPR001648	Ribosomal protein S18	Ribosomal genes	Fungal multicellularity
+IPR	IPR001976	Ribosomal protein S24e	Ribosomal genes	Fungal multicellularity
+IPR	IPR005996	"Ribosomal protein L30, bacterial-type"	Ribosomal genes	Fungal multicellularity
+IPR	IPR000114	Ribosomal protein L16	Ribosomal genes	Fungal multicellularity
+IPR	IPR029004	Ribosomal L28e/Mak16	Ribosomal genes	Fungal multicellularity
+IPR	IPR015590	Aldehyde dehydrogenase domain	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR011904	Acetate-CoA ligase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR013149	"Alcohol dehydrogenase-like, C-terminal"	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR001765	Carbonic anhydrase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR003700	Ketopantoate hydroxymethyltransferase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR001977	Dephospho-CoA kinase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR004566	Pantothenate kinase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR001980	Phosphopantetheine adenylyltransferase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR003721	Pantoate-beta-alanine ligase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR001697	Pyruvate kinase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR046433	Acetyl-CoA hydrolase/transferase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR012110	Pyruvate decarboxylase/indolepyruvate decarboxylase-like	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR001252	"Malate dehydrogenase, active site"	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR001465	Malate synthase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR006254	Isocitrate lyase	Acetyl-CoA production and metabolism	Fungal multicellularity
+IPR	IPR001171	Sterol biosynthesis ERG24/DHCR-like	Lipid metabolism	Fungal multicellularity
+IPR	IPR002225	3-beta hydroxysteroid dehydrogenase/isomerase	Lipid metabolism	Fungal multicellularity
+IPR	IPR040125	Squalene monooxygenase	Lipid metabolism	Fungal multicellularity
+IPR	IPR023208	NADPH-cytochrome P450 reductase	Lipid metabolism	Fungal multicellularity
+IPR	IPR002060	Squalene/phytoene synthase	Lipid metabolism	Fungal multicellularity
+IPR	IPR039702	Farnesyl pyrophosphate synthase-like	Lipid metabolism	Fungal multicellularity
+IPR	IPR002202	"Hydroxymethylglutaryl-CoA reductase, class I/II"	Lipid metabolism	Fungal multicellularity
+IPR	IPR016005	Phosphomevalonate kinase Erg8	Lipid metabolism	Fungal multicellularity
+IPR	IPR029765	Diphosphomevalonate decarboxylase	Lipid metabolism	Fungal multicellularity
+IPR	IPR016636	3-oxo-5-alpha-steroid 4-dehydrogenase	Lipid metabolism	Fungal multicellularity
+IPR	IPR008901	Alkaline ceramidase	Lipid metabolism	Fungal multicellularity
+IPR	IPR000648	Oxysterol-binding protein	Lipid metabolism	Fungal multicellularity
+IPR	IPR004570	CDP-diacylglycerol--glycerol-3-phosphate 3-phosphatidyltransferase	Lipid metabolism	Fungal multicellularity
+IPR	IPR016219	"Phosphatidylethanolamine N-methyltransferase, fungi"	Lipid metabolism	Fungal multicellularity
+IPR	IPR014472	Choline/ethanolamine phosphotransferase	Lipid metabolism	Fungal multicellularity
+IPR	IPR005804	Fatty acid desaturase domain	Lipid metabolism	Fungal multicellularity
+IPR	IPR030395	Glycerophosphodiester phosphodiesterase domain	Lipid metabolism	Fungal multicellularity
+IPR	IPR008253	Marvel domain	Lipid metabolism	Fungal multicellularity
+IPR	IPR008631	Glycogen synthase	Carbohydrate storage	Fungal multicellularity
+IPR	IPR016267	UTP--glucose-1-phosphate uridylyltransferase	Carbohydrate storage	Fungal multicellularity
+IPR	IPR032788	"Glycogen debranching enzyme, central domain"	Carbohydrate storage	Fungal multicellularity
+CAZy	CBM21	starch-binding domains	Carbohydrate storage	Fungal multicellularity
+CAZy	GH37	Trehalase	Carbohydrate storage	Fungal multicellularity
+IPR	IPR001313	Pumilio RNA-binding repeat	RNA binding proteins	Expression regulation
+IPR	IPR000504	RNA recognition motif domain	RNA binding proteins	Expression regulation
+IPR	IPR005034	Dicer dimerisation domain	RNA interference	Expression regulation
+IPR	IPR032474	"Protein argonaute, N-terminal"	RNA interference	Expression regulation
+IPR	IPR007855	"RNA-dependent RNA polymerase, eukaryotic-type"	RNA interference	Expression regulation
+IPR	IPR007125	Histone H2A/H2B/H3	Chromatin regulation	Expression regulation
+IPR	IPR005819	Linker histone H1/H5	Chromatin regulation	Expression regulation
+IPR	IPR002717	"Histone acetyltransferase domain, MYST-typ"	Chromatin regulation	Expression regulation
+IPR	IPR003084	Histone deacetylase	Chromatin regulation	Expression regulation
+IPR	IPR036747	Histone chaperone ASF1-like superfamily	Chromatin regulation	Expression regulation
+IPR	IPR019098	Histone chaperone domain CHZ	Chromatin regulation	Expression regulation
+IPR	IPR013719	"Histone chaperone RTT106/FACT complex subunit SPT16-like, middle domain"	Chromatin regulation	Expression regulation
+IPR	IPR013951	Histone deacetylation protein Rxt3	Chromatin regulation	Expression regulation
+IPR	IPR001951	Histone H4	Chromatin regulation	Expression regulation
+IPR	IPR019340	Histone acetyltransferases subunit 3	Chromatin regulation	Expression regulation
+IPR	IPR013178	Histone acetyltransferase Rtt109/CBP	Chromatin regulation	Expression regulation
+IPR	IPR017956	"AT hook, DNA-binding motif"	Chromatin regulation	Expression regulation
+IPR	IPR003105	SRA-YDG	Chromatin regulation	Expression regulation
+IPR	IPR036887	HTH APSES-type DNA-binding domain superfamily	Transcription factors	Expression regulation
+IPR	IPR004827	Basic-leucine zipper domain	Transcription factors	Expression regulation
+IPR	IPR004595	TFIIH C1-like domain	Transcription factors	Expression regulation
+IPR	IPR001289	Nuclear transcription factor Y subunit A	Transcription factors	Expression regulation
+IPR	IPR007604	CP2 transcription factor	Transcription factors	Expression regulation
+IPR	IPR018501	DDT domain	Transcription factors	Expression regulation
+IPR	IPR001766	Fork head domain	Transcription factors	Expression regulation
+IPR	IPR007219	"Transcription factor domain, fungi"	Transcription factors	Expression regulation
+IPR	IPR036864	Zn(2)-C6 fungal-type DNA-binding domain superfamily	Transcription factors	Expression regulation
+IPR	IPR000679	"Zinc finger, GATA-type"	Transcription factors	Expression regulation
+IPR	IPR010666	"Zinc finger, GRF-type"	Transcription factors	Expression regulation
+IPR	IPR036638	Helix-loop-helix DNA-binding domain superfamily	Transcription factors	Expression regulation
+IPR	IPR001356	Homeobox domain	Transcription factors	Expression regulation
+IPR	IPR000232	"Heat shock factor (HSF)-type, DNA-binding"	Transcription factors	Expression regulation
+IPR	IPR000047	Helix-turn-helix motif	Transcription factors	Expression regulation
+IPR	IPR007889	"DNA binding HTH domain, Psq-type"	Transcription factors	Expression regulation
+IPR	IPR004181	"Zinc finger, MIZ-type"	Transcription factors	Expression regulation
+IPR	IPR017930	Myb domain	Transcription factors	Expression regulation
+IPR	IPR037141	NDT80 DNA-binding domain superfamily	Transcription factors	Expression regulation
+IPR	IPR000967	"Zinc finger, NF-X1-type"	Transcription factors	Expression regulation
+IPR	IPR007196	"CCR4-Not complex component, Not1, C-terminal"	Transcription factors	Expression regulation
+IPR	IPR013767	PAS fold	Transcription factors	Expression regulation
+IPR	IPR003150	DNA-binding RFX-type winged-helix domain	Transcription factors	Expression regulation
+IPR	IPR005011	SNU66/SART1 family	Transcription factors	Expression regulation
+IPR	IPR002100	"Transcription factor, MADS-box"	Transcription factors	Expression regulation
+IPR	IPR003120	Transcription factor Ste12	Transcription factors	Expression regulation
+IPR	IPR000818	TEA/ATTS domain	Transcription factors	Expression regulation
+IPR	IPR003656	"Zinc finger, BED-type"	Transcription factors	Expression regulation
+IPR	IPR013087	Zinc finger C2H2-type	Transcription factors	Expression regulation
+IPR	IPR004198	"Zinc finger, C5HC2-type"	Transcription factors	Expression regulation
+IPR	IPR021858	Fungal transcription factor	Transcription factors	Expression regulation
+IPR	IPR021950	Transcription factor Spt20	Transcription factors	Expression regulation
+IPR	IPR002100	"Transcription factor, MADS-box"	Transcription factors	Expression regulation
+IPR	IPR001222	"Zinc finger, TFIIS-type"	Transcription factors	Expression regulation
+IPR	IPR003956	"Transcription factor, NFYB/HAP3, conserved site"	Transcription factors	Expression regulation
+IPR	IPR000812	Transcription factor TFIIB	Transcription factors	Expression regulation
+IPR	IPR019473	"Transcription factor TFIID, subunit 8, C-terminal"	Transcription factors	Expression regulation
+IPR	IPR014402	"Transcription factor, Skn7-like"	Transcription factors	Expression regulation
+IPR	IPR003194	"Transcription initiation factor IIA, gamma subunit"	Transcription factors	Expression regulation
+IPR	IPR012617	"Apoptosis-antagonizing transcription factor, C-terminal"	Transcription factors	Expression regulation
+IPR	IPR019481	"Transcription factor TFIIIC, triple barrel domain"	Transcription factors	Expression regulation
+IPR	IPR017923	"Transcription factor IIS, N-termina"	Transcription factors	Expression regulation
+IPR	IPR031349	"General transcription factor TFIIH, subunit Tfb6"	Transcription factors	Expression regulation
+IPR	IPR003166	"Transcription factor TFIIE beta subunit, DNA-binding domain"	Transcription factors	Expression regulation
+IPR	IPR008967	"p53-like transcription factor, DNA-binding domain superfamily"	Transcription factors	Expression regulation
+IPR	IPR013083	"Zinc finger, RING/FYVE/PHD-type"	Transcription factors	Expression regulation
+IPR	IPR003958	Transcription factor CBF/NF-Y/archaeal histone domain	Transcription factors	Expression regulation
+IPR	IPR004598	Transcription factor TFIIH subunit p52/Tfb2	Transcription factors	Expression regulation
+IPR	IPR011039	"Transcription Factor IIF, Rap30/Rap74, interaction"	Transcription factors	Expression regulation
+IPR	IPR024761	"Transcription factor IIIC, 90kDa subunit, N-terminal"	Transcription factors	Expression regulation
+IPR	IPR039467	"Transcription factor TFIIIB component B, Myb domain"	Transcription factors	Expression regulation
+IPR	IPR019136	"Transcription factor IIIC subunit 5, HTH domain"	Transcription factors	Expression regulation
+IPR	IPR001289	Nuclear transcription factor Y subunit A	Transcription factors	Expression regulation
+IPR	IPR004855	"Transcription factor IIA, alpha/beta subunit"	Transcription factors	Expression regulation
+IPR	IPR013927	Transcription factor Opi1	Transcription factors	Expression regulation
+IPR	IPR013734	Transcription factor Nrm1/Whi5	Transcription factors	Expression regulation
+IPR	IPR034812	"Psi-factor producing oxygenase-like, N-terminal heme peroxidase domain"	Oxylipins	Signal transduction
+KEGG	K00006	GPD1; glycerol-3-phosphate dehydrogenase (NAD+) [EC:1.1.1.8] 	MAPK signaling pathway	Signal transduction
+KEGG	K00706	"E2.4.1.34; 1,3-beta-glucan synthase [EC:2.4.1.34] "	MAPK signaling pathway	Signal transduction
+KEGG	K00888	PI4KA; phosphatidylinositol 4-kinase A [EC:2.7.1.67] 	MAPK signaling pathway	Signal transduction
+KEGG	K00889	PIP5K; 1-phosphatidylinositol-4-phosphate 5-kinase [EC:2.7.1.68] 	MAPK signaling pathway	Signal transduction
+KEGG	K01383	BAR1; barrierpepsin [EC:3.4.23.35] 	MAPK signaling pathway	Signal transduction
+KEGG	K02218	"CSNK1, CKI; casein kinase 1 [EC:2.7.11.1] "	MAPK signaling pathway	Signal transduction
+KEGG	K02220	CLB1; G2/mitotic-specific cyclin 1 	MAPK signaling pathway	Signal transduction
+KEGG	K02515	"HSL1; serine/threonine-protein kinase HSL1, negative regulator of Swe1 kinase [EC:2.7.11.-] "	MAPK signaling pathway	Signal transduction
+KEGG	K02516	"PRMT5, HSL7; type II protein arginine methyltransferase [EC:2.1.1.320] "	MAPK signaling pathway	Signal transduction
+KEGG	K02555	MIH1; M-phase inducer tyrosine phosphatase [EC:3.1.3.48] 	MAPK signaling pathway	Signal transduction
+KEGG	K02677	PRKCA; classical protein kinase C alpha type [EC:2.7.11.13] 	MAPK signaling pathway	Signal transduction
+KEGG	K03085	SIC1; substrate and inhibitor of the cyclin-dependent protein kinase CDC28 	MAPK signaling pathway	Signal transduction
+KEGG	K03114	SWE1; mitosis inhibitor protein kinase SWE1 [EC:2.7.11.1] 	MAPK signaling pathway	Signal transduction
+KEGG	K03781	"katE, CAT, catB, srpA; catalase [EC:1.11.1.6] "	MAPK signaling pathway	Signal transduction
+KEGG	K04371	"ERK, MAPK1_3; mitogen-activated protein kinase 1/3 [EC:2.7.11.24] "	MAPK signaling pathway	Signal transduction
+KEGG	K04393	CDC42; cell division control protein 42 	MAPK signaling pathway	Signal transduction
+KEGG	K04409	PAK1; p21-activated kinase 1 [EC:2.7.11.1] 	MAPK signaling pathway	Signal transduction
+KEGG	K04441	P38; p38 MAP kinase [EC:2.7.11.24] 	MAPK signaling pathway	Signal transduction
+KEGG	K04464	MAPK7; mitogen-activated protein kinase 7 [EC:2.7.11.24] 	MAPK signaling pathway	Signal transduction
+KEGG	K04513	"RHOA; Ras homolog gene family, member A "	MAPK signaling pathway	Signal transduction
+KEGG	K04536	GNB1; guanine nucleotide-binding protein G(I)/G(S)/G(T) subunit beta-1 	MAPK signaling pathway	Signal transduction
+KEGG	K04563	"CDC28, CDC2; cyclin-dependent kinase [EC:2.7.11.22] "	MAPK signaling pathway	Signal transduction
+KEGG	K04627	STE3; pheromone a factor receptor 	MAPK signaling pathway	Signal transduction
+KEGG	K06009	YPS1_2; yapsin 1/2 [EC:3.4.23.41] 	MAPK signaling pathway	Signal transduction
+KEGG	K06276	PDPK1; 3-phosphoinositide dependent protein kinase-1 [EC:2.7.11.1] 	MAPK signaling pathway	Signal transduction
+KEGG	K06630	YWHAE; 14-3-3 protein epsilon 	MAPK signaling pathway	Signal transduction
+KEGG	K06648	SWI6; regulatory protein SWI6 	MAPK signaling pathway	Signal transduction
+KEGG	K06649	SWI4; regulatory protein SWI4 	MAPK signaling pathway	Signal transduction
+KEGG	K06650	CLN2; G1/S-specific cyclin CLN2 	MAPK signaling pathway	Signal transduction
+KEGG	K06651	CLB5_6; S-phase entry cyclin 5/6 	MAPK signaling pathway	Signal transduction
+KEGG	K06652	FAR1; cyclin-dependent kinase inhibitor FAR1 	MAPK signaling pathway	Signal transduction
+KEGG	K06665	"SSN6, CYC8; general transcriptional corepressor CYC8 "	MAPK signaling pathway	Signal transduction
+KEGG	K06666	TUP1; general transcriptional corepressor TUP1 	MAPK signaling pathway	Signal transduction
+KEGG	K07973	"GNG; guanine nucleotide-binding protein subunit gamma, fungi "	MAPK signaling pathway	Signal transduction
+KEGG	K08294	MKK1_2; mitogen-activated protein kinase kinase [EC:2.7.12.2] 	MAPK signaling pathway	Signal transduction
+KEGG	K09051	"SKO1, ATF1, PCR1; ATF/CREB family transcription factor "	MAPK signaling pathway	Signal transduction
+KEGG	K09265	RLM1; transcription factor RLM1 	MAPK signaling pathway	Signal transduction
+KEGG	K09448	TEAD; transcriptional enhancer factor 	MAPK signaling pathway	Signal transduction
+KEGG	K09468	MSN2_4; zinc finger protein MSN2/4 	MAPK signaling pathway	Signal transduction
+KEGG	K10591	"NEDD4, RSP5; E3 ubiquitin-protein ligase NEDD4 [EC:2.3.2.26] "	MAPK signaling pathway	Signal transduction
+KEGG	K11213	STE2; pheromone alpha factor receptor 	MAPK signaling pathway	Signal transduction
+KEGG	K11215	STE12; transcription factor STE12 	MAPK signaling pathway	Signal transduction
+KEGG	K11226	STE7; mitogen-activated protein kinase kinase [EC:2.7.12.2] 	MAPK signaling pathway	Signal transduction
+KEGG	K11227	PBS2; mitogen-activated protein kinase kinase [EC:2.7.12.2] 	MAPK signaling pathway	Signal transduction
+KEGG	K11228	STE11; mitogen-activated protein kinase kinase kinase [EC:2.7.11.25] 	MAPK signaling pathway	Signal transduction
+KEGG	K11229	BCK1; mitogen-activated protein kinase kinase kinase [EC:2.7.11.25] 	MAPK signaling pathway	Signal transduction
+KEGG	K11230	SSK2; mitogen-activated protein kinase kinase kinase [EC:2.7.11.25] 	MAPK signaling pathway	Signal transduction
+KEGG	K11231	"SLN1; osomolarity two-component system, sensor histidine kinase SLN1 [EC:2.7.13.3] "	MAPK signaling pathway	Signal transduction
+KEGG	K11232	"YPD1; osomolarity two-component system, phosphorelay intermediate protein YPD1 "	MAPK signaling pathway	Signal transduction
+KEGG	K11233	"SSK1; osomolarity two-component system, response regulator SSK1 "	MAPK signaling pathway	Signal transduction
+KEGG	K11234	MFAL; mating pheromone alpha-factor 	MAPK signaling pathway	Signal transduction
+KEGG	K11235	MFA; mating pheromone A-factor 	MAPK signaling pathway	Signal transduction
+KEGG	K11236	CDC24; cell division control protein 24 	MAPK signaling pathway	Signal transduction
+KEGG	K11237	BEM1; bud emergence protein 1 	MAPK signaling pathway	Signal transduction
+KEGG	K11238	BNI1; cytokinesis protein 	MAPK signaling pathway	Signal transduction
+KEGG	K11239	STE5; pheromone-response scaffold protein 	MAPK signaling pathway	Signal transduction
+KEGG	K11240	MSG5; tyrosine-protein phosphatase MSG5 [EC:3.1.3.48] 	MAPK signaling pathway	Signal transduction
+KEGG	K11241	DIG1; down-regulator of invasive growth 1 	MAPK signaling pathway	Signal transduction
+KEGG	K11242	DIG2; down-regulator of invasive growth 2 	MAPK signaling pathway	Signal transduction
+KEGG	K11243	FUS1; nuclear fusion protein 	MAPK signaling pathway	Signal transduction
+KEGG	K11244	WSC; cell wall integrity and stress response component 	MAPK signaling pathway	Signal transduction
+KEGG	K11245	"MID2, MTL1; mating pheromone-induced death protein 2 "	MAPK signaling pathway	Signal transduction
+KEGG	K11246	SHO1; SHO1 osmosensor 	MAPK signaling pathway	Signal transduction
+KEGG	K12412	MCM1; pheromone receptor transcription factor 	MAPK signaling pathway	Signal transduction
+KEGG	K12760	CLN1; G1/S-specific cyclin CLN1 	MAPK signaling pathway	Signal transduction
+KEGG	K15174	PAF1; RNA polymerase II-associated factor 1 	MAPK signaling pathway	Signal transduction
+KEGG	K17741	GRE2; NADPH-dependent methylglyoxal reductase [EC:1.1.1.283] 	MAPK signaling pathway	Signal transduction
+KEGG	K17971	BNR1; BNI1-related protein 1 	MAPK signaling pathway	Signal transduction
+KEGG	K19704	PTC1; protein phosphatase PTC1 [EC:3.1.3.16] 	MAPK signaling pathway	Signal transduction
+KEGG	K19806	PTP2_3; tyrosine-protein phosphatase 2/3 [EC:3.1.3.48] 	MAPK signaling pathway	Signal transduction
+KEGG	K19807	SMP1; transcription factor SMP1 	MAPK signaling pathway	Signal transduction
+KEGG	K19812	SDP1; dual-specificity protein phosphatase SDP1 [EC:3.1.3.48] 	MAPK signaling pathway	Signal transduction
+KEGG	K19815	HOT1; high-osmolarity-induced transcription protein 1 	MAPK signaling pathway	Signal transduction
+KEGG	K19816	MSS11; transcription activator MSS11 	MAPK signaling pathway	Signal transduction
+KEGG	K19833	CLA4; serine/threonine-protein kinase CLA4 [EC:2.7.11.1] 	MAPK signaling pathway	Signal transduction
+KEGG	K19838	SST2; GTPase-activating protein SST2 	MAPK signaling pathway	Signal transduction
+KEGG	K19839	RGA1_2; Rho-type GTPase-activating protein 1/2 	MAPK signaling pathway	Signal transduction
+KEGG	K19840	BEM3; Rho-type GTPase-activating protein 	MAPK signaling pathway	Signal transduction
+KEGG	K19841	STE50; protein STE50 	MAPK signaling pathway	Signal transduction
+KEGG	K19842	ROM1_2; RHO1 GDP-GTP exchange protein 1/2 	MAPK signaling pathway	Signal transduction
+KEGG	K19843	TUS1; Rho1 guanine nucleotide exchange factor TUS1 	MAPK signaling pathway	Signal transduction
+KEGG	K19844	BEM2; GTPase-activating protein BEM2 	MAPK signaling pathway	Signal transduction
+KEGG	K19845	SAC7; GTPase-activating protein SAC7 	MAPK signaling pathway	Signal transduction
+KEGG	K19846	SPA2; protein SPA2 	MAPK signaling pathway	Signal transduction
+KEGG	K19847	"MLP1, KDX1; MPK-like protein 1 "	MAPK signaling pathway	Signal transduction
+KEGG	K19848	HKR1; signaling mucin HKR1 	MAPK signaling pathway	Signal transduction
+KEGG	K19849	MSB2; signaling mucin MSB2 	MAPK signaling pathway	Signal transduction
+KEGG	K19850	OPY2; protein OPY2 	MAPK signaling pathway	Signal transduction
+KEGG	K19851	FLO11; flocculation protein FLO11 	MAPK signaling pathway	Signal transduction
+KEGG	K19860	GPA1; guanine nucleotide-binding protein alpha-1 subunit 	MAPK signaling pathway	Signal transduction
+KEGG	K23469	CLB2; G2/mitotic-specific cyclin 2 	MAPK signaling pathway	Signal transduction
+KEGG	K00182	"WNT2; wingless-type MMTV integration site family, member 2 "	mTOR signaling pathway	Signal transduction
+KEGG	K00312	"WNT3; wingless-type MMTV integration site family, member 3 "	mTOR signaling pathway	Signal transduction
+KEGG	K00408	"WNT4; wingless-type MMTV integration site family, member 4 "	mTOR signaling pathway	Signal transduction
+KEGG	K00444	"WNT5; wingless-type MMTV integration site family, member 5 "	mTOR signaling pathway	Signal transduction
+KEGG	K00445	"WNT6; wingless-type MMTV integration site family, member 6 "	mTOR signaling pathway	Signal transduction
+KEGG	K00572	"WNT7; wingless-type MMTV integration site family, member 7 "	mTOR signaling pathway	Signal transduction
+KEGG	K00714	"WNT8; wingless-type MMTV integration site family, member 8 "	mTOR signaling pathway	Signal transduction
+KEGG	K00922	"PIK3CA_B_D; phosphatidylinositol-4,5-bisphosphate 3-kinase catalytic subunit alpha/beta/delta [EC:2. "	mTOR signaling pathway	Signal transduction
+KEGG	K01064	"WNT9; wingless-type MMTV integration site family, member 9 "	mTOR signaling pathway	Signal transduction
+KEGG	K01110	"PTEN; phosphatidylinositol-3,4,5-trisphosphate 3-phosphatase and dual-specificity protein phosphatas "	mTOR signaling pathway	Signal transduction
+KEGG	K01357	"WNT10; wingless-type MMTV integration site family, member 10 "	mTOR signaling pathway	Signal transduction
+KEGG	K01384	"WNT11; wingless-type MMTV integration site family, member 11 "	mTOR signaling pathway	Signal transduction
+KEGG	K01558	"WNT16; wingless-type MMTV integration site family, member 16 "	mTOR signaling pathway	Signal transduction
+KEGG	K02144	ATPeV1H; V-type H+-transporting ATPase subunit H 	mTOR signaling pathway	Signal transduction
+KEGG	K02145	"ATPeV1A, ATP6A; V-type H+-transporting ATPase subunit A [EC:7.1.2.2] "	mTOR signaling pathway	Signal transduction
+KEGG	K02147	"ATPeV1B, ATP6B; V-type H+-transporting ATPase subunit B "	mTOR signaling pathway	Signal transduction
+KEGG	K02148	"ATPeV1C, ATP6C; V-type H+-transporting ATPase subunit C "	mTOR signaling pathway	Signal transduction
+KEGG	K02149	"ATPeV1D, ATP6M; V-type H+-transporting ATPase subunit D "	mTOR signaling pathway	Signal transduction
+KEGG	K02150	"ATPeV1E, ATP6E; V-type H+-transporting ATPase subunit E "	mTOR signaling pathway	Signal transduction
+KEGG	K02151	"ATPeV1F, ATP6S14; V-type H+-transporting ATPase subunit F "	mTOR signaling pathway	Signal transduction
+KEGG	K02152	"ATPeV1G, ATP6G; V-type H+-transporting ATPase subunit G "	mTOR signaling pathway	Signal transduction
+KEGG	K02235	FZD2; frizzled 2 	mTOR signaling pathway	Signal transduction
+KEGG	K02329	FZD3; frizzled 3 	mTOR signaling pathway	Signal transduction
+KEGG	K02353	DVL; segment polarity protein dishevelled 	mTOR signaling pathway	Signal transduction
+KEGG	K02354	"FZD4, fz4, CD344; frizzled 4 "	mTOR signaling pathway	Signal transduction
+KEGG	K02375	"FZD5_8, fz2; frizzled 5/8 "	mTOR signaling pathway	Signal transduction
+KEGG	K02376	FZD6; frizzled 6 	mTOR signaling pathway	Signal transduction
+KEGG	K02432	"FZD1_7, fz; frizzled 1/7 "	mTOR signaling pathway	Signal transduction
+KEGG	K02649	PIK3R1_2_3; phosphoinositide-3-kinase regulatory subunit alpha/beta/delta 	mTOR signaling pathway	Signal transduction
+KEGG	K02677	PRKCA; classical protein kinase C alpha type [EC:2.7.11.13] 	mTOR signaling pathway	Signal transduction
+KEGG	K02833	HRAS; GTPase HRas 	mTOR signaling pathway	Signal transduction
+KEGG	K02842	"FZD9_10, CD349_50; frizzled 9/10 "	mTOR signaling pathway	Signal transduction
+KEGG	K02991	"RP-S6e, RPS6; small subunit ribosomal protein S6e "	mTOR signaling pathway	Signal transduction
+KEGG	K03068	LRP5_6; low density lipoprotein receptor-related protein 5/6 	mTOR signaling pathway	Signal transduction
+KEGG	K03083	GSK3B; glycogen synthase kinase 3 beta [EC:2.7.11.26] 	mTOR signaling pathway	Signal transduction
+KEGG	K03099	SOS; son of sevenless 	mTOR signaling pathway	Signal transduction
+KEGG	K03156	"TNF, TNFA; tumor necrosis factor superfamily, member 2 "	mTOR signaling pathway	Signal transduction
+KEGG	K03158	"TNFRSF1A, TNFR1, CD120a; tumor necrosis factor receptor superfamily member 1A "	mTOR signaling pathway	Signal transduction
+KEGG	K03209	"WNT1; wingless-type MMTV integration site family, member 1 "	mTOR signaling pathway	Signal transduction
+KEGG	K03258	EIF4B; translation initiation factor 4B 	mTOR signaling pathway	Signal transduction
+KEGG	K03259	EIF4E; translation initiation factor 4E 	mTOR signaling pathway	Signal transduction
+KEGG	K03875	"SKP2, FBXL1; F-box and leucine-rich repeat protein 1 (S-phase kinase-associated protein 2) "	mTOR signaling pathway	Signal transduction
+KEGG	K04364	GRB2; growth factor receptor-bound protein 2 	mTOR signaling pathway	Signal transduction
+KEGG	K04365	BRAF; B-Raf proto-oncogene serine/threonine-protein kinase [EC:2.7.11.1] 	mTOR signaling pathway	Signal transduction
+KEGG	K04366	RAF1; RAF proto-oncogene serine/threonine-protein kinase [EC:2.7.11.1] 	mTOR signaling pathway	Signal transduction
+KEGG	K04368	"MAP2K1, MEK1; mitogen-activated protein kinase kinase 1 [EC:2.7.12.2] "	mTOR signaling pathway	Signal transduction
+KEGG	K04369	"MAP2K2, MEK2; mitogen-activated protein kinase kinase 2 [EC:2.7.12.2] "	mTOR signaling pathway	Signal transduction
+KEGG	K04370	"LAMTOR3, MP1, MAP2K1IP1; ragulator complex protein LAMTOR3 "	mTOR signaling pathway	Signal transduction
+KEGG	K04371	"ERK, MAPK1_3; mitogen-activated protein kinase 1/3 [EC:2.7.11.24] "	mTOR signaling pathway	Signal transduction
+KEGG	K04373	RPS6KA; ribosomal protein S6 kinase alpha-1/2/3/6 [EC:2.7.11.1] 	mTOR signaling pathway	Signal transduction
+KEGG	K04456	AKT; RAC serine/threonine-protein kinase [EC:2.7.11.1] 	mTOR signaling pathway	Signal transduction
+KEGG	K04467	"IKBKA, IKKA, CHUK; inhibitor of nuclear factor kappa-B kinase subunit alpha [EC:2.7.11.10] "	mTOR signaling pathway	Signal transduction
+KEGG	K04513	"RHOA; Ras homolog gene family, member A "	mTOR signaling pathway	Signal transduction
+KEGG	K04526	INS; insulin 	mTOR signaling pathway	Signal transduction
+KEGG	K04527	"INSR, CD220; insulin receptor [EC:2.7.10.1] "	mTOR signaling pathway	Signal transduction
+KEGG	K04688	RPS6KB; ribosomal protein S6 kinase beta [EC:2.7.11.1] 	mTOR signaling pathway	Signal transduction
+KEGG	K04690	"FZDN, fz3; frizzled "	mTOR signaling pathway	Signal transduction
+KEGG	K05087	"IGF1R, CD221; insulin-like growth factor 1 receptor [EC:2.7.10.1] "	mTOR signaling pathway	Signal transduction
+KEGG	K05459	IGF1; insulin-like growth factor 1 	mTOR signaling pathway	Signal transduction
+KEGG	K06276	PDPK1; 3-phosphoinositide dependent protein kinase-1 [EC:2.7.11.1] 	mTOR signaling pathway	Signal transduction
+KEGG	K06519	"SLC3A2, MDU1, CD98; solute carrier family 3, member 2 "	mTOR signaling pathway	Signal transduction
+KEGG	K07198	"PRKAA, AMPK; 5'-AMP-activated protein kinase, catalytic alpha subunit [EC:2.7.11.31] "	mTOR signaling pathway	Signal transduction
+KEGG	K07203	"MTOR, FRAP, TOR; serine/threonine-protein kinase mTOR [EC:2.7.11.1] "	mTOR signaling pathway	Signal transduction
+KEGG	K07204	RAPTOR; regulatory associated protein of mTOR 	mTOR signaling pathway	Signal transduction
+KEGG	K07205	EIF4EBP1; eukaryotic translation initiation factor 4E binding protein 1 	mTOR signaling pathway	Signal transduction
+KEGG	K07206	TSC1; tuberous sclerosis 1 	mTOR signaling pathway	Signal transduction
+KEGG	K07207	TSC2; tuberous sclerosis 2 	mTOR signaling pathway	Signal transduction
+KEGG	K07208	RHEB; Ras homolog enriched in brain 	mTOR signaling pathway	Signal transduction
+KEGG	K07209	"IKBKB, IKKB; inhibitor of nuclear factor kappa-B kinase subunit beta [EC:2.7.11.10] "	mTOR signaling pathway	Signal transduction
+KEGG	K07298	"STK11, LKB1; serine/threonine-protein kinase 11 [EC:2.7.11.1] "	mTOR signaling pathway	Signal transduction
+KEGG	K07827	"KRAS, KRAS2; GTPase KRas "	mTOR signaling pathway	Signal transduction
+KEGG	K07828	NRAS; GTPase NRas 	mTOR signaling pathway	Signal transduction
+KEGG	K08266	"MLST8, GBL; target of rapamycin complex subunit LST8 "	mTOR signaling pathway	Signal transduction
+KEGG	K08267	RICTOR; rapamycin-insensitive companion of mTOR 	mTOR signaling pathway	Signal transduction
+KEGG	K08269	"ULK2, ATG1; serine/threonine-protein kinase ULK2 [EC:2.7.11.1] "	mTOR signaling pathway	Signal transduction
+KEGG	K08270	"DDIT4, REDD1; DNA-damage-inducible transcript 4 "	mTOR signaling pathway	Signal transduction
+KEGG	K08271	"STRADA, LYK5; STE20-related kinase adapter protein alpha "	mTOR signaling pathway	Signal transduction
+KEGG	K08272	"CAB39, MO25; calcium binding protein 39 "	mTOR signaling pathway	Signal transduction
+KEGG	K09594	"FLCN, BHD; folliculin "	mTOR signaling pathway	Signal transduction
+KEGG	K10421	"CLIP1, RSN; CAP-Gly domain-containing linker protein 1 "	mTOR signaling pathway	Signal transduction
+KEGG	K11137	"TELO2, TEL2; telomere length regulation protein "	mTOR signaling pathway	Signal transduction
+KEGG	K13302	SGK1; serum/glucocorticoid-regulated kinase 1 [EC:2.7.11.1] 	mTOR signaling pathway	Signal transduction
+KEGG	K13780	"SLC7A5, LAT1; solute carrier family 7 (L-type amino acid transporter), member 5 "	mTOR signaling pathway	Signal transduction
+KEGG	K14004	SEC13; protein transport protein SEC13 	mTOR signaling pathway	Signal transduction
+KEGG	K14299	SEH1; nucleoporin SEH1 	mTOR signaling pathway	Signal transduction
+KEGG	K14995	"SLC38A9; solute carrier family 38 (sodium-coupled neutral amino acid transporter), member 9 "	mTOR signaling pathway	Signal transduction
+KEGG	K15705	RNF152; E3 ubiquitin-protein ligase RNF152 [EC:2.3.2.27] 	mTOR signaling pathway	Signal transduction
+KEGG	K15728	LPIN; phosphatidate phosphatase LPIN [EC:3.1.3.4] 	mTOR signaling pathway	Signal transduction
+KEGG	K16172	IRS1; insulin receptor substrate 1 	mTOR signaling pathway	Signal transduction
+KEGG	K16184	"AKT1S1, PRAS40; proline-rich AKT1 substrate 1 "	mTOR signaling pathway	Signal transduction
+KEGG	K16185	RRAGA_B; Ras-related GTP-binding protein A/B 	mTOR signaling pathway	Signal transduction
+KEGG	K16186	RRAGC_D; Ras-related GTP-binding protein C/D 	mTOR signaling pathway	Signal transduction
+KEGG	K16344	"LAMTOR5, HBXIP; ragulator complex protein LAMTOR5 "	mTOR signaling pathway	Signal transduction
+KEGG	K17532	STRADB; STE20-related kinase adapter protein beta 	mTOR signaling pathway	Signal transduction
+KEGG	K19662	PRKCB; classical protein kinase C beta type [EC:2.7.11.13] 	mTOR signaling pathway	Signal transduction
+KEGG	K19663	PRKCG; classical protein kinase C gamma type [EC:2.7.11.13] 	mTOR signaling pathway	Signal transduction
+KEGG	K20064	GRB10; growth factor receptor-bound protein 10 	mTOR signaling pathway	Signal transduction
+KEGG	K20394	SESN2; sestrin 2 	mTOR signaling pathway	Signal transduction
+KEGG	K20396	TBC1D7; TBC1 domain family member 7 	mTOR signaling pathway	Signal transduction
+KEGG	K20397	LAMTOR1; ragulator complex protein LAMTOR1 	mTOR signaling pathway	Signal transduction
+KEGG	K20398	LAMTOR2; ragulator complex protein LAMTOR2 	mTOR signaling pathway	Signal transduction
+KEGG	K20399	LAMTOR4; ragulator complex protein LAMTOR4 	mTOR signaling pathway	Signal transduction
+KEGG	K20400	FNIP1; folliculin-interacting protein 1 	mTOR signaling pathway	Signal transduction
+KEGG	K20401	FNIP2; folliculin-interacting protein 2 	mTOR signaling pathway	Signal transduction
+KEGG	K20402	DEPTOR; DEP domain-containing mTOR-interacting protein 	mTOR signaling pathway	Signal transduction
+KEGG	K20403	TTI1; TELO2-interacting protein 1 	mTOR signaling pathway	Signal transduction
+KEGG	K20404	"DEPDC5, SEA1; SEA/GATOR complex protein SEA1/DEPDC5 "	mTOR signaling pathway	Signal transduction
+KEGG	K20405	"NPRL2, NPR2; nitrogen permease regulator 2 "	mTOR signaling pathway	Signal transduction
+KEGG	K20406	"NPRL3, NPR3; nitrogen permease regulator 3 "	mTOR signaling pathway	Signal transduction
+KEGG	K20407	"MIOS, MIO, SEA4; SEA/GATOR complex protein SEA4/MIOS "	mTOR signaling pathway	Signal transduction
+KEGG	K20408	"WDR24, SEA2; SEA/GATOR complex protein SEA2/WDR24 "	mTOR signaling pathway	Signal transduction
+KEGG	K20409	"WDR59, SEA3; SEA/GATOR complex protein SEA3/WDR59 "	mTOR signaling pathway	Signal transduction
+KEGG	K20410	"MAPKAP1, SIN1, AVO1; target of rapamycin complex 2 subunit MAPKAP1/AVO1 "	mTOR signaling pathway	Signal transduction
+KEGG	K20411	"PRR5, PROTOR; proline-rich protein 5 "	mTOR signaling pathway	Signal transduction
+KEGG	K21357	ULK1; serine/threonine-protein kinase ULK1 [EC:2.7.11.1] 	mTOR signaling pathway	Signal transduction
+KEGG	K23080	CASTOR1; cytosolic arginine sensor for mTORC1 subunit 1 	mTOR signaling pathway	Signal transduction
+KEGG	K23081	CASTOR2; cytosolic arginine sensor for mTORC1 subunit 2 	mTOR signaling pathway	Signal transduction
+IPR	IPR037525	Velvet domain	Velvet	Signal transduction
+IPR	IPR011025	"G protein alpha subunit, helical insertion"	G-proteins and GPCR	Signal transduction
+IPR	IPR001770	"G-protein, gamma subunit"	G-proteins and GPCR	Signal transduction
+IPR	IPR001632	"G-protein, beta subunit"	G-proteins and GPCR	Signal transduction
+IPR	IPR017981	"GPCR, family 2-like, transmembrane domain"	G-proteins and GPCR	Signal transduction
+IPR	IPR000832	"GPCR, family 2, secretin-like"	G-proteins and GPCR	Signal transduction
+KEGG	K00232	acyl-CoA oxidase	cAMP signaling pathway	Signal transduction
+KEGG	K01115	phospholipase D1/2	cAMP signaling pathway	Signal transduction
+KEGG	K02183	calmodulin	cAMP signaling pathway	Signal transduction
+KEGG	K04345	protein kinase A	cAMP signaling pathway	Signal transduction
+KEGG	K04392	Ras-related C3 botulinum toxin substrate 1	cAMP signaling pathway	Signal transduction
+KEGG	K04630	guanine nucleotide-binding protein G(i) subunit alpha	cAMP signaling pathway	Signal transduction
+KEGG	K05853	P-type Ca2+ transporter type 2A	cAMP signaling pathway	Signal transduction
+KEGG	K06269	serine/threonine-protein phosphatase PP1 catalytic subunit	cAMP signaling pathway	Signal transduction
+KEGG	K07188	hormone-sensitive lipase	cAMP signaling pathway	Signal transduction
+KEGG	K08014	Rap guanine nucleotide exchange factor 3	cAMP signaling pathway	Signal transduction

@@ -1,0 +1,12 @@
+genome,score,completeness,contamination,strain_heterogeneity,size,N50,cluster,taxonomy,tax_confidence,cluster_members,closest_cluster_member,furthest_cluster_member,completeness_metric,contamination_metric
+GTX0493.bin.23.fa,68.0774097180971,NA,NA,NA,NA,NA,1_1,NA,NA,3,99.68,99.63,NA,NA
+GTX0468.bin.53.fa,67.89509579028766,NA,NA,NA,NA,NA,1_2,NA,NA,3,99.73,99.44,NA,NA
+GTX0465.bin.1.fa,69.76471199630707,NA,NA,NA,NA,NA,1_3,NA,NA,4,99.79,99.67,NA,NA
+coassembly.bin.195.fa,70.08385061748568,NA,NA,NA,NA,NA,1_4,NA,NA,1,NA,NA,NA,NA
+GTX0486_487.bin.100.fa,98.15533734028759,NA,NA,NA,NA,NA,2_1,NA,NA,2,99.84,99.84,NA,NA
+GTX0494.bin.19.fa,99.09310809926552,NA,NA,NA,NA,NA,3_1,NA,NA,9,99.33,97.67,NA,NA
+GTX0466.bin.15.fa,102.47314675973028,NA,NA,NA,NA,NA,4_1,NA,NA,2,99.97,99.97,NA,NA
+coassembly.bin.76.fa,79.49270399290458,NA,NA,NA,NA,NA,5_1,NA,NA,2,99.75,99.75,NA,NA
+coassembly.bin.378.fa,90.02717047118254,NA,NA,NA,NA,NA,6_1,NA,NA,2,99.99,99.99,NA,NA
+coassembly.bin.64.fa,60.87045753824064,NA,NA,NA,NA,NA,7_0,NA,NA,1,NA,NA,NA,NA
+coassembly.bin.376.fa,87.3670433135416,NA,NA,NA,NA,NA,8_0,NA,NA,1,NA,NA,NA,NA

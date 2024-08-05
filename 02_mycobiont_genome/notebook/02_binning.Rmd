@@ -1,0 +1,391 @@
+---
+title: "02_binning"
+author: "Gulnara Tagridzhanova"
+date: "15/03/2023"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(kableExtra)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/11_omics_manuscript/repo_public/2024-Multipartite-complexity-omics-Xanthoria/02_mycobiont_genome/notebook")
+```
+
+**Rationale:** I recieved an assemblies from Future Genomics from a Xanthoria thallus. Since Xanthoria sample is metagenomic by definition, the first step is to bin the assemblies and identify MAGs
+
+**Results from 2023.08.11:** Isolated the mycobiont MAG as `analysis_and_temp_files/02_binning/GTX0501_xanthoria_nuclear_mag.fa`
+Further exploration of the Xanthoria MAGs will happen in `04_xanthoria_mag`
+
+
+## 1. Produce bins
+
+#### Align Illumina reads against the assembly (% overall alignment rate); sort the alignment
+* Used GTX0466, Illumina reads that come from the same samples
+```
+source package 29a74b59-88fc-4453-a30b-1310b34910b9
+source package aeee87c4-1923-4732-aca2-f2aff23580cc
+bowtie2-build data/FG23028_01.fasta data/GTX0501_index
+bowtie2 -q -p 20 -t -x data/GTX0501_index -1 /tsl/data/reads/ntalbot/metagenomes_of_xanthoria_parietina_lichens/gtx0466/gtx0466/raw/GTX0466_EKDN230002737-1A_HNJ33DSX5_L4_1.fq.gz -2 /tsl/data/reads/ntalbot/metagenomes_of_xanthoria_parietina_lichens/gtx0466/gtx0466/raw/GTX0466_EKDN230002737-1A_HNJ33DSX5_L4_2.fq.gz > analysis_and_temp_files/02_binning/GTX0501.sam
+
+samtools sort analysis_and_temp_files/02_binning/GTX0501.sam -o analysis_and_temp_files/02_binning/GTX0501.bam -@ 20
+rm analysis_and_temp_files/02_binning/GTX0501.sam
+samtools index  analysis_and_temp_files/02_binning/GTX0501.bam 
+```
+* Alignment results
+```
+192921072 reads; of these:
+  192921072 (100.00%) were paired; of these:
+    85216132 (44.17%) aligned concordantly 0 times
+    90008722 (46.66%) aligned concordantly exactly 1 time
+    17696218 (9.17%) aligned concordantly >1 times
+    ----
+    85216132 pairs aligned concordantly 0 times; of these:
+      429461 (0.50%) aligned discordantly 1 time
+    ----
+    84786671 pairs aligned 0 times concordantly or discordantly; of these:
+      169573342 mates make up the pairs; of these:
+        164198847 (96.83%) aligned 0 times
+        3439556 (2.03%) aligned exactly 1 time
+        1934939 (1.14%) aligned >1 times
+57.44% overall alignment rate
+Time searching: 03:06:32
+```
+#### Use metaBAT to bin 
+```
+source package 0a2dffce-c151-4379-abe9-866414c91cd7
+cp data/FG23028_01.fasta analysis_and_temp_files/02_binning/GTX0501.fasta
+runMetaBat.sh -t 20 --unbinned analysis_and_temp_files/02_binning/GTX0501.fasta analysis_and_temp_files/02_binning/GTX0501.bam
+mv  GTX0501.fasta.metabat* analysis_and_temp_files/02_binning/
+```
+* Identify prokaryotic MAGs with CheckM (plus calculate coverage depth and gc% for each contig): no MAGs identifies
+```
+source package  5a1c6a9a-f666-4eaa-9409-3e7435d86406
+checkm coverage analysis_and_temp_files/02_binning/GTX0501.fasta.metabat* analysis_and_temp_files/02_binning/GTX0501.cov analysis_and_temp_files/02_binning/GTX0501.bam -x fa
+checkm  lineage_wf analysis_and_temp_files/02_binning/GTX0501.fasta.metabat* analysis_and_temp_files/02_binning/GTX0501_checkm -x fa
+
+source package /tsl/software/testing/bin/bbmap-37.90 
+stats.sh in=analysis_and_temp_files/02_binning/GTX0501.fasta gc=analysis_and_temp_files/02_binning/GTX0501.gc gcformat=4
+
+```
+
+#### Visualize binning result
+```{r, message = FALSE,fig.width=14,fig.height=10}
+library(tidyverse)
+gc3<-read.delim2("../analysis_and_temp_files/02_binning/GTX0501.gc",header=T)
+colnames(gc3)[1]<-"contig"
+gc3$GC<-as.numeric(gc3$GC)
+cov3<-read.delim2("../analysis_and_temp_files/02_binning/GTX0501.cov")
+colnames(cov3)[1]<-"contig"
+cov3$Coverage<-as.numeric(cov3$Coverage)
+df3<-left_join(gc3,cov3)
+ggplot(df3,aes(x=GC,y=Coverage,color=Bin.Id))+ coord_trans(y = "log10")+
+  #geom_point()+
+   geom_text(aes(label=contig))+
+  coord_trans(y = "log10")
+```
+
+## 2. Screening all bins for MAGs
+* CheckM did not identified any bacterial MAGs
+* EukCC identified one fungal MAG in bin.8, with 96.99% completeness and 0.75% contamination. Placed it in Parmeliaceae
+* EukCC also located some bins with algal marker genes, but failed to place them
+
+```
+#!/bin/bash
+#SBATCH --time=6:00:00
+#SBATCH --cpus-per-task=20
+#SBATCH --job-name=eukcc
+#SBATCH --output=eukcc.logs.out
+
+mkdir analysis_and_temp_files/02_binning/GTX0501_eukcc
+bash code/eukcc.sh analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/ analysis_and_temp_files/02_binning/GTX0501_eukcc/GTX0501_eukcc.csv analysis_and_temp_files/02_binning/GTX0501.bam  analysis_and_temp_files/02_binning/GTX0501_eukcc/GTX0501_linktable.csv 20
+```
+
+## 3. Finalizing the fungal MAG
+* Initial bin is very complete, but probably does not include all contigs
+
+#### Leveraging short read metagenome
+* The GC/cov plot of the corresponding short-read metagenome (GTX0466) shows a very clean mycobiont cloud, split between three bins (two in the GC-rich cloud, and one, with lower coverage, in the AT-rich)
+```{r, message=F}
+illum_binning<-read.delim2("../../01_metagenomics/analysis_and_temp_files/03_assembly/GTX0466_megahit/final.contigs.fa.cov")
+illum_binning$Coverage<-as.numeric(illum_binning$Coverage)
+illum_binning %>% group_by(Bin.Id) %>% summarise(median_cov=median(Coverage)) %>% filter(median_cov>150)
+```
+* Bin.35 is only 92% complete according to EukCC. Combined, they are 94.74% according to EukCC and 88.1% according to BUSCO. These consist of 1092 contigs
+```
+cat ../01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/GTX0466_megahit/final.contigs.fa.metabat/bin.35.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/GTX0466_megahit/final.contigs.fa.metabat/bin.46.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly/GTX0466_megahit/final.contigs.fa.metabat/bin.76.fa > analysis_and_temp_files/02_binning/GTX0466_xanthoria_mag.fa
+
+source package ca890cd7-f81d-4c22-9f4a-5b40ab671c79
+mkdir analysis_and_temp_files/02_binning/GTX0466_xanthoria_busco
+source package 85f2de80-4bd0-48dc-9303-bba1a19206e4
+export AUGUSTUS_CONFIG_PATH=analysis_and_temp_files/02_binning/tmp_augustus/config
+busco -i  analysis_and_temp_files/02_binning/GTX0466_xanthoria_mag.fa -o GTX0466_xanthoria --out_path analysis_and_temp_files/02_binning/GTX0466_xanthoria_busco  -m  genome -l  /tsl/data/busco_lineages/ascomycota_odb10  --offline -f -c 20
+
+#!/bin/bash
+#SBATCH --time=6:00:00
+#SBATCH --cpus-per-task=20
+#SBATCH --job-name=eukcc
+#SBATCH --output=eukcc2.logs.out
+
+mkdir analysis_and_temp_files/02_binning/GTX0466_xanthoria_eukcc
+singularity exec ../singularity/eukcc.sif eukcc single --out analysis_and_temp_files/02_binning/GTX0466_xanthoria_eukcc --db /tsl/data/externalData/ntalbot/lichen_project/eukccdb/eukcc2_db_ver_1.2 --threads 20 analysis_and_temp_files/02_binning/GTX0466_xanthoria_mag.fa
+```
+* Identified all long-read contigs that map to the short-read MAG
+```
+#!/bin/bash
+#SBATCH --time=6:00:00
+#SBATCH --cpus-per-task=20
+#SBATCH --job-name=minimap
+#SBATCH --output=analysis_and_temp_files/02_binning/minimap.logs.out
+
+source package 222eac79-310f-4d4b-8e1c-0cece4150333
+minimap2 -x asm20 -t 10 analysis_and_temp_files/02_binning/GTX0466_xanthoria_mag.fa  analysis_and_temp_files/02_binning/GTX0501.fasta > analysis_and_temp_files/02_binning/GTX0501_466.paf
+```
+* Checked which long-read contigs map to the contigs
+```{r, message=F}
+library(pafr)
+library(GenomicRanges)
+
+#read and filter the alignemnt file
+paf<-read_paf("../analysis_and_temp_files/02_binning/GTX0501_466.paf")
+paf_filtered <-filter_secondary_alignments(paf)
+paf_filtered <-subset(paf_filtered, alen > 2000 & mapq > 40)
+dotplot(paf_filtered,order_by="qstart",label_seqs=T,dashes=F,xlab="GTX0501",ylab="GTX0466") + theme_bw()
+```
+* Extracted contigs from the long-read assembly, to which I have high-quality alignments from the short-read MAG
+  * Included alignments with >40 mapping quality, and only those where the short-read contig is mapped to a given long-read contig with >75% length
+* Those included nearly entire bins 8, 11, 14, 4; and entire bins 12, 13, 2, 5, 7; plus 15 of unbinned contigs
+* Nearly all of them have the best blast hit to fungal genomes. Exceptions are:
+  * contig_233, contig_278: bin.14, hit to bacteria Granulicella and Lysinibacillus macroides
+  * contig_271: bin.2, hit to "uncultured bacterium" 
+  * contig_245: bin.4, hit to animal
+  * contig_263: bin.5, hit to "uncultured bacterium"
+  * contig_117 and contig_239: no hits
+  * contig_195: unbinned, hit to animal
+
+```{r,message=F}
+#get lengths of the short-read contigs
+short_lengths<-data.frame(paf) %>% select(tname,tlen) %>% unique()
+
+#get length of total alignment between pairs of contig and the % of short-read contig aligned
+l<- paf_filtered %>% group_split(qname,tname)
+get_total_length<-function(x){
+  x2<-makeGRangesFromDataFrame(data.frame(x),seqnames.field="tname",start.field="tstart",end.field="tend",ignore.strand=T)
+  total_length<-width(GenomicRanges::reduce(x2, ignore.strand=T))
+  long_contig<-x$qname[1]
+  short_contig<-x$tname[1]
+  o<-data.frame("short_contig"=short_contig,"long_contig"=long_contig,"length"=total_length)
+  return(o)
+}
+l2<-lapply(l,get_total_length)
+alignment_lengths<-do.call(rbind,l2) %>% left_join(short_lengths,by=c("short_contig"="tname")) %>% mutate(coverage=length/tlen)
+
+## which long-read contigs have short-read contig mapping to them with >75%?
+mapping<-alignment_lengths %>% left_join(cov3,by=c("long_contig"="contig")) %>% filter(coverage>0.75) %>% select(long_contig,Bin.Id,Coverage) %>% distinct()
+
+#show blast hits to each contig in the list
+blast_hits<-read.csv2("../data/your-data_fg23028_2023-06-08_0827/FG23028_01_info_BLAST-hits.csv",sep=",")
+mapping<-mapping %>% left_join(blast_hits %>% select(X.seq_name,cov.,subject.sci.names),by=c("long_contig"="X.seq_name"))
+```
+```{r kable, results = "asis"}
+mapping %>%
+  kable(format = "html", col.names = colnames(mapping)) %>%
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%", height = "600px")
+```
+
+#### Tried assembling the MAG
+* Included:
+  * bin.8 (entire). It has all fungal hits, with many Lecanoromycetes
+  * bins 11, 12, 13, 7 (entire). Right coverage depth (about 20X according to nanopore, same as bin.8). all hits are fungal, but all are to non-lecanoromycete fungi. Most contigs have lower GC%, about 40%
+  * Other contigs with short-read contigs mapped to them, provided they have fungal hits
+  * Additional unbinned contigs with Lecanoromycetes hits: 
+    * contig_258 (rRNA)
+    * contig_65
+    * contig_185
+```{r,message=F}
+bins_list<-cov3$contig[cov3$Bin.Id %in% c("bin.8","bin.11","bin.12","bin.13","bin.7")]
+unbinned_mapped<-mapping$long_contig[mapping$Bin.Id=="unbinned" & mapping$long_contig!="contig_195"]
+manual_adding<-paste0("contig_",c(258,65,185,256,32,93,121,152,162,260,46))
+contig_list<-c(bins_list,unbinned_mapped,manual_adding)
+write.table(contig_list,"../analysis_and_temp_files/02_binning/GTX0501_candidate_contigs.txt",quote = F, row.names = F, col.names = F)
+```
+
+* Identified rRNA contig as contig_258 (identical to ITS sequence from GTX0466 Illumina metagenome, which is placed into X. parietina clade, see `../01_Xanthoria_metagenomics/notebook/03_assembly.html`)
+* Identified mitochondrial contig as contig_264 (other hit was contig_269, but it wasn't blasting as a Lecanoromycetes, and had very low coverage in the illumina reads -> likely a different fungus)
+
+```
+source package d6092385-3a81-49d9-b044-8ffb85d0c446
+blastn -query analysis_and_temp_files/02_binning/Xanthoria_genbank_mtSSU.fa -subject analysis_and_temp_files/02_binning/GTX0501.fasta -outfmt 6 -out analysis_and_temp_files/02_binning/GTX0501_Xanthoria_genbank_mtSSU.blast
+cat analysis_and_temp_files/02_binning/GTX0501_Xanthoria_genbank_mtSSU.blast
+>EU680867.1      contig_264      99.216  893     7       0       1       893     4710    5602    0.0     1611
+>EU680867.1      contig_269      82.743  904     115     22      22      893     29761   30655   0.0     767
+```
+
+#### Created several merged bins and tested with EukCC and BUSCO
+* Tested options:
+  * bin.8 by itself
+  * bin.8 + bin.11
+  * bin.8 + unbinned contigs with lecanoromycete hits
+  * bin.8 + bin.11 + unbinned contigs with lecanoromycete hits
+  * long list with bin.8 + bin.11 + contigs mapped to short-read GTX0466 MAG + unbinned contigs with lecanoromycete hits
+* Made combined fasta files
+```
+mkdir analysis_and_temp_files/02_binning/GTX0501_combined_bins
+source package /tgac/software/testing/bin/seqtk-1.0 
+seqtk subseq analysis_and_temp_files/02_binning/GTX0501.fasta analysis_and_temp_files/02_binning/GTX0501_combined_bins/unbinned_lecanoro_hits.txt > analysis_and_temp_files/02_binning/GTX0501_combined_bins/unbinned_lecanoro_hits.fa
+
+cat analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.8.fa analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.11.fa > analysis_and_temp_files/02_binning/GTX0501_combined_bins/bin.8.11.fa
+
+cat analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.8.fa analysis_and_temp_files/02_binning/GTX0501_combined_bins/unbinned_lecanoro_hits.fa > analysis_and_temp_files/02_binning/GTX0501_combined_bins/bin.8.unbinned.fa
+
+cat analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.8.fa analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.11.fa  analysis_and_temp_files/02_binning/GTX0501_combined_bins/unbinned_lecanoro_hits.fa > analysis_and_temp_files/02_binning/GTX0501_combined_bins/bin.8.11.unbinned.fa
+
+source package a684a2ed-d23f-4025-aa81-b21e27e458df
+seqtk subseq analysis_and_temp_files/02_binning/GTX0501.fasta analysis_and_temp_files/02_binning/GTX0501_candidate_contigs.txt > analysis_and_temp_files/02_binning/GTX0501_combined_bins/GTX0501_candidate_contigs.fa
+
+```
+* Ran EukCC
+```
+#!/bin/bash
+#SBATCH --time=6:00:00
+#SBATCH --cpus-per-task=20
+#SBATCH --job-name=eukcc
+#SBATCH --output=eukcc2.logs.out
+
+mkdir analysis_and_temp_files/02_binning/GTX0501_eukcc_combined_bins
+singularity exec ../singularity/eukcc.sif eukcc folder --out analysis_and_temp_files/02_binning/GTX0501_eukcc_combined_bins --db /tsl/data/externalData/ntalbot/lichen_project/eukccdb/eukcc2_db_ver_1.2 --threads 20 analysis_and_temp_files/02_binning/GTX0501_combined_bins/
+```
+* Ran BUSCO
+```
+source package ca890cd7-f81d-4c22-9f4a-5b40ab671c79
+mkdir analysis_and_temp_files/02_binning/GTX0501_busco
+source package 85f2de80-4bd0-48dc-9303-bba1a19206e4
+export AUGUSTUS_CONFIG_PATH=analysis_and_temp_files/02_binning/tmp_augustus/config
+busco -i analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.8.fa -o GTX0501_bin8 --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/ascomycota_odb10  --offline -f -c 20
+
+busco -i analysis_and_temp_files/02_binning/GTX0501_combined_bins/bin.8.11.fa -o GTX0501_bin8.bin11 --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/ascomycota_odb10  --offline -f -c 20
+
+busco -i analysis_and_temp_files/02_binning/GTX0501_combined_bins/bin.8.unbinned.fa -o GTX0501_bin8.unbinned --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/ascomycota_odb10  --offline -f -c 20
+
+busco -i analysis_and_temp_files/02_binning/GTX0501_combined_bins/bin.8.11.unbinned.fa -o GTX0501_bin8.bin11.unbinned --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/ascomycota_odb10  --offline -f -c 20
+
+busco -i analysis_and_temp_files/02_binning/GTX0501_combined_bins/GTX0501_candidate_contigs.fa -o GTX0501_candidate --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/ascomycota_odb10  --offline -f -c 20
+
+```
+* **Results:** Adding bin.11 didn't make any difference for the completeness. Adding unbinned contigs improved completeness without changing contamination rates.
+* Adding mapped regions improved completeness only by 0.02%, but also increased contamination
+```{r}
+read.delim("../analysis_and_temp_files/02_binning/GTX0501_combined_bins_QC.txt")
+```
+
+#### Final MAG
+* Used bin.8 + bin.11 + unbinned contigs identified as Lecanoromycete
+  * Rationale for adding bin.11: it probably represents the AT-rich part of the genome
+* Adding all mapped regions increased contamination rate, without adding much to the completeness
+* The QC scores are: BUSCO C:95.7%[S:95.3%,D:0.4%],F:0.4%,M:3.9%,n:1706; EukCC: 97.37% completeness, 0.75% contamination
+* Saved the file as `analysis_and_temp_files/02_binning/GTX0501_xanthoria_nuclear_mag.fa`. Added contig with rRNA sequence (contig_258)
+```
+source package 638df626-d658-40aa-80e5-14a275b7464b
+samtools faidx analysis_and_temp_files/02_binning/GTX0501.fasta contig_258 > analysis_and_temp_files/02_binning/GTX0501_contig_258_xanthoria_rrna.fa
+
+cat analysis_and_temp_files/02_binning/GTX0501_combined_bins/bin.8.11.unbinned.fa analysis_and_temp_files/02_binning/GTX0501_contig_258_xanthoria_rrna.fa > analysis_and_temp_files/02_binning/GTX0501_xanthoria_nuclear_mag.fa
+```
+* Saved the mitochondrial contig as `analysis_and_temp_files/02_binning/GTX0501_xanthoria_mitogenome.fa`
+```
+samtools faidx analysis_and_temp_files/02_binning/GTX0501.fasta contig_264 > analysis_and_temp_files/02_binning/GTX0501_xanthoria_mitogenome.fa
+```
+
+## 4. Search for the algal MAG
+* Several contigs that had hits to green algae come from:
+  * bin.10
+  * bin.6
+  * unbinned 
+* Same bins also had hits to animals (mostly fish), plants, and bacteria
+
+#### Test with BUSCO: failed to find a MAG
+* Test bins 10 and 6 with BUSCO
+  * bin.10: C:3.4%[S:3.4%,D:0.0%],F:0.1%,M:96.5%,n:1519
+  * bin.6: C:4.7%[S:4.7%,D:0.0%],F:0.1%,M:95.2%,n:1519 
+  * bin.14: C:0.1%[S:0.1%,D:0.0%],F:0.0%,M:99.9%,n:1519 
+  * unbinned: C:0.7%[S:0.7%,D:0.0%],F:0.0%,M:99.3%,n:1519 
+  * unbinned due to low depth: C:0.9%[S:0.9%,D:0.0%],F:0.0%,M:99.1%,n:1519 
+  
+```
+source package ca890cd7-f81d-4c22-9f4a-5b40ab671c79
+mkdir analysis_and_temp_files/02_binning/GTX0501_busco
+source package 85f2de80-4bd0-48dc-9303-bba1a19206e4
+export AUGUSTUS_CONFIG_PATH=analysis_and_temp_files/02_binning/tmp_augustus/config
+busco -i analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.10.fa -o GTX0501_bin10 --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
+
+busco -i analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.6.fa -o GTX0501_bin6 --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
+
+busco -i analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.14.fa -o GTX0501_bin14 --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
+
+busco -i analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.unbinned.fa -o GTX0501_unbinned --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
+
+busco -i analysis_and_temp_files/02_binning/GTX0501.fasta.metabat-bins20-20230618_110806/bin.lowDepth.fa -o GTX0501_lowdepth --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
+```
+
+* Analyzed the whole assembly, to check whether it contains enough algal markers - which it doesn't
+  * C:46.3%[S:44.6%,D:1.7%],F:2.0%,M:51.7%,n:1519 
+```
+busco -i analysis_and_temp_files/02_binning/GTX0501.fasta -o GTX0501_assembly --out_path analysis_and_temp_files/02_binning/GTX0501_busco  -m  genome -l  /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 20
+```
+
+#### Identified marker contigs
+* rRNA: two contigs, which overlap almost exactly, but have flanking regions on different sides
+  * contig_34: hit to Trebouxia ITS, noncircular, coverage 23 in Nanopore reads, 125 in Illumina
+  * contig_243: hit to Trebouxia ITS, noncircular, coverage 54 in Nanopore reads, 96 in Illumina
+  
+* Organell genomes:
+  * contig_257: hit to Trebouxia chloroplast, circular, coverage 64X in Nanopore reads, 3000X in Illumina
+  * contig_242: hit to Trebouxia chloroplast, noncircular, coverage 11 in Nanopore reads, 3 in Illumina
+  * contig_237: hit to Trebouxia mitochondrion, circular, coverage 51 in Nanopore reads, 2330 in Illumina
+  * contig_200: hit to Trebouxia mitochondrion, noncircular, coverage 5 in Nanopore reads, 2 in Illumina
+  
+#### Results: no algal MAG, but two pairs of mitochonrial and plastid genomes
+
+## 5. Xanthoria parietina (GTX0501) results
+* Got the mycobiont genome, saved it as `analysis_and_temp_files/02_binning/GTX0501_xanthoria_nuclear_mag.fa`
+* Saved the mitochondrial contig as `analysis_and_temp_files/02_binning/GTX0501_xanthoria_mitogenome.fa`
+* 96.1% complete according to BUSCO, 97.4% complete according to EukCC
+* 58 nuclear contigs (rRNA on a separate contig) + mitogenome on 1 contig
+* No algal MAG, but got two Trebouxia plastid genomes and two mitogenomes
+
+### Visualize quality
+```{r}
+library(tidyverse)
+library(geomtextpath)
+library(patchwork)
+
+busco<-data.frame("type"=c("Complete (95.3%)","Duplicated (0.4%)","Fragmented (0.4%)","Missing (3.9%)"),
+             "percent"=c(95.3,0.4,0.4,3.9))
+hsize <- 1.5
+busco$x<-hsize
+
+b<-ggplot(busco,aes(y=percent,fill=type,x=hsize))+geom_col()+
+  coord_curvedpolar(theta = "y")+  xlim(c(0.2, hsize + 0.5))+
+  scale_fill_manual(values=c("Complete (95.3%)"="#60ba30","Duplicated (0.4%)"="#1f5900","Fragmented (0.4%)"="#ccf2b8","Missing (3.9%)"="white"))+
+  theme_void()+theme(legend.title = element_blank(),legend.text = element_text(size=9),
+                     legend.key=element_rect(colour="#969696"))+ggtitle("BUSCO")
+
+eukcc<-data.frame("type"=c("Complete (97.37%)","Duplicated (0.75%)","Missing (1.88%)"),
+             "percent"=c(97.37,0.75,1.88))
+eukcc$x<-hsize
+
+e<-ggplot(eukcc,aes(y=percent,fill=type,x=hsize))+geom_col()+
+  coord_curvedpolar(theta = "y")+  xlim(c(0.2, hsize + 0.5))+
+  scale_fill_manual(values=c("Complete (97.37%)"="#60ba30","Duplicated (0.75%)"="#1f5900","Fragmented (0.4%)"="#ccf2b8","Missing (1.88%)"="white"))+
+  theme_void()+theme(legend.title = element_blank(),legend.text = element_text(size=9),
+                     legend.key=element_rect(colour="#969696"))+ggtitle("EukCC")
+
+b+e
+```
+
+* Save the figure
+```{r}
+plot<-b+theme(title = element_text(size=8),legend.text = element_text(size=7))+
+  e+theme(title = element_text(size=8),legend.text = element_text(size=7))
+ggsave('../results/busco.pdf',plot, width = 5, height = 2.5)
+```
+

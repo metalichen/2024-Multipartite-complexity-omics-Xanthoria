@@ -1,0 +1,232 @@
+#Snakefile for phylogenomic analysis of MAGs from the Xanthoria metagenomes
+import pandas as pd
+import re
+from os.path import join
+
+
+#load table with metadata
+input_table = pd.read_csv("analysis_and_temp_files/04_phylogenomics/reference_genomes.csv", sep=",").set_index("ID", drop=False)
+alg_gen_table = input_table.loc[(input_table['Data_type'] == 'genome') & (input_table['Group'] == 'Algae')]
+ALG_GEN = alg_gen_table.index.tolist()
+alg_tran_table = input_table.loc[(input_table['Data_type'] == 'transcriptome') & (input_table['Group'] == 'Algae')]
+ALG_TRAN = alg_gen_table.index.tolist()
+fun_gen_table = input_table.loc[(input_table['Data_type'] == 'genome') & (input_table['Group'] == 'Fungi')]
+FUN_GEN = alg_gen_table.index.tolist()
+fun_tran_table = input_table.loc[(input_table['Data_type'] == 'transcriptome') & (input_table['Group'] == 'Fungi')]
+FUN_TRAN = alg_gen_table.index.tolist()
+
+
+rule all:
+    input:
+    	"analysis_and_temp_files/04_phylogenomics/gtdb_out/gtdbtk.bac120.user_msa.fasta.iqtree",
+
+## 1. prokaryotes
+#annotate with GTDB
+rule gtdb:
+    input: "analysis_and_temp_files/04_phylogenomics/MAGs/prok"
+    output: "analysis_and_temp_files/04_phylogenomics/gtdb_out/gtdbtk.bac120.user_msa.fasta"
+    params:
+        mem = "340G",
+        queue="tsl-medium",
+        time="3-0:0:0"
+    threads: 20	
+    shell: "bash code/gtdb.sh {input} {output} --genome_dir {threads}"
+
+#tree the prokaryotes
+rule gtdb_tree:
+    input: "analysis_and_temp_files/04_phylogenomics/gtdb_out/gtdbtk.bac120.user_msa.fasta"  
+    output: "analysis_and_temp_files/04_phylogenomics/gtdb_out/gtdbtk.bac120.user_msa.fasta.iqtree"      
+    params:
+        mem = "25G",
+        queue="tsl-medium",
+        time="3-0:0:0"        
+    threads: 20   
+    shell: "bash code/iqtree.sh {input}  {threads} 1000"   
+
+
+## 2. alga
+## run busco		  
+rule busco_transcr:
+    input: "/tsl/data/externalData/ntalbot/lichen_project/external_genomes/{transcr}_transcripts.fasta"
+    output:
+        output="analysis_and_temp_files/03_id_alga/busco/{transcr}/run_chlorophyta_odb10/full_table.tsv"
+    params:
+        mem = "40G",
+        queue="tsl-short"
+    threads: 5	
+	shell: "bash code/run_busco.sh {input} {wildcards.transcr} transcriptome"
+		  
+rule busco_gen:
+    input: "/tsl/data/externalData/ntalbot/lichen_project/external_genomes/{genome}_genomic.fna"
+    output:
+        output="analysis_and_temp_files/03_id_alga/busco/{genome}/run_chlorophyta_odb10/full_table.tsv"
+    params:
+        mem = "40G",
+        queue="tsl-short"
+    threads: 5	
+	shell: "bash code/run_busco.sh {input} {wildcards.genome} genome"
+
+
+## get list of complete and single-copy genes from all annotations
+rule get_complete_single_list_genome:
+    input:expand("analysis_and_temp_files/03_id_alga/busco/{genome}/run_chlorophyta_odb10/full_table.tsv",genome=GENOME)
+    output: "analysis_and_temp_files/03_id_alga/busco/complete_singlecopy_genome.txt"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1	
+    shell: r"""cat {input} | grep -v "^#" | awk '$2=="Complete" {{print $1}}' >> {output}"""
+        
+        
+rule get_complete_single_list_transcriptome:
+    input:expand("analysis_and_temp_files/03_id_alga/busco/{transcr}/run_chlorophyta_odb10/full_table.tsv",transcr=TRANSCR)
+    output: "analysis_and_temp_files/03_id_alga/busco/complete_singlecopy_transcr.txt"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1	
+    shell: r"""cat {input} | grep -v "^#" | awk '$2=="Complete" {{print $1}}' >> {output}"""
+
+
+## select all genes shared between all genomes/transcriptomes -> final list of genes
+rule select_genes:
+    input: 
+        t = "analysis_and_temp_files/03_id_alga/busco/complete_singlecopy_transcr.txt",
+        g = "analysis_and_temp_files/03_id_alga/busco/complete_singlecopy_genome.txt"
+    output: "analysis_and_temp_files/03_id_alga/busco/final_list.txt"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: "cat {input.t} {input.g} | sort  | uniq -c | awk '$1 > 10 {{print $2}}' > {output}"
+
+checkpoint gene_list:
+    input: "analysis_and_temp_files/03_id_alga/busco/final_list.txt"
+    output: directory("analysis_and_temp_files/03_id_alga/busco/tmp/")
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: 
+        """
+        mkdir -p analysis_and_temp_files/03_id_alga/busco/tmp/
+        cat {input} | while read line || [[ -n $line ]]; do touch analysis_and_temp_files/03_id_alga/busco/tmp/"$line".tmp; done
+        """    
+
+## for transcriptomes, I need to fetch the correct sequence from the translated_protien file, since it contains 6 sequences of different reading frames
+rule extract_transcr:
+    input: i1="analysis_and_temp_files/03_id_alga/busco/{transcr}/translated_proteins/{gene}.faa",
+    output: "analysis_and_temp_files/03_id_alga/busco/{transcr}/run_chlorophyta_odb10/busco_sequences/transcr_busco_sequences/{gene}.faa"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: "code/extract_busco_by_blast.sh analysis_and_temp_files/03_id_alga/busco/trebgel/run_chlorophyta_odb10/busco_sequences/single_copy_busco_sequences/{wildcards.gene}.faa {input.i1} {output}"
+
+
+##add genome/transcriptome id to fasta names
+rule rename_genome:
+    input: i1= "analysis_and_temp_files/03_id_alga/busco/{genome}/run_chlorophyta_odb10/busco_sequences/single_copy_busco_sequences/{gene}.faa",
+    output: "analysis_and_temp_files/03_id_alga/busco/{genome}/run_chlorophyta_odb10/busco_sequences/single_copy_busco_sequences/{gene}_renamed.faa"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: r"""awk '/>/{{sub(">","&" "{wildcards.genome} ");sub(/\.fasta/,x)}}1' {input.i1} > {output}"""   
+
+rule rename_transcr:
+    input: i1= "analysis_and_temp_files/03_id_alga/busco/{transcr}/run_chlorophyta_odb10/busco_sequences/transcr_busco_sequences/{gene}.faa",
+    output: "analysis_and_temp_files/03_id_alga/busco/{transcr}/run_chlorophyta_odb10/busco_sequences/transcr_busco_sequences/{gene}_renamed.faa"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: r"""awk '/>/{{sub(">","&" "{wildcards.transcr} ");sub(/\.fasta/,x)}}1' {input.i1} > {output}"""   
+
+
+## concatenate by gene
+rule cat_genome:
+    input: i1= expand("analysis_and_temp_files/03_id_alga/busco/{genome}/run_chlorophyta_odb10/busco_sequences/single_copy_busco_sequences/{{gene}}_renamed.faa",genome=GENOME),
+    output: "analysis_and_temp_files/03_id_alga/busco/{gene}_genome.faa"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: "cat {input} > {output}"    
+
+rule cat_transcr:
+    input: i1= expand("analysis_and_temp_files/03_id_alga/busco/{transcr}/run_chlorophyta_odb10/busco_sequences/transcr_busco_sequences/{{gene}}_renamed.faa",transcr=TRANSCR),
+    output: "analysis_and_temp_files/03_id_alga/busco/{gene}_transcriptome.faa"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: "cat {input} > {output}"   
+
+rule cat_all:
+    input:
+       g="analysis_and_temp_files/03_id_alga/busco/{gene}_genome.faa",
+       t="analysis_and_temp_files/03_id_alga/busco/{gene}_transcriptome.faa"
+    output: "analysis_and_temp_files/03_id_alga/busco/{gene}_all.faa"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: "cat {input.g} {input.t} > {output}"
+    
+
+##adding strings of N to mark distance between loci    
+rule add_N:
+    input: "analysis_and_temp_files/03_id_alga/busco/{gene}_all.faa"
+    output: "analysis_and_temp_files/03_id_alga/busco/{gene}_all_addN.faa"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: "code/add_N.sh {input} {output}"
+
+
+## this rule concatenates all sequences belonging to each genome/transcriptome and writes them as one big fasta  
+rule aggregate:
+    input:
+        gather_input
+    output:
+        "analysis_and_temp_files/03_id_alga/busco/alignments/all_concat.fa",
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell:
+        """
+        mkdir -p analysis_and_temp_files/03_id_alga/busco/alignments/
+        source package 46a62eca-4f8f-45aa-8cc2-d4efc99dd9c6
+        seqkit concat {input} > {output}
+        """
+
+
+
+##align
+rule align:
+    input: "analysis_and_temp_files/03_id_alga/busco/alignments/all_concat.fa"
+    output: "analysis_and_temp_files/03_id_alga/busco/alignments/alignment.phylip"    
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell: "code/align_busco.sh {input} {output}"  
+
+
+## build tree
+rule tree:
+    input: "analysis_and_temp_files/03_id_alga/busco/alignments/alignment.phylip"
+    output: "analysis_and_temp_files/03_id_alga/busco/alignments/RAxML_bestTree.raxml_tree"    
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1
+    shell:
+        """
+        code/build_raxml_tree.sh {input}
+        mv RAxML_* analysis_and_temp_files/03_id_alga/busco/alignments/
+        """
+    

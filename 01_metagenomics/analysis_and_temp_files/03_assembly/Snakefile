@@ -1,0 +1,377 @@
+#
+
+#Snakefile for assembly and binning of Xanthoria metagenomes
+import pandas as pd
+import re
+from os.path import join
+#configfile: "code/params/config.yaml"
+
+#load table with metadata
+input_table = pd.read_csv("data/metadata/fastq_files_metadata.txt", sep="\t").set_index("run_id", drop=False)
+selected_table = input_table.loc[input_table['species'] == 'Xanthoria_parietina']
+SAMPLES = selected_table.index.tolist()
+#SAMPLES=["GTX0465","GTX0466"]
+
+rule all:
+    input:
+    	expand("analysis_and_temp_files/03_assembly/coassembly/{sample}.bam",sample=SAMPLES),
+    	"analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_fastas.txt",
+    	"analysis_and_temp_files/03_assembly/its_all.fa_aligned.phyl.iqtree",
+    	"analysis_and_temp_files/03_assembly/all_mags/euk_drep/data_tables/Ndb.csv",
+    	"analysis_and_temp_files/03_assembly/all_mags/prok_drep/data_tables/Ndb.csv"  
+
+
+# 1. coassembly and binning of Xanthoria parietina metagenome
+rule megahit_coassembly:
+    input:
+        fq1=expand("data/fastq/{sample}_trimmed.1.fq.gz",sample=SAMPLES),
+        fq2=expand("data/fastq/{sample}_trimmed.2.fq.gz",sample=SAMPLES)
+    output: "analysis_and_temp_files/03_assembly/coassembly_done.tmp"
+    params:
+        mem = "129G",
+        queue="tsl-medium",
+        time="7-0:0:0"
+    threads: 25	
+    shell: "bash code/coassembly.sh"
+
+rule align_coassembly:
+    input:
+        fq1="data/fastq/{sample}_trimmed.1.fq.gz",
+        fq2="data/fastq/{sample}_trimmed.2.fq.gz",
+        index="analysis_and_temp_files/03_assembly/coassembly_done.tmp"
+    output: "analysis_and_temp_files/03_assembly/coassembly/{sample}.bam"
+    params:
+        mem = "80G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20	
+    shell: "code/align_read.sh analysis_and_temp_files/03_assembly/coassembly/coassembly_index {input.fq1} {input.fq2} analysis_and_temp_files/03_assembly/coassembly/{wildcards.sample} {threads}"
+
+rule metabat_coassembly:
+    input: 
+        assembly="analysis_and_temp_files/03_assembly/coassembly_done.tmp",
+        bam=expand("analysis_and_temp_files/03_assembly/coassembly/{sample}.bam",sample=SAMPLES)
+    output: 
+        bins="analysis_and_temp_files/03_assembly/coassembly/binning_done.tmp",
+        cov="analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.cov"
+    params:
+        mem = "100G",
+        queue="tsl-medium",
+        time="3-0:0:0"
+    threads: 20	    
+    shell: "code/metabat.sh analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa {threads} {input.bam} "
+
+##detect prokaryotic MAGs
+rule checkm_coassembly:
+    input: "analysis_and_temp_files/03_assembly/coassembly/binning_done.tmp"
+    output: "analysis_and_temp_files/03_assembly/coassembly/checkm_qa.tab"
+    params:
+        mem = "80G",
+        queue="tsl-medium",
+        time="3-0:0:0"
+    threads: 20	
+    shell: "code/checkm.sh analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat analysis_and_temp_files/03_assembly/coassembly/checkm_output_folder {output} {threads}"
+
+
+##identify and qc eukaryotic MAGs
+rule eukcc_coassembly:
+    input: "analysis_and_temp_files/03_assembly/coassembly/binning_done.tmp"
+    output: "analysis_and_temp_files/03_assembly/coassembly/eukcc_out/eukcc.csv"
+    params:
+        mem = "25G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20  	
+    shell: "bash code/eukcc.sh analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/ {output} analysis_and_temp_files/03_assembly/coassembly analysis_and_temp_files/03_assembly/coassembly/linktable.csv 20"
+
+
+# 2. Individual assemblies
+rule megahit:
+    input:
+        fq1="data/fastq/{sample}_trimmed.1.fq.gz",
+        fq2="data/fastq/{sample}_trimmed.2.fq.gz"
+    output: "analysis_and_temp_files/03_assembly/{sample}_megahit/final.contigs.fa"
+    params:
+        mem = "80G",
+        queue="tsl-medium",
+        time="3-0:0:0"
+    threads: 20	
+    shell: "code/megahit.sh {input.fq1} {input.fq2} analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit"
+
+## extract ITS from each assembly and make a tree
+rule extract:
+    input: "analysis_and_temp_files/03_assembly/{sample}_megahit/final.contigs.fa"
+    output: "analysis_and_temp_files/03_assembly/{sample}_megahit/its_blast.fa"
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1    
+    shell: "bash code/extract_its.sh ../02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/GTX0491_its.fa {input} {output} {wildcards.sample}"
+    
+rule cat:
+    input: expand("analysis_and_temp_files/03_assembly/{sample}_megahit/its_blast.fa",sample=SAMPLES)
+    output: "analysis_and_temp_files/03_assembly/its_all.fa"   
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 1    
+    shell: "cat {input} ../02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/genbank_its.fasta > {output}"
+
+rule align:
+    input: "analysis_and_temp_files/03_assembly/its_all.fa" 
+    output: "analysis_and_temp_files/03_assembly/its_all.fa_aligned.phyl"      
+    params:
+        mem = "1G",
+        queue="tsl-short"
+    threads: 5     
+    shell: "bash code/align.sh {input}  {threads}"
+   
+rule tree:
+    input: "analysis_and_temp_files/03_assembly/its_all.fa_aligned.phyl"   
+    output: "analysis_and_temp_files/03_assembly/its_all.fa_aligned.phyl.iqtree"      
+    params:
+        mem = "15G",
+        queue="tsl-short"
+    threads: 20   
+    shell: "bash code/iqtree.sh {input}  {threads} 10000"   
+    
+##bin individual metagenomes
+rule index_assembly:
+    input: "analysis_and_temp_files/03_assembly/{sample}_megahit/final.contigs.fa"
+    output: "analysis_and_temp_files/03_assembly/{sample}_megahit/index_done.tmp"
+    params:
+        mem = "15G",
+        queue="tsl-short",
+        time="1:0:0"
+    threads: 1  
+    shell: "bash code/bowtie_index.sh {input} {output}"     
+
+rule align_reads:
+    input:
+        fq1="data/fastq/{sample}_trimmed.1.fq.gz",
+        fq2="data/fastq/{sample}_trimmed.2.fq.gz",
+        index="analysis_and_temp_files/03_assembly/{sample}_megahit/index_done.tmp"
+    output: "analysis_and_temp_files/03_assembly/{sample}_megahit/{sample}.bam"
+    params:
+        mem = "40G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20	
+    shell: "code/align_read.sh analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit/index {input.fq1} {input.fq2} analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit/{wildcards.sample} {threads}"
+
+rule metabat:
+    input: 
+        assembly="analysis_and_temp_files/03_assembly/{sample}_megahit/final.contigs.fa",
+        bam="analysis_and_temp_files/03_assembly/{sample}_megahit/{sample}.bam"
+    output: 
+        bins="analysis_and_temp_files/03_assembly/{sample}_megahit/binning_done.tmp",
+        cov="analysis_and_temp_files/03_assembly/{sample}_megahit/final.contigs.fa.cov"
+    params:
+        mem = "50G",
+        queue="tsl-medium",
+        time="3-0:0:0"
+    threads: 20	    
+    shell: "code/metabat_ind.sh {input.assembly} {threads} {input.bam}"
+    
+##identify MAGs
+rule checkm:
+    input: "analysis_and_temp_files/03_assembly/{sample}_megahit/binning_done.tmp",
+    output: "analysis_and_temp_files/03_assembly/{sample}_megahit/checkm_qa.tab"
+    params:
+        mem = "80G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20	
+    shell: "code/checkm.sh analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit/final.contigs.fa.metabat analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit/checkm_output_folder {output} {threads}"
+
+rule eukcc:
+    input: "analysis_and_temp_files/03_assembly/{sample}_megahit/binning_done.tmp"
+    output: "analysis_and_temp_files/03_assembly/{sample}_megahit/eukcc_out/eukcc.csv"
+    params:
+        mem = "40G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20  	
+    shell: 
+        """
+        bash code/eukcc.sh analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit/final.contigs.fa.metabat/ {output} analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit/linktable.csv 20;
+        mv analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit/eukcc_out/merged_bins/*fa analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit/final.contigs.fa.metabat/ 
+        """
+    
+# 3. Move all MAGs together and make a list
+rule move_bins:
+    input: "analysis_and_temp_files/03_assembly/{sample}_megahit/binning_done.tmp"
+    output: "analysis_and_temp_files/03_assembly/all_mags/{sample}.bin.1.fa"
+    params:
+        mem = "1G",
+        queue="tsl-short",
+        time="0:30:0"
+    threads: 1
+    shell:
+        r"""
+        mkdir -p analysis_and_temp_files/03_assembly/all_mags
+        for file in analysis_and_temp_files/03_assembly/{wildcards.sample}_megahit/final.contigs.fa.metabat/*fa; do filename=$(basename ${{file}}); cp "$file" analysis_and_temp_files/03_assembly/all_mags/{wildcards.sample}."$filename"; done;
+        for file in analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/*fa; do filename=$(basename ${{file}}); cp "$file" analysis_and_temp_files/03_assembly/all_mags/coassembly."$filename"; done
+        """
+
+## make a list of all mags
+rule list_euk_mags_coassembly:
+    input: 
+        i="analysis_and_temp_files/03_assembly/coassembly/eukcc_out/eukcc.csv"
+    output: 
+        table=temp("analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_table.txt"),
+        fastas=temp("analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_fastas.txt"),
+    params:
+        mem = "1G",
+        queue="tsl-short",
+        time="0:1:0"
+    threads: 1	
+    run:
+    	df=pd.read_csv(input.i, sep="\t")
+    	df['genome'] = "analysis_and_temp_files/03_assembly/all_mags/coassembly." + df['bin'].astype(str)
+    	newdf = df[(df.completeness >=50) & (df.contamination<10)][["genome","completeness","contamination"]]
+    	newdf.to_csv(output.table, header=False, index=False,sep=",")
+    	newdf2 = df[(df.completeness >=50) & (df.contamination<10)][["genome"]]
+    	newdf2.to_csv(output.fastas, header=False, index=False,sep="\t")
+
+rule list_euk_mags_ind:
+    input: 
+        i="analysis_and_temp_files/03_assembly/{sample}_megahit/eukcc_out/eukcc.csv"
+    output: 
+        table=temp("analysis_and_temp_files/03_assembly/{sample}_megahit/eukaryotic_MAGs_table.txt"),
+        fastas=temp("analysis_and_temp_files/03_assembly/{sample}_megahit/eukaryotic_MAGs_fastas.txt"),
+    params:
+        mem = "1G",
+        queue="tsl-short",
+        time="0:1:0"
+    threads: 1	
+    run:
+    	df=pd.read_csv(input.i, sep="\t")
+    	df['genome'] = "analysis_and_temp_files/03_assembly/all_mags/" +  wildcards.sample + "." + df['bin'].astype(str)
+    	newdf = df[(df.completeness >=50) & (df.contamination<10)][["genome","completeness","contamination"]]
+    	newdf.to_csv(output.table, header=False, index=False,sep=",")
+    	newdf2 = df[(df.completeness >=50) & (df.contamination<10)][["genome"]]
+    	newdf2.to_csv(output.fastas, header=False, index=False,sep="\t")
+
+rule list_prok_mags_coassembly:
+    input: 
+    	i="analysis_and_temp_files/03_assembly/coassembly/checkm_qa.tab"
+    output: 
+    	table=temp("analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_table.txt"),
+    	fastas=temp("analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_fastas.txt"),
+    params:
+        mem = "1G",
+        queue="tsl-short",
+        time="0:1:0"
+    threads: 1	
+    run:
+    	df=pd.read_csv(input.i, sep="\t")
+    	df['genome'] = "analysis_and_temp_files/03_assembly/all_mags/coassembly." + df['Bin Id'].astype(str) + ".fa"
+    	df['completeness'] = df['Completeness']
+    	df['contamination'] = df['Contamination']
+    	newdf2 = df[(df.Completeness >=50) & (df.Contamination<10)][["genome","completeness","contamination"]]
+    	newdf2.to_csv(output.table, header=False, index=False,sep=",")
+    	newdf3 = df[(df.Completeness >=50) & (df.Contamination<10)][["genome"]]
+    	newdf3.to_csv(output.fastas, header=False, index=False,sep="\t")
+
+
+rule list_prok_mags_ind:
+    input: 
+    	i="analysis_and_temp_files/03_assembly/{sample}_megahit/checkm_qa.tab"
+    output: 
+    	table=temp("analysis_and_temp_files/03_assembly/{sample}_megahit/prokaryotic_MAGs_table.txt"),
+    	fastas=temp("analysis_and_temp_files/03_assembly/{sample}_megahit/prokaryotic_MAGs_fastas.txt")
+    params:
+        mem = "1G",
+        queue="tsl-short",
+        time="0:1:0"
+    threads: 1	
+    run:
+    	df=pd.read_csv(input.i, sep="\t")
+    	df['genome'] = "analysis_and_temp_files/03_assembly/all_mags/" +  wildcards.sample + "." + df['Bin Id'].astype(str) + ".fa"
+    	df['completeness'] = df['Completeness']
+    	df['contamination'] = df['Contamination']
+    	newdf2 = df[(df.completeness >=50) & (df.contamination<10)][["genome","completeness","contamination"]]
+    	newdf2.to_csv(output.table, header=False, index=False,sep=",")
+    	newdf3 = df[(df.completeness >=50) & (df.contamination<10)][["genome"]]
+    	newdf3.to_csv(output.fastas, header=False, index=False,sep="\t")
+
+rule list_euk_mags_all:
+    input:
+        euk_table=expand("analysis_and_temp_files/03_assembly/{sample}_megahit/eukaryotic_MAGs_table.txt",sample=SAMPLES),
+        euk_fastas=expand("analysis_and_temp_files/03_assembly/{sample}_megahit/eukaryotic_MAGs_fastas.txt",sample=SAMPLES),
+        euk_table_coassembly=("analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_table.txt"),
+    	euk_fastas_coassembly=("analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_fastas.txt")
+    output:
+        table="analysis_and_temp_files/03_assembly/all_mags/eukaryotic_MAGs_table.txt",
+        fastas="analysis_and_temp_files/03_assembly/all_mags/eukaryotic_MAGs_fastas.txt", 
+    params:
+        mem = "1G",
+        queue="tsl-short",
+        time="0:1:0"
+    threads: 1
+    shell:
+        r"""
+        cat {input.euk_fastas} {input.euk_fastas_coassembly} > {output.fastas};
+        cat {input.euk_table} {input.euk_table_coassembly} > {output.table};
+        sed -i "1s/^/genome,completeness,contamination\n/" {output.table}
+        """   
+
+rule list_prok_mags_all:
+    input:
+        prok_table=expand("analysis_and_temp_files/03_assembly/{sample}_megahit/prokaryotic_MAGs_table.txt",sample=SAMPLES),
+        prok_fastas=expand("analysis_and_temp_files/03_assembly/{sample}_megahit/prokaryotic_MAGs_fastas.txt",sample=SAMPLES),
+        prok_table_coassembly=("analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_table.txt"),
+    	prok_fastas_coassembly=("analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_fastas.txt")
+    output:
+        table="analysis_and_temp_files/03_assembly/all_mags/prokaryotic_MAGs_table.txt",
+        fastas="analysis_and_temp_files/03_assembly/all_mags/prokaryotic_MAGs_fastas.txt", 
+    params:
+        mem = "1G",
+        queue="tsl-short",
+        time="0:1:0"
+    threads: 1
+    shell:
+        r"""
+        cat {input.prok_fastas} {input.prok_fastas_coassembly} > {output.fastas};
+        cat {input.prok_table} {input.prok_table_coassembly} > {output.table};
+        sed -i "1s/^/genome,completeness,contamination\n/" {output.table}
+        """   
+
+# 4. Dereplicate
+rule drep_bac:
+    input: 
+        table="analysis_and_temp_files/03_assembly/all_mags/prokaryotic_MAGs_table.txt",
+        fastas="analysis_and_temp_files/03_assembly/all_mags/prokaryotic_MAGs_fastas.txt"
+    output: "analysis_and_temp_files/03_assembly/all_mags/prok_drep/data_tables/Ndb.csv"
+    params:
+        mem = "25G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20  	
+    shell: 
+        """
+        source package  cfe4697f-e720-4a2b-a5a2-6fe645f39f34
+        dRep dereplicate -p {threads} analysis_and_temp_files/03_assembly/all_mags/prok_drep -g {input.fastas}  -pa 0.80 -sa 0.95 -nc 0.40 -cm larger --genomeInfo {input.table} -comp 49 -con 21
+        """
+rule drep_euk:
+    input: 
+        table="analysis_and_temp_files/03_assembly/all_mags/eukaryotic_MAGs_table.txt",
+        fastas="analysis_and_temp_files/03_assembly/all_mags/eukaryotic_MAGs_fastas.txt"
+    output: "analysis_and_temp_files/03_assembly/all_mags/euk_drep/data_tables/Ndb.csv"
+    params:
+        mem = "25G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20  	
+    shell: 
+        """
+        source package  cfe4697f-e720-4a2b-a5a2-6fe645f39f34
+        dRep dereplicate -p {threads} analysis_and_temp_files/03_assembly/all_mags/euk_drep -g {input.fastas}  -pa 0.80 -sa 0.95 -nc 0.40 -cm larger --genomeInfo {input.table} -comp 49 -con 21
+        """
+    
+
+
+
+
+

@@ -1,0 +1,765 @@
+Comparison	change	target_id	b	InterPro_new	CAZyme_new	Protease_new	KO	secreted_consensus	lichen_ortho
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007851-T1	-1.00099620097264	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009787-T1	-1.00167887585734	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000938-T1	-1.00268749382844	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007833-T1	-1.00323744238762	IPR002889 Carbohydrate-binding WSC, IPR018535 Domain of unknown function DUF1996	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001498-T1	-1.00617526626451	IPR012340 Nucleic acid-binding, OB-fold	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005188-T1	-1.00623027292874	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003775-T2	-1.01559705947778	IPR003100 PAZ domain, IPR003165 Piwi domain, IPR012337 Ribonuclease H-like superfamily, IPR014811 Argonaute, linker 1 domain, IPR032472 Argonaute linker 2 domain, IPR032473 Protein argonaute, Mid domain, IPR032474 Protein argonaute, N-terminal, IPR036085 PAZ domain superfamily, IPR036397 Ribonuclease H superfamily	NA	NA	K11593	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007473-T1	-1.02140683576652	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003790-T1	-1.02442878096145	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006420-T1	-1.02560344260999	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001955-T1	-1.02844671139419	IPR001138 Zn(2)Cys(6) fungal-type DNA-binding domain, IPR001451 Hexapeptide repeat, IPR002110 Ankyrin repeat, IPR011004 Trimeric LpxA-like superfamily, IPR018357 Hexapeptide transferase, conserved site, IPR020683 Domain of unknown function DUF3447, IPR024688 Maltose/galactoside acetyltransferase, IPR036770 Ankyrin repeat-containing domain superfamily, IPR036864 Zn(2)-C6 fungal-type DNA-binding domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003033-T1	-1.03028612819667	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002054-T1	-1.03404913398398	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003124-T1	-1.03528544132767	IPR001461 Aspartic peptidase A1 family, IPR001969 Aspartic peptidase, active site, IPR021109 Aspartic peptidase domain superfamily, IPR033121 Peptidase family A1 domain, IPR034164 Pepsin-like domain	NA	A01A		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002946-T1	-1.03540130195089	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002142-T1	-1.03691679180202	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009581-T1	-1.03727921013369	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004753-T1	-1.03756701916125	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003765-T1	-1.03815606619927	IPR000420 Yeast PIR protein repeat	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004978-T1	-1.04742627953754	NA	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004466-T1	-1.04848348279564	IPR000490 Glycoside hydrolase family 17, IPR017853 Glycoside hydrolase superfamily, IPR018620 Ubiquitin 3 binding protein But2, C-terminal	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006422-T1	-1.05396489321079	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005317-T1	-1.05430712788419	NA	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006975-T1	-1.0548176180501	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000622-T1	-1.05518104772748	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002098-T1	-1.05617506451136	IPR000504 RNA recognition motif domain, IPR012677 Nucleotide-binding alpha-beta plait domain superfamily, IPR035979 RNA-binding domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007365-T1	-1.05636201575334	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004102-T1	-1.05868089793362	IPR000420 Yeast PIR protein repeat	NA	NA	K26550	TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001825-T1	-1.06340611778628	IPR003663 Sugar/inositol transporter, IPR005828 Major facilitator, sugar transporter-like, IPR005829 Sugar transporter, conserved site, IPR020846 Major facilitator superfamily domain, IPR036259 MFS transporter superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001223-T1	-1.06421390974727	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005815-T1	-1.06427652160364	IPR000210 BTB/POZ domain, IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000036-T1	-1.06883801900701	IPR006640 SprT-like	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002019-T1	-1.07041392450832	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005619-T1	-1.07048230859362	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009599-T1	-1.07092858502939	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001964-T1	-1.07117902346111	IPR001611 Leucine-rich repeat, IPR003591 Leucine-rich repeat, typical subtype, IPR019487 RAM signalling pathway, SOG2, IPR032675 Leucine-rich repeat domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000888-T1	-1.07165922019952	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009795-T2	-1.07173562078592	IPR023631 Amidase signature domain, IPR036928 Amidase signature (AS) superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008200-T1	-1.07307564962454	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008888-T1	-1.07570133331007	IPR007527 Zinc finger, SWIM-type	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010001-T1	-1.07595278861523	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010379-T1	-1.07642048288667	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001965-T1	-1.07879965761482	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010094-T1	-1.07926882463003	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006459-T1	-1.08955229386067	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002123-T1	-1.09269668652756	IPR000504 RNA recognition motif domain, IPR007855 RNA-dependent RNA polymerase, eukaryotic-type, IPR035979 RNA-binding domain superfamily	NA	NA	K11699	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009326-T1	-1.09755147603938	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001948-T1	-1.09935109538121	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009293-T1	-1.1016509569987	NA	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007899-T1	-1.1033350050293	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000420-T1	-1.10404663155574	IPR013087 Zinc finger C2H2-type	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006246-T1	-1.10436614074561	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006114-T1	-1.10480392270758	IPR001680 WD40 repeat, IPR015943 WD40/YVTN repeat-like-containing domain superfamily, IPR036322 WD40-repeat-containing domain superfamily	NA	NA	K12782	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006310-T1	-1.10504462083038	IPR022137 Zinc finger protein, DUF3669 domain	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001963-T1	-1.11183258759566	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004008-T1	-1.11718333234565	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002410-T1	-1.11736260512653	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002963-T1	-1.11835358699077	IPR000172 Glucose-methanol-choline oxidoreductase, N-terminal, IPR007867 Glucose-methanol-choline oxidoreductase, C-terminal, IPR012132 Glucose-methanol-choline oxidoreductase, IPR036188 FAD/NAD(P)-binding domain superfamily	AA3	NA	K00108	TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006909-T1	-1.12033034824181	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010145-T1	-1.12056538795959	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005584-T1	-1.12434077817466	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002007-T1	-1.12690953763293	NA	NA	NA		TRUE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005278-T1	-1.12843895135155	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000872-T1	-1.1285888371277	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001710-T1	-1.13064585320233	IPR007577 Glycosyltransferase, DXD sugar-binding motif, IPR029044 Nucleotide-diphospho-sugar transferases	GT32	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007869-T1	-1.13633229401293	IPR000210 BTB/POZ domain, IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009511-T1	-1.13647815995731	IPR000757 Glycoside hydrolase family 16, IPR001002 Chitin-binding, type 1, IPR008264 Beta-glucanase, IPR013320 Concanavalin A-like lectin/glucanase domain superfamily, IPR036861 Endochitinase-like superfamily	GH16	NA	K01216	TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000691-T1	-1.14080993635664	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010007-T1	-1.14636613587682	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001820-T2	-1.14737475778666	IPR021109 Aspartic peptidase domain superfamily, IPR033121 Peptidase family A1 domain	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008863-T1	-1.14930816074948	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010381-T1	-1.15724757417577	IPR002293 Amino acid/polyamine transporter I	NA	NA	K03294	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003361-T1	-1.1573935118508	NA	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009666-T1	-1.16335404647266	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000910-T1	-1.16486078594762	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009942-T1	-1.16491145642351	IPR001810 F-box domain, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008874-T1	-1.1686437337115	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005296-T1	-1.17084204823327	IPR018750 Protein of unknown function DUF2306, membrane	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004853-T1	-1.17089109536447	IPR000719 Protein kinase domain, IPR000961 AGC-kinase, C-terminal, IPR011009 Protein kinase-like domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001512-T1	-1.17132550515821	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006203-T1	-1.17504924418997	IPR001841 Zinc finger, RING-type, IPR002867 IBR domain, IPR013083 Zinc finger, RING/FYVE/PHD-type, IPR017907 Zinc finger, RING-type, conserved site	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001436-T1	-1.17821574523947	IPR002048 EF-hand domain, IPR011992 EF-hand domain pair, IPR018247 EF-Hand 1, calcium-binding site	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007750-T1	-1.18145048532817	IPR027417 P-loop containing nucleoside triphosphate hydrolase	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002820-T1	-1.18355794225213	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010051-T1	-1.18456755255729	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003247-T1	-1.18464328664213	IPR001878 Zinc finger, CCHC-type, IPR025836 Zinc knuckle CX2CX4HX4C, IPR036875 Zinc finger, CCHC-type superfamily	NA	NA	K09250	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009621-T1	-1.18820435358494	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005620-T1	-1.18851245605248	IPR001841 Zinc finger, RING-type, IPR004331 SPX domain, IPR011016 Zinc finger, RING-CH-type, IPR013083 Zinc finger, RING/FYVE/PHD-type, IPR017907 Zinc finger, RING-type, conserved site	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009321-T1	-1.19022845798834	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003448-T1	-1.19198701485924	NA	NA	NA		TRUE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009141-T1	-1.19272184939899	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009887-T1	-1.20078566414533	NA	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000610-T1	-1.20742648284816	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001643-T1	-1.21574643436226	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010380-T1	-1.22322436887385	IPR000210 BTB/POZ domain, IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007403-T1	-1.22828500775752	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001082-T1	-1.23206009186542	IPR004853 Sugar phosphate transporter domain	NA	NA	K26222	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004416-T1	-1.23426138447445	IPR000246 Peptidase T2, asparaginase 2, IPR029055 Nucleophile aminohydrolases, N-terminal, IPR037464 Threonine aspartase 1	NA	T02	K08657	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001064-T1	-1.2346435160577	IPR021765 Mycotoxin biosynthesis protein UstYa-like	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001061-T1	-1.23530908368854	IPR002328 Alcohol dehydrogenase, zinc-type, conserved site, IPR011032 GroES-like superfamily, IPR013149 Alcohol dehydrogenase-like, C-terminal, IPR013154 Alcohol dehydrogenase-like, N-terminal, IPR020843 Polyketide synthase, enoylreductase domain, IPR036291 NAD(P)-binding domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004018-T2	-1.23569474674768	IPR011009 Protein kinase-like domain superfamily, IPR016477 Fructosamine/Ketosamine-3-kinase	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007231-T1	-1.24031789440962	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009316-T1	-1.24601124540902	IPR001810 F-box domain, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003283-T1	-1.24685607470028	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007244-T1	-1.24989795041139	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008533-T1	-1.25351507809431	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007343-T1	-1.2554194061006	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001952-T1	-1.25714569040423	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001950-T1	-1.25900059328426	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002213-T1	-1.26217704213158	IPR000629 ATP-dependent RNA helicase DEAD-box, conserved site, IPR001650 Helicase, C-terminal, IPR011545 DEAD/DEAH box helicase domain, IPR014001 Helicase superfamily 1/2, ATP-binding domain, IPR014014 RNA helicase, DEAD-box type, Q motif, IPR027417 P-loop containing nucleoside triphosphate hydrolase	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001951-T1	-1.26277847873575	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000604-T1	-1.26422327447734	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010117-T1	-1.26794144984136	IPR002110 Ankyrin repeat, IPR011009 Protein kinase-like domain superfamily, IPR016477 Fructosamine/Ketosamine-3-kinase, IPR020683 Domain of unknown function DUF3447, IPR036770 Ankyrin repeat-containing domain superfamily	NA	NA	K15523	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000697-T1	-1.27311700705325	NA	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008628-T1	-1.27494397581683	IPR023346 Lysozyme-like domain superfamily	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001956-T1	-1.27663105879559	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000398-T1	-1.27782361301868	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002057-T1	-1.28264393069368	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001888-T1	-1.28904304740102	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006449-T1	-1.29122227088238	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008008-T1	-1.29157557544843	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003282-T1	-1.29355170750459	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008426-T1	-1.29428331600311	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005613-T1	-1.29486091846876	IPR003615 HNH nuclease	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007464-T1	-1.29810845701766	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007870-T1	-1.30079840591171	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006245-T1	-1.30126440767969	NA	NA	NA		TRUE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008420-T1	-1.3017073744303	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001947-T1	-1.30315676018297	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006330-T1	-1.3079150015013	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000892-T1	-1.30966577314878	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010304-T1	-1.31420961287647	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001362-T1	-1.3145764722183	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004628-T1	-1.31748044507668	IPR002156 Ribonuclease H domain, IPR012337 Ribonuclease H-like superfamily, IPR036397 Ribonuclease H superfamily	NA	NA	K03469	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001330-T1	-1.32052987496767	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005658-T1	-1.32245771002829	IPR001153 Barwin domain, IPR009009 RlpA-like protein, double-psi beta-barrel domain, IPR036908 RlpA-like domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005402-T1	-1.32404330757903	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002165-T1	-1.32580166198506	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008534-T1	-1.32739101520943	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002170-T1	-1.32882000384742	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009317-T1	-1.33046941682959	IPR008979 Galactose-binding-like domain superfamily	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005394-T1	-1.3344920749649	IPR002575 Aminoglycoside phosphotransferase, IPR011009 Protein kinase-like domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005631-T1	-1.33647503245004	IPR023631 Amidase signature domain, IPR036928 Amidase signature (AS) superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002103-T1	-1.336659087544	IPR036910 High mobility group box domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008856-T1	-1.33951064398229	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000681-T1	-1.34421530508468	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002185-T1	-1.3520608588417	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003775-T1	-1.35214761193831	IPR003100 PAZ domain, IPR003165 Piwi domain, IPR012337 Ribonuclease H-like superfamily, IPR014811 Argonaute, linker 1 domain, IPR032472 Argonaute linker 2 domain, IPR032473 Protein argonaute, Mid domain, IPR032474 Protein argonaute, N-terminal, IPR036085 PAZ domain superfamily, IPR036397 Ribonuclease H superfamily	NA	NA	K11593	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004580-T1	-1.35597740256836	IPR007292 Nuclear fusion protein Kar5	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001010-T1	-1.35673401959023	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002104-T1	-1.36084372279363	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004494-T1	-1.36218853210687	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001859-T1	-1.36775476266606	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000025-T1	-1.3681353772835	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005597-T1	-1.3716042675573	IPR006421 Glycogen debranching enzyme, metazoa, IPR008928 Six-hairpin glycosidase superfamily, IPR012341 Six-hairpin glycosidase-like superfamily, IPR017853 Glycoside hydrolase superfamily, IPR029436 Eukaryotic glycogen debranching enzyme, N-terminal domain, IPR032788 Glycogen debranching enzyme, central domain, IPR032790 Glycogen debranching enzyme, C-terminal, IPR032792 Glycogen debranching enzyme, glucanotransferase domain	GH133	NA	K01196	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004950-T1	-1.37232608863775	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005048-T1	-1.37448651251845	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004217-T1	-1.37677721516385	IPR000504 RNA recognition motif domain, IPR012677 Nucleotide-binding alpha-beta plait domain superfamily, IPR035979 RNA-binding domain superfamily	NA	NA	K24990	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000005-T1	-1.37884348631169	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003212-T1	-1.38492679009976	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002763-T1	-1.38964418727132	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002163-T1	-1.39298878932411	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003213-T1	-1.3997296068536	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004493-T1	-1.40077034036919	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002166-T1	-1.40094277228661	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010280-T1	-1.40405667505496	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006016-T1	-1.40460389888524	IPR008928 Six-hairpin glycosidase superfamily, IPR031335 Glycosyl hydrolase family 63, C-terminal	GH63	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001333-T1	-1.41130477100828	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004104-T1	-1.41925612400601	IPR001214 SET domain, IPR011990 Tetratricopeptide-like helical domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007067-T1	-1.42072000839088	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007300-T1	-1.4230316017321	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004414-T1	-1.42345812970142	IPR027417 P-loop containing nucleoside triphosphate hydrolase	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001605-T1	-1.42583345259382	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006255-T1	-1.43475067837974	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000647-T1	-1.44054983321238	IPR000571 Zinc finger, CCCH-type	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005615-T1	-1.44090307604412	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006974-T1	-1.44197495377608	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006957-T1	-1.44360191426642	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006910-T1	-1.45829293094508	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001612-T1	-1.45850616512731	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007871-T1	-1.46301613000715	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009582-T1	-1.46966598350838	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009615-T1	-1.47863979691669	IPR035940 CAP superfamily	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001953-T1	-1.48326471019821	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009139-T1	-1.49437543357808	IPR001876 Zinc finger, RanBP2-type	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005630-T1	-1.49742807592816	IPR036928 Amidase signature (AS) superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004891-T1	-1.50154523163543	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002522-T1	-1.50455046346508	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005612-T1	-1.5066016119229	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000893-T1	-1.5083406711792	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005061-T1	-1.50866484227015	NA	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007873-T1	-1.51086785412759	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001958-T1	-1.51118794708971	IPR001356 Homeobox domain, IPR009057 Homeobox-like domain superfamily, IPR017970 Homeobox, conserved site	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000194-T1	-1.51133808852691	IPR006047 Glycosyl hydrolase, family 13, catalytic domain, IPR013780 Glycosyl hydrolase, all-beta, IPR017853 Glycoside hydrolase superfamily	GH13	NA	K01176	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003572-T1	-1.51927098305079	IPR001087 GDSL lipase/esterase, IPR036514 SGNH hydrolase superfamily	CE16	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002183-T1	-1.52226177401954	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005279-T1	-1.52389565178594	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008041-T1	-1.52721978868756	NA	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005614-T1	-1.52771928822711	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001538-T1	-1.52888451253606	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001954-T1	-1.5347831840851	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001414-T1	-1.53729917311924	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001910-T1	-1.53977115979343	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010303-T1	-1.5420262466016	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004520-T1	-1.55956662371766	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007262-T1	-1.5695406989539	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010203-T1	-1.5695406989539	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008090-T1	-1.57003475652946	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009318-T1	-1.57767682152295	IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002164-T1	-1.58265216915245	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002184-T1	-1.58472304519271	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005735-T1	-1.62005484350781	IPR018824 Conidiation-specific protein 6	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004521-T1	-1.62504012575066	IPR008271 Serine/threonine-protein kinase, active site, IPR011009 Protein kinase-like domain superfamily	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002172-T1	-1.62604022910488	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001967-T1	-1.62903093928588	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008009-T1	-1.63194457196987	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009605-T1	-1.63955072062627	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009619-T1	-1.6400660577122	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001611-T1	-1.64692115060267	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005766-T1	-1.65035020449593	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002182-T1	-1.67054818053862	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008782-T1	-1.68148436354555	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009786-T1	-1.6917796859357	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001962-T1	-1.6929670513774	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007872-T1	-1.69455561554018	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006253-T1	-1.6959761720465	IPR014849 EKC/KEOPS complex, subunit Gon7	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008331-T1	-1.70706428827767	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003209-T1	-1.70922881290963	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000193-T1	-1.72982518269203	IPR006047 Glycosyl hydrolase, family 13, catalytic domain, IPR017853 Glycoside hydrolase superfamily	GH13	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001960-T1	-1.73326868126667	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006951-T1	-1.74266045564264	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008007-T1	-1.74520871686158	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_010596-T1	-1.74869763710985	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_005814-T1	-1.76028598198365	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008284-T1	-1.77105940567082	IPR029044 Nucleotide-diphospho-sugar transferases	GT2_Glyco_tranf_2	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009926-T1	-1.77514354824817	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_009602-T1	-1.77713065147732	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001063-T1	-1.78378687310805	NA	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007397-T1	-1.84942506127138	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_007900-T1	-1.86760345510073	NA	NA	NA		FALSE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_000378-T1	-1.88056100318001	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004966-T1	-1.88907681976752	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001856-T1	-1.89463596761204	IPR037176 Osmotin/thaumatin-like superfamily	NA	NA		TRUE	TRUE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_006327-T1	-1.92225337625933	IPR018466 Yeast cell wall synthesis Kre9/Knh1-like, N-terminal	NA	NA		TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_002506-T1	-1.93104268512975	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_003211-T1	-2.0743558293363	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008109-T1	-2.15914024591397	IPR004143 Biotinyl protein ligase (BPL) and lipoyl protein ligase (LPL), catalytic domain	NA	NA	K03800	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_004085-T1	-2.29843495389623	IPR000420 Yeast PIR protein repeat	NA	NA	K26550	TRUE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_008519-T2	-2.95592251212698	NA	NA	NA		FALSE	FALSE
+Apothecia / Vegetative (edge + center)	apothecium	XANPAGTX0501_001156-T3	-3.10539915824714	IPR003822 Paired amphipathic helix, IPR013194 Histone deacetylase interacting domain, IPR031693 Sin3, C-terminal, IPR036600 Paired amphipathic helix superfamily	NA	NA	K11644	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	thallus	XANPAGTX0501_009376-T1	2.49615446699711	IPR043141 Ribosomal protein L10-like domain superfamily	NA	NA	K02864	FALSE	FALSE
+Apothecia / Vegetative (edge + center)	thallus	XANPAGTX0501_004633-T1	1.03188232686293	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001605-T1	-1.00221657092612	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_004628-T1	-1.00289021763789	IPR002156 Ribonuclease H domain, IPR012337 Ribonuclease H-like superfamily, IPR036397 Ribonuclease H superfamily	NA	NA	K03469	FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009621-T1	-1.00473736925578	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008874-T1	-1.00559743769314	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_007403-T1	-1.00561035592529	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_004416-T1	-1.00635532605322	IPR000246 Peptidase T2, asparaginase 2, IPR029055 Nucleophile aminohydrolases, N-terminal, IPR037464 Threonine aspartase 1	NA	T02	K08657	FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009141-T1	-1.00802617257616	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002166-T1	-1.01024641955816	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_003282-T1	-1.01041477302604	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_006245-T1	-1.01100657765189	NA	NA	NA		TRUE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_001082-T1	-1.01158415073202	IPR004853 Sugar phosphate transporter domain	NA	NA	K26222	FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002170-T1	-1.01462245019864	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002104-T1	-1.01731853030569	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002183-T1	-1.01736794904805	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_004494-T1	-1.01838675880247	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_007464-T1	-1.02145117518069	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_005615-T1	-1.02221998242419	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001888-T1	-1.02347848197561	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_005658-T1	-1.03183121143906	IPR001153 Barwin domain, IPR009009 RlpA-like protein, double-psi beta-barrel domain, IPR036908 RlpA-like domain superfamily	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002163-T1	-1.03518427231652	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008533-T1	-1.03740052844009	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009317-T1	-1.03904759617538	IPR008979 Galactose-binding-like domain superfamily	NA	NA		TRUE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_005061-T1	-1.04558232525679	NA	NA	NA		TRUE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001947-T1	-1.04648819102837	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_004580-T1	-1.05084189231513	IPR007292 Nuclear fusion protein Kar5	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_006974-T1	-1.0523962088423	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002057-T1	-1.05272341961752	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_006203-T1	-1.05546217666003	IPR001841 Zinc finger, RING-type, IPR002867 IBR domain, IPR013083 Zinc finger, RING/FYVE/PHD-type, IPR017907 Zinc finger, RING-type, conserved site	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002184-T1	-1.05594070717322	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001330-T1	-1.06226737661197	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_004493-T1	-1.06921530883743	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_005597-T1	-1.07041664255405	IPR006421 Glycogen debranching enzyme, metazoa, IPR008928 Six-hairpin glycosidase superfamily, IPR012341 Six-hairpin glycosidase-like superfamily, IPR017853 Glycoside hydrolase superfamily, IPR029436 Eukaryotic glycogen debranching enzyme, N-terminal domain, IPR032788 Glycogen debranching enzyme, central domain, IPR032790 Glycogen debranching enzyme, C-terminal, IPR032792 Glycogen debranching enzyme, glucanotransferase domain	GH133	NA	K01196	FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008628-T1	-1.07191127785438	IPR023346 Lysozyme-like domain superfamily	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_003775-T1	-1.07409072450118	IPR003100 PAZ domain, IPR003165 Piwi domain, IPR012337 Ribonuclease H-like superfamily, IPR014811 Argonaute, linker 1 domain, IPR032472 Argonaute linker 2 domain, IPR032473 Protein argonaute, Mid domain, IPR032474 Protein argonaute, N-terminal, IPR036085 PAZ domain superfamily, IPR036397 Ribonuclease H superfamily	NA	NA	K11593	FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_000647-T1	-1.08221530899394	IPR000571 Zinc finger, CCCH-type	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_006255-T1	-1.0846237637991	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_010303-T1	-1.08655579167174	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_004891-T1	-1.08883757973265	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_000681-T1	-1.08908710784034	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001010-T1	-1.08978966740961	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_004217-T1	-1.09028835859427	IPR000504 RNA recognition motif domain, IPR012677 Nucleotide-binding alpha-beta plait domain superfamily, IPR035979 RNA-binding domain superfamily	NA	NA	K24990	FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001436-T1	-1.09134891619624	IPR002048 EF-hand domain, IPR011992 EF-hand domain pair, IPR018247 EF-Hand 1, calcium-binding site	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_006910-T1	-1.09275149592154	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_007871-T1	-1.09326149977615	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_000005-T1	-1.10047562481151	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009139-T1	-1.10632613798837	IPR001876 Zinc finger, RanBP2-type	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001333-T1	-1.10965300391039	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_003212-T1	-1.11080089728446	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_008009-T1	-1.11099483008631	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_006016-T1	-1.11102034960336	IPR008928 Six-hairpin glycosidase superfamily, IPR031335 Glycosyl hydrolase family 63, C-terminal	GH63	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008008-T1	-1.11112043795447	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_006330-T1	-1.11309996093105	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_004104-T1	-1.11344531719452	IPR001214 SET domain, IPR011990 Tetratricopeptide-like helical domain superfamily	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001362-T1	-1.1139815432832	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001951-T1	-1.11881043169232	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_005630-T1	-1.12014251649962	IPR036928 Amidase signature (AS) superfamily	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008534-T1	-1.12250802663247	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_000025-T1	-1.12377913377957	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_004950-T1	-1.12421213554427	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002522-T1	-1.13290636568227	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_003572-T1	-1.13507529101603	IPR001087 GDSL lipase/esterase, IPR036514 SGNH hydrolase superfamily	CE16	NA		TRUE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_007067-T1	-1.13573611725822	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_007234-T1	-1.14286848203521	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_007262-T1	-1.14308427474089	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_010203-T1	-1.14308427474089	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_005279-T1	-1.14805185130848	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_010380-T1	-1.14897548386974	IPR000210 BTB/POZ domain, IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_010007-T1	-1.1490753521517	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009615-T1	-1.15697800529675	IPR035940 CAP superfamily	NA	NA		TRUE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002172-T1	-1.161670294029	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_003209-T1	-1.17020846496137	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008041-T1	-1.18132790690954	NA	NA	NA		TRUE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001910-T1	-1.19052214343705	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009318-T1	-1.19287579240514	IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_004521-T1	-1.19872438428573	IPR008271 Serine/threonine-protein kinase, active site, IPR011009 Protein kinase-like domain superfamily	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001612-T1	-1.20704261861178	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_010304-T1	-1.20796378588536	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001538-T1	-1.2118412657738	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009602-T1	-1.21206752012999	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008007-T1	-1.2139914731471	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008782-T1	-1.21623984231605	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_006951-T1	-1.22217678840558	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_005402-T1	-1.22528399736565	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_001414-T1	-1.22868546500286	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_000194-T1	-1.23332858026676	IPR006047 Glycosyl hydrolase, family 13, catalytic domain, IPR013780 Glycosyl hydrolase, all-beta, IPR017853 Glycoside hydrolase superfamily	GH13	NA	K01176	FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_005766-T1	-1.25457599914175	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009582-T1	-1.26464485368408	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_005735-T1	-1.28128589516772	IPR018824 Conidiation-specific protein 6	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008331-T1	-1.28865144355108	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001611-T1	-1.29825700199276	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_007900-T1	-1.30874062144797	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_008090-T1	-1.31274930455525	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_002182-T1	-1.31462480829826	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009619-T1	-1.31462714459623	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008284-T1	-1.31483537973449	IPR029044 Nucleotide-diphospho-sugar transferases	GT2_Glyco_tranf_2	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_004520-T1	-1.32160380211518	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001963-T1	-1.32424343917146	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001960-T1	-1.3298812814789	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_000193-T1	-1.34450884267209	IPR006047 Glycosyl hydrolase, family 13, catalytic domain, IPR017853 Glycoside hydrolase superfamily	GH13	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001967-T1	-1.35655703495182	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001063-T1	-1.35998125023256	NA	NA	NA		TRUE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001856-T1	-1.37738953176632	IPR037176 Osmotin/thaumatin-like superfamily	NA	NA		TRUE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_002506-T1	-1.3844518700988	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_006327-T1	-1.39253882983152	IPR018466 Yeast cell wall synthesis Kre9/Knh1-like, N-terminal	NA	NA		TRUE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_007397-T1	-1.39601917580437	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_007872-T1	-1.41394711872216	NA	NA	NA		FALSE	TRUE
+Center / Apothecia	apothecium	XANPAGTX0501_010596-T1	-1.41427143708131	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008420-T1	-1.41572421343854	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_000892-T1	-1.42734955693828	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_000378-T1	-1.4449829918538	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_003211-T1	-1.50230030424917	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_010280-T1	-1.53383320808415	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_005814-T1	-1.54124984193215	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009786-T1	-1.55404976117025	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_009926-T1	-1.64626244732519	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_004966-T1	-1.66416423824694	NA	NA	NA		FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_008109-T1	-2.65763318392677	IPR004143 Biotinyl protein ligase (BPL) and lipoyl protein ligase (LPL), catalytic domain	NA	NA	K03800	FALSE	FALSE
+Center / Apothecia	apothecium	XANPAGTX0501_001156-T3	-3.9104052023503	IPR003822 Paired amphipathic helix, IPR013194 Histone deacetylase interacting domain, IPR031693 Sin3, C-terminal, IPR036600 Paired amphipathic helix superfamily	NA	NA	K11644	FALSE	FALSE
+Center / Apothecia	centre	XANPAGTX0501_006303-T1	1.30848773720477	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006767-T1	-1.00112139564031	IPR017956 AT hook, DNA-binding motif	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001647-T1	-1.00344076225816	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006026-T1	-1.00599687168982	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010639-T1	-1.00999517223697	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_000350-T1	-1.01020503000095	IPR003439 ABC transporter-like, ATP-binding domain, IPR003593 AAA+ ATPase domain, IPR013525 ABC-2 type transporter, IPR017871 ABC transporter-like, conserved site, IPR027417 P-loop containing nucleoside triphosphate hydrolase	NA	NA	K05681	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005347-T1	-1.01067969770457	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004759-T1	-1.01122124461905	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006900-T1	-1.01277958766377	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009389-T1	-1.01453875295924	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007378-T1	-1.01697033101948	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005621-T1	-1.02077969994454	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010022-T1	-1.02360954844312	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009499-T1	-1.02366282458258	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006945-T1	-1.03046211512618	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000661-T1	-1.03270879563812	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006946-T1	-1.03723308985212	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002624-T1	-1.03829893081761	IPR029058 Alpha/Beta hydrolase fold	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010094-T1	-1.03969332312146	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008594-T1	-1.04018783952115	IPR036259 MFS transporter superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001497-T1	-1.04051681092245	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000203-T1	-1.0405567400642	IPR001938 Thaumatin family, IPR037176 Osmotin/thaumatin-like superfamily	GH152	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010087-T1	-1.04093533528987	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003186-T1	-1.04170873199335	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010640-T1	-1.04274681466943	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004003-T1	-1.04341221085871	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000909-T1	-1.05040577043722	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002181-T1	-1.05050369035051	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010204-T1	-1.05151703974191	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006142-T1	-1.05644908855838	NA	NA	NA		TRUE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_005447-T1	-1.06038224143608	IPR024500 Domain of unknown function DUF3074	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004484-T1	-1.06301063944672	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_000065-T1	-1.06431379247408	IPR027921 NOP protein chaperone 1	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006920-T1	-1.06605982508052	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003265-T1	-1.06794515643487	IPR007203 ORMDL family	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002152-T1	-1.06947452464966	IPR027417 P-loop containing nucleoside triphosphate hydrolase, IPR040632 Sulfotransferase, S. mansonii-type	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_003742-T1	-1.06982390689011	IPR001509 NAD-dependent epimerase/dehydratase, IPR036291 NAD(P)-binding domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006931-T1	-1.07249397642918	IPR013087 Zinc finger C2H2-type	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002657-T1	-1.0734909483123	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005924-T1	-1.07445469374576	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007353-T1	-1.07721677026862	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_005583-T1	-1.07977938130216	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009580-T1	-1.09199303495759	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004141-T1	-1.10231729195321	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010231-T1	-1.1044899318775	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008637-T1	-1.10626413342938	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000885-T1	-1.1088586500544	IPR036305 RGS domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003865-T1	-1.10923524883094	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000417-T1	-1.10973743292197	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005025-T1	-1.11549587994098	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000848-T1	-1.11554471183651	IPR016137 RGS domain, IPR036305 RGS domain superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006384-T1	-1.12565541180226	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004308-T1	-1.12758243903216	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010011-T1	-1.13449256161083	IPR036013 Band 7/SPFH domain superfamily	NA	NA	K07192	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005047-T1	-1.13551406380193	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002639-T1	-1.13657033692344	IPR002740 EVE domain, IPR015947 PUA-like superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006342-T1	-1.13896454644025	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_004244-T1	-1.13970615455035	IPR003165 Piwi domain, IPR012337 Ribonuclease H-like superfamily, IPR014811 Argonaute, linker 1 domain, IPR032472 Argonaute linker 2 domain, IPR032474 Protein argonaute, N-terminal, IPR036085 PAZ domain superfamily, IPR036397 Ribonuclease H superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005153-T1	-1.14121189699884	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009787-T1	-1.1418820302414	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008527-T1	-1.1426274182248	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009812-T1	-1.14345905209109	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006215-T1	-1.14516647503755	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001925-T1	-1.14591810271372	IPR001841 Zinc finger, RING-type, IPR002867 IBR domain	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006992-T1	-1.14677491772717	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010010-T1	-1.14678887476743	IPR036013 Band 7/SPFH domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009594-T1	-1.14935736812495	IPR002877 Ribosomal RNA methyltransferase, FtsJ domain, IPR029063 S-adenosyl-L-methionine-dependent methyltransferase superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005832-T1	-1.15065379653722	IPR009836 Glycine-rich domain-containing protein-like	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006250-T1	-1.15398166985392	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002478-T1	-1.15455461720756	IPR013126 Heat shock protein 70 family, IPR043129 ATPase, nucleotide binding domain	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003033-T1	-1.15511594889168	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002477-T1	-1.15709859935784	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010530-T1	-1.15866421689421	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001222-T1	-1.16777412162153	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009738-T1	-1.17058531603144	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006766-T1	-1.17155482701914	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010007-T1	-1.17528931526466	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009438-T1	-1.1754876032136	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003238-T1	-1.1770216097844	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009437-T1	-1.17955499792769	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010368-T1	-1.18000047797359	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001509-T1	-1.18114618747192	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001462-T1	-1.18231061765856	IPR008775 Phytanoyl-CoA dioxygenase-like	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_005177-T1	-1.18567333615832	IPR001313 Pumilio RNA-binding repeat, IPR011989 Armadillo-like helical, IPR016024 Armadillo-type fold, IPR033133 Pumilio homology domain, IPR033712 Pumilio, RNA binding domain	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001839-T1	-1.18998829238416	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009785-T1	-1.19102023237969	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007467-T1	-1.20354598048578	IPR013830 SGNH hydrolase-type esterase domain, IPR036514 SGNH hydrolase superfamily	CE3	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010638-T1	-1.20384493130382	IPR003593 AAA+ ATPase domain, IPR003959 ATPase, AAA-type, core, IPR027417 P-loop containing nucleoside triphosphate hydrolase	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_008862-T1	-1.20466301833219	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008420-T1	-1.20538522938922	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010529-T1	-1.21280736459998	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_001648-T1	-1.21494798877432	IPR000504 RNA recognition motif domain, IPR012677 Nucleotide-binding alpha-beta plait domain superfamily, IPR035979 RNA-binding domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005677-T1	-1.22057332627156	IPR004313 Acireductone dioxygenase ARD family, IPR011051 RmlC-like cupin domain superfamily, IPR014710 RmlC-like jelly roll fold, IPR027496 Acireductone dioxygenase, eukaryotes	NA	NA	K08967	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005317-T1	-1.22616251334563	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005370-T1	-1.23151895445176	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000888-T1	-1.2346640975052	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009407-T1	-1.24124191964734	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009599-T1	-1.24282826619168	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006143-T1	-1.24385645638575	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000622-T1	-1.24448919002784	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007851-T1	-1.24582251637159	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001498-T1	-1.24827184238539	IPR012340 Nucleic acid-binding, OB-fold	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008005-T1	-1.25144803713748	IPR001965 Zinc finger, PHD-type, IPR011011 Zinc finger, FYVE/PHD-type, IPR013083 Zinc finger, RING/FYVE/PHD-type, IPR019786 Zinc finger, PHD-type, conserved site, IPR019787 Zinc finger, PHD-finger	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005952-T1	-1.25318364331904	IPR032675 Leucine-rich repeat domain superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_000707-T1	-1.2553195937623	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003775-T2	-1.26091649085671	IPR003100 PAZ domain, IPR003165 Piwi domain, IPR012337 Ribonuclease H-like superfamily, IPR014811 Argonaute, linker 1 domain, IPR032472 Argonaute linker 2 domain, IPR032473 Protein argonaute, Mid domain, IPR032474 Protein argonaute, N-terminal, IPR036085 PAZ domain superfamily, IPR036397 Ribonuclease H superfamily	NA	NA	K11593	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005280-T1	-1.26429604858181	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003264-T1	-1.26496784787039	IPR000210 BTB/POZ domain, IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008708-T1	-1.26545518729704	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001062-T1	-1.26823236676997	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006095-T1	-1.27297775526898	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009628-T1	-1.27692085689058	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004596-T1	-1.28142784903918	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004753-T1	-1.28189741057827	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000281-T1	-1.2821817204274	IPR011701 Major facilitator superfamily, IPR020846 Major facilitator superfamily domain, IPR036259 MFS transporter superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_003198-T1	-1.28671256186118	IPR022085 Oxopyrrolidines biosynthesis cluster protein G	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_010276-T1	-1.28900370281091	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010523-T1	-1.28900370281091	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007934-T1	-1.2911565292657	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002054-T1	-1.29183751311667	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_005550-T1	-1.29468260880089	IPR001810 F-box domain, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005188-T1	-1.29861559673456	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004102-T1	-1.29911516639875	IPR000420 Yeast PIR protein repeat	NA	NA	K26550	TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002019-T1	-1.29959380288091	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010021-T1	-1.29961793821712	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002159-T1	-1.30177315171811	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_002946-T1	-1.30756420943459	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_003790-T1	-1.31109696109504	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_002123-T1	-1.31272919807399	IPR000504 RNA recognition motif domain, IPR007855 RNA-dependent RNA polymerase, eukaryotic-type, IPR035979 RNA-binding domain superfamily	NA	NA	K11699	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000751-T1	-1.31281148655471	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001644-T1	-1.31360097746646	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007232-T1	-1.31432503866557	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006139-T1	-1.31589983097395	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001436-T1	-1.32027568000077	IPR002048 EF-hand domain, IPR011992 EF-hand domain pair, IPR018247 EF-Hand 1, calcium-binding site	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006420-T1	-1.32079920071702	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005281-T1	-1.32422471852435	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004466-T1	-1.32889993682306	IPR000490 Glycoside hydrolase family 17, IPR017853 Glycoside hydrolase superfamily, IPR018620 Ubiquitin 3 binding protein But2, C-terminal	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002098-T1	-1.33434790207638	IPR000504 RNA recognition motif domain, IPR012677 Nucleotide-binding alpha-beta plait domain superfamily, IPR035979 RNA-binding domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007833-T1	-1.34399304970282	IPR002889 Carbohydrate-binding WSC, IPR018535 Domain of unknown function DUF1996	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004270-T1	-1.34690317641336	IPR009465 Spondin, N-terminal	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003124-T1	-1.34887171471308	IPR001461 Aspartic peptidase A1 family, IPR001969 Aspartic peptidase, active site, IPR021109 Aspartic peptidase domain superfamily, IPR033121 Peptidase family A1 domain, IPR034164 Pepsin-like domain	NA	A01A		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000938-T1	-1.358335794486	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007254-T1	-1.36264653646334	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010211-T1	-1.36264653646334	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008200-T1	-1.36287902964314	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003864-T1	-1.36394026959583	IPR009075 Acyl-CoA dehydrogenase/oxidase C-terminal, IPR009100 Acyl-CoA dehydrogenase/oxidase, N-terminal and middle domain superfamily, IPR013786 Acyl-CoA dehydrogenase/oxidase, N-terminal, IPR036250 Acyl-CoA dehydrogenase-like, C-terminal, IPR037069 Acyl-CoA dehydrogenase/oxidase, N-terminal domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005775-T1	-1.36425003514063	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007473-T1	-1.37593412516474	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007936-T1	-1.37917579397852	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005640-T1	-1.38043161790108	IPR013087 Zinc finger C2H2-type	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_000026-T1	-1.3818142429957	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010180-T1	-1.38353232863962	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010275-T1	-1.38420424975482	IPR003593 AAA+ ATPase domain, IPR027417 P-loop containing nucleoside triphosphate hydrolase, IPR041679 DNA2/NAM7 helicase-like, C-terminal	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006203-T1	-1.38619991072758	IPR001841 Zinc finger, RING-type, IPR002867 IBR domain, IPR013083 Zinc finger, RING/FYVE/PHD-type, IPR017907 Zinc finger, RING-type, conserved site	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001955-T1	-1.38719164290951	IPR001138 Zn(2)Cys(6) fungal-type DNA-binding domain, IPR001451 Hexapeptide repeat, IPR002110 Ankyrin repeat, IPR011004 Trimeric LpxA-like superfamily, IPR018357 Hexapeptide transferase, conserved site, IPR020683 Domain of unknown function DUF3447, IPR024688 Maltose/galactoside acetyltransferase, IPR036770 Ankyrin repeat-containing domain superfamily, IPR036864 Zn(2)-C6 fungal-type DNA-binding domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009761-T1	-1.38784828738618	IPR001283 Cysteine-rich secretory protein-related, IPR014044 CAP domain, IPR018244 Allergen V5/Tpx-1-related, conserved site, IPR034120 None, IPR035940 CAP superfamily	NA	NA	K20412	TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002410-T1	-1.39172881530947	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006114-T1	-1.39353980771074	IPR001680 WD40 repeat, IPR015943 WD40/YVTN repeat-like-containing domain superfamily, IPR036322 WD40-repeat-containing domain superfamily	NA	NA	K12782	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007365-T1	-1.39781507823658	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009326-T1	-1.39830737542496	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005584-T1	-1.39838721017084	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001825-T1	-1.40280651325033	IPR003663 Sugar/inositol transporter, IPR005828 Major facilitator, sugar transporter-like, IPR005829 Sugar transporter, conserved site, IPR020846 Major facilitator superfamily domain, IPR036259 MFS transporter superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010380-T1	-1.40453791846666	IPR000210 BTB/POZ domain, IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_000033-T1	-1.41023113501513	IPR002656 Acyltransferase 3 domain	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009293-T1	-1.41959621554809	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004008-T1	-1.42037447922957	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000036-T1	-1.42045689492766	IPR006640 SprT-like	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009581-T1	-1.42721752768118	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008888-T1	-1.42779626588958	IPR007527 Zinc finger, SWIM-type	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_003765-T1	-1.42802875823011	IPR000420 Yeast PIR protein repeat	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000697-T1	-1.44380493425112	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006214-T1	-1.44424386243524	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_009795-T2	-1.44453500322858	IPR023631 Amidase signature domain, IPR036928 Amidase signature (AS) superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010304-T1	-1.45842019858424	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006422-T1	-1.46072734410039	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004978-T1	-1.460983827445	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009621-T1	-1.46128748518854	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006909-T1	-1.46405393663352	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008863-T1	-1.46655857896703	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002007-T1	-1.46709269479815	NA	NA	NA		TRUE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_002820-T1	-1.46719228825424	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006246-T1	-1.46849699409632	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007869-T1	-1.47233027763235	IPR000210 BTB/POZ domain, IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005619-T1	-1.47479615404741	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010379-T1	-1.47564477017673	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008874-T1	-1.47910868694697	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006459-T1	-1.48026620450293	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009605-T1	-1.4806692260043	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002963-T1	-1.48709271997121	IPR000172 Glucose-methanol-choline oxidoreductase, N-terminal, IPR007867 Glucose-methanol-choline oxidoreductase, C-terminal, IPR012132 Glucose-methanol-choline oxidoreductase, IPR036188 FAD/NAD(P)-binding domain superfamily	AA3	NA	K00108	TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009942-T1	-1.49466061268762	IPR001810 F-box domain, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001951-T1	-1.49823808279431	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004853-T1	-1.50041887219467	IPR000719 Protein kinase domain, IPR000961 AGC-kinase, C-terminal, IPR011009 Protein kinase-like domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003361-T1	-1.50542841634082	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001820-T2	-1.51019182716649	IPR021109 Aspartic peptidase domain superfamily, IPR033121 Peptidase family A1 domain	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000691-T1	-1.51193394766575	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_001710-T1	-1.51283759059004	IPR007577 Glycosyltransferase, DXD sugar-binding motif, IPR029044 Nucleotide-diphospho-sugar transferases	GT32	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003448-T1	-1.51592384433562	NA	NA	NA		TRUE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_000420-T1	-1.51844345599406	IPR013087 Zinc finger C2H2-type	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005278-T1	-1.521180455669	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010051-T1	-1.52982835685571	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000910-T1	-1.53033082662727	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009511-T1	-1.53330274752258	IPR000757 Glycoside hydrolase family 16, IPR001002 Chitin-binding, type 1, IPR008264 Beta-glucanase, IPR013320 Concanavalin A-like lectin/glucanase domain superfamily, IPR036861 Endochitinase-like superfamily	GH16	NA	K01216	TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008533-T1	-1.54030174975884	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009737-T1	-1.54077414748414	IPR005829 Sugar transporter, conserved site, IPR011701 Major facilitator superfamily, IPR020846 Major facilitator superfamily domain, IPR036259 MFS transporter superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009141-T1	-1.54388639932549	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007899-T1	-1.54459922515544	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003247-T1	-1.54528929271636	IPR001878 Zinc finger, CCHC-type, IPR025836 Zinc knuckle CX2CX4HX4C, IPR036875 Zinc finger, CCHC-type superfamily	NA	NA	K09250	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009666-T1	-1.55489123678802	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001082-T1	-1.5595413652927	IPR004853 Sugar phosphate transporter domain	NA	NA	K26222	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005402-T1	-1.56017693095353	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_000872-T1	-1.56287798149434	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005296-T1	-1.56871588602535	IPR018750 Protein of unknown function DUF2306, membrane	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004018-T2	-1.57197902261113	IPR011009 Protein kinase-like domain superfamily, IPR016477 Fructosamine/Ketosamine-3-kinase	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_007750-T1	-1.57729703674539	IPR027417 P-loop containing nucleoside triphosphate hydrolase	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004416-T1	-1.57877267473258	IPR000246 Peptidase T2, asparaginase 2, IPR029055 Nucleophile aminohydrolases, N-terminal, IPR037464 Threonine aspartase 1	NA	T02	K08657	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007403-T1	-1.58230921938813	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_010598-T1	-1.58232470141735	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009600-T1	-1.58377590832104	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007231-T1	-1.583790362917	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010381-T1	-1.59220584731967	IPR002293 Amino acid/polyamine transporter I	NA	NA	K03294	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008534-T1	-1.59301628807156	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001512-T1	-1.6033385105339	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001061-T1	-1.60333859817142	IPR002328 Alcohol dehydrogenase, zinc-type, conserved site, IPR011032 GroES-like superfamily, IPR013149 Alcohol dehydrogenase-like, C-terminal, IPR013154 Alcohol dehydrogenase-like, N-terminal, IPR020843 Polyketide synthase, enoylreductase domain, IPR036291 NAD(P)-binding domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001953-T1	-1.60720469602739	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005049-T1	-1.61223483272901	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002057-T1	-1.61629406915733	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008008-T1	-1.61705050143839	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006330-T1	-1.61839406992348	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001064-T1	-1.6219879848941	IPR021765 Mycotoxin biosynthesis protein UstYa-like	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009887-T1	-1.6257399761176	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001965-T1	-1.63295189906699	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008628-T1	-1.63986917628292	IPR023346 Lysozyme-like domain superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_000025-T1	-1.64166896890673	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_001362-T1	-1.64783924825582	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003283-T1	-1.64878190713721	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001948-T1	-1.66275319943081	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001888-T1	-1.67849265853807	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001950-T1	-1.67896336173488	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007464-T1	-1.68584883027719	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002213-T1	-1.68874624884892	IPR000629 ATP-dependent RNA helicase DEAD-box, conserved site, IPR001650 Helicase, C-terminal, IPR011545 DEAD/DEAH box helicase domain, IPR014001 Helicase superfamily 1/2, ATP-binding domain, IPR014014 RNA helicase, DEAD-box type, Q motif, IPR027417 P-loop containing nucleoside triphosphate hydrolase	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009316-T1	-1.69772185193658	IPR001810 F-box domain, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009886-T1	-1.70574440399481	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003282-T1	-1.70654110438465	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008426-T1	-1.70703009031789	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001330-T1	-1.70788152310619	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_000681-T1	-1.70956658390164	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001964-T1	-1.72759026698984	IPR001611 Leucine-rich repeat, IPR003591 Leucine-rich repeat, typical subtype, IPR019487 RAM signalling pathway, SOG2, IPR032675 Leucine-rich repeat domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001949-T1	-1.73273224906391	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006245-T1	-1.74321320701145	NA	NA	NA		TRUE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_003212-T1	-1.75710396861864	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_009317-T1	-1.75800338484013	IPR008979 Galactose-binding-like domain superfamily	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009582-T1	-1.76510304812818	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004217-T1	-1.76631172369868	IPR000504 RNA recognition motif domain, IPR012677 Nucleotide-binding alpha-beta plait domain superfamily, IPR035979 RNA-binding domain superfamily	NA	NA	K24990	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005394-T1	-1.76736174332241	IPR002575 Aminoglycoside phosphotransferase, IPR011009 Protein kinase-like domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001947-T1	-1.76784017405257	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003775-T1	-1.77011406901788	IPR003100 PAZ domain, IPR003165 Piwi domain, IPR012337 Ribonuclease H-like superfamily, IPR014811 Argonaute, linker 1 domain, IPR032472 Argonaute linker 2 domain, IPR032473 Protein argonaute, Mid domain, IPR032474 Protein argonaute, N-terminal, IPR036085 PAZ domain superfamily, IPR036397 Ribonuclease H superfamily	NA	NA	K11593	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008419-T1	-1.77881847037369	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004950-T1	-1.78282395947644	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002170-T1	-1.78650633743527	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000893-T1	-1.79152873023619	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004628-T1	-1.79212657736329	IPR002156 Ribonuclease H domain, IPR012337 Ribonuclease H-like superfamily, IPR036397 Ribonuclease H superfamily	NA	NA	K03469	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007343-T1	-1.79213981010962	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004494-T1	-1.79253619371127	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010117-T1	-1.79376664337334	IPR002110 Ankyrin repeat, IPR011009 Protein kinase-like domain superfamily, IPR016477 Fructosamine/Ketosamine-3-kinase, IPR020683 Domain of unknown function DUF3447, IPR036770 Ankyrin repeat-containing domain superfamily	NA	NA	K15523	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006449-T1	-1.79645729206361	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000005-T1	-1.8011598477048	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005658-T1	-1.80127772262796	IPR001153 Barwin domain, IPR009009 RlpA-like protein, double-psi beta-barrel domain, IPR036908 RlpA-like domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003213-T1	-1.8042909339965	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_001954-T1	-1.80867225445798	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004580-T1	-1.80960864145	IPR007292 Nuclear fusion protein Kar5	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002103-T1	-1.81053049926654	IPR036910 High mobility group box domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005597-T1	-1.81634504686528	IPR006421 Glycogen debranching enzyme, metazoa, IPR008928 Six-hairpin glycosidase superfamily, IPR012341 Six-hairpin glycosidase-like superfamily, IPR017853 Glycoside hydrolase superfamily, IPR029436 Eukaryotic glycogen debranching enzyme, N-terminal domain, IPR032788 Glycogen debranching enzyme, central domain, IPR032790 Glycogen debranching enzyme, C-terminal, IPR032792 Glycogen debranching enzyme, glucanotransferase domain	GH133	NA	K01196	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005613-T1	-1.81799611210092	IPR003615 HNH nuclease	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006016-T1	-1.83198851146104	IPR008928 Six-hairpin glycosidase superfamily, IPR031335 Glycosyl hydrolase family 63, C-terminal	GH63	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002104-T1	-1.83500285743083	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007067-T1	-1.83930818991955	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_001612-T1	-1.84697096161533	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000398-T1	-1.84770151348432	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004493-T1	-1.85777142363832	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007244-T1	-1.85853884302017	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000610-T1	-1.86868680131478	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001333-T1	-1.8703743768541	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_009927-T1	-1.87048367046294	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_007870-T1	-1.87406983249609	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004104-T1	-1.87812229160091	IPR001214 SET domain, IPR011990 Tetratricopeptide-like helical domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005631-T1	-1.88556602719496	IPR023631 Amidase signature domain, IPR036928 Amidase signature (AS) superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009786-T1	-1.89494219054097	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002185-T1	-1.89708485691708	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002163-T1	-1.90402145083184	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006255-T1	-1.90454117550687	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001643-T1	-1.91068885317262	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily, IPR036047 F-box-like domain superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_010222-T1	-1.9121137885124	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002166-T1	-1.91772019348097	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009926-T1	-1.91995910984103	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000194-T1	-1.93443322937708	IPR006047 Glycosyl hydrolase, family 13, catalytic domain, IPR013780 Glycosyl hydrolase, all-beta, IPR017853 Glycoside hydrolase superfamily	GH13	NA	K01176	FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000647-T1	-1.94016108161545	IPR000571 Zinc finger, CCCH-type	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001956-T1	-1.94109398942665	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008090-T1	-1.95435020831577	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002165-T1	-1.95947250010222	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005620-T1	-1.97335980929372	IPR001841 Zinc finger, RING-type, IPR004331 SPX domain, IPR011016 Zinc finger, RING-CH-type, IPR013083 Zinc finger, RING/FYVE/PHD-type, IPR017907 Zinc finger, RING-type, conserved site	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_004520-T1	-1.98580272717915	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001605-T1	-1.99052169507232	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001538-T1	-1.99405605080441	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001414-T1	-1.99452812636186	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005048-T1	-1.99767712393971	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000604-T1	-1.99794331534365	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001958-T1	-1.99863711692254	IPR001356 Homeobox domain, IPR009057 Homeobox-like domain superfamily, IPR017970 Homeobox, conserved site	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006974-T1	-2.0007399637345	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009615-T1	-2.00085305648976	IPR035940 CAP superfamily	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001952-T1	-2.00269923737899	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008041-T1	-2.01618918988404	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005630-T1	-2.02722921931727	IPR036928 Amidase signature (AS) superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002522-T1	-2.03003470944441	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006910-T1	-2.03252930327661	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001967-T1	-2.03280809424984	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003572-T1	-2.04421705042281	IPR001087 GDSL lipase/esterase, IPR036514 SGNH hydrolase superfamily	CE16	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010303-T1	-2.05476780059472	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005279-T1	-2.05597255471226	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009139-T1	-2.05668523255164	IPR001876 Zinc finger, RanBP2-type	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004891-T1	-2.05750027873907	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001910-T1	-2.06224061080768	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007873-T1	-2.06752244565979	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_007871-T1	-2.08112255578883	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_005615-T1	-2.09219653818312	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009318-T1	-2.09768415080929	IPR011333 SKP1/BTB/POZ domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005735-T1	-2.10201465646358	IPR018824 Conidiation-specific protein 6	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007872-T1	-2.10580029053315	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_001611-T1	-2.12569741818646	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005814-T1	-2.12968465815671	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001859-T1	-2.14238038159144	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_007262-T1	-2.14900504006927	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_010203-T1	-2.14900504006927	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_008856-T1	-2.16021803627853	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_005061-T1	-2.16687543430172	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002183-T1	-2.17460623457991	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002182-T1	-2.18040200136971	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002763-T1	-2.18455634048272	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009619-T1	-2.20353326621108	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005766-T1	-2.22345335832639	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004414-T1	-2.23088026864916	IPR027417 P-loop containing nucleoside triphosphate hydrolase	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006957-T1	-2.2524146607654	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_005614-T1	-2.25289011049105	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001960-T1	-2.26472065654397	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010596-T1	-2.27187152255464	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000193-T1	-2.28399229026112	IPR006047 Glycosyl hydrolase, family 13, catalytic domain, IPR017853 Glycoside hydrolase superfamily	GH13	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004521-T1	-2.28439127296364	IPR008271 Serine/threonine-protein kinase, active site, IPR011009 Protein kinase-like domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002172-T1	-2.28509239764309	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008331-T1	-2.30206010592949	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002184-T1	-2.30467519547916	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_004966-T1	-2.31705861232811	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001959-T1	-2.36223745518913	IPR000095 CRIB domain, IPR000719 Protein kinase domain, IPR008271 Serine/threonine-protein kinase, active site, IPR011009 Protein kinase-like domain superfamily, IPR017441 Protein kinase, ATP binding site, IPR033923 p21 activated kinase binding domain, IPR036936 CRIB domain superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001063-T1	-2.3696062263814	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008284-T1	-2.42904543381408	IPR029044 Nucleotide-diphospho-sugar transferases	GT2_Glyco_tranf_2	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008782-T1	-2.43140730992303	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001966-T1	-2.43670638499269	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003209-T1	-2.43760046526963	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008009-T1	-2.44481302801995	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001962-T1	-2.45616440234093	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008007-T1	-2.47971483085148	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007397-T1	-2.48678319115333	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_000378-T1	-2.49090225508089	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_009602-T1	-2.50087952356722	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_006951-T1	-2.50792014306835	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002164-T1	-2.52773365079221	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_001856-T1	-2.59247714069457	IPR037176 Osmotin/thaumatin-like superfamily	NA	NA		TRUE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_007900-T1	-2.63656276221288	NA	NA	NA		FALSE	TRUE
+Edge / Apothecia	apothecium	XANPAGTX0501_006327-T1	-2.64984860331108	IPR018466 Yeast cell wall synthesis Kre9/Knh1-like, N-terminal	NA	NA		TRUE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_002506-T1	-2.7264746440325	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_010050-T2	-2.75757993144406	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_003211-T1	-2.9319990334698	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_007239-T1	-3.42090616644813	IPR027417 P-loop containing nucleoside triphosphate hydrolase	NA	NA		FALSE	FALSE
+Edge / Apothecia	apothecium	XANPAGTX0501_008519-T2	-4.61746986403396	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_010431-T1	1.52335851109981	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_001015-T1	1.33980721737927	IPR001153 Barwin domain, IPR009009 RlpA-like protein, double-psi beta-barrel domain, IPR036908 RlpA-like domain superfamily	NA	NA		TRUE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_006189-T1	1.2755087866427	IPR011701 Major facilitator superfamily, IPR020846 Major facilitator superfamily domain, IPR036259 MFS transporter superfamily	NA	NA		FALSE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_002706-T1	1.12981661164943	IPR002129 Pyridoxal phosphate-dependent decarboxylase, IPR015421 Pyridoxal phosphate-dependent transferase, major domain, IPR015424 Pyridoxal phosphate-dependent transferase	NA	NA		FALSE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_004034-T1	1.12181855376119	NA	NA	NA		TRUE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_010624-T1	1.12153480317843	IPR023631 Amidase signature domain, IPR036928 Amidase signature (AS) superfamily	NA	NA		TRUE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_004943-T2	1.1173156062962	IPR002020 Citrate synthase, IPR016142 Citrate synthase-like, large alpha subdomain, IPR016143 Citrate synthase-like, small alpha subdomain, IPR019810 Citrate synthase active site, IPR036969 Citrate synthase superfamily	NA	NA	K01647	FALSE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_006869-T1	1.09992921608996	IPR008979 Galactose-binding-like domain superfamily, IPR017853 Glycoside hydrolase superfamily, IPR024655 Asl1-like, glycosyl hydrolase catalytic domain	GH128	NA		TRUE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_004633-T1	1.0946949649735	NA	NA	NA		FALSE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_010430-T1	1.09366657019112	IPR000542 Acyltransferase ChoActase/COT/CPT, IPR001227 Acyl transferase domain superfamily, IPR006162 Phosphopantetheine attachment site, IPR009081 Phosphopantetheine binding ACP domain, IPR011032 GroES-like superfamily, IPR013217 Methyltransferase type 12, IPR013968 Polyketide synthase, ketoreductase domain, IPR014030 Beta-ketoacyl synthase, N-terminal, IPR014031 Beta-ketoacyl synthase, C-terminal, IPR014043 Acyl transferase, IPR016035 Acyl transferase/acyl hydrolase/lysophospholipase, IPR016036 Malonyl-CoA ACP transacylase, ACP-binding, IPR016039 Thiolase-like, IPR020801 None, IPR020806 Polyketide synthase, phosphopantetheine-binding domain, IPR020807 Polyketide synthase, dehydratase domain, IPR020841 Polyketide synthase, beta-ketoacyl synthase domain, IPR020843 Polyketide synthase, enoylreductase domain, IPR029063 S-adenosyl-L-methionine-dependent methyltransferase superfamily, IPR032821 Polyketide synthase, C-terminal extension, IPR036291 NAD(P)-binding domain superfamily, IPR036736 ACP-like superfamily, IPR039551 Choline/carnitine acyltransferase domain, IPR042104 Polyketide synthase, dehydratase domain superfamily, IPR042231 Choline/Carnitine o-acyltransferase, domain 2, IPR042232 None	NA	NA	K12443	FALSE	TRUE
+Edge / Apothecia	edge	XANPAGTX0501_001458-T1	1.02644866556893	IPR002889 Carbohydrate-binding WSC, IPR018535 Domain of unknown function DUF1996	NA	NA		TRUE	FALSE
+Edge / Apothecia	edge	XANPAGTX0501_009181-T1	1.02466203882853	IPR008427 Extracellular membrane protein, CFEM domain	NA	NA		TRUE	TRUE
+Edge / Apothecia	edge	XANPAGTX0501_008853-T1	1.00314453627105	IPR009799 EthD domain, IPR011008 Dimeric alpha-beta barrel	NA	NA		FALSE	FALSE
+Edge / Center	centre	XANPAGTX0501_005615-T1	-1.00910907161358	NA	NA	NA		FALSE	FALSE
+Edge / Center	centre	XANPAGTX0501_005614-T1	-1.07586257227834	NA	NA	NA		FALSE	FALSE
+Edge / Center	centre	XANPAGTX0501_008007-T1	-1.15594307547534	NA	NA	NA		FALSE	FALSE
+Edge / Center	centre	XANPAGTX0501_002184-T1	-1.17365346501019	NA	NA	NA		FALSE	FALSE
+Edge / Center	centre	XANPAGTX0501_001949-T1	-1.18761452078928	NA	NA	NA		FALSE	FALSE
+Edge / Center	centre	XANPAGTX0501_002506-T1	-1.19463609242384	NA	NA	NA		FALSE	FALSE
+Edge / Center	centre	XANPAGTX0501_008856-T1	-1.27829676627521	IPR001810 F-box domain, IPR032675 Leucine-rich repeat domain superfamily	NA	NA		FALSE	TRUE
+Edge / Center	centre	XANPAGTX0501_009886-T1	-1.29299015661355	NA	NA	NA		TRUE	FALSE
+Edge / Center	centre	XANPAGTX0501_009927-T1	-1.61970689094688	NA	NA	NA		FALSE	TRUE

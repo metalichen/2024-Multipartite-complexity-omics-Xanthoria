@@ -1,0 +1,374 @@
+---
+title: "04_phylogenomics.md"
+author: "Gulnara Tagridzhanova"
+date: "25/05/2023"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/01_Xanthoria_metagenomics/notebook")
+
+```
+
+**Summary:** Here I do taxonomic assignment of the MAGs recovered from the Xanthoria metagenomes. This analysis is actually following the 06_annotate_mags, since I had to produce protein fastas for the eukaryotes before making a tree
+
+## 1. Prepare summary of the MAGs
+* Combined new GTDB annotations and existing EukCC and CheckM annotations to create a table with genome stats
+* Saved as `../analysis_and_temp_files/04_phylogenomics/mags_stats.txt`
+```{r, message=FALSE}
+library(tidyverse)
+source("../code/utils.R")
+samples<-c("GTX0465","GTX0466","GTX0468","GTX0481","GTX0484","GTX0491","GTX0493","GTX0494","GTX0486_487")
+##get checkm
+read_checkm<-function(sample){
+  checkm_sample<-read.delim(paste0("../analysis_and_temp_files/03_assembly/",sample,"_megahit/checkm_qa.tab")) %>%
+  select(Bin.Id, Completeness,Contamination,Strain.heterogeneity,Genome.size..bp.,X..scaffolds,N50..scaffolds.,Mean.scaffold.length..bp.,Longest.scaffold..bp.,GC)
+colnames(checkm_sample)<-c("bin","completeness","contamination","strain_heterogeneity","genome_size","number_scaffolds","N50","mean_scaffold_length","longest_scaffold","GC")
+checkm_sample$completeness<-as.numeric(checkm_sample$completeness)
+checkm_sample$contamination<-as.numeric(checkm_sample$contamination)
+checkm_sample$genome<-paste(sample,checkm_sample$bin,"fa",sep=".")
+checkm_sample<-checkm_sample %>% select(-bin)
+return(checkm_sample)
+}
+l<-lapply(samples, read_checkm)
+checkm_combined<-do.call(rbind,l)
+
+checkm_coassembly<-read.delim("../analysis_and_temp_files/03_assembly/coassembly/checkm_qa.tab") %>%
+  select(Bin.Id, Completeness,Contamination,Strain.heterogeneity,Genome.size..bp.,X..scaffolds,N50..scaffolds.,Mean.scaffold.length..bp.,Longest.scaffold..bp.,GC)
+colnames(checkm_coassembly)<-c("bin","completeness","contamination","strain_heterogeneity","genome_size","number_scaffolds","N50","mean_scaffold_length","longest_scaffold","GC")
+checkm_coassembly$genome<-paste("coassembly",checkm_coassembly$bin,"fa",sep=".")
+checkm_all<-checkm_coassembly %>% select(-bin) %>% rbind(checkm_combined)
+
+#combine all eukcc outputs
+read_eukcc<-function(sample){
+  eukcc_sample<-read.delim(paste0("../analysis_and_temp_files/03_assembly/",sample,"_megahit/eukcc.csv")) 
+  eukcc_sample$completeness<-as.numeric(eukcc_sample$completeness)
+  eukcc_sample$contamination<-as.numeric(eukcc_sample$contamination)
+  eukcc_sample<-eukcc_sample %>% filter(completeness>=50,contamination<10)
+  eukcc_sample$bin<-str_replace(eukcc_sample$bin,".fa","")
+  eukcc_sample$genome<-paste(sample,eukcc_sample$bin,"fa",sep=".")
+return(eukcc_sample)
+}
+l2<-lapply(samples, read_eukcc)
+eukcc_combined<-do.call(rbind,l2)
+eukcc_coassembly<-read.delim2("../analysis_and_temp_files/03_assembly/coassembly/eukcc_out/eukcc.csv")
+eukcc_coassembly$genome<-paste("coassembly",eukcc_coassembly$bin,sep=".")
+
+eukcc_all<-rbind(eukcc_coassembly,eukcc_combined) %>% select(-bin)
+
+#assign eukarytic taxonomy based on eukcc
+eukcc_all<-eukcc_all %>% mutate(classification=ifelse(grepl("-13786",ncbi_lng),"Trebouxia",
+    ifelse(grepl("-34395",ncbi_lng),"Chaetothyriales",
+           ifelse(grepl("-147547",ncbi_lng),"Lecanoromycetes","Leotiomyceta"))))
+eukcc_all$phylum<-"Ascomycota"
+eukcc_all$phylum[eukcc_all$classification=="Trebouxia"]<-"Chlorophyta"
+eukcc_all$class<-"Lecanoromycetes"
+eukcc_all$class[eukcc_all$classification=="Trebouxia"]<-"Trebouxiophyceae"
+eukcc_all$class[eukcc_all$classification=="Chaetothyriales"]<-"Eurotiomycetes"
+eukcc_all$class[eukcc_all$classification=="Leotiomyceta"]<-"Unknown"
+eukcc_all$order<-"Unknown"
+eukcc_all$family<-"Unknown"
+eukcc_all$genus<-"Unknown"
+eukcc_all$species<-"Unknown"
+eukcc_all$domain<-"Eukaryota"
+
+#get prokaryotic taxonomy from gtdb
+gtdb<-read.delim2("../analysis_and_temp_files/04_phylogenomics/gtdb_out/gtdbtk.bac120.summary.tsv") %>% select(user_genome,classification) %>% mutate(genome=paste0(user_genome,".fa")) %>% select(-user_genome)
+gtdb$phylum <- sapply(gtdb$classification, gtdb_get_clade, clade="p")
+gtdb$class <- sapply(gtdb$classification, gtdb_get_clade, clade="c")
+gtdb$order <- sapply(gtdb$classification, gtdb_get_clade, clade="o")
+gtdb$family <- sapply(gtdb$classification, gtdb_get_clade, clade="f")
+gtdb$genus <- sapply(gtdb$classification, gtdb_get_clade, clade="g")
+gtdb$species <- sapply(gtdb$classification, gtdb_get_clade, clade="s")
+gtdb$domain <-"Bacteria"
+
+#get list of MAGs selected during dereplication
+drep_euk_all<-read.delim("../analysis_and_temp_files/03_assembly/all_mags/euk_drep/data_tables/Wdb.csv",sep=",") %>% select(genome)
+drep_bac_all<-read.delim("../analysis_and_temp_files/03_assembly/all_mags/prok_drep/data_tables/Wdb.csv",sep=",")%>% select(genome)
+
+
+#combine all data
+bac_table<-checkm_all %>% inner_join(gtdb) %>% inner_join(drep_bac_all)
+euk_table<-checkm_all %>% select(-completeness,-contamination) %>% inner_join(eukcc_all) %>% select(-ncbi_lng) %>% inner_join(drep_euk_all)
+
+write.table(rbind(bac_table,euk_table),"../analysis_and_temp_files/04_phylogenomics/mags_stats.txt",sep="\t",quote = F, row.names = F)
+```
+
+## 2. Bacterial MAGs
+* Re-ran GTDB on all bacterial MAGs to get a tree for the final list of MAGs
+* Part of a snakemake pipeline
+```{r, message=FALSE}
+library(ggtree)
+library(ggtreeExtra)
+bac_tree<-read.tree("../analysis_and_temp_files/04_phylogenomics/gtdb_out/gtdbtk.bac120.user_msa.fasta.contree")
+bac_tree <- as.polytomy(bac_tree, feature='node.label', fun=function(x) as.numeric(x) < 70)
+bac_tree <- ape::root(bac_tree,"coassembly.bin.151")
+
+#make a vector for color
+bac_table$genome2<-str_replace(bac_table$genome,".fa","")
+df<-data.frame("genome2"=bac_tree$tip.label) %>% left_join(bac_table) 
+
+ggtree(bac_tree,layout="fan", open.angle=10) %<+% df+
+  geom_fruit(
+         geom=geom_tile,
+         mapping=aes(fill=phylum),
+         width=0.2,
+         offset=0.1
+     ) +
+     theme(
+           legend.title=element_text(size=10), 
+           legend.text=element_text(size=8),
+           )
+```
+
+*Save image
+```{r}
+library(RColorBrewer)
+
+ggtree(bac_tree,layout="fan", open.angle=10) %<+% df+
+  geom_fruit(
+         geom=geom_tile,
+         mapping=aes(fill=phylum),
+         width=0.2,
+         offset=0.1
+     ) +
+     theme(
+           legend.title=element_text(size=8), 
+           legend.text=element_text(size=6),
+           )+
+  scale_fill_manual(values=c("Proteobacteria"=brewer.pal(8,"Dark2")[2],
+                    "Bacteroidota"=brewer.pal(12,"Paired")[10], 
+                    "Chlamydiota"=brewer.pal(12,"Paired")[2], 
+                    "Actinobacteriota"=brewer.pal(8,"Dark2")[1],
+                    "Patescibacteria"=brewer.pal(12,"Paired")[3],  
+                    "Deinococcota" =brewer.pal(12,"Paired")[4],
+                    "Chloroflexota"=brewer.pal(12,"Paired")[7], 
+                    "Armatimonadota"=brewer.pal(12,"Paired")[1],
+                    "Firmicutes"=brewer.pal(12,"Paired")[6], 
+                    "Cyanobacteria"=brewer.pal(12,"Paired")[5],
+                    "Planctomycetota"=brewer.pal(12,"Paired")[8],  
+                    "Acidobacteriota" =brewer.pal(12,"Paired")[9],
+                    "Myxococcota" = brewer.pal(8,"Dark2")[8],
+                    "Bdellovibrionota"=brewer.pal(12,"Paired")[11]))+
+  guides(fill=guide_legend(ncol=2))
+ggsave('../results/bac_tree.pdf',width = 7, height = 3)
+```
+* Summarize the number of bacterial MAGs in different phyla
+```{r}
+bac_table %>% group_by(phylum) %>% summarize(n=n()) %>% arrange(desc(n))
+
+```
+
+* Summarize the number of bacterial MAGs in different orders
+```{r}
+bac_table %>% group_by(order) %>% summarize(n=n()) %>% arrange(desc(n)) %>% head()
+
+```
+
+* Summarize the number of bacterial MAGs in different genera
+```{r}
+bac_table %>% group_by(genus) %>% summarize(n=n()) %>% arrange(desc(n)) %>% head()
+
+```
+
+## 3. Eukaryotic MAGs
+* Phylogenomic trees done by Neha
+
+### Assembling reference genome set
+* List in the `../analysis_and_temp_files/04_phylogenomics/reference_genomes.csv`
+* Most genomes downloaded from JGI, as protein fastas (`*_GeneCatalog_proteins_*.aa.fasta.gz`)
+* Others come from NCBI. Where possible, I used protein fastas downloaded from NCBI
+* For two Trebouxia genomes lacking annotations, I ran BUSCO to quickly get proteins
+  * For the two Trebouxia genomes from NCBI, I used the BUSCO output generated for the phylogenomic tree in `../09_coccomyxa_genome`
+  * Concatenated all protein fastas into one file. Included all sequences, single-copy, multicopy, and fragmented
+```
+cat ../09_coccomyxa_genome/analysis_and_temp_files/03_id_alga/busco/trebgel/run_chlorophyta_odb10/busco_sequences/*/*3041.faa > data/ref_genomes/trebgel_BUSCO_proteins.fasta
+cat ../09_coccomyxa_genome/analysis_and_temp_files/03_id_alga/busco/trebus/run_chlorophyta_odb10/busco_sequences/*/*3041.faa > data/ref_genomes/trebus_BUSCO_proteins.fasta
+```
+  * This is how this BUSCO was run:
+```
+source package ca890cd7-f81d-4c22-9f4a-5b40ab671c79
+source package 85f2de80-4bd0-48dc-9303-bba1a19206e4
+export AUGUSTUS_CONFIG_PATH=analysis_and_temp_files/02_binning/tmp_augustus/config
+mkdir -p analysis_and_temp_files/03_id_alga/busco 
+busco -i $fasta -o $out --out_path analysis_and_temp_files/03_id_alga/busco  -m  $mode -l  /tsl/data/busco_lineages/chlorophyta_odb10 --offline -f -c 5
+```
+
+### Adding Xanthoria calcicola MAG
+* For one version of the fungal the tree, I added the mycobiont MAG from GTX0491 (X. calcicola)
+* I needed to annotate it separately
+```
+#!/bin/bash
+#SBATCH --time=3-0:00:00
+#SBATCH --cpus-per-task=28
+#SBATCH --job-name=anncalc  
+#SBATCH --output=analysis_and_temp_files/04_phylogenomics/Xcalc_annot/tmp.anncalc.out
+#SBATCH --mem=80G
+
+mkdir -p analysis_and_temp_files/04_phylogenomics/Xcalc_annot/
+cp analysis_and_temp_files/03_assembly/GTX0491_megahit/final.contigs.fa.metabat/bin.13.fa analysis_and_temp_files/04_phylogenomics/Xcalc_annot/GTX0491.bin.13.fa
+
+bash code/clean_genome.sh analysis_and_temp_files/04_phylogenomics/Xcalc_annot/GTX0491.bin.13.fa analysis_and_temp_files/04_phylogenomics/Xcalc_annot/GTX0491.bin.13_cleaned_sorted.fa GTX0491b13
+
+bash code/repmask.sh analysis_and_temp_files/04_phylogenomics/Xcalc_annot/GTX0491.bin.13_cleaned_sorted.fa fungus
+
+bash code/annotate_funannotate.sh analysis_and_temp_files/04_phylogenomics/Xcalc_annot/GTX0491.bin.13_cleaned_sorted.fa.masked analysis_and_temp_files/04_phylogenomics/Xcalc_annot/GTX0491.bin.13_pred/predict_results/GTX0491.bin.13.proteins.fa GTX0491b13 28 fungus GTX0491.bin.13
+```
+
+### Compiling all data together for Neha
+```
+mkdir -p analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/fungi/
+cp analysis_and_temp_files/06_annotate_mags/euk/GTX0494.bin.19_pred/predict_results/GTX0494.bin.19.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/fungi/
+cp analysis_and_temp_files/06_annotate_mags/euk/GTX0486_487.bin.100_pred/predict_results/GTX0486_487.bin.100.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/fungi/
+cp analysis_and_temp_files/06_annotate_mags/euk/GTX0466.bin.15_pred/predict_results/GTX0466.bin.15.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/fungi/
+cp analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.76_pred/predict_results/coassembly.bin.76.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/fungi/
+cp analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.64_pred/predict_results/coassembly.bin.64.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/fungi/
+cp analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.378_pred/predict_results/coassembly.bin.378.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/fungi/
+cp analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.376_pred/predict_results/coassembly.bin.376.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/fungi/
+cp analysis_and_temp_files/04_phylogenomics/Xcalc_annot/GTX0491.bin.13_pred/predict_results/GTX0491.bin.13.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/fungi/
+
+mkdir -p analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/alga/
+cp analysis_and_temp_files/06_annotate_mags/euk/GTX0493.bin.23_pred/predict_results/GTX0493.bin.23.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/alga/
+cp analysis_and_temp_files/06_annotate_mags/euk/GTX0468.bin.53_pred/predict_results/GTX0468.bin.53.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/alga/
+cp analysis_and_temp_files/06_annotate_mags/euk/GTX0465.bin.1_pred/predict_results/GTX0465.bin.1.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/alga/
+cp analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.195_pred/predict_results/coassembly.bin.195.proteins.fa analysis_and_temp_files/04_phylogenomics/euk_mags_for_tree/alga/
+```
+
+### Algal tree
+* Moved Neha's trees to `analysis_and_temp_files/04_phylogenomics/euk_trees_Neha`
+* All algal MAGs are nested within Trebouxia
+```{r, message=FALSE}
+library(ape)
+library(ggtree)
+library(tidyverse)
+
+tree_al<-read.tree("../analysis_and_temp_files/04_phylogenomics/euk_trees_Neha/Algatre.txt")
+tree_al <- root(tree_al, outgroup = "Chabra1_GeneCatalog_proteins_20200807.aa", resolve.root = TRUE)
+
+#rename
+ref_info<-read.csv("../analysis_and_temp_files/04_phylogenomics/reference_genomes.csv")[1:57,]
+tree_names_a<-data.frame("original"=tree_al$tip.label)
+tree_names_a$short<-gsub( "_.*$", "", tree_names_a$original)
+tree_names_a <- tree_names_a %>% left_join(ref_info,by=c("short"="ID")) %>%
+  mutate(new_name=ifelse(is.na(Species),short,Species),
+         source=ifelse(is.na(Species),"Xanthoria metagenomes","literature"))
+tree_al$tip.label<-tree_names_a[[10]][match(tree_al$tip.label, tree_names_a[[1]])]
+
+#make a vector to highlight mags
+col_a<-data.frame("new_name"=tree_al$tip.label) %>% left_join(tree_names_a)
+
+ggtree(tree_al,ladderize = TRUE,right = T) %<+% col_a +
+  geom_tiplab(pch=16,size=3,aes(col=source))+
+  scale_color_manual(values=c("Xanthoria metagenomes" = "red","literature"="black"))+ xlim(0, 1.2)
+  #theme(legend.text=element_text(size=4),legend.title=element_blank())
+
+```
+
+* Save the renamed tree and make the figure in itol
+```{r}
+ape::write.tree(tree_al,"../analysis_and_temp_files/04_phylogenomics/euk_trees_Neha/algal_tree_renamed.tree")
+```
+
+### Fungal tree: without X. calcicola MAG, but with the long-read genome
+* Two Xanthoria MAGs: from the metagenomes and from the Nanopore assembly are sister to other Xanthoria
+* Three MAGs identified as Chaetothyriales during EUkCC annotations are indeed nested within this order. Two of them are sister to each other and are close to Cyphellophora, the thirs is from a different clade and close to Exophiala
+* Three MAGs are recovered within clades of lichen-forming fungi: Candelariales, Ostropomycetidae, and Lecanorales
+```{r, message=FALSE}
+library(ape)
+library(ggtree)
+library(tidyverse)
+
+tree_fu<-read.tree("../analysis_and_temp_files/04_phylogenomics/euk_trees_Neha/fungi_tree2.tree")
+tree_fu <- root(tree_fu, outgroup = "Amamu1_GeneCatalog_proteins_20120806.aa", resolve.root = TRUE)
+
+#rename
+tree_names_f<-data.frame("original"=tree_fu$tip.label)
+tree_names_f$short<-gsub( "_.*$", "", tree_names_f$original)
+tree_names_f <- tree_names_f %>% left_join(ref_info,by=c("short"="ID")) %>%
+  mutate(new_name=ifelse(is.na(Species),short,Species),
+         source=ifelse(is.na(Species),"Xanthoria metagenomes","literature"))
+	
+tree_names_f$new_name[tree_names_f$new_name=="GTX0486"]<-"GTX0486_487.bin.100.proteins"
+tree_names_f$new_name[tree_names_f$original=="Xanthoria_parietina_GTX0501.proteins"]<-"Xanthoria parietina: Nanopore assembly"
+tree_names_f$source[tree_names_f$original=="Xanthoria_parietina_GTX0501.proteins"]<-"Nanopore assembly"
+
+tree_fu$tip.label<-tree_names_f[[10]][match(tree_fu$tip.label, tree_names_f[[1]])]
+
+#make a vector to highlight mags
+col_f<-data.frame("new_name"=tree_fu$tip.label) %>% left_join(tree_names_f)
+
+ggtree(tree_fu,ladderize = TRUE,right = T) %<+% col_f +
+  geom_tiplab(pch=16,size=3,aes(col=source))+
+  scale_color_manual(values=c("Xanthoria metagenomes" = "red","Nanopore assembly"="blue","literature"="black"))+ xlim(0, 1.2)
+  #theme(legend.text=element_text(size=4),legend.title=element_blank())
+
+```
+
+* Save the renamed tree and make the figure in itol
+```{r}
+ape::write.tree(tree_fu,"../analysis_and_temp_files/04_phylogenomics/euk_trees_Neha/fungi_tree2_renamed.tree")
+```
+
+### Fungal tree: with X. calcicola MAG
+* Two Xanthoria MAGs: from X. parietina and X. calcicola are sister to other Xanthoria
+```{r, message=FALSE}
+library(ape)
+library(ggtree)
+library(tidyverse)
+
+tree_fu<-read.tree("../analysis_and_temp_files/04_phylogenomics/euk_trees_Neha/Fungitre.txt")
+tree_fu <- root(tree_fu, outgroup = "Amamu1_GeneCatalog_proteins_20120806.aa", resolve.root = TRUE)
+
+#rename
+tree_names_f<-data.frame("original"=tree_fu$tip.label)
+tree_names_f$short<-gsub( "_.*$", "", tree_names_f$original)
+tree_names_f <- tree_names_f %>% left_join(ref_info,by=c("short"="ID")) %>%
+  mutate(new_name=ifelse(is.na(Species),short,Species),
+         source=ifelse(is.na(Species),"Xanthoria metagenomes","literature"))
+	
+tree_names_f$new_name[tree_names_f$new_name=="GTX0486"]<-"GTX0486_487.bin.100.proteins"
+tree_fu$tip.label<-tree_names_f[[10]][match(tree_fu$tip.label, tree_names_f[[1]])]
+
+#make a vector to highlight mags
+col_f<-data.frame("new_name"=tree_fu$tip.label) %>% left_join(tree_names_f)
+
+ggtree(tree_fu,ladderize = TRUE,right = T) %<+% col_f +
+  geom_tiplab(pch=16,size=3,aes(col=source))+
+  scale_color_manual(values=c("Xanthoria metagenomes" = "red","literature"="black"))+ xlim(0, 1.2)
+  #theme(legend.text=element_text(size=4),legend.title=element_blank())
+
+```
+
+
+## 3. Align short-read Xanthoria MAG agains the long read assembly
+```
+sbatch --mem=10G -c 5 --partition=tsl-short --wrap="source package 222eac79-310f-4d4b-8e1c-0cece4150333
+minimap2 -x asm20 -t 10 analysis_and_temp_files/04_phylogenomics/MAGs/euk/GTX0494.bin.19.fa  ../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.fa  > analysis_and_temp_files/04_phylogenomics/GTX0494.bin.19_to_longread.paf"
+
+```
+
+```{r}
+library(pafr)
+library(GenomicRanges)
+paf<-read_paf("../analysis_and_temp_files/04_phylogenomics/GTX0494.bin.19_to_longread.paf")
+paf_filtered <-filter_secondary_alignments(paf)
+paf_filtered <-subset(paf_filtered, alen > 2000 & mapq > 40)
+dotplot(paf_filtered,order_by="qstart",label_seqs=T,dashes=F,xlab="Long-read genome",ylab="Short-read MAG: GTX0494.bin.19") + theme_bw()
+```
+
+* The MAG is well aligned
+
+* Save the image
+```{r}
+plot<-dotplot(paf_filtered,order_by="qstart",label_seqs=F,dashes=F,xlab="Long-read genome",ylab="Short-read MAG: GTX0494.bin.19") + theme_bw()+
+  theme(axis.text = element_text(size=6),axis.title = element_text(size=8))
+ggsave('../results/genome_align.pdf',plot, width = 6, height = 6)
+
+```
+
+
+
+

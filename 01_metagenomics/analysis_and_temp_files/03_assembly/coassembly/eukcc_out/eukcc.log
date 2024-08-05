@@ -1,0 +1,2522 @@
+19-05-2023 21:17:53:  EukCC version 2.1.2
+19-05-2023 21:17:53:  Found 389 bins
+19-05-2023 21:19:28:  metaeuk failed, check logfile analysis_and_temp_files/03_assembly/coassembly/eukcc_out/refine_workdir/metaeuk/metaeuk.stout
+19-05-2023 22:36:57:  EukCC version 2.1.2
+19-05-2023 22:36:57:  Found 389 bins
+19-05-2023 23:14:03:  Searching for marker genes in base database
+19-05-2023 23:14:03:  No placement marker genes found.
+19-05-2023 23:14:03:  Searching for marker genes in base database
+19-05-2023 23:14:03:  No placement marker genes found.
+19-05-2023 23:14:03:  Searching for marker genes in base database
+19-05-2023 23:14:04:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:14:24:  Genome belongs to clade: protozoa (Best TaxID: 5878)
+19-05-2023 23:14:24:  Searching for marker genes in protozoa database
+19-05-2023 23:14:25:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:14:29:  Automatically locating best SCMG set
+19-05-2023 23:14:43:  Could not identify a single suitable marker gene set
+19-05-2023 23:14:43:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:14:44:  Searching for marker genes in base database
+19-05-2023 23:14:44:  No placement marker genes found.
+19-05-2023 23:14:44:  Searching for marker genes in base database
+19-05-2023 23:14:44:  No placement marker genes found.
+19-05-2023 23:14:44:  Searching for marker genes in base database
+19-05-2023 23:14:45:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:14:52:  Genome belongs to clade: protozoa (Best TaxID: 5972)
+19-05-2023 23:14:52:  Searching for marker genes in protozoa database
+19-05-2023 23:14:53:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:14:56:  Automatically locating best SCMG set
+19-05-2023 23:15:10:  Could not identify a single suitable marker gene set
+19-05-2023 23:15:10:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:15:10:  Searching for marker genes in base database
+19-05-2023 23:15:11:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:15:20:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:15:20:  Searching for marker genes in protozoa database
+19-05-2023 23:15:21:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:15:23:  Automatically locating best SCMG set
+19-05-2023 23:15:39:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:15:46:  Searching fasta for selected markers
+19-05-2023 23:15:49:  Completeness: 13.59
+19-05-2023 23:15:49:  Contamination: 0.97
+19-05-2023 23:15:49:  Max silent contamination: 100.0
+19-05-2023 23:15:51:  Searching for marker genes in base database
+19-05-2023 23:15:52:  No placement marker genes found.
+19-05-2023 23:15:52:  Searching for marker genes in base database
+19-05-2023 23:15:52:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:16:00:  Genome belongs to clade: protozoa (Best TaxID: 5765)
+19-05-2023 23:16:01:  Searching for marker genes in protozoa database
+19-05-2023 23:16:01:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:16:02:  Automatically locating best SCMG set
+19-05-2023 23:16:10:  Searching fasta for selected markers
+19-05-2023 23:16:11:  Completeness: 9.52
+19-05-2023 23:16:11:  Contamination: 1.59
+19-05-2023 23:16:11:  Max silent contamination: 100.0
+19-05-2023 23:16:14:  Searching for marker genes in base database
+19-05-2023 23:16:14:  No placement marker genes found.
+19-05-2023 23:16:14:  Searching for marker genes in base database
+19-05-2023 23:16:15:  No placement marker genes found.
+19-05-2023 23:16:15:  Searching for marker genes in base database
+19-05-2023 23:16:16:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:16:25:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:16:25:  Searching for marker genes in protozoa database
+19-05-2023 23:16:26:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:16:28:  Automatically locating best SCMG set
+19-05-2023 23:16:43:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:16:43:  Searching fasta for selected markers
+19-05-2023 23:16:45:  Completeness: 12.7
+19-05-2023 23:16:45:  Contamination: 6.35
+19-05-2023 23:16:45:  Max silent contamination: 100.0
+19-05-2023 23:16:48:  Searching for marker genes in base database
+19-05-2023 23:16:49:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:16:57:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:16:57:  Searching for marker genes in protozoa database
+19-05-2023 23:16:58:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:17:02:  Automatically locating best SCMG set
+19-05-2023 23:17:18:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:17:26:  Searching fasta for selected markers
+19-05-2023 23:17:31:  Completeness: 0.0
+19-05-2023 23:17:31:  Contamination: 0.0
+19-05-2023 23:17:31:  Max silent contamination: 100.0
+19-05-2023 23:17:33:  Searching for marker genes in base database
+19-05-2023 23:17:33:  No placement marker genes found.
+19-05-2023 23:17:33:  Searching for marker genes in base database
+19-05-2023 23:17:34:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:17:41:  Genome belongs to clade: protozoa (Best TaxID: 98059)
+19-05-2023 23:17:41:  Searching for marker genes in protozoa database
+19-05-2023 23:17:42:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:17:45:  Automatically locating best SCMG set
+19-05-2023 23:18:02:  Searching fasta for selected markers
+19-05-2023 23:18:04:  Completeness: 8.43
+19-05-2023 23:18:04:  Contamination: 0.0
+19-05-2023 23:18:04:  Max silent contamination: 100.0
+19-05-2023 23:18:06:  Searching for marker genes in base database
+19-05-2023 23:18:07:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:18:14:  Genome belongs to clade: protozoa (Best TaxID: 211026)
+19-05-2023 23:18:14:  Searching for marker genes in protozoa database
+19-05-2023 23:18:15:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:18:18:  Automatically locating best SCMG set
+19-05-2023 23:18:36:  Searching fasta for selected markers
+19-05-2023 23:18:38:  Completeness: 0.0
+19-05-2023 23:18:38:  Contamination: 0.0
+19-05-2023 23:18:38:  Max silent contamination: 100.0
+19-05-2023 23:18:40:  Searching for marker genes in base database
+19-05-2023 23:18:41:  No placement marker genes found.
+19-05-2023 23:18:41:  Searching for marker genes in base database
+19-05-2023 23:18:42:  Found 18 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:19:16:  Genome belongs to clade: plant (Best TaxID: 13786)
+19-05-2023 23:19:16:  Searching for marker genes in plant database
+19-05-2023 23:19:16:  Found 13 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:19:20:  Automatically locating best SCMG set
+19-05-2023 23:19:40:  Searching fasta for selected markers
+19-05-2023 23:19:57:  Completeness: 83.0
+19-05-2023 23:19:57:  Contamination: 3.0
+19-05-2023 23:19:57:  Max silent contamination: 100.0
+19-05-2023 23:19:57:  Searching for marker genes in base database
+19-05-2023 23:19:58:  No placement marker genes found.
+19-05-2023 23:19:58:  Searching for marker genes in base database
+19-05-2023 23:19:59:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:20:16:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:20:16:  Searching for marker genes in protozoa database
+19-05-2023 23:20:17:  Found 7 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:20:22:  Automatically locating best SCMG set
+19-05-2023 23:20:38:  ❗The choosen marker gene set is supported by only half (1/7) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:20:39:  Searching fasta for selected markers
+19-05-2023 23:20:39:  Completeness: 28.57
+19-05-2023 23:20:39:  Contamination: 9.52
+19-05-2023 23:20:39:  Max silent contamination: 100.0
+19-05-2023 23:20:41:  Searching for marker genes in base database
+19-05-2023 23:20:42:  No placement marker genes found.
+19-05-2023 23:20:42:  Searching for marker genes in base database
+19-05-2023 23:20:43:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:20:49:  Genome belongs to clade: protozoa (Best TaxID: 100127)
+19-05-2023 23:20:49:  Searching for marker genes in protozoa database
+19-05-2023 23:20:51:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:20:52:  Automatically locating best SCMG set
+19-05-2023 23:21:07:  Could not identify a single suitable marker gene set
+19-05-2023 23:21:07:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:21:07:  Searching for marker genes in base database
+19-05-2023 23:21:08:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:21:18:  Genome belongs to clade: protozoa (Best TaxID: 431838)
+19-05-2023 23:21:18:  Searching for marker genes in protozoa database
+19-05-2023 23:21:19:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:21:21:  Automatically locating best SCMG set
+19-05-2023 23:21:35:  Searching fasta for selected markers
+19-05-2023 23:21:41:  Completeness: 0.0
+19-05-2023 23:21:41:  Contamination: 0.0
+19-05-2023 23:21:41:  Max silent contamination: 100.0
+19-05-2023 23:21:43:  Searching for marker genes in base database
+19-05-2023 23:21:44:  No placement marker genes found.
+19-05-2023 23:21:44:  Searching for marker genes in base database
+19-05-2023 23:21:44:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:21:52:  Genome belongs to clade: plant (Best TaxID: 35491)
+19-05-2023 23:21:52:  Searching for marker genes in plant database
+19-05-2023 23:21:52:  No placement marker genes found.
+19-05-2023 23:21:52:  Searching for marker genes in base database
+19-05-2023 23:21:53:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:22:01:  Genome belongs to clade: protozoa (Best TaxID: 114680)
+19-05-2023 23:22:01:  Searching for marker genes in protozoa database
+19-05-2023 23:22:02:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:22:05:  Automatically locating best SCMG set
+19-05-2023 23:22:21:  Searching fasta for selected markers
+19-05-2023 23:22:27:  Completeness: 0.0
+19-05-2023 23:22:27:  Contamination: 0.0
+19-05-2023 23:22:27:  Max silent contamination: 100.0
+19-05-2023 23:22:30:  Searching for marker genes in base database
+19-05-2023 23:22:30:  No placement marker genes found.
+19-05-2023 23:22:30:  Searching for marker genes in base database
+19-05-2023 23:22:31:  No placement marker genes found.
+19-05-2023 23:22:31:  Searching for marker genes in base database
+19-05-2023 23:22:32:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:22:41:  Genome belongs to clade: protozoa (Best TaxID: 114680)
+19-05-2023 23:22:41:  Searching for marker genes in protozoa database
+19-05-2023 23:22:42:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:22:45:  Automatically locating best SCMG set
+19-05-2023 23:23:02:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:23:04:  Searching fasta for selected markers
+19-05-2023 23:23:10:  Completeness: 0.45
+19-05-2023 23:23:10:  Contamination: 0.0
+19-05-2023 23:23:10:  Max silent contamination: 100.0
+19-05-2023 23:23:14:  Searching for marker genes in base database
+19-05-2023 23:23:15:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:23:25:  Genome belongs to clade: plant (Best TaxID: 131209)
+19-05-2023 23:23:25:  Searching for marker genes in plant database
+19-05-2023 23:23:26:  No placement marker genes found.
+19-05-2023 23:23:26:  Searching for marker genes in base database
+19-05-2023 23:23:27:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:23:34:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:23:34:  Searching for marker genes in protozoa database
+19-05-2023 23:23:35:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:23:38:  Automatically locating best SCMG set
+19-05-2023 23:23:54:  Searching fasta for selected markers
+19-05-2023 23:23:57:  Completeness: 0.78
+19-05-2023 23:23:57:  Contamination: 0.0
+19-05-2023 23:23:57:  Max silent contamination: 100.0
+19-05-2023 23:23:58:  Searching for marker genes in base database
+19-05-2023 23:23:59:  No placement marker genes found.
+19-05-2023 23:23:59:  Searching for marker genes in base database
+19-05-2023 23:24:00:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:24:08:  Genome belongs to clade: protozoa (Best TaxID: 425072)
+19-05-2023 23:24:08:  Searching for marker genes in protozoa database
+19-05-2023 23:24:09:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:24:11:  Automatically locating best SCMG set
+19-05-2023 23:24:41:  Searching fasta for selected markers
+19-05-2023 23:24:48:  Completeness: 4.97
+19-05-2023 23:24:48:  Contamination: 0.62
+19-05-2023 23:24:48:  Max silent contamination: 100.0
+19-05-2023 23:24:50:  Searching for marker genes in base database
+19-05-2023 23:24:51:  Found 24 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:25:35:  Genome belongs to clade: plant (Best TaxID: 13786)
+19-05-2023 23:25:35:  Searching for marker genes in plant database
+19-05-2023 23:25:36:  Found 14 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:25:40:  Automatically locating best SCMG set
+19-05-2023 23:25:49:  Searching fasta for selected markers
+19-05-2023 23:26:05:  Completeness: 86.0
+19-05-2023 23:26:05:  Contamination: 5.0
+19-05-2023 23:26:05:  Max silent contamination: 100.0
+19-05-2023 23:26:05:  Searching for marker genes in base database
+19-05-2023 23:26:05:  No placement marker genes found.
+19-05-2023 23:26:06:  Searching for marker genes in base database
+19-05-2023 23:26:06:  No placement marker genes found.
+19-05-2023 23:26:06:  Searching for marker genes in base database
+19-05-2023 23:26:07:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:26:17:  Genome belongs to clade: protozoa (Best TaxID: 2949)
+19-05-2023 23:26:17:  Searching for marker genes in protozoa database
+19-05-2023 23:26:18:  No placement marker genes found.
+19-05-2023 23:26:18:  Searching for marker genes in base database
+19-05-2023 23:26:19:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:26:27:  Genome belongs to clade: protozoa (Best TaxID: 33630)
+19-05-2023 23:26:27:  Searching for marker genes in protozoa database
+19-05-2023 23:26:27:  No placement marker genes found.
+19-05-2023 23:26:27:  Searching for marker genes in base database
+19-05-2023 23:26:28:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:26:36:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+19-05-2023 23:26:36:  Searching for marker genes in protozoa database
+19-05-2023 23:26:37:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:26:39:  Automatically locating best SCMG set
+19-05-2023 23:26:53:  Could not identify a single suitable marker gene set
+19-05-2023 23:26:53:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:26:53:  Searching for marker genes in base database
+19-05-2023 23:26:54:  No placement marker genes found.
+19-05-2023 23:26:54:  Searching for marker genes in base database
+19-05-2023 23:26:54:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:27:02:  Genome belongs to clade: fungi (Best TaxID: 147548)
+19-05-2023 23:27:02:  Searching for marker genes in fungi database
+19-05-2023 23:27:03:  No placement marker genes found.
+19-05-2023 23:27:03:  Searching for marker genes in base database
+19-05-2023 23:27:03:  No placement marker genes found.
+19-05-2023 23:27:03:  Searching for marker genes in base database
+19-05-2023 23:27:04:  No placement marker genes found.
+19-05-2023 23:27:04:  Searching for marker genes in base database
+19-05-2023 23:27:04:  No placement marker genes found.
+19-05-2023 23:27:04:  Searching for marker genes in base database
+19-05-2023 23:27:05:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:27:12:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:27:12:  Searching for marker genes in protozoa database
+19-05-2023 23:27:13:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:27:17:  Automatically locating best SCMG set
+19-05-2023 23:27:32:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:28:03:  Searching fasta for selected markers
+19-05-2023 23:28:17:  Completeness: 16.8
+19-05-2023 23:28:17:  Contamination: 4.4
+19-05-2023 23:28:17:  Max silent contamination: 100.0
+19-05-2023 23:28:19:  Searching for marker genes in base database
+19-05-2023 23:28:20:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:28:28:  Genome belongs to clade: protozoa (Best TaxID: 98059)
+19-05-2023 23:28:28:  Searching for marker genes in protozoa database
+19-05-2023 23:28:29:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:28:31:  Automatically locating best SCMG set
+19-05-2023 23:28:46:  Could not identify a single suitable marker gene set
+19-05-2023 23:28:46:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:28:46:  Searching for marker genes in base database
+19-05-2023 23:28:47:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:28:57:  Genome belongs to clade: plant (Best TaxID: 135266)
+19-05-2023 23:28:57:  Searching for marker genes in plant database
+19-05-2023 23:28:57:  No placement marker genes found.
+19-05-2023 23:28:57:  Searching for marker genes in base database
+19-05-2023 23:28:58:  No placement marker genes found.
+19-05-2023 23:28:58:  Searching for marker genes in base database
+19-05-2023 23:28:58:  No placement marker genes found.
+19-05-2023 23:28:58:  Searching for marker genes in base database
+19-05-2023 23:28:58:  No placement marker genes found.
+19-05-2023 23:28:58:  Searching for marker genes in base database
+19-05-2023 23:28:59:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:29:15:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:29:15:  Searching for marker genes in protozoa database
+19-05-2023 23:29:16:  Found 6 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:29:21:  Automatically locating best SCMG set
+19-05-2023 23:29:43:  ❗The choosen marker gene set is supported by only half (1/6) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:29:49:  Searching fasta for selected markers
+19-05-2023 23:29:54:  Completeness: 12.82
+19-05-2023 23:29:54:  Contamination: 5.64
+19-05-2023 23:29:54:  Max silent contamination: 100.0
+19-05-2023 23:29:56:  Searching for marker genes in base database
+19-05-2023 23:29:57:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:30:06:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:30:06:  Searching for marker genes in protozoa database
+19-05-2023 23:30:07:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:30:10:  Automatically locating best SCMG set
+19-05-2023 23:30:27:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:30:45:  Searching fasta for selected markers
+19-05-2023 23:30:58:  Completeness: 12.8
+19-05-2023 23:30:58:  Contamination: 3.8
+19-05-2023 23:30:58:  Max silent contamination: 100.0
+19-05-2023 23:31:00:  Searching for marker genes in base database
+19-05-2023 23:31:01:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:31:09:  Genome belongs to clade: protozoa (Best TaxID: 5799)
+19-05-2023 23:31:09:  Searching for marker genes in protozoa database
+19-05-2023 23:31:10:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:31:11:  Automatically locating best SCMG set
+19-05-2023 23:31:28:  Searching fasta for selected markers
+19-05-2023 23:31:28:  Completeness: 2.63
+19-05-2023 23:31:28:  Contamination: 0.0
+19-05-2023 23:31:28:  Max silent contamination: 100.0
+19-05-2023 23:31:30:  Searching for marker genes in base database
+19-05-2023 23:31:31:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:31:41:  Genome belongs to clade: protozoa (Best TaxID: 2696291)
+19-05-2023 23:31:41:  Searching for marker genes in protozoa database
+19-05-2023 23:31:42:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:31:46:  Automatically locating best SCMG set
+19-05-2023 23:32:06:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:32:07:  Searching fasta for selected markers
+19-05-2023 23:32:10:  Completeness: 9.71
+19-05-2023 23:32:10:  Contamination: 1.94
+19-05-2023 23:32:10:  Max silent contamination: 100.0
+19-05-2023 23:32:12:  Searching for marker genes in base database
+19-05-2023 23:32:13:  No placement marker genes found.
+19-05-2023 23:32:13:  Searching for marker genes in base database
+19-05-2023 23:32:14:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:32:21:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+19-05-2023 23:32:21:  Searching for marker genes in protozoa database
+19-05-2023 23:32:22:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:32:24:  Automatically locating best SCMG set
+19-05-2023 23:32:39:  Could not identify a single suitable marker gene set
+19-05-2023 23:32:39:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:32:39:  Searching for marker genes in base database
+19-05-2023 23:32:39:  No placement marker genes found.
+19-05-2023 23:32:39:  Searching for marker genes in base database
+19-05-2023 23:32:39:  No placement marker genes found.
+19-05-2023 23:32:39:  Searching for marker genes in base database
+19-05-2023 23:32:40:  No placement marker genes found.
+19-05-2023 23:32:40:  Searching for marker genes in base database
+19-05-2023 23:32:40:  No placement marker genes found.
+19-05-2023 23:32:40:  Searching for marker genes in base database
+19-05-2023 23:32:41:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:32:47:  Genome belongs to clade: fungi (Best TaxID: 78060)
+19-05-2023 23:32:47:  Searching for marker genes in fungi database
+19-05-2023 23:32:48:  No placement marker genes found.
+19-05-2023 23:32:48:  Searching for marker genes in base database
+19-05-2023 23:32:48:  No placement marker genes found.
+19-05-2023 23:32:48:  Searching for marker genes in base database
+19-05-2023 23:32:50:  Found 6 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:32:58:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:32:58:  Searching for marker genes in protozoa database
+19-05-2023 23:32:59:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:33:02:  Automatically locating best SCMG set
+19-05-2023 23:33:18:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:33:19:  Searching fasta for selected markers
+19-05-2023 23:33:20:  Completeness: 2.78
+19-05-2023 23:33:20:  Contamination: 2.78
+19-05-2023 23:33:20:  Max silent contamination: 100.0
+19-05-2023 23:33:22:  Searching for marker genes in base database
+19-05-2023 23:33:22:  No placement marker genes found.
+19-05-2023 23:33:22:  Searching for marker genes in base database
+19-05-2023 23:33:23:  No placement marker genes found.
+19-05-2023 23:33:23:  Searching for marker genes in base database
+19-05-2023 23:33:23:  No placement marker genes found.
+19-05-2023 23:33:23:  Searching for marker genes in base database
+19-05-2023 23:33:24:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:33:31:  Genome belongs to clade: protozoa (Best TaxID: 98059)
+19-05-2023 23:33:31:  Searching for marker genes in protozoa database
+19-05-2023 23:33:32:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:33:34:  Automatically locating best SCMG set
+19-05-2023 23:33:49:  Could not identify a single suitable marker gene set
+19-05-2023 23:33:49:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:33:50:  Searching for marker genes in base database
+19-05-2023 23:33:50:  No placement marker genes found.
+19-05-2023 23:33:50:  Searching for marker genes in base database
+19-05-2023 23:33:50:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:33:58:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+19-05-2023 23:33:58:  Searching for marker genes in protozoa database
+19-05-2023 23:33:59:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:34:01:  Automatically locating best SCMG set
+19-05-2023 23:34:16:  Could not identify a single suitable marker gene set
+19-05-2023 23:34:16:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:34:16:  Searching for marker genes in base database
+19-05-2023 23:34:17:  Found 5 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:34:30:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:34:30:  Searching for marker genes in protozoa database
+19-05-2023 23:34:31:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:34:34:  Automatically locating best SCMG set
+19-05-2023 23:34:48:  Searching fasta for selected markers
+19-05-2023 23:34:51:  Completeness: 0.0
+19-05-2023 23:34:51:  Contamination: 0.0
+19-05-2023 23:34:51:  Max silent contamination: 100.0
+19-05-2023 23:34:53:  Searching for marker genes in base database
+19-05-2023 23:34:53:  No placement marker genes found.
+19-05-2023 23:34:53:  Searching for marker genes in base database
+19-05-2023 23:34:54:  No placement marker genes found.
+19-05-2023 23:34:54:  Searching for marker genes in base database
+19-05-2023 23:34:55:  No placement marker genes found.
+19-05-2023 23:34:55:  Searching for marker genes in base database
+19-05-2023 23:34:55:  No placement marker genes found.
+19-05-2023 23:34:55:  Searching for marker genes in base database
+19-05-2023 23:34:56:  Found 11 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:35:22:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:35:22:  Searching for marker genes in protozoa database
+19-05-2023 23:35:24:  Found 15 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:35:36:  Automatically locating best SCMG set
+19-05-2023 23:35:59:  ❗The choosen marker gene set is supported by only half (3/15) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:36:09:  Searching fasta for selected markers
+19-05-2023 23:36:36:  Completeness: 61.2
+19-05-2023 23:36:36:  Contamination: 8.4
+19-05-2023 23:36:36:  Max silent contamination: 100.0
+19-05-2023 23:36:38:  Searching for marker genes in base database
+19-05-2023 23:36:38:  No placement marker genes found.
+19-05-2023 23:36:38:  Searching for marker genes in base database
+19-05-2023 23:36:39:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:36:46:  Genome belongs to clade: protozoa (Best TaxID: 704141)
+19-05-2023 23:36:46:  Searching for marker genes in protozoa database
+19-05-2023 23:36:47:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:36:49:  Automatically locating best SCMG set
+19-05-2023 23:37:04:  Could not identify a single suitable marker gene set
+19-05-2023 23:37:04:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:37:04:  Searching for marker genes in base database
+19-05-2023 23:37:04:  No placement marker genes found.
+19-05-2023 23:37:04:  Searching for marker genes in base database
+19-05-2023 23:37:05:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:37:18:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:37:18:  Searching for marker genes in protozoa database
+19-05-2023 23:37:19:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:37:23:  Automatically locating best SCMG set
+19-05-2023 23:37:44:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:37:45:  Searching fasta for selected markers
+19-05-2023 23:37:47:  Completeness: 7.77
+19-05-2023 23:37:47:  Contamination: 0.97
+19-05-2023 23:37:47:  Max silent contamination: 100.0
+19-05-2023 23:37:49:  Searching for marker genes in base database
+19-05-2023 23:37:50:  No placement marker genes found.
+19-05-2023 23:37:50:  Searching for marker genes in base database
+19-05-2023 23:37:50:  No placement marker genes found.
+19-05-2023 23:37:50:  Searching for marker genes in base database
+19-05-2023 23:37:51:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:37:58:  Genome belongs to clade: protozoa (Best TaxID: 98059)
+19-05-2023 23:37:58:  Searching for marker genes in protozoa database
+19-05-2023 23:37:59:  No placement marker genes found.
+19-05-2023 23:37:59:  Searching for marker genes in base database
+19-05-2023 23:38:00:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:38:10:  Genome belongs to clade: protozoa (Best TaxID: 431838)
+19-05-2023 23:38:10:  Searching for marker genes in protozoa database
+19-05-2023 23:38:11:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:38:14:  Automatically locating best SCMG set
+19-05-2023 23:38:30:  Could not identify a single suitable marker gene set
+19-05-2023 23:38:30:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:38:30:  Searching for marker genes in base database
+19-05-2023 23:38:31:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:38:41:  Genome belongs to clade: protozoa (Best TaxID: 252141)
+19-05-2023 23:38:41:  Searching for marker genes in protozoa database
+19-05-2023 23:38:41:  No placement marker genes found.
+19-05-2023 23:38:41:  Searching for marker genes in base database
+19-05-2023 23:38:42:  No placement marker genes found.
+19-05-2023 23:38:42:  Searching for marker genes in base database
+19-05-2023 23:38:42:  No placement marker genes found.
+19-05-2023 23:38:42:  Searching for marker genes in base database
+19-05-2023 23:38:43:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:38:50:  Genome belongs to clade: protozoa (Best TaxID: 4777)
+19-05-2023 23:38:50:  Searching for marker genes in protozoa database
+19-05-2023 23:38:52:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:38:55:  Automatically locating best SCMG set
+19-05-2023 23:39:12:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:39:17:  Searching fasta for selected markers
+19-05-2023 23:39:30:  Completeness: 14.2
+19-05-2023 23:39:30:  Contamination: 5.2
+19-05-2023 23:39:30:  Max silent contamination: 100.0
+19-05-2023 23:39:31:  Searching for marker genes in base database
+19-05-2023 23:39:32:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:39:41:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:39:41:  Searching for marker genes in protozoa database
+19-05-2023 23:39:42:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:39:47:  Automatically locating best SCMG set
+19-05-2023 23:40:07:  Searching fasta for selected markers
+19-05-2023 23:40:11:  Completeness: 1.25
+19-05-2023 23:40:11:  Contamination: 0.0
+19-05-2023 23:40:11:  Max silent contamination: 100.0
+19-05-2023 23:40:13:  Searching for marker genes in base database
+19-05-2023 23:40:14:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:40:22:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:40:22:  Searching for marker genes in protozoa database
+19-05-2023 23:40:23:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:40:26:  Automatically locating best SCMG set
+19-05-2023 23:40:42:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:40:43:  Searching fasta for selected markers
+19-05-2023 23:40:45:  Completeness: 17.24
+19-05-2023 23:40:45:  Contamination: 5.17
+19-05-2023 23:40:45:  Max silent contamination: 100.0
+19-05-2023 23:40:48:  Searching for marker genes in base database
+19-05-2023 23:40:49:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:40:57:  Genome belongs to clade: protozoa (Best TaxID: 98059)
+19-05-2023 23:40:57:  Searching for marker genes in protozoa database
+19-05-2023 23:40:58:  Found 6 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:41:04:  Automatically locating best SCMG set
+19-05-2023 23:41:22:  Searching fasta for selected markers
+19-05-2023 23:41:25:  Completeness: 9.64
+19-05-2023 23:41:25:  Contamination: 2.41
+19-05-2023 23:41:25:  Max silent contamination: 100.0
+19-05-2023 23:41:27:  Searching for marker genes in base database
+19-05-2023 23:41:28:  No placement marker genes found.
+19-05-2023 23:41:28:  Searching for marker genes in base database
+19-05-2023 23:41:30:  Found 10 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:41:54:  Genome belongs to clade: fungi (Best TaxID: 5583)
+19-05-2023 23:41:54:  Searching for marker genes in fungi database
+19-05-2023 23:41:56:  Found 6 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:42:05:  Automatically locating best SCMG set
+19-05-2023 23:42:45:  Searching fasta for selected markers
+19-05-2023 23:43:06:  Completeness: 60.9
+19-05-2023 23:43:06:  Contamination: 0.38
+19-05-2023 23:43:06:  Max silent contamination: 100.0
+19-05-2023 23:43:10:  Searching for marker genes in base database
+19-05-2023 23:43:12:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:43:28:  Genome belongs to clade: protozoa (Best TaxID: 33829)
+19-05-2023 23:43:28:  Searching for marker genes in protozoa database
+19-05-2023 23:43:29:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:43:32:  Automatically locating best SCMG set
+19-05-2023 23:43:48:  Searching fasta for selected markers
+19-05-2023 23:43:55:  Completeness: 0.45
+19-05-2023 23:43:55:  Contamination: 0.0
+19-05-2023 23:43:55:  Max silent contamination: 100.0
+19-05-2023 23:43:57:  Searching for marker genes in base database
+19-05-2023 23:43:57:  No placement marker genes found.
+19-05-2023 23:43:57:  Searching for marker genes in base database
+19-05-2023 23:43:58:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:44:11:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:44:11:  Searching for marker genes in protozoa database
+19-05-2023 23:44:12:  Found 5 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:44:16:  Automatically locating best SCMG set
+19-05-2023 23:44:33:  ❗The choosen marker gene set is supported by only half (1/5) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:44:37:  Searching fasta for selected markers
+19-05-2023 23:44:50:  Completeness: 20.0
+19-05-2023 23:44:50:  Contamination: 6.0
+19-05-2023 23:44:50:  Max silent contamination: 100.0
+19-05-2023 23:44:53:  Searching for marker genes in base database
+19-05-2023 23:44:53:  No placement marker genes found.
+19-05-2023 23:44:53:  Searching for marker genes in base database
+19-05-2023 23:44:54:  Found 6 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:45:11:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:45:11:  Searching for marker genes in protozoa database
+19-05-2023 23:45:12:  Found 10 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:45:23:  Automatically locating best SCMG set
+19-05-2023 23:45:46:  ❗The choosen marker gene set is supported by only half (2/9) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:45:50:  Searching fasta for selected markers
+19-05-2023 23:45:55:  Completeness: 5.04
+19-05-2023 23:45:55:  Contamination: 0.84
+19-05-2023 23:45:55:  Max silent contamination: 100.0
+19-05-2023 23:45:57:  Searching for marker genes in base database
+19-05-2023 23:45:57:  No placement marker genes found.
+19-05-2023 23:45:57:  Searching for marker genes in base database
+19-05-2023 23:45:58:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:46:06:  Genome belongs to clade: protozoa (Best TaxID: 291294)
+19-05-2023 23:46:06:  Searching for marker genes in protozoa database
+19-05-2023 23:46:07:  No placement marker genes found.
+19-05-2023 23:46:07:  Searching for marker genes in base database
+19-05-2023 23:46:08:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:46:17:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:46:17:  Searching for marker genes in protozoa database
+19-05-2023 23:46:18:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:46:20:  Automatically locating best SCMG set
+19-05-2023 23:46:35:  Could not identify a single suitable marker gene set
+19-05-2023 23:46:35:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:46:35:  Searching for marker genes in base database
+19-05-2023 23:46:36:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:46:45:  Genome belongs to clade: protozoa (Best TaxID: 33630)
+19-05-2023 23:46:45:  Searching for marker genes in protozoa database
+19-05-2023 23:46:46:  Found 5 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:46:50:  Automatically locating best SCMG set
+19-05-2023 23:47:05:  ❗The choosen marker gene set is supported by only half (2/5) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:47:06:  Searching fasta for selected markers
+19-05-2023 23:47:07:  Completeness: 0.0
+19-05-2023 23:47:07:  Contamination: 0.0
+19-05-2023 23:47:07:  Max silent contamination: 100.0
+19-05-2023 23:47:10:  Searching for marker genes in base database
+19-05-2023 23:47:11:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:47:19:  Genome belongs to clade: protozoa (Best TaxID: 431838)
+19-05-2023 23:47:20:  Searching for marker genes in protozoa database
+19-05-2023 23:47:21:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:47:24:  Automatically locating best SCMG set
+19-05-2023 23:47:40:  Searching fasta for selected markers
+19-05-2023 23:47:43:  Completeness: 0.78
+19-05-2023 23:47:43:  Contamination: 0.0
+19-05-2023 23:47:43:  Max silent contamination: 100.0
+19-05-2023 23:47:46:  Searching for marker genes in base database
+19-05-2023 23:47:47:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:47:54:  Genome belongs to clade: protozoa (Best TaxID: 252141)
+19-05-2023 23:47:54:  Searching for marker genes in protozoa database
+19-05-2023 23:47:55:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:47:57:  Automatically locating best SCMG set
+19-05-2023 23:48:11:  Could not identify a single suitable marker gene set
+19-05-2023 23:48:12:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:48:12:  Searching for marker genes in base database
+19-05-2023 23:48:13:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:48:23:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:48:23:  Searching for marker genes in protozoa database
+19-05-2023 23:48:24:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:48:28:  Automatically locating best SCMG set
+19-05-2023 23:48:42:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:48:43:  Searching fasta for selected markers
+19-05-2023 23:48:45:  Completeness: 0.0
+19-05-2023 23:48:45:  Contamination: 0.0
+19-05-2023 23:48:45:  Max silent contamination: 100.0
+19-05-2023 23:48:46:  Searching for marker genes in base database
+19-05-2023 23:48:47:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:48:56:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:48:56:  Searching for marker genes in protozoa database
+19-05-2023 23:48:57:  Found 4 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:49:03:  Automatically locating best SCMG set
+19-05-2023 23:49:18:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:49:20:  Searching fasta for selected markers
+19-05-2023 23:49:23:  Completeness: 0.0
+19-05-2023 23:49:23:  Contamination: 0.0
+19-05-2023 23:49:23:  Max silent contamination: 100.0
+19-05-2023 23:49:25:  Searching for marker genes in base database
+19-05-2023 23:49:26:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:49:34:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:49:34:  Searching for marker genes in protozoa database
+19-05-2023 23:49:35:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:49:37:  Automatically locating best SCMG set
+19-05-2023 23:49:51:  Could not identify a single suitable marker gene set
+19-05-2023 23:49:51:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:49:51:  Searching for marker genes in base database
+19-05-2023 23:49:52:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:49:59:  Genome belongs to clade: protozoa (Best TaxID: 65355)
+19-05-2023 23:49:59:  Searching for marker genes in protozoa database
+19-05-2023 23:49:59:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:50:01:  Automatically locating best SCMG set
+19-05-2023 23:50:16:  Could not identify a single suitable marker gene set
+19-05-2023 23:50:16:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:50:17:  Searching for marker genes in base database
+19-05-2023 23:50:17:  No placement marker genes found.
+19-05-2023 23:50:17:  Searching for marker genes in base database
+19-05-2023 23:50:18:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:50:37:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:50:37:  Searching for marker genes in protozoa database
+19-05-2023 23:50:38:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:50:41:  Automatically locating best SCMG set
+19-05-2023 23:50:59:  Searching fasta for selected markers
+19-05-2023 23:50:59:  Completeness: 9.52
+19-05-2023 23:50:59:  Contamination: 0.0
+19-05-2023 23:50:59:  Max silent contamination: 100.0
+19-05-2023 23:51:02:  Searching for marker genes in base database
+19-05-2023 23:51:03:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:51:11:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:51:11:  Searching for marker genes in protozoa database
+19-05-2023 23:51:12:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:51:14:  Automatically locating best SCMG set
+19-05-2023 23:51:29:  Could not identify a single suitable marker gene set
+19-05-2023 23:51:29:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:51:29:  Searching for marker genes in base database
+19-05-2023 23:51:29:  No placement marker genes found.
+19-05-2023 23:51:29:  Searching for marker genes in base database
+19-05-2023 23:51:29:  No placement marker genes found.
+19-05-2023 23:51:29:  Searching for marker genes in base database
+19-05-2023 23:51:30:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:51:38:  Genome belongs to clade: fungi (Best TaxID: 451864)
+19-05-2023 23:51:38:  Searching for marker genes in fungi database
+19-05-2023 23:51:39:  No placement marker genes found.
+19-05-2023 23:51:39:  Searching for marker genes in base database
+19-05-2023 23:51:39:  No placement marker genes found.
+19-05-2023 23:51:39:  Searching for marker genes in base database
+19-05-2023 23:51:39:  No placement marker genes found.
+19-05-2023 23:51:39:  Searching for marker genes in base database
+19-05-2023 23:51:40:  No placement marker genes found.
+19-05-2023 23:51:40:  Searching for marker genes in base database
+19-05-2023 23:51:40:  No placement marker genes found.
+19-05-2023 23:51:40:  Searching for marker genes in base database
+19-05-2023 23:51:41:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:51:48:  Genome belongs to clade: fungi (Best TaxID: 1341112)
+19-05-2023 23:51:48:  Searching for marker genes in fungi database
+19-05-2023 23:51:48:  No placement marker genes found.
+19-05-2023 23:51:48:  Searching for marker genes in base database
+19-05-2023 23:51:48:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:51:56:  Genome belongs to clade: protozoa (Best TaxID: 425072)
+19-05-2023 23:51:56:  Searching for marker genes in protozoa database
+19-05-2023 23:51:56:  No placement marker genes found.
+19-05-2023 23:51:56:  Searching for marker genes in base database
+19-05-2023 23:51:57:  No placement marker genes found.
+19-05-2023 23:51:57:  Searching for marker genes in base database
+19-05-2023 23:51:58:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:52:05:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+19-05-2023 23:52:05:  Searching for marker genes in protozoa database
+19-05-2023 23:52:06:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:52:10:  Automatically locating best SCMG set
+19-05-2023 23:52:28:  Searching fasta for selected markers
+19-05-2023 23:52:33:  Completeness: 19.53
+19-05-2023 23:52:33:  Contamination: 6.98
+19-05-2023 23:52:33:  Max silent contamination: 100.0
+19-05-2023 23:52:35:  Searching for marker genes in base database
+19-05-2023 23:52:36:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:52:44:  Genome belongs to clade: fungi (Best TaxID: 78060)
+19-05-2023 23:52:44:  Searching for marker genes in fungi database
+19-05-2023 23:52:44:  No placement marker genes found.
+19-05-2023 23:52:44:  Searching for marker genes in base database
+19-05-2023 23:52:45:  Found 5 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:52:58:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:52:58:  Searching for marker genes in protozoa database
+19-05-2023 23:52:59:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:53:02:  Automatically locating best SCMG set
+19-05-2023 23:53:23:  Searching fasta for selected markers
+19-05-2023 23:53:30:  Completeness: 15.24
+19-05-2023 23:53:30:  Contamination: 6.71
+19-05-2023 23:53:30:  Max silent contamination: 100.0
+19-05-2023 23:53:32:  Searching for marker genes in base database
+19-05-2023 23:53:33:  No placement marker genes found.
+19-05-2023 23:53:33:  Searching for marker genes in base database
+19-05-2023 23:53:34:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:53:44:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:53:44:  Searching for marker genes in protozoa database
+19-05-2023 23:53:45:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:53:47:  Automatically locating best SCMG set
+19-05-2023 23:54:01:  Could not identify a single suitable marker gene set
+19-05-2023 23:54:01:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:54:01:  Searching for marker genes in base database
+19-05-2023 23:54:02:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:54:09:  Genome belongs to clade: protozoa (Best TaxID: 2943)
+19-05-2023 23:54:09:  Searching for marker genes in protozoa database
+19-05-2023 23:54:09:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:54:11:  Automatically locating best SCMG set
+19-05-2023 23:54:27:  Searching fasta for selected markers
+19-05-2023 23:54:28:  Completeness: 4.85
+19-05-2023 23:54:28:  Contamination: 1.94
+19-05-2023 23:54:28:  Max silent contamination: 100.0
+19-05-2023 23:54:30:  Searching for marker genes in base database
+19-05-2023 23:54:31:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:54:37:  Genome belongs to clade: protozoa (Best TaxID: 219169)
+19-05-2023 23:54:37:  Searching for marker genes in protozoa database
+19-05-2023 23:54:38:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:54:41:  Automatically locating best SCMG set
+19-05-2023 23:54:55:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+19-05-2023 23:54:56:  Searching fasta for selected markers
+19-05-2023 23:54:57:  Completeness: 12.07
+19-05-2023 23:54:57:  Contamination: 1.72
+19-05-2023 23:54:57:  Max silent contamination: 100.0
+19-05-2023 23:54:59:  Searching for marker genes in base database
+19-05-2023 23:55:00:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:55:10:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:55:10:  Searching for marker genes in protozoa database
+19-05-2023 23:55:11:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:55:14:  Automatically locating best SCMG set
+19-05-2023 23:55:36:  Searching fasta for selected markers
+19-05-2023 23:55:46:  Completeness: 13.11
+19-05-2023 23:55:46:  Contamination: 1.71
+19-05-2023 23:55:46:  Max silent contamination: 100.0
+19-05-2023 23:55:48:  Searching for marker genes in base database
+19-05-2023 23:55:49:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:55:55:  Genome belongs to clade: protozoa (Best TaxID: 420622)
+19-05-2023 23:55:55:  Searching for marker genes in protozoa database
+19-05-2023 23:55:56:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:55:58:  Automatically locating best SCMG set
+19-05-2023 23:56:16:  Searching fasta for selected markers
+19-05-2023 23:56:21:  Completeness: 1.24
+19-05-2023 23:56:21:  Contamination: 0.0
+19-05-2023 23:56:21:  Max silent contamination: 100.0
+19-05-2023 23:56:23:  Searching for marker genes in base database
+19-05-2023 23:56:24:  No placement marker genes found.
+19-05-2023 23:56:24:  Searching for marker genes in base database
+19-05-2023 23:56:24:  No placement marker genes found.
+19-05-2023 23:56:24:  Searching for marker genes in base database
+19-05-2023 23:56:25:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:56:32:  Genome belongs to clade: protozoa (Best TaxID: 98059)
+19-05-2023 23:56:32:  Searching for marker genes in protozoa database
+19-05-2023 23:56:33:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:56:35:  Automatically locating best SCMG set
+19-05-2023 23:56:51:  Could not identify a single suitable marker gene set
+19-05-2023 23:56:51:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:56:51:  Searching for marker genes in base database
+19-05-2023 23:56:52:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:56:59:  Genome belongs to clade: protozoa (Best TaxID: 219169)
+19-05-2023 23:56:59:  Searching for marker genes in protozoa database
+19-05-2023 23:57:00:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:57:03:  Automatically locating best SCMG set
+19-05-2023 23:57:19:  Could not identify a single suitable marker gene set
+19-05-2023 23:57:19:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+19-05-2023 23:57:19:  Searching for marker genes in base database
+19-05-2023 23:57:19:  No placement marker genes found.
+19-05-2023 23:57:19:  Searching for marker genes in base database
+19-05-2023 23:57:19:  No placement marker genes found.
+19-05-2023 23:57:19:  Searching for marker genes in base database
+19-05-2023 23:57:20:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:57:27:  Genome belongs to clade: protozoa (Best TaxID: 2799)
+19-05-2023 23:57:27:  Searching for marker genes in protozoa database
+19-05-2023 23:57:28:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:57:29:  Automatically locating best SCMG set
+19-05-2023 23:57:44:  Searching fasta for selected markers
+19-05-2023 23:57:49:  Completeness: 0.0
+19-05-2023 23:57:49:  Contamination: 0.0
+19-05-2023 23:57:49:  Max silent contamination: 100.0
+19-05-2023 23:57:50:  Searching for marker genes in base database
+19-05-2023 23:57:51:  No placement marker genes found.
+19-05-2023 23:57:51:  Searching for marker genes in base database
+19-05-2023 23:57:52:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:58:01:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:58:01:  Searching for marker genes in protozoa database
+19-05-2023 23:58:02:  No placement marker genes found.
+19-05-2023 23:58:02:  Searching for marker genes in base database
+19-05-2023 23:58:03:  No placement marker genes found.
+19-05-2023 23:58:03:  Searching for marker genes in base database
+19-05-2023 23:58:03:  No placement marker genes found.
+19-05-2023 23:58:03:  Searching for marker genes in base database
+19-05-2023 23:58:04:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:58:17:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:58:17:  Searching for marker genes in protozoa database
+19-05-2023 23:58:17:  No placement marker genes found.
+19-05-2023 23:58:18:  Searching for marker genes in base database
+19-05-2023 23:58:18:  No placement marker genes found.
+19-05-2023 23:58:18:  Searching for marker genes in base database
+19-05-2023 23:58:19:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:58:40:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+19-05-2023 23:58:40:  Searching for marker genes in protozoa database
+19-05-2023 23:58:41:  Found 1 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:58:43:  Automatically locating best SCMG set
+19-05-2023 23:59:04:  Searching fasta for selected markers
+19-05-2023 23:59:08:  Completeness: 0.0
+19-05-2023 23:59:08:  Contamination: 0.0
+19-05-2023 23:59:08:  Max silent contamination: 100.0
+19-05-2023 23:59:11:  Searching for marker genes in base database
+19-05-2023 23:59:12:  Found 3 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:59:25:  Genome belongs to clade: protozoa (Best TaxID: 2696291)
+19-05-2023 23:59:25:  Searching for marker genes in protozoa database
+19-05-2023 23:59:26:  Found 2 marker genes, placing them in the tree using epa-ng
+19-05-2023 23:59:29:  Automatically locating best SCMG set
+19-05-2023 23:59:48:  Searching fasta for selected markers
+19-05-2023 23:59:53:  Completeness: 0.39
+19-05-2023 23:59:53:  Contamination: 0.39
+19-05-2023 23:59:53:  Max silent contamination: 100.0
+19-05-2023 23:59:55:  Searching for marker genes in base database
+19-05-2023 23:59:56:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:00:06:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:00:06:  Searching for marker genes in protozoa database
+20-05-2023 00:00:07:  No placement marker genes found.
+20-05-2023 00:00:07:  Searching for marker genes in base database
+20-05-2023 00:00:08:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:00:21:  Genome belongs to clade: protozoa (Best TaxID: 98059)
+20-05-2023 00:00:21:  Searching for marker genes in protozoa database
+20-05-2023 00:00:22:  No placement marker genes found.
+20-05-2023 00:00:22:  Searching for marker genes in base database
+20-05-2023 00:00:23:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:00:32:  Genome belongs to clade: protozoa (Best TaxID: 4777)
+20-05-2023 00:00:32:  Searching for marker genes in protozoa database
+20-05-2023 00:00:33:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:00:36:  Automatically locating best SCMG set
+20-05-2023 00:00:49:  Could not identify a single suitable marker gene set
+20-05-2023 00:00:49:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:00:50:  Searching for marker genes in base database
+20-05-2023 00:00:51:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:00:59:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:00:59:  Searching for marker genes in protozoa database
+20-05-2023 00:01:00:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:01:03:  Automatically locating best SCMG set
+20-05-2023 00:01:21:  Searching fasta for selected markers
+20-05-2023 00:01:22:  Completeness: 7.89
+20-05-2023 00:01:22:  Contamination: 0.0
+20-05-2023 00:01:22:  Max silent contamination: 100.0
+20-05-2023 00:01:24:  Searching for marker genes in base database
+20-05-2023 00:01:25:  Found 8 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:01:47:  Genome belongs to clade: fungi (Best TaxID: 43219)
+20-05-2023 00:01:47:  Searching for marker genes in fungi database
+20-05-2023 00:01:48:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:01:52:  Automatically locating best SCMG set
+20-05-2023 00:02:24:  Searching fasta for selected markers
+20-05-2023 00:02:41:  Completeness: 39.1
+20-05-2023 00:02:41:  Contamination: 0.38
+20-05-2023 00:02:41:  Max silent contamination: 100.0
+20-05-2023 00:02:42:  Searching for marker genes in base database
+20-05-2023 00:02:43:  No placement marker genes found.
+20-05-2023 00:02:43:  Searching for marker genes in base database
+20-05-2023 00:02:43:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:02:51:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 00:02:51:  Searching for marker genes in protozoa database
+20-05-2023 00:02:52:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:02:54:  Automatically locating best SCMG set
+20-05-2023 00:03:11:  Searching fasta for selected markers
+20-05-2023 00:03:13:  Completeness: 0.0
+20-05-2023 00:03:13:  Contamination: 0.0
+20-05-2023 00:03:13:  Max silent contamination: 100.0
+20-05-2023 00:03:15:  Searching for marker genes in base database
+20-05-2023 00:03:16:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:03:25:  Genome belongs to clade: protozoa (Best TaxID: 431838)
+20-05-2023 00:03:25:  Searching for marker genes in protozoa database
+20-05-2023 00:03:26:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:03:30:  Automatically locating best SCMG set
+20-05-2023 00:03:46:  Searching fasta for selected markers
+20-05-2023 00:03:47:  Completeness: 7.89
+20-05-2023 00:03:47:  Contamination: 0.0
+20-05-2023 00:03:47:  Max silent contamination: 100.0
+20-05-2023 00:03:49:  Searching for marker genes in base database
+20-05-2023 00:03:49:  No placement marker genes found.
+20-05-2023 00:03:49:  Searching for marker genes in base database
+20-05-2023 00:03:50:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:04:00:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:04:00:  Searching for marker genes in protozoa database
+20-05-2023 00:04:01:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:04:04:  Automatically locating best SCMG set
+20-05-2023 00:04:19:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:04:20:  Searching fasta for selected markers
+20-05-2023 00:04:21:  Completeness: 12.2
+20-05-2023 00:04:21:  Contamination: 2.44
+20-05-2023 00:04:21:  Max silent contamination: 100.0
+20-05-2023 00:04:23:  Searching for marker genes in base database
+20-05-2023 00:04:24:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:04:33:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:04:33:  Searching for marker genes in protozoa database
+20-05-2023 00:04:34:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:04:36:  Automatically locating best SCMG set
+20-05-2023 00:04:51:  Could not identify a single suitable marker gene set
+20-05-2023 00:04:51:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:04:51:  Searching for marker genes in base database
+20-05-2023 00:04:52:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:05:02:  Genome belongs to clade: protozoa (Best TaxID: 431838)
+20-05-2023 00:05:02:  Searching for marker genes in protozoa database
+20-05-2023 00:05:03:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:05:05:  Automatically locating best SCMG set
+20-05-2023 00:05:20:  Could not identify a single suitable marker gene set
+20-05-2023 00:05:20:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:05:20:  Searching for marker genes in base database
+20-05-2023 00:05:21:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:05:38:  Genome belongs to clade: protozoa (Best TaxID: 2696291)
+20-05-2023 00:05:38:  Searching for marker genes in protozoa database
+20-05-2023 00:05:39:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:05:41:  Automatically locating best SCMG set
+20-05-2023 00:06:00:  Searching fasta for selected markers
+20-05-2023 00:06:03:  Completeness: 0.0
+20-05-2023 00:06:03:  Contamination: 0.0
+20-05-2023 00:06:03:  Max silent contamination: 100.0
+20-05-2023 00:06:05:  Searching for marker genes in base database
+20-05-2023 00:06:05:  No placement marker genes found.
+20-05-2023 00:06:06:  Searching for marker genes in base database
+20-05-2023 00:06:06:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:06:13:  Genome belongs to clade: protozoa (Best TaxID: 5972)
+20-05-2023 00:06:13:  Searching for marker genes in protozoa database
+20-05-2023 00:06:14:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:06:16:  Automatically locating best SCMG set
+20-05-2023 00:06:33:  Searching fasta for selected markers
+20-05-2023 00:06:37:  Completeness: 0.0
+20-05-2023 00:06:37:  Contamination: 0.0
+20-05-2023 00:06:37:  Max silent contamination: 100.0
+20-05-2023 00:06:40:  Searching for marker genes in base database
+20-05-2023 00:06:41:  No placement marker genes found.
+20-05-2023 00:06:41:  Searching for marker genes in base database
+20-05-2023 00:06:42:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:06:50:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:06:50:  Searching for marker genes in protozoa database
+20-05-2023 00:06:51:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:06:53:  Automatically locating best SCMG set
+20-05-2023 00:07:09:  Could not identify a single suitable marker gene set
+20-05-2023 00:07:09:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:07:09:  Searching for marker genes in base database
+20-05-2023 00:07:10:  Found 25 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:07:56:  Genome belongs to clade: plant (Best TaxID: 13786)
+20-05-2023 00:07:56:  Searching for marker genes in plant database
+20-05-2023 00:07:57:  Found 16 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:08:01:  Automatically locating best SCMG set
+20-05-2023 00:08:09:  Searching fasta for selected markers
+20-05-2023 00:08:26:  Completeness: 87.8
+20-05-2023 00:08:26:  Contamination: 6.4
+20-05-2023 00:08:26:  Max silent contamination: 100.0
+20-05-2023 00:08:26:  Searching for marker genes in base database
+20-05-2023 00:08:27:  No placement marker genes found.
+20-05-2023 00:08:27:  Searching for marker genes in base database
+20-05-2023 00:08:28:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:08:36:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 00:08:36:  Searching for marker genes in protozoa database
+20-05-2023 00:08:37:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:08:39:  Automatically locating best SCMG set
+20-05-2023 00:08:56:  Searching fasta for selected markers
+20-05-2023 00:08:58:  Completeness: 18.42
+20-05-2023 00:08:58:  Contamination: 0.0
+20-05-2023 00:08:58:  Max silent contamination: 100.0
+20-05-2023 00:09:00:  Searching for marker genes in base database
+20-05-2023 00:09:01:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:09:15:  Genome belongs to clade: plant (Best TaxID: 167233)
+20-05-2023 00:09:15:  Searching for marker genes in plant database
+20-05-2023 00:09:15:  No placement marker genes found.
+20-05-2023 00:09:15:  Searching for marker genes in base database
+20-05-2023 00:09:15:  No placement marker genes found.
+20-05-2023 00:09:16:  Searching for marker genes in base database
+20-05-2023 00:09:17:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:09:29:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:09:29:  Searching for marker genes in protozoa database
+20-05-2023 00:09:30:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:09:33:  Automatically locating best SCMG set
+20-05-2023 00:09:49:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:09:52:  Searching fasta for selected markers
+20-05-2023 00:10:00:  Completeness: 3.73
+20-05-2023 00:10:00:  Contamination: 0.93
+20-05-2023 00:10:00:  Max silent contamination: 100.0
+20-05-2023 00:10:01:  Searching for marker genes in base database
+20-05-2023 00:10:03:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:10:18:  Genome belongs to clade: fungi (Best TaxID: 34395)
+20-05-2023 00:10:18:  Searching for marker genes in fungi database
+20-05-2023 00:10:20:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:10:28:  Automatically locating best SCMG set
+20-05-2023 00:11:01:  Searching fasta for selected markers
+20-05-2023 00:11:21:  Completeness: 33.46
+20-05-2023 00:11:21:  Contamination: 0.0
+20-05-2023 00:11:21:  Max silent contamination: 100.0
+20-05-2023 00:11:24:  Searching for marker genes in base database
+20-05-2023 00:11:24:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:11:33:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:11:33:  Searching for marker genes in protozoa database
+20-05-2023 00:11:34:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:11:35:  Automatically locating best SCMG set
+20-05-2023 00:11:52:  Searching fasta for selected markers
+20-05-2023 00:11:56:  Completeness: 5.31
+20-05-2023 00:11:56:  Contamination: 0.44
+20-05-2023 00:11:56:  Max silent contamination: 100.0
+20-05-2023 00:11:58:  Searching for marker genes in base database
+20-05-2023 00:11:59:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:12:11:  Genome belongs to clade: protozoa (Best TaxID: 431838)
+20-05-2023 00:12:11:  Searching for marker genes in protozoa database
+20-05-2023 00:12:12:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:12:14:  Automatically locating best SCMG set
+20-05-2023 00:12:30:  Searching fasta for selected markers
+20-05-2023 00:12:33:  Completeness: 0.0
+20-05-2023 00:12:33:  Contamination: 0.0
+20-05-2023 00:12:33:  Max silent contamination: 100.0
+20-05-2023 00:12:35:  Searching for marker genes in base database
+20-05-2023 00:12:36:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:12:48:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:12:48:  Searching for marker genes in protozoa database
+20-05-2023 00:12:50:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:12:52:  Automatically locating best SCMG set
+20-05-2023 00:13:09:  Searching fasta for selected markers
+20-05-2023 00:13:11:  Completeness: 0.0
+20-05-2023 00:13:11:  Contamination: 0.0
+20-05-2023 00:13:11:  Max silent contamination: 100.0
+20-05-2023 00:13:14:  Searching for marker genes in base database
+20-05-2023 00:13:15:  Found 22 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:14:05:  Genome belongs to clade: fungi (Best TaxID: 716546)
+20-05-2023 00:14:05:  Searching for marker genes in fungi database
+20-05-2023 00:14:06:  Found 11 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:14:29:  Automatically locating best SCMG set
+20-05-2023 00:15:01:  Searching fasta for selected markers
+20-05-2023 00:15:28:  Completeness: 95.49
+20-05-2023 00:15:28:  Contamination: 1.5
+20-05-2023 00:15:28:  Max silent contamination: 100.0
+20-05-2023 00:15:31:  Searching for marker genes in base database
+20-05-2023 00:15:31:  No placement marker genes found.
+20-05-2023 00:15:31:  Searching for marker genes in base database
+20-05-2023 00:15:32:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:15:44:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:15:44:  Searching for marker genes in protozoa database
+20-05-2023 00:15:45:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:15:48:  Automatically locating best SCMG set
+20-05-2023 00:16:05:  Searching fasta for selected markers
+20-05-2023 00:16:08:  Completeness: 0.0
+20-05-2023 00:16:08:  Contamination: 0.0
+20-05-2023 00:16:08:  Max silent contamination: 100.0
+20-05-2023 00:16:10:  Searching for marker genes in base database
+20-05-2023 00:16:11:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:16:21:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:16:21:  Searching for marker genes in protozoa database
+20-05-2023 00:16:22:  No placement marker genes found.
+20-05-2023 00:16:22:  Searching for marker genes in base database
+20-05-2023 00:16:23:  No placement marker genes found.
+20-05-2023 00:16:23:  Searching for marker genes in base database
+20-05-2023 00:16:24:  No placement marker genes found.
+20-05-2023 00:16:24:  Searching for marker genes in base database
+20-05-2023 00:16:25:  Found 26 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:17:14:  Genome belongs to clade: plant (Best TaxID: 13786)
+20-05-2023 00:17:14:  Searching for marker genes in plant database
+20-05-2023 00:17:14:  Found 16 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:17:19:  Automatically locating best SCMG set
+20-05-2023 00:17:28:  Searching fasta for selected markers
+20-05-2023 00:17:45:  Completeness: 84.6
+20-05-2023 00:17:45:  Contamination: 4.6
+20-05-2023 00:17:45:  Max silent contamination: 100.0
+20-05-2023 00:17:46:  Searching for marker genes in base database
+20-05-2023 00:17:47:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:17:56:  Genome belongs to clade: protozoa (Best TaxID: 33829)
+20-05-2023 00:17:56:  Searching for marker genes in protozoa database
+20-05-2023 00:17:57:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:17:59:  Automatically locating best SCMG set
+20-05-2023 00:18:15:  Could not identify a single suitable marker gene set
+20-05-2023 00:18:15:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:18:15:  Searching for marker genes in base database
+20-05-2023 00:18:16:  No placement marker genes found.
+20-05-2023 00:18:16:  Searching for marker genes in base database
+20-05-2023 00:18:17:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:18:26:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:18:26:  Searching for marker genes in protozoa database
+20-05-2023 00:18:27:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:18:33:  Automatically locating best SCMG set
+20-05-2023 00:18:49:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:18:51:  Searching fasta for selected markers
+20-05-2023 00:18:58:  Completeness: 3.73
+20-05-2023 00:18:58:  Contamination: 0.0
+20-05-2023 00:18:58:  Max silent contamination: 100.0
+20-05-2023 00:19:00:  Searching for marker genes in base database
+20-05-2023 00:19:01:  No placement marker genes found.
+20-05-2023 00:19:01:  Searching for marker genes in base database
+20-05-2023 00:19:02:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:19:10:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:19:10:  Searching for marker genes in protozoa database
+20-05-2023 00:19:11:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:19:14:  Automatically locating best SCMG set
+20-05-2023 00:19:31:  Could not identify a single suitable marker gene set
+20-05-2023 00:19:31:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:19:31:  Searching for marker genes in base database
+20-05-2023 00:19:32:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:19:40:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:19:40:  Searching for marker genes in protozoa database
+20-05-2023 00:19:41:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:19:43:  Automatically locating best SCMG set
+20-05-2023 00:19:59:  Could not identify a single suitable marker gene set
+20-05-2023 00:19:59:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:19:59:  Searching for marker genes in base database
+20-05-2023 00:20:00:  No placement marker genes found.
+20-05-2023 00:20:00:  Searching for marker genes in base database
+20-05-2023 00:20:00:  No placement marker genes found.
+20-05-2023 00:20:00:  Searching for marker genes in base database
+20-05-2023 00:20:01:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:20:09:  Genome belongs to clade: protozoa (Best TaxID: 100129)
+20-05-2023 00:20:09:  Searching for marker genes in protozoa database
+20-05-2023 00:20:10:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:20:13:  Automatically locating best SCMG set
+20-05-2023 00:20:36:  Searching fasta for selected markers
+20-05-2023 00:20:48:  Completeness: 14.6
+20-05-2023 00:20:48:  Contamination: 4.2
+20-05-2023 00:20:48:  Max silent contamination: 100.0
+20-05-2023 00:20:51:  Searching for marker genes in base database
+20-05-2023 00:20:52:  No placement marker genes found.
+20-05-2023 00:20:52:  Searching for marker genes in base database
+20-05-2023 00:20:52:  No placement marker genes found.
+20-05-2023 00:20:52:  Searching for marker genes in base database
+20-05-2023 00:20:52:  No placement marker genes found.
+20-05-2023 00:20:52:  Searching for marker genes in base database
+20-05-2023 00:20:53:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:21:01:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:21:01:  Searching for marker genes in protozoa database
+20-05-2023 00:21:01:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:21:03:  Automatically locating best SCMG set
+20-05-2023 00:21:19:  Searching fasta for selected markers
+20-05-2023 00:21:26:  Completeness: 3.6
+20-05-2023 00:21:26:  Contamination: 0.6
+20-05-2023 00:21:26:  Max silent contamination: 100.0
+20-05-2023 00:21:29:  Searching for marker genes in base database
+20-05-2023 00:21:29:  No placement marker genes found.
+20-05-2023 00:21:29:  Searching for marker genes in base database
+20-05-2023 00:21:30:  No placement marker genes found.
+20-05-2023 00:21:30:  Searching for marker genes in base database
+20-05-2023 00:21:31:  No placement marker genes found.
+20-05-2023 00:21:31:  Searching for marker genes in base database
+20-05-2023 00:21:32:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:21:42:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:21:42:  Searching for marker genes in protozoa database
+20-05-2023 00:21:43:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:21:47:  Automatically locating best SCMG set
+20-05-2023 00:22:05:  ❗The choosen marker gene set is supported by only half (1/5) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:22:07:  Searching fasta for selected markers
+20-05-2023 00:22:13:  Completeness: 1.17
+20-05-2023 00:22:13:  Contamination: 0.0
+20-05-2023 00:22:13:  Max silent contamination: 100.0
+20-05-2023 00:22:15:  Searching for marker genes in base database
+20-05-2023 00:22:16:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:22:26:  Genome belongs to clade: protozoa (Best TaxID: 33634)
+20-05-2023 00:22:26:  Searching for marker genes in protozoa database
+20-05-2023 00:22:27:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:22:30:  Automatically locating best SCMG set
+20-05-2023 00:22:46:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:22:47:  Searching fasta for selected markers
+20-05-2023 00:22:51:  Completeness: 4.38
+20-05-2023 00:22:51:  Contamination: 1.25
+20-05-2023 00:22:51:  Max silent contamination: 100.0
+20-05-2023 00:22:54:  Searching for marker genes in base database
+20-05-2023 00:22:55:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:23:04:  Genome belongs to clade: protozoa (Best TaxID: 2696291)
+20-05-2023 00:23:04:  Searching for marker genes in protozoa database
+20-05-2023 00:23:05:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:23:08:  Automatically locating best SCMG set
+20-05-2023 00:23:25:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:23:26:  Searching fasta for selected markers
+20-05-2023 00:23:27:  Completeness: 0.0
+20-05-2023 00:23:27:  Contamination: 0.0
+20-05-2023 00:23:27:  Max silent contamination: 100.0
+20-05-2023 00:23:29:  Searching for marker genes in base database
+20-05-2023 00:23:30:  No placement marker genes found.
+20-05-2023 00:23:30:  Searching for marker genes in base database
+20-05-2023 00:23:31:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:23:40:  Genome belongs to clade: plant (Best TaxID: 2812636)
+20-05-2023 00:23:40:  Searching for marker genes in plant database
+20-05-2023 00:23:40:  No placement marker genes found.
+20-05-2023 00:23:41:  Searching for marker genes in base database
+20-05-2023 00:23:41:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:23:51:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:23:51:  Searching for marker genes in protozoa database
+20-05-2023 00:23:52:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:23:54:  Automatically locating best SCMG set
+20-05-2023 00:24:10:  Could not identify a single suitable marker gene set
+20-05-2023 00:24:10:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:24:10:  Searching for marker genes in base database
+20-05-2023 00:24:11:  No placement marker genes found.
+20-05-2023 00:24:11:  Searching for marker genes in base database
+20-05-2023 00:24:12:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:24:26:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:24:26:  Searching for marker genes in protozoa database
+20-05-2023 00:24:27:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:24:29:  Automatically locating best SCMG set
+20-05-2023 00:24:44:  Searching fasta for selected markers
+20-05-2023 00:24:47:  Completeness: 0.0
+20-05-2023 00:24:47:  Contamination: 0.0
+20-05-2023 00:24:47:  Max silent contamination: 100.0
+20-05-2023 00:24:49:  Searching for marker genes in base database
+20-05-2023 00:24:49:  No placement marker genes found.
+20-05-2023 00:24:49:  Searching for marker genes in base database
+20-05-2023 00:24:50:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:24:59:  Genome belongs to clade: protozoa (Best TaxID: 4777)
+20-05-2023 00:24:59:  Searching for marker genes in protozoa database
+20-05-2023 00:25:00:  No placement marker genes found.
+20-05-2023 00:25:00:  Searching for marker genes in base database
+20-05-2023 00:25:01:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:25:11:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:25:11:  Searching for marker genes in protozoa database
+20-05-2023 00:25:12:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:25:14:  Automatically locating best SCMG set
+20-05-2023 00:25:30:  Searching fasta for selected markers
+20-05-2023 00:25:33:  Completeness: 10.84
+20-05-2023 00:25:33:  Contamination: 0.0
+20-05-2023 00:25:33:  Max silent contamination: 100.0
+20-05-2023 00:25:37:  Searching for marker genes in base database
+20-05-2023 00:25:38:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:25:45:  Genome belongs to clade: protozoa (Best TaxID: 722751)
+20-05-2023 00:25:45:  Searching for marker genes in protozoa database
+20-05-2023 00:25:46:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:25:50:  Automatically locating best SCMG set
+20-05-2023 00:26:08:  Searching fasta for selected markers
+20-05-2023 00:26:10:  Completeness: 9.64
+20-05-2023 00:26:10:  Contamination: 0.0
+20-05-2023 00:26:10:  Max silent contamination: 100.0
+20-05-2023 00:26:14:  Searching for marker genes in base database
+20-05-2023 00:26:14:  No placement marker genes found.
+20-05-2023 00:26:14:  Searching for marker genes in base database
+20-05-2023 00:26:15:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:26:23:  Genome belongs to clade: plant (Best TaxID: 3071)
+20-05-2023 00:26:23:  Searching for marker genes in plant database
+20-05-2023 00:26:24:  No placement marker genes found.
+20-05-2023 00:26:24:  Searching for marker genes in base database
+20-05-2023 00:26:24:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:26:31:  Genome belongs to clade: fungi (Best TaxID: 451869)
+20-05-2023 00:26:31:  Searching for marker genes in fungi database
+20-05-2023 00:26:32:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:26:33:  Automatically locating best SCMG set
+20-05-2023 00:27:04:  Searching fasta for selected markers
+20-05-2023 00:27:08:  Completeness: 2.63
+20-05-2023 00:27:08:  Contamination: 0.0
+20-05-2023 00:27:08:  Max silent contamination: 100.0
+20-05-2023 00:27:10:  Searching for marker genes in base database
+20-05-2023 00:27:10:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:27:19:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 00:27:19:  Searching for marker genes in protozoa database
+20-05-2023 00:27:19:  No placement marker genes found.
+20-05-2023 00:27:19:  Searching for marker genes in base database
+20-05-2023 00:27:20:  No placement marker genes found.
+20-05-2023 00:27:20:  Searching for marker genes in base database
+20-05-2023 00:27:21:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:27:33:  Genome belongs to clade: protozoa (Best TaxID: 431838)
+20-05-2023 00:27:33:  Searching for marker genes in protozoa database
+20-05-2023 00:27:34:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:27:36:  Automatically locating best SCMG set
+20-05-2023 00:27:50:  Searching fasta for selected markers
+20-05-2023 00:27:52:  Completeness: 0.0
+20-05-2023 00:27:52:  Contamination: 0.0
+20-05-2023 00:27:52:  Max silent contamination: 100.0
+20-05-2023 00:27:56:  Searching for marker genes in base database
+20-05-2023 00:27:57:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:28:11:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:28:11:  Searching for marker genes in protozoa database
+20-05-2023 00:28:12:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:28:16:  Automatically locating best SCMG set
+20-05-2023 00:28:32:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:28:33:  Searching fasta for selected markers
+20-05-2023 00:28:35:  Completeness: 0.0
+20-05-2023 00:28:35:  Contamination: 0.0
+20-05-2023 00:28:36:  Max silent contamination: 100.0
+20-05-2023 00:28:38:  Searching for marker genes in base database
+20-05-2023 00:28:39:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:28:49:  Genome belongs to clade: protozoa (Best TaxID: 4776)
+20-05-2023 00:28:49:  Searching for marker genes in protozoa database
+20-05-2023 00:28:50:  No placement marker genes found.
+20-05-2023 00:28:50:  Searching for marker genes in base database
+20-05-2023 00:28:50:  No placement marker genes found.
+20-05-2023 00:28:50:  Searching for marker genes in base database
+20-05-2023 00:28:51:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:28:59:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:28:59:  Searching for marker genes in protozoa database
+20-05-2023 00:29:00:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:29:02:  Automatically locating best SCMG set
+20-05-2023 00:29:17:  Could not identify a single suitable marker gene set
+20-05-2023 00:29:17:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:29:17:  Searching for marker genes in base database
+20-05-2023 00:29:17:  No placement marker genes found.
+20-05-2023 00:29:17:  Searching for marker genes in base database
+20-05-2023 00:29:18:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:29:29:  Genome belongs to clade: plant (Best TaxID: 2692248)
+20-05-2023 00:29:29:  Searching for marker genes in plant database
+20-05-2023 00:29:30:  No placement marker genes found.
+20-05-2023 00:29:30:  Searching for marker genes in base database
+20-05-2023 00:29:30:  No placement marker genes found.
+20-05-2023 00:29:30:  Searching for marker genes in base database
+20-05-2023 00:29:30:  No placement marker genes found.
+20-05-2023 00:29:30:  Searching for marker genes in base database
+20-05-2023 00:29:31:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:29:41:  Genome belongs to clade: protozoa (Best TaxID: 33630)
+20-05-2023 00:29:41:  Searching for marker genes in protozoa database
+20-05-2023 00:29:42:  No placement marker genes found.
+20-05-2023 00:29:42:  Searching for marker genes in base database
+20-05-2023 00:29:43:  No placement marker genes found.
+20-05-2023 00:29:43:  Searching for marker genes in base database
+20-05-2023 00:29:43:  No placement marker genes found.
+20-05-2023 00:29:43:  Searching for marker genes in base database
+20-05-2023 00:29:44:  Found 7 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:30:00:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:30:00:  Searching for marker genes in protozoa database
+20-05-2023 00:30:01:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:30:03:  Automatically locating best SCMG set
+20-05-2023 00:30:22:  Searching fasta for selected markers
+20-05-2023 00:30:24:  Completeness: 13.92
+20-05-2023 00:30:24:  Contamination: 1.27
+20-05-2023 00:30:24:  Max silent contamination: 100.0
+20-05-2023 00:30:26:  Searching for marker genes in base database
+20-05-2023 00:30:27:  No placement marker genes found.
+20-05-2023 00:30:27:  Searching for marker genes in base database
+20-05-2023 00:30:29:  Found 13 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:31:02:  Genome belongs to clade: fungi (Best TaxID: 716546)
+20-05-2023 00:31:02:  Searching for marker genes in fungi database
+20-05-2023 00:31:04:  Found 7 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:31:23:  Automatically locating best SCMG set
+20-05-2023 00:31:54:  Searching fasta for selected markers
+20-05-2023 00:32:21:  Completeness: 79.7
+20-05-2023 00:32:21:  Contamination: 0.0
+20-05-2023 00:32:21:  Max silent contamination: 100.0
+20-05-2023 00:32:24:  Searching for marker genes in base database
+20-05-2023 00:32:25:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:32:36:  Could not narrow down the clade, using base database. Please provide clade if known via --clade {fungi,plant,protozoa}
+20-05-2023 00:32:36:  Searching for marker genes in base database
+20-05-2023 00:32:36:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:32:36:  Automatically locating best SCMG set
+20-05-2023 00:33:38:  ❗The choosen marker gene set is supported by only half (2/5) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:33:58:  Searching fasta for selected markers
+20-05-2023 00:34:06:  Completeness: 4.52
+20-05-2023 00:34:06:  Contamination: 0.0
+20-05-2023 00:34:06:  Max silent contamination: 100.0
+20-05-2023 00:34:12:  Searching for marker genes in base database
+20-05-2023 00:34:13:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:34:21:  Genome belongs to clade: protozoa (Best TaxID: 219169)
+20-05-2023 00:34:21:  Searching for marker genes in protozoa database
+20-05-2023 00:34:22:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:34:25:  Automatically locating best SCMG set
+20-05-2023 00:34:43:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:34:51:  Searching fasta for selected markers
+20-05-2023 00:35:05:  Completeness: 14.6
+20-05-2023 00:35:05:  Contamination: 10.8
+20-05-2023 00:35:05:  Max silent contamination: 100.0
+20-05-2023 00:35:10:  Searching for marker genes in base database
+20-05-2023 00:35:11:  Found 9 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:35:29:  Genome belongs to clade: plant (Best TaxID: 13786)
+20-05-2023 00:35:29:  Searching for marker genes in plant database
+20-05-2023 00:35:29:  Found 8 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:35:33:  Automatically locating best SCMG set
+20-05-2023 00:35:43:  Searching fasta for selected markers
+20-05-2023 00:35:43:  Completeness: 45.0
+20-05-2023 00:35:43:  Contamination: 0.0
+20-05-2023 00:35:43:  Max silent contamination: 100.0
+20-05-2023 00:35:45:  Searching for marker genes in base database
+20-05-2023 00:35:45:  No placement marker genes found.
+20-05-2023 00:35:45:  Searching for marker genes in base database
+20-05-2023 00:35:47:  Found 15 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:36:28:  Genome belongs to clade: fungi (Best TaxID: 34395)
+20-05-2023 00:36:28:  Searching for marker genes in fungi database
+20-05-2023 00:36:30:  Found 8 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:36:47:  Automatically locating best SCMG set
+20-05-2023 00:37:19:  Searching fasta for selected markers
+20-05-2023 00:37:46:  Completeness: 86.84
+20-05-2023 00:37:46:  Contamination: 1.88
+20-05-2023 00:37:46:  Max silent contamination: 100.0
+20-05-2023 00:37:47:  Searching for marker genes in base database
+20-05-2023 00:37:48:  No placement marker genes found.
+20-05-2023 00:37:48:  Searching for marker genes in base database
+20-05-2023 00:37:49:  No placement marker genes found.
+20-05-2023 00:37:49:  Searching for marker genes in base database
+20-05-2023 00:37:50:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:37:57:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:37:57:  Searching for marker genes in protozoa database
+20-05-2023 00:37:59:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:38:02:  Automatically locating best SCMG set
+20-05-2023 00:38:19:  Searching fasta for selected markers
+20-05-2023 00:38:21:  Completeness: 7.23
+20-05-2023 00:38:21:  Contamination: 1.2
+20-05-2023 00:38:22:  Max silent contamination: 100.0
+20-05-2023 00:38:23:  Searching for marker genes in base database
+20-05-2023 00:38:24:  No placement marker genes found.
+20-05-2023 00:38:24:  Searching for marker genes in base database
+20-05-2023 00:38:24:  No placement marker genes found.
+20-05-2023 00:38:24:  Searching for marker genes in base database
+20-05-2023 00:38:25:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:38:33:  Could not narrow down the clade, using base database. Please provide clade if known via --clade {fungi,plant,protozoa}
+20-05-2023 00:38:33:  Searching for marker genes in base database
+20-05-2023 00:38:33:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:38:33:  Automatically locating best SCMG set
+20-05-2023 00:39:37:  Searching fasta for selected markers
+20-05-2023 00:39:44:  Completeness: 3.92
+20-05-2023 00:39:44:  Contamination: 0.0
+20-05-2023 00:39:44:  Max silent contamination: 100.0
+20-05-2023 00:39:49:  Searching for marker genes in base database
+20-05-2023 00:39:50:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:39:59:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 00:39:59:  Searching for marker genes in protozoa database
+20-05-2023 00:40:00:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:40:03:  Automatically locating best SCMG set
+20-05-2023 00:40:18:  Could not identify a single suitable marker gene set
+20-05-2023 00:40:18:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:40:18:  Searching for marker genes in base database
+20-05-2023 00:40:19:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:40:27:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 00:40:27:  Searching for marker genes in protozoa database
+20-05-2023 00:40:28:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:40:31:  Automatically locating best SCMG set
+20-05-2023 00:40:45:  Could not identify a single suitable marker gene set
+20-05-2023 00:40:45:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:40:45:  Searching for marker genes in base database
+20-05-2023 00:40:45:  No placement marker genes found.
+20-05-2023 00:40:45:  Searching for marker genes in base database
+20-05-2023 00:40:46:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:40:53:  Genome belongs to clade: protozoa (Best TaxID: 219169)
+20-05-2023 00:40:53:  Searching for marker genes in protozoa database
+20-05-2023 00:40:54:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:40:57:  Automatically locating best SCMG set
+20-05-2023 00:41:14:  Searching fasta for selected markers
+20-05-2023 00:41:16:  Completeness: 2.41
+20-05-2023 00:41:16:  Contamination: 0.0
+20-05-2023 00:41:16:  Max silent contamination: 100.0
+20-05-2023 00:41:17:  Searching for marker genes in base database
+20-05-2023 00:41:18:  No placement marker genes found.
+20-05-2023 00:41:18:  Searching for marker genes in base database
+20-05-2023 00:41:19:  No placement marker genes found.
+20-05-2023 00:41:19:  Searching for marker genes in base database
+20-05-2023 00:41:21:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:41:30:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:41:30:  Searching for marker genes in protozoa database
+20-05-2023 00:41:31:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:41:35:  Automatically locating best SCMG set
+20-05-2023 00:41:53:  Could not identify a single suitable marker gene set
+20-05-2023 00:41:53:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:41:53:  Searching for marker genes in base database
+20-05-2023 00:41:54:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:42:10:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:42:10:  Searching for marker genes in protozoa database
+20-05-2023 00:42:11:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:42:16:  Automatically locating best SCMG set
+20-05-2023 00:42:36:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:42:40:  Searching fasta for selected markers
+20-05-2023 00:42:46:  Completeness: 0.0
+20-05-2023 00:42:46:  Contamination: 0.0
+20-05-2023 00:42:46:  Max silent contamination: 100.0
+20-05-2023 00:42:49:  Searching for marker genes in base database
+20-05-2023 00:42:50:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:43:01:  Genome belongs to clade: protozoa (Best TaxID: 68459)
+20-05-2023 00:43:01:  Searching for marker genes in protozoa database
+20-05-2023 00:43:02:  No placement marker genes found.
+20-05-2023 00:43:02:  Searching for marker genes in base database
+20-05-2023 00:43:03:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:43:11:  Genome belongs to clade: protozoa (Best TaxID: 2943)
+20-05-2023 00:43:11:  Searching for marker genes in protozoa database
+20-05-2023 00:43:12:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:43:16:  Automatically locating best SCMG set
+20-05-2023 00:43:40:  Searching fasta for selected markers
+20-05-2023 00:43:52:  Completeness: 13.2
+20-05-2023 00:43:52:  Contamination: 3.2
+20-05-2023 00:43:52:  Max silent contamination: 100.0
+20-05-2023 00:43:54:  Searching for marker genes in base database
+20-05-2023 00:43:55:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:44:03:  Genome belongs to clade: plant (Best TaxID: 2511161)
+20-05-2023 00:44:03:  Searching for marker genes in plant database
+20-05-2023 00:44:03:  No placement marker genes found.
+20-05-2023 00:44:03:  Searching for marker genes in base database
+20-05-2023 00:44:04:  No placement marker genes found.
+20-05-2023 00:44:04:  Searching for marker genes in base database
+20-05-2023 00:44:05:  Found 9 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:44:32:  Genome belongs to clade: plant (Best TaxID: 75981)
+20-05-2023 00:44:32:  Searching for marker genes in plant database
+20-05-2023 00:44:32:  Found 7 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:44:36:  Automatically locating best SCMG set
+20-05-2023 00:44:43:  Searching fasta for selected markers
+20-05-2023 00:44:44:  Completeness: 46.81
+20-05-2023 00:44:44:  Contamination: 0.0
+20-05-2023 00:44:44:  Max silent contamination: 100.0
+20-05-2023 00:44:45:  Searching for marker genes in base database
+20-05-2023 00:44:45:  No placement marker genes found.
+20-05-2023 00:44:45:  Searching for marker genes in base database
+20-05-2023 00:44:47:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:44:55:  Genome belongs to clade: protozoa (Best TaxID: 5972)
+20-05-2023 00:44:55:  Searching for marker genes in protozoa database
+20-05-2023 00:44:56:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:45:02:  Automatically locating best SCMG set
+20-05-2023 00:45:19:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:45:22:  Searching fasta for selected markers
+20-05-2023 00:45:30:  Completeness: 0.9
+20-05-2023 00:45:30:  Contamination: 0.0
+20-05-2023 00:45:30:  Max silent contamination: 100.0
+20-05-2023 00:45:33:  Searching for marker genes in base database
+20-05-2023 00:45:33:  No placement marker genes found.
+20-05-2023 00:45:33:  Searching for marker genes in base database
+20-05-2023 00:45:34:  No placement marker genes found.
+20-05-2023 00:45:34:  Searching for marker genes in base database
+20-05-2023 00:45:35:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:45:49:  Genome belongs to clade: protozoa (Best TaxID: 2991)
+20-05-2023 00:45:49:  Searching for marker genes in protozoa database
+20-05-2023 00:45:50:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:45:55:  Automatically locating best SCMG set
+20-05-2023 00:46:14:  Searching fasta for selected markers
+20-05-2023 00:46:16:  Completeness: 19.48
+20-05-2023 00:46:16:  Contamination: 5.19
+20-05-2023 00:46:16:  Max silent contamination: 100.0
+20-05-2023 00:46:19:  Searching for marker genes in base database
+20-05-2023 00:46:20:  No placement marker genes found.
+20-05-2023 00:46:20:  Searching for marker genes in base database
+20-05-2023 00:46:21:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:46:31:  Genome belongs to clade: protozoa (Best TaxID: 431838)
+20-05-2023 00:46:31:  Searching for marker genes in protozoa database
+20-05-2023 00:46:33:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:46:36:  Automatically locating best SCMG set
+20-05-2023 00:46:57:  Searching fasta for selected markers
+20-05-2023 00:47:03:  Completeness: 0.0
+20-05-2023 00:47:03:  Contamination: 0.0
+20-05-2023 00:47:03:  Max silent contamination: 100.0
+20-05-2023 00:47:05:  Searching for marker genes in base database
+20-05-2023 00:47:06:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:47:21:  Could not narrow down the clade, using base database. Please provide clade if known via --clade {fungi,plant,protozoa}
+20-05-2023 00:47:21:  Searching for marker genes in base database
+20-05-2023 00:47:21:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:47:21:  Automatically locating best SCMG set
+20-05-2023 00:48:24:  Searching fasta for selected markers
+20-05-2023 00:48:30:  Completeness: 1.2
+20-05-2023 00:48:30:  Contamination: 0.0
+20-05-2023 00:48:30:  Max silent contamination: 100.0
+20-05-2023 00:48:38:  Searching for marker genes in base database
+20-05-2023 00:48:40:  Found 14 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:49:19:  Genome belongs to clade: fungi (Best TaxID: 78060)
+20-05-2023 00:49:19:  Searching for marker genes in fungi database
+20-05-2023 00:49:21:  Found 9 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:49:41:  Automatically locating best SCMG set
+20-05-2023 00:50:12:  Searching fasta for selected markers
+20-05-2023 00:50:37:  Completeness: 87.22
+20-05-2023 00:50:37:  Contamination: 0.38
+20-05-2023 00:50:38:  Max silent contamination: 100.0
+20-05-2023 00:50:39:  Searching for marker genes in base database
+20-05-2023 00:50:40:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:50:47:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:50:47:  Searching for marker genes in protozoa database
+20-05-2023 00:50:48:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:50:51:  Automatically locating best SCMG set
+20-05-2023 00:51:08:  Could not identify a single suitable marker gene set
+20-05-2023 00:51:08:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:51:08:  Searching for marker genes in base database
+20-05-2023 00:51:09:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:51:16:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 00:51:16:  Searching for marker genes in protozoa database
+20-05-2023 00:51:17:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:51:22:  Automatically locating best SCMG set
+20-05-2023 00:51:39:  Could not identify a single suitable marker gene set
+20-05-2023 00:51:39:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:51:39:  Searching for marker genes in base database
+20-05-2023 00:51:40:  No placement marker genes found.
+20-05-2023 00:51:40:  Searching for marker genes in base database
+20-05-2023 00:51:42:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:51:55:  Genome belongs to clade: protozoa (Best TaxID: 100127)
+20-05-2023 00:51:55:  Searching for marker genes in protozoa database
+20-05-2023 00:51:58:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:52:04:  Automatically locating best SCMG set
+20-05-2023 00:52:21:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:52:25:  Searching fasta for selected markers
+20-05-2023 00:52:29:  Completeness: 10.83
+20-05-2023 00:52:29:  Contamination: 1.27
+20-05-2023 00:52:29:  Max silent contamination: 100.0
+20-05-2023 00:52:32:  Searching for marker genes in base database
+20-05-2023 00:52:33:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:52:41:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 00:52:41:  Searching for marker genes in protozoa database
+20-05-2023 00:52:42:  No placement marker genes found.
+20-05-2023 00:52:42:  Searching for marker genes in base database
+20-05-2023 00:52:42:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:52:50:  Genome belongs to clade: protozoa (Best TaxID: 569578)
+20-05-2023 00:52:50:  Searching for marker genes in protozoa database
+20-05-2023 00:52:51:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:52:53:  Automatically locating best SCMG set
+20-05-2023 00:53:08:  Could not identify a single suitable marker gene set
+20-05-2023 00:53:08:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:53:08:  Searching for marker genes in base database
+20-05-2023 00:53:09:  No placement marker genes found.
+20-05-2023 00:53:09:  Searching for marker genes in base database
+20-05-2023 00:53:09:  No placement marker genes found.
+20-05-2023 00:53:09:  Searching for marker genes in base database
+20-05-2023 00:53:10:  No placement marker genes found.
+20-05-2023 00:53:10:  Searching for marker genes in base database
+20-05-2023 00:53:11:  No placement marker genes found.
+20-05-2023 00:53:11:  Searching for marker genes in base database
+20-05-2023 00:53:13:  Found 18 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:53:56:  Genome belongs to clade: fungi (Best TaxID: 716546)
+20-05-2023 00:53:56:  Searching for marker genes in fungi database
+20-05-2023 00:53:58:  Found 10 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:54:20:  Automatically locating best SCMG set
+20-05-2023 00:54:57:  Searching fasta for selected markers
+20-05-2023 00:55:27:  Completeness: 93.23
+20-05-2023 00:55:27:  Contamination: 0.38
+20-05-2023 00:55:27:  Max silent contamination: 100.0
+20-05-2023 00:55:29:  Searching for marker genes in base database
+20-05-2023 00:55:30:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:55:39:  Genome belongs to clade: protozoa (Best TaxID: 2486696)
+20-05-2023 00:55:39:  Searching for marker genes in protozoa database
+20-05-2023 00:55:41:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:55:43:  Automatically locating best SCMG set
+20-05-2023 00:55:58:  Could not identify a single suitable marker gene set
+20-05-2023 00:55:58:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:55:58:  Searching for marker genes in base database
+20-05-2023 00:55:59:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:56:11:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:56:11:  Searching for marker genes in protozoa database
+20-05-2023 00:56:12:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:56:15:  Automatically locating best SCMG set
+20-05-2023 00:56:32:  Could not identify a single suitable marker gene set
+20-05-2023 00:56:32:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:56:32:  Searching for marker genes in base database
+20-05-2023 00:56:32:  No placement marker genes found.
+20-05-2023 00:56:33:  Searching for marker genes in base database
+20-05-2023 00:56:34:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:56:43:  Genome belongs to clade: protozoa (Best TaxID: 4777)
+20-05-2023 00:56:43:  Searching for marker genes in protozoa database
+20-05-2023 00:56:44:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:56:48:  Automatically locating best SCMG set
+20-05-2023 00:57:10:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+20-05-2023 00:57:13:  Searching fasta for selected markers
+20-05-2023 00:57:18:  Completeness: 0.0
+20-05-2023 00:57:18:  Contamination: 0.0
+20-05-2023 00:57:18:  Max silent contamination: 100.0
+20-05-2023 00:57:20:  Searching for marker genes in base database
+20-05-2023 00:57:20:  No placement marker genes found.
+20-05-2023 00:57:20:  Searching for marker genes in base database
+20-05-2023 00:57:21:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:57:29:  Genome belongs to clade: protozoa (Best TaxID: 425072)
+20-05-2023 00:57:29:  Searching for marker genes in protozoa database
+20-05-2023 00:57:29:  No placement marker genes found.
+20-05-2023 00:57:29:  Searching for marker genes in base database
+20-05-2023 00:57:30:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:57:40:  Genome belongs to clade: protozoa (Best TaxID: 877183)
+20-05-2023 00:57:40:  Searching for marker genes in protozoa database
+20-05-2023 00:57:41:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:57:44:  Automatically locating best SCMG set
+20-05-2023 00:58:08:  Searching fasta for selected markers
+20-05-2023 00:58:24:  Completeness: 23.0
+20-05-2023 00:58:24:  Contamination: 8.6
+20-05-2023 00:58:24:  Max silent contamination: 100.0
+20-05-2023 00:58:25:  Searching for marker genes in base database
+20-05-2023 00:58:26:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:58:35:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:58:35:  Searching for marker genes in protozoa database
+20-05-2023 00:58:36:  No placement marker genes found.
+20-05-2023 00:58:36:  Searching for marker genes in base database
+20-05-2023 00:58:36:  No placement marker genes found.
+20-05-2023 00:58:36:  Searching for marker genes in base database
+20-05-2023 00:58:37:  No placement marker genes found.
+20-05-2023 00:58:37:  Searching for marker genes in base database
+20-05-2023 00:58:38:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:58:46:  Genome belongs to clade: plant (Best TaxID: 75981)
+20-05-2023 00:58:46:  Searching for marker genes in plant database
+20-05-2023 00:58:47:  No placement marker genes found.
+20-05-2023 00:58:47:  Searching for marker genes in base database
+20-05-2023 00:58:48:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:58:55:  Genome belongs to clade: protozoa (Best TaxID: 33856)
+20-05-2023 00:58:55:  Searching for marker genes in protozoa database
+20-05-2023 00:58:56:  No placement marker genes found.
+20-05-2023 00:58:56:  Searching for marker genes in base database
+20-05-2023 00:58:56:  No placement marker genes found.
+20-05-2023 00:58:56:  Searching for marker genes in base database
+20-05-2023 00:58:57:  No placement marker genes found.
+20-05-2023 00:58:57:  Searching for marker genes in base database
+20-05-2023 00:58:58:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:59:05:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 00:59:05:  Searching for marker genes in protozoa database
+20-05-2023 00:59:06:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:59:08:  Automatically locating best SCMG set
+20-05-2023 00:59:24:  Could not identify a single suitable marker gene set
+20-05-2023 00:59:24:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:59:24:  Searching for marker genes in base database
+20-05-2023 00:59:25:  No placement marker genes found.
+20-05-2023 00:59:25:  Searching for marker genes in base database
+20-05-2023 00:59:26:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:59:33:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 00:59:33:  Searching for marker genes in protozoa database
+20-05-2023 00:59:34:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:59:36:  Automatically locating best SCMG set
+20-05-2023 00:59:50:  Could not identify a single suitable marker gene set
+20-05-2023 00:59:50:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 00:59:50:  Searching for marker genes in base database
+20-05-2023 00:59:51:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 00:59:59:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 00:59:59:  Searching for marker genes in protozoa database
+20-05-2023 01:00:00:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:00:03:  Automatically locating best SCMG set
+20-05-2023 01:00:17:  Searching fasta for selected markers
+20-05-2023 01:00:18:  Completeness: 0.0
+20-05-2023 01:00:18:  Contamination: 0.0
+20-05-2023 01:00:18:  Max silent contamination: 100.0
+20-05-2023 01:00:20:  Searching for marker genes in base database
+20-05-2023 01:00:21:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:00:27:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 01:00:27:  Searching for marker genes in protozoa database
+20-05-2023 01:00:28:  No placement marker genes found.
+20-05-2023 01:00:28:  Searching for marker genes in base database
+20-05-2023 01:00:28:  No placement marker genes found.
+20-05-2023 01:00:29:  Searching for marker genes in base database
+20-05-2023 01:00:29:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:00:35:  Genome belongs to clade: fungi (Best TaxID: 34395)
+20-05-2023 01:00:35:  Searching for marker genes in fungi database
+20-05-2023 01:00:36:  No placement marker genes found.
+20-05-2023 01:00:36:  Searching for marker genes in base database
+20-05-2023 01:00:37:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:00:46:  Genome belongs to clade: protozoa (Best TaxID: 431838)
+20-05-2023 01:00:46:  Searching for marker genes in protozoa database
+20-05-2023 01:00:48:  Found 9 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:01:00:  Automatically locating best SCMG set
+20-05-2023 01:01:21:  ❗The choosen marker gene set is supported by only half (1/8) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:01:24:  Searching fasta for selected markers
+20-05-2023 01:01:30:  Completeness: 0.0
+20-05-2023 01:01:30:  Contamination: 0.0
+20-05-2023 01:01:30:  Max silent contamination: 100.0
+20-05-2023 01:01:32:  Searching for marker genes in base database
+20-05-2023 01:01:32:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:01:39:  Genome belongs to clade: protozoa (Best TaxID: 219169)
+20-05-2023 01:01:39:  Searching for marker genes in protozoa database
+20-05-2023 01:01:39:  No placement marker genes found.
+20-05-2023 01:01:39:  Searching for marker genes in base database
+20-05-2023 01:01:40:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:01:47:  Genome belongs to clade: protozoa (Best TaxID: 630701)
+20-05-2023 01:01:47:  Searching for marker genes in protozoa database
+20-05-2023 01:01:48:  No placement marker genes found.
+20-05-2023 01:01:48:  Searching for marker genes in base database
+20-05-2023 01:01:48:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:01:58:  Genome belongs to clade: fungi (Best TaxID: 451864)
+20-05-2023 01:01:58:  Searching for marker genes in fungi database
+20-05-2023 01:01:59:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:02:00:  Automatically locating best SCMG set
+20-05-2023 01:02:14:  Searching fasta for selected markers
+20-05-2023 01:02:20:  Completeness: 7.39
+20-05-2023 01:02:20:  Contamination: 0.0
+20-05-2023 01:02:20:  Max silent contamination: 100.0
+20-05-2023 01:02:22:  Searching for marker genes in base database
+20-05-2023 01:02:22:  No placement marker genes found.
+20-05-2023 01:02:22:  Searching for marker genes in base database
+20-05-2023 01:02:23:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:02:31:  Genome belongs to clade: protozoa (Best TaxID: 2806)
+20-05-2023 01:02:31:  Searching for marker genes in protozoa database
+20-05-2023 01:02:31:  No placement marker genes found.
+20-05-2023 01:02:31:  Searching for marker genes in base database
+20-05-2023 01:02:32:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:02:41:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:02:41:  Searching for marker genes in protozoa database
+20-05-2023 01:02:42:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:02:45:  Automatically locating best SCMG set
+20-05-2023 01:03:04:  Searching fasta for selected markers
+20-05-2023 01:03:09:  Completeness: 0.0
+20-05-2023 01:03:09:  Contamination: 0.0
+20-05-2023 01:03:09:  Max silent contamination: 100.0
+20-05-2023 01:03:12:  Searching for marker genes in base database
+20-05-2023 01:03:14:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:03:21:  Genome belongs to clade: protozoa (Best TaxID: 2696291)
+20-05-2023 01:03:21:  Searching for marker genes in protozoa database
+20-05-2023 01:03:22:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:03:26:  Automatically locating best SCMG set
+20-05-2023 01:03:42:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:03:45:  Searching fasta for selected markers
+20-05-2023 01:03:51:  Completeness: 0.0
+20-05-2023 01:03:51:  Contamination: 0.0
+20-05-2023 01:03:51:  Max silent contamination: 100.0
+20-05-2023 01:03:53:  Searching for marker genes in base database
+20-05-2023 01:03:53:  No placement marker genes found.
+20-05-2023 01:03:53:  Searching for marker genes in base database
+20-05-2023 01:03:54:  No placement marker genes found.
+20-05-2023 01:03:54:  Searching for marker genes in base database
+20-05-2023 01:03:54:  No placement marker genes found.
+20-05-2023 01:03:54:  Searching for marker genes in base database
+20-05-2023 01:03:55:  No placement marker genes found.
+20-05-2023 01:03:55:  Searching for marker genes in base database
+20-05-2023 01:03:56:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:04:14:  Genome belongs to clade: fungi (Best TaxID: 34395)
+20-05-2023 01:04:14:  Searching for marker genes in fungi database
+20-05-2023 01:04:15:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:04:25:  Automatically locating best SCMG set
+20-05-2023 01:04:55:  Searching fasta for selected markers
+20-05-2023 01:05:15:  Completeness: 37.97
+20-05-2023 01:05:15:  Contamination: 0.38
+20-05-2023 01:05:15:  Max silent contamination: 100.0
+20-05-2023 01:05:18:  Searching for marker genes in base database
+20-05-2023 01:05:19:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:05:28:  Genome belongs to clade: protozoa (Best TaxID: 2696291)
+20-05-2023 01:05:28:  Searching for marker genes in protozoa database
+20-05-2023 01:05:29:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:05:31:  Automatically locating best SCMG set
+20-05-2023 01:05:47:  Could not identify a single suitable marker gene set
+20-05-2023 01:05:47:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:05:47:  Searching for marker genes in base database
+20-05-2023 01:05:48:  No placement marker genes found.
+20-05-2023 01:05:48:  Searching for marker genes in base database
+20-05-2023 01:05:49:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:05:55:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 01:05:55:  Searching for marker genes in protozoa database
+20-05-2023 01:05:56:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:05:59:  Automatically locating best SCMG set
+20-05-2023 01:06:14:  Could not identify a single suitable marker gene set
+20-05-2023 01:06:14:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:06:14:  Searching for marker genes in base database
+20-05-2023 01:06:15:  No placement marker genes found.
+20-05-2023 01:06:15:  Searching for marker genes in base database
+20-05-2023 01:06:15:  No placement marker genes found.
+20-05-2023 01:06:15:  Searching for marker genes in base database
+20-05-2023 01:06:16:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:06:23:  Genome belongs to clade: protozoa (Best TaxID: 2058183)
+20-05-2023 01:06:23:  Searching for marker genes in protozoa database
+20-05-2023 01:06:24:  No placement marker genes found.
+20-05-2023 01:06:24:  Searching for marker genes in base database
+20-05-2023 01:06:24:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:06:31:  Genome belongs to clade: plant (Best TaxID: 135266)
+20-05-2023 01:06:31:  Searching for marker genes in plant database
+20-05-2023 01:06:31:  No placement marker genes found.
+20-05-2023 01:06:31:  Searching for marker genes in base database
+20-05-2023 01:06:31:  No placement marker genes found.
+20-05-2023 01:06:31:  Searching for marker genes in base database
+20-05-2023 01:06:31:  No placement marker genes found.
+20-05-2023 01:06:31:  Searching for marker genes in base database
+20-05-2023 01:06:32:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:06:40:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:06:40:  Searching for marker genes in protozoa database
+20-05-2023 01:06:41:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:06:44:  Automatically locating best SCMG set
+20-05-2023 01:07:05:  Searching fasta for selected markers
+20-05-2023 01:07:18:  Completeness: 18.4
+20-05-2023 01:07:18:  Contamination: 5.0
+20-05-2023 01:07:18:  Max silent contamination: 100.0
+20-05-2023 01:07:20:  Searching for marker genes in base database
+20-05-2023 01:07:21:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:07:30:  Genome belongs to clade: protozoa (Best TaxID: 33630)
+20-05-2023 01:07:30:  Searching for marker genes in protozoa database
+20-05-2023 01:07:31:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:07:35:  Automatically locating best SCMG set
+20-05-2023 01:07:53:  Searching fasta for selected markers
+20-05-2023 01:07:55:  Completeness: 14.46
+20-05-2023 01:07:55:  Contamination: 3.61
+20-05-2023 01:07:55:  Max silent contamination: 100.0
+20-05-2023 01:07:58:  Searching for marker genes in base database
+20-05-2023 01:07:58:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:08:07:  Genome belongs to clade: protozoa (Best TaxID: 2058183)
+20-05-2023 01:08:07:  Searching for marker genes in protozoa database
+20-05-2023 01:08:08:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:08:10:  Automatically locating best SCMG set
+20-05-2023 01:08:28:  Searching fasta for selected markers
+20-05-2023 01:08:30:  Completeness: 4.82
+20-05-2023 01:08:30:  Contamination: 0.0
+20-05-2023 01:08:30:  Max silent contamination: 100.0
+20-05-2023 01:08:32:  Searching for marker genes in base database
+20-05-2023 01:08:33:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:08:47:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:08:47:  Searching for marker genes in protozoa database
+20-05-2023 01:08:48:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:08:50:  Automatically locating best SCMG set
+20-05-2023 01:09:04:  Searching fasta for selected markers
+20-05-2023 01:09:06:  Completeness: 0.0
+20-05-2023 01:09:06:  Contamination: 0.0
+20-05-2023 01:09:06:  Max silent contamination: 100.0
+20-05-2023 01:09:08:  Searching for marker genes in base database
+20-05-2023 01:09:08:  No placement marker genes found.
+20-05-2023 01:09:08:  Searching for marker genes in base database
+20-05-2023 01:09:09:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:09:16:  Genome belongs to clade: protozoa (Best TaxID: 4777)
+20-05-2023 01:09:16:  Searching for marker genes in protozoa database
+20-05-2023 01:09:17:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:09:19:  Automatically locating best SCMG set
+20-05-2023 01:09:36:  Could not identify a single suitable marker gene set
+20-05-2023 01:09:36:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:09:36:  Searching for marker genes in base database
+20-05-2023 01:09:37:  Found 6 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:09:49:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:09:49:  Searching for marker genes in protozoa database
+20-05-2023 01:09:51:  Found 6 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:09:56:  Automatically locating best SCMG set
+20-05-2023 01:10:12:  ❗The choosen marker gene set is supported by only half (2/6) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:10:15:  Searching fasta for selected markers
+20-05-2023 01:10:24:  Completeness: 6.83
+20-05-2023 01:10:24:  Contamination: 4.97
+20-05-2023 01:10:24:  Max silent contamination: 100.0
+20-05-2023 01:10:27:  Searching for marker genes in base database
+20-05-2023 01:10:28:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:10:37:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:10:37:  Searching for marker genes in protozoa database
+20-05-2023 01:10:38:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:10:40:  Automatically locating best SCMG set
+20-05-2023 01:10:55:  Could not identify a single suitable marker gene set
+20-05-2023 01:10:55:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:10:55:  Searching for marker genes in base database
+20-05-2023 01:10:55:  No placement marker genes found.
+20-05-2023 01:10:56:  Searching for marker genes in base database
+20-05-2023 01:10:57:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:11:07:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:11:07:  Searching for marker genes in protozoa database
+20-05-2023 01:11:08:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:11:10:  Automatically locating best SCMG set
+20-05-2023 01:11:27:  Could not identify a single suitable marker gene set
+20-05-2023 01:11:27:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:11:27:  Searching for marker genes in base database
+20-05-2023 01:11:28:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:11:37:  Genome belongs to clade: protozoa (Best TaxID: 96792)
+20-05-2023 01:11:37:  Searching for marker genes in protozoa database
+20-05-2023 01:11:38:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:11:44:  Automatically locating best SCMG set
+20-05-2023 01:12:00:  Searching fasta for selected markers
+20-05-2023 01:12:01:  Completeness: 5.26
+20-05-2023 01:12:01:  Contamination: 0.0
+20-05-2023 01:12:01:  Max silent contamination: 100.0
+20-05-2023 01:12:02:  Searching for marker genes in base database
+20-05-2023 01:12:03:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:12:10:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 01:12:10:  Searching for marker genes in protozoa database
+20-05-2023 01:12:11:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:12:12:  Automatically locating best SCMG set
+20-05-2023 01:12:27:  Could not identify a single suitable marker gene set
+20-05-2023 01:12:27:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:12:27:  Searching for marker genes in base database
+20-05-2023 01:12:28:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:12:35:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 01:12:35:  Searching for marker genes in protozoa database
+20-05-2023 01:12:36:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:12:38:  Automatically locating best SCMG set
+20-05-2023 01:12:52:  Could not identify a single suitable marker gene set
+20-05-2023 01:12:52:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:12:52:  Searching for marker genes in base database
+20-05-2023 01:12:53:  No placement marker genes found.
+20-05-2023 01:12:53:  Searching for marker genes in base database
+20-05-2023 01:12:54:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:13:02:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:13:02:  Searching for marker genes in protozoa database
+20-05-2023 01:13:03:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:13:05:  Automatically locating best SCMG set
+20-05-2023 01:13:20:  Could not identify a single suitable marker gene set
+20-05-2023 01:13:20:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:13:20:  Searching for marker genes in base database
+20-05-2023 01:13:21:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:13:34:  Genome belongs to clade: protozoa (Best TaxID: 33829)
+20-05-2023 01:13:34:  Searching for marker genes in protozoa database
+20-05-2023 01:13:35:  Found 6 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:13:38:  Automatically locating best SCMG set
+20-05-2023 01:13:55:  ❗The choosen marker gene set is supported by only half (2/6) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:13:56:  Searching fasta for selected markers
+20-05-2023 01:14:00:  Completeness: 0.0
+20-05-2023 01:14:00:  Contamination: 0.0
+20-05-2023 01:14:00:  Max silent contamination: 100.0
+20-05-2023 01:14:02:  Searching for marker genes in base database
+20-05-2023 01:14:03:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:14:12:  Genome belongs to clade: protozoa (Best TaxID: 265316)
+20-05-2023 01:14:12:  Searching for marker genes in protozoa database
+20-05-2023 01:14:13:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:14:16:  Automatically locating best SCMG set
+20-05-2023 01:14:32:  ❗The choosen marker gene set is supported by only half (1/3) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:14:33:  Searching fasta for selected markers
+20-05-2023 01:14:34:  Completeness: 17.65
+20-05-2023 01:14:34:  Contamination: 5.88
+20-05-2023 01:14:34:  Max silent contamination: 100.0
+20-05-2023 01:14:36:  Searching for marker genes in base database
+20-05-2023 01:14:36:  No placement marker genes found.
+20-05-2023 01:14:37:  Searching for marker genes in base database
+20-05-2023 01:14:38:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:14:46:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:14:46:  Searching for marker genes in protozoa database
+20-05-2023 01:14:47:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:14:50:  Automatically locating best SCMG set
+20-05-2023 01:15:12:  Searching fasta for selected markers
+20-05-2023 01:15:23:  Completeness: 18.65
+20-05-2023 01:15:23:  Contamination: 4.59
+20-05-2023 01:15:23:  Max silent contamination: 100.0
+20-05-2023 01:15:25:  Searching for marker genes in base database
+20-05-2023 01:15:25:  No placement marker genes found.
+20-05-2023 01:15:25:  Searching for marker genes in base database
+20-05-2023 01:15:25:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:15:32:  Genome belongs to clade: plant (Best TaxID: 35491)
+20-05-2023 01:15:32:  Searching for marker genes in plant database
+20-05-2023 01:15:32:  No placement marker genes found.
+20-05-2023 01:15:32:  Searching for marker genes in base database
+20-05-2023 01:15:33:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:15:39:  Genome belongs to clade: protozoa (Best TaxID: 265316)
+20-05-2023 01:15:39:  Searching for marker genes in protozoa database
+20-05-2023 01:15:41:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:15:43:  Automatically locating best SCMG set
+20-05-2023 01:15:57:  Could not identify a single suitable marker gene set
+20-05-2023 01:15:57:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:15:57:  Searching for marker genes in base database
+20-05-2023 01:15:58:  No placement marker genes found.
+20-05-2023 01:15:58:  Searching for marker genes in base database
+20-05-2023 01:15:59:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:16:07:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:16:07:  Searching for marker genes in protozoa database
+20-05-2023 01:16:08:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:16:12:  Automatically locating best SCMG set
+20-05-2023 01:16:31:  ❗The choosen marker gene set is supported by only half (1/5) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:16:33:  Searching fasta for selected markers
+20-05-2023 01:16:38:  Completeness: 0.39
+20-05-2023 01:16:38:  Contamination: 0.0
+20-05-2023 01:16:38:  Max silent contamination: 100.0
+20-05-2023 01:16:41:  Searching for marker genes in base database
+20-05-2023 01:16:42:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:16:51:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:16:51:  Searching for marker genes in protozoa database
+20-05-2023 01:16:52:  No placement marker genes found.
+20-05-2023 01:16:52:  Searching for marker genes in base database
+20-05-2023 01:16:53:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:17:01:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:17:01:  Searching for marker genes in protozoa database
+20-05-2023 01:17:02:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:17:05:  Automatically locating best SCMG set
+20-05-2023 01:17:20:  Searching fasta for selected markers
+20-05-2023 01:17:21:  Completeness: 0.0
+20-05-2023 01:17:21:  Contamination: 0.0
+20-05-2023 01:17:21:  Max silent contamination: 100.0
+20-05-2023 01:17:23:  Searching for marker genes in base database
+20-05-2023 01:17:24:  No placement marker genes found.
+20-05-2023 01:17:24:  Searching for marker genes in base database
+20-05-2023 01:17:24:  No placement marker genes found.
+20-05-2023 01:17:24:  Searching for marker genes in base database
+20-05-2023 01:17:25:  No placement marker genes found.
+20-05-2023 01:17:25:  Searching for marker genes in base database
+20-05-2023 01:17:25:  No placement marker genes found.
+20-05-2023 01:17:25:  Searching for marker genes in base database
+20-05-2023 01:17:25:  No placement marker genes found.
+20-05-2023 01:17:25:  Searching for marker genes in base database
+20-05-2023 01:17:26:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:17:34:  Genome belongs to clade: protozoa (Best TaxID: 33829)
+20-05-2023 01:17:34:  Searching for marker genes in protozoa database
+20-05-2023 01:17:35:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:17:37:  Automatically locating best SCMG set
+20-05-2023 01:17:51:  Searching fasta for selected markers
+20-05-2023 01:17:53:  Completeness: 0.78
+20-05-2023 01:17:53:  Contamination: 0.0
+20-05-2023 01:17:53:  Max silent contamination: 100.0
+20-05-2023 01:17:55:  Searching for marker genes in base database
+20-05-2023 01:17:56:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:18:04:  Genome belongs to clade: protozoa (Best TaxID: 33829)
+20-05-2023 01:18:04:  Searching for marker genes in protozoa database
+20-05-2023 01:18:05:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:18:10:  Automatically locating best SCMG set
+20-05-2023 01:18:30:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:18:36:  Searching fasta for selected markers
+20-05-2023 01:18:49:  Completeness: 4.0
+20-05-2023 01:18:49:  Contamination: 0.6
+20-05-2023 01:18:49:  Max silent contamination: 100.0
+20-05-2023 01:18:51:  Searching for marker genes in base database
+20-05-2023 01:18:52:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:19:00:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:19:00:  Searching for marker genes in protozoa database
+20-05-2023 01:19:00:  No placement marker genes found.
+20-05-2023 01:19:01:  Searching for marker genes in base database
+20-05-2023 01:19:02:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:19:09:  Genome belongs to clade: protozoa (Best TaxID: 114680)
+20-05-2023 01:19:09:  Searching for marker genes in protozoa database
+20-05-2023 01:19:10:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:19:16:  Automatically locating best SCMG set
+20-05-2023 01:19:32:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:19:33:  Searching fasta for selected markers
+20-05-2023 01:19:35:  Completeness: 0.0
+20-05-2023 01:19:35:  Contamination: 0.0
+20-05-2023 01:19:35:  Max silent contamination: 100.0
+20-05-2023 01:19:37:  Searching for marker genes in base database
+20-05-2023 01:19:38:  No placement marker genes found.
+20-05-2023 01:19:38:  Searching for marker genes in base database
+20-05-2023 01:19:39:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:19:46:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 01:19:46:  Searching for marker genes in protozoa database
+20-05-2023 01:19:47:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:19:49:  Automatically locating best SCMG set
+20-05-2023 01:20:04:  Could not identify a single suitable marker gene set
+20-05-2023 01:20:04:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:20:04:  Searching for marker genes in base database
+20-05-2023 01:20:05:  No placement marker genes found.
+20-05-2023 01:20:05:  Searching for marker genes in base database
+20-05-2023 01:20:06:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:20:16:  Genome belongs to clade: protozoa (Best TaxID: 33634)
+20-05-2023 01:20:16:  Searching for marker genes in protozoa database
+20-05-2023 01:20:17:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:20:22:  Automatically locating best SCMG set
+20-05-2023 01:20:41:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:20:41:  Searching fasta for selected markers
+20-05-2023 01:20:42:  Completeness: 7.89
+20-05-2023 01:20:42:  Contamination: 0.0
+20-05-2023 01:20:42:  Max silent contamination: 100.0
+20-05-2023 01:20:46:  Searching for marker genes in base database
+20-05-2023 01:20:46:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:21:00:  Genome belongs to clade: protozoa (Best TaxID: 47890)
+20-05-2023 01:21:00:  Searching for marker genes in protozoa database
+20-05-2023 01:21:01:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:21:05:  Automatically locating best SCMG set
+20-05-2023 01:21:22:  Could not identify a single suitable marker gene set
+20-05-2023 01:21:22:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:21:22:  Searching for marker genes in base database
+20-05-2023 01:21:23:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:21:31:  Genome belongs to clade: protozoa (Best TaxID: 60004)
+20-05-2023 01:21:31:  Searching for marker genes in protozoa database
+20-05-2023 01:21:31:  No placement marker genes found.
+20-05-2023 01:21:31:  Searching for marker genes in base database
+20-05-2023 01:21:32:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:21:41:  Genome belongs to clade: protozoa (Best TaxID: 33831)
+20-05-2023 01:21:41:  Searching for marker genes in protozoa database
+20-05-2023 01:21:42:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:21:43:  Automatically locating best SCMG set
+20-05-2023 01:21:59:  Searching fasta for selected markers
+20-05-2023 01:22:01:  Completeness: 9.64
+20-05-2023 01:22:01:  Contamination: 0.0
+20-05-2023 01:22:01:  Max silent contamination: 100.0
+20-05-2023 01:22:03:  Searching for marker genes in base database
+20-05-2023 01:22:05:  Found 18 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:22:57:  Genome belongs to clade: fungi (Best TaxID: 34395)
+20-05-2023 01:22:57:  Searching for marker genes in fungi database
+20-05-2023 01:22:59:  Found 10 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:23:17:  Automatically locating best SCMG set
+20-05-2023 01:23:49:  Searching fasta for selected markers
+20-05-2023 01:24:15:  Completeness: 96.62
+20-05-2023 01:24:15:  Contamination: 0.38
+20-05-2023 01:24:15:  Max silent contamination: 100.0
+20-05-2023 01:24:17:  Searching for marker genes in base database
+20-05-2023 01:24:17:  No placement marker genes found.
+20-05-2023 01:24:17:  Searching for marker genes in base database
+20-05-2023 01:24:18:  No placement marker genes found.
+20-05-2023 01:24:18:  Searching for marker genes in base database
+20-05-2023 01:24:19:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:24:27:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:24:28:  Searching for marker genes in protozoa database
+20-05-2023 01:24:29:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:24:31:  Automatically locating best SCMG set
+20-05-2023 01:24:47:  Could not identify a single suitable marker gene set
+20-05-2023 01:24:47:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:24:47:  Searching for marker genes in base database
+20-05-2023 01:24:48:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:24:55:  Genome belongs to clade: protozoa (Best TaxID: 2696291)
+20-05-2023 01:24:55:  Searching for marker genes in protozoa database
+20-05-2023 01:24:56:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:24:57:  Automatically locating best SCMG set
+20-05-2023 01:25:15:  Searching fasta for selected markers
+20-05-2023 01:25:19:  Completeness: 0.0
+20-05-2023 01:25:19:  Contamination: 0.0
+20-05-2023 01:25:19:  Max silent contamination: 100.0
+20-05-2023 01:25:20:  Searching for marker genes in base database
+20-05-2023 01:25:21:  No placement marker genes found.
+20-05-2023 01:25:21:  Searching for marker genes in base database
+20-05-2023 01:25:21:  No placement marker genes found.
+20-05-2023 01:25:21:  Searching for marker genes in base database
+20-05-2023 01:25:22:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:25:33:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:25:33:  Searching for marker genes in protozoa database
+20-05-2023 01:25:34:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:25:38:  Automatically locating best SCMG set
+20-05-2023 01:25:54:  ❗The choosen marker gene set is supported by only half (2/5) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:25:56:  Searching fasta for selected markers
+20-05-2023 01:25:58:  Completeness: 0.0
+20-05-2023 01:25:58:  Contamination: 0.0
+20-05-2023 01:25:58:  Max silent contamination: 100.0
+20-05-2023 01:26:00:  Searching for marker genes in base database
+20-05-2023 01:26:01:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:26:07:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 01:26:07:  Searching for marker genes in protozoa database
+20-05-2023 01:26:08:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:26:10:  Automatically locating best SCMG set
+20-05-2023 01:26:26:  Could not identify a single suitable marker gene set
+20-05-2023 01:26:26:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:26:26:  Searching for marker genes in base database
+20-05-2023 01:26:27:  Found 5 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:26:41:  Genome belongs to clade: protozoa (Best TaxID: 33630)
+20-05-2023 01:26:41:  Searching for marker genes in protozoa database
+20-05-2023 01:26:43:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:26:44:  Automatically locating best SCMG set
+20-05-2023 01:27:00:  Searching fasta for selected markers
+20-05-2023 01:27:15:  Completeness: 16.8
+20-05-2023 01:27:15:  Contamination: 4.4
+20-05-2023 01:27:15:  Max silent contamination: 100.0
+20-05-2023 01:27:18:  Searching for marker genes in base database
+20-05-2023 01:27:18:  No placement marker genes found.
+20-05-2023 01:27:18:  Searching for marker genes in base database
+20-05-2023 01:27:19:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:27:28:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:27:28:  Searching for marker genes in protozoa database
+20-05-2023 01:27:29:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:27:30:  Automatically locating best SCMG set
+20-05-2023 01:27:45:  Searching fasta for selected markers
+20-05-2023 01:27:49:  Completeness: 0.53
+20-05-2023 01:27:49:  Contamination: 0.0
+20-05-2023 01:27:49:  Max silent contamination: 100.0
+20-05-2023 01:27:51:  Searching for marker genes in base database
+20-05-2023 01:27:51:  No placement marker genes found.
+20-05-2023 01:27:51:  Searching for marker genes in base database
+20-05-2023 01:27:52:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:27:59:  Genome belongs to clade: protozoa (Best TaxID: 33829)
+20-05-2023 01:27:59:  Searching for marker genes in protozoa database
+20-05-2023 01:28:01:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:28:03:  Automatically locating best SCMG set
+20-05-2023 01:28:17:  Searching fasta for selected markers
+20-05-2023 01:28:19:  Completeness: 0.78
+20-05-2023 01:28:19:  Contamination: 0.0
+20-05-2023 01:28:19:  Max silent contamination: 100.0
+20-05-2023 01:28:22:  Searching for marker genes in base database
+20-05-2023 01:28:22:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:28:29:  Genome belongs to clade: protozoa (Best TaxID: 98651)
+20-05-2023 01:28:29:  Searching for marker genes in protozoa database
+20-05-2023 01:28:30:  No placement marker genes found.
+20-05-2023 01:28:30:  Searching for marker genes in base database
+20-05-2023 01:28:31:  No placement marker genes found.
+20-05-2023 01:28:31:  Searching for marker genes in base database
+20-05-2023 01:28:32:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:28:40:  Genome belongs to clade: protozoa (Best TaxID: 33630)
+20-05-2023 01:28:40:  Searching for marker genes in protozoa database
+20-05-2023 01:28:41:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:28:43:  Automatically locating best SCMG set
+20-05-2023 01:29:00:  Searching fasta for selected markers
+20-05-2023 01:29:14:  Completeness: 18.6
+20-05-2023 01:29:14:  Contamination: 7.6
+20-05-2023 01:29:14:  Max silent contamination: 100.0
+20-05-2023 01:29:16:  Searching for marker genes in base database
+20-05-2023 01:29:17:  No placement marker genes found.
+20-05-2023 01:29:17:  Searching for marker genes in base database
+20-05-2023 01:29:17:  No placement marker genes found.
+20-05-2023 01:29:17:  Searching for marker genes in base database
+20-05-2023 01:29:18:  No placement marker genes found.
+20-05-2023 01:29:18:  Searching for marker genes in base database
+20-05-2023 01:29:18:  No placement marker genes found.
+20-05-2023 01:29:18:  Searching for marker genes in base database
+20-05-2023 01:29:19:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:29:27:  Genome belongs to clade: protozoa (Best TaxID: 2696291)
+20-05-2023 01:29:27:  Searching for marker genes in protozoa database
+20-05-2023 01:29:28:  No placement marker genes found.
+20-05-2023 01:29:28:  Searching for marker genes in base database
+20-05-2023 01:29:29:  Found 3 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:29:37:  Genome belongs to clade: plant (Best TaxID: 3044)
+20-05-2023 01:29:37:  Searching for marker genes in plant database
+20-05-2023 01:29:37:  No placement marker genes found.
+20-05-2023 01:29:37:  Searching for marker genes in base database
+20-05-2023 01:29:38:  No placement marker genes found.
+20-05-2023 01:29:38:  Searching for marker genes in base database
+20-05-2023 01:29:38:  No placement marker genes found.
+20-05-2023 01:29:38:  Searching for marker genes in base database
+20-05-2023 01:29:38:  No placement marker genes found.
+20-05-2023 01:29:39:  Searching for marker genes in base database
+20-05-2023 01:29:39:  No placement marker genes found.
+20-05-2023 01:29:39:  Searching for marker genes in base database
+20-05-2023 01:29:39:  No placement marker genes found.
+20-05-2023 01:29:39:  Searching for marker genes in base database
+20-05-2023 01:29:41:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:29:51:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:29:51:  Searching for marker genes in protozoa database
+20-05-2023 01:29:52:  Found 4 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:29:54:  Automatically locating best SCMG set
+20-05-2023 01:30:12:  ❗The choosen marker gene set is supported by only half (1/4) of the alignments. This generally is an unstable estimate.
+20-05-2023 01:30:15:  Searching fasta for selected markers
+20-05-2023 01:30:21:  Completeness: 0.0
+20-05-2023 01:30:21:  Contamination: 0.0
+20-05-2023 01:30:21:  Max silent contamination: 100.0
+20-05-2023 01:30:23:  Searching for marker genes in base database
+20-05-2023 01:30:23:  No placement marker genes found.
+20-05-2023 01:30:23:  Searching for marker genes in base database
+20-05-2023 01:30:23:  No placement marker genes found.
+20-05-2023 01:30:23:  Searching for marker genes in base database
+20-05-2023 01:30:24:  No placement marker genes found.
+20-05-2023 01:30:24:  Searching for marker genes in base database
+20-05-2023 01:30:24:  No placement marker genes found.
+20-05-2023 01:30:24:  Searching for marker genes in base database
+20-05-2023 01:30:25:  Found 2 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:30:33:  Genome belongs to clade: protozoa (Best TaxID: protist_common)
+20-05-2023 01:30:33:  Searching for marker genes in protozoa database
+20-05-2023 01:30:34:  Found 1 marker genes, placing them in the tree using epa-ng
+20-05-2023 01:30:36:  Automatically locating best SCMG set
+20-05-2023 01:30:53:  Could not identify a single suitable marker gene set
+20-05-2023 01:30:53:  No marker gene set could be found with these settings 🙁 
+Change your parameters and try again?
+20-05-2023 01:30:53:  Found 12 large bins to merge with
+20-05-2023 01:30:53:  For bin bin.195.fa we found 5 merging combinations
+20-05-2023 01:30:53:  Searching fasta for selected markers
+20-05-2023 01:31:09:  Completeness: 95.0
+20-05-2023 01:31:09:  Contamination: 74.8
+20-05-2023 01:31:09:  Max silent contamination: 100.0
+20-05-2023 01:31:09:  Searching fasta for selected markers
+20-05-2023 01:31:26:  Completeness: 95.8
+20-05-2023 01:31:26:  Contamination: 72.6
+20-05-2023 01:31:26:  Max silent contamination: 100.0
+20-05-2023 01:31:26:  Searching fasta for selected markers
+20-05-2023 01:31:43:  Completeness: 96.2
+20-05-2023 01:31:43:  Contamination: 76.2
+20-05-2023 01:31:43:  Max silent contamination: 100.0
+20-05-2023 01:31:43:  Searching fasta for selected markers
+20-05-2023 01:32:13:  Completeness: 91.2
+20-05-2023 01:32:13:  Contamination: 44.6
+20-05-2023 01:32:13:  Max silent contamination: 100.0
+20-05-2023 01:32:13:  For bin bin.321.fa we found 7 merging combinations
+20-05-2023 01:32:13:  Searching fasta for selected markers
+20-05-2023 01:32:29:  Completeness: 95.0
+20-05-2023 01:32:29:  Contamination: 74.8
+20-05-2023 01:32:29:  Max silent contamination: 100.0
+20-05-2023 01:32:29:  Searching fasta for selected markers
+20-05-2023 01:32:46:  Completeness: 94.6
+20-05-2023 01:32:46:  Contamination: 77.0
+20-05-2023 01:32:46:  Max silent contamination: 100.0
+20-05-2023 01:32:46:  Searching fasta for selected markers
+20-05-2023 01:33:03:  Completeness: 96.2
+20-05-2023 01:33:03:  Contamination: 79.4
+20-05-2023 01:33:03:  Max silent contamination: 100.0
+20-05-2023 01:33:03:  Searching fasta for selected markers
+20-05-2023 01:33:17:  Completeness: 87.8
+20-05-2023 01:33:17:  Contamination: 16.8
+20-05-2023 01:33:18:  Max silent contamination: 100.0
+20-05-2023 01:33:18:  Searching fasta for selected markers
+20-05-2023 01:33:47:  Completeness: 94.2
+20-05-2023 01:33:47:  Contamination: 45.2
+20-05-2023 01:33:47:  Max silent contamination: 100.0
+20-05-2023 01:33:47:  Searching fasta for selected markers
+20-05-2023 01:33:50:  Completeness: 86.0
+20-05-2023 01:33:50:  Contamination: 5.2
+20-05-2023 01:33:50:  Max silent contamination: 100.0
+20-05-2023 01:33:50:  For bin bin.2.fa we found 1 merging combinations
+20-05-2023 01:33:50:  For bin bin.64.fa we found 1 merging combinations
+20-05-2023 01:33:50:  For bin bin.1.fa we found 7 merging combinations
+20-05-2023 01:33:51:  Searching fasta for selected markers
+20-05-2023 01:34:07:  Completeness: 96.2
+20-05-2023 01:34:07:  Contamination: 79.4
+20-05-2023 01:34:07:  Max silent contamination: 100.0
+20-05-2023 01:34:07:  Searching fasta for selected markers
+20-05-2023 01:34:23:  Completeness: 96.2
+20-05-2023 01:34:23:  Contamination: 76.2
+20-05-2023 01:34:23:  Max silent contamination: 100.0
+20-05-2023 01:34:24:  Searching fasta for selected markers
+20-05-2023 01:34:40:  Completeness: 95.6
+20-05-2023 01:34:40:  Contamination: 77.6
+20-05-2023 01:34:40:  Max silent contamination: 100.0
+20-05-2023 01:34:40:  Searching fasta for selected markers
+20-05-2023 01:34:55:  Completeness: 88.8
+20-05-2023 01:34:55:  Contamination: 18.6
+20-05-2023 01:34:55:  Max silent contamination: 100.0
+20-05-2023 01:34:55:  Searching fasta for selected markers
+20-05-2023 01:35:25:  Completeness: 92.0
+20-05-2023 01:35:25:  Contamination: 49.4
+20-05-2023 01:35:25:  Max silent contamination: 100.0
+20-05-2023 01:35:25:  Searching fasta for selected markers
+20-05-2023 01:35:36:  Completeness: 88.6
+20-05-2023 01:35:36:  Contamination: 13.6
+20-05-2023 01:35:36:  Max silent contamination: 100.0
+20-05-2023 01:35:36:  For bin bin.378.fa we found 1 merging combinations
+20-05-2023 01:35:36:  For bin bin.46.fa we found 6 merging combinations
+20-05-2023 01:35:36:  Searching fasta for selected markers
+20-05-2023 01:35:53:  Completeness: 94.6
+20-05-2023 01:35:53:  Contamination: 77.0
+20-05-2023 01:35:53:  Max silent contamination: 100.0
+20-05-2023 01:35:53:  Searching fasta for selected markers
+20-05-2023 01:36:09:  Completeness: 95.8
+20-05-2023 01:36:09:  Contamination: 72.6
+20-05-2023 01:36:09:  Max silent contamination: 100.0
+20-05-2023 01:36:09:  Searching fasta for selected markers
+20-05-2023 01:36:39:  Completeness: 91.8
+20-05-2023 01:36:39:  Contamination: 47.2
+20-05-2023 01:36:39:  Max silent contamination: 100.0
+20-05-2023 01:36:39:  Searching fasta for selected markers
+20-05-2023 01:36:42:  Completeness: 85.6
+20-05-2023 01:36:42:  Contamination: 5.0
+20-05-2023 01:36:42:  Max silent contamination: 100.0
+20-05-2023 01:36:42:  Searching fasta for selected markers
+20-05-2023 01:36:59:  Completeness: 95.6
+20-05-2023 01:36:59:  Contamination: 77.6
+20-05-2023 01:36:59:  Max silent contamination: 100.0
+20-05-2023 01:36:59:  For bin bin.335.fa we found 24 merging combinations
+20-05-2023 01:36:59:  Searching fasta for selected markers
+20-05-2023 01:37:03:  Completeness: 79.7
+20-05-2023 01:37:03:  Contamination: 0.0
+20-05-2023 01:37:03:  Max silent contamination: 100.0
+20-05-2023 01:37:04:  Searching fasta for selected markers
+20-05-2023 01:37:12:  Completeness: 80.45
+20-05-2023 01:37:12:  Contamination: 4.89
+20-05-2023 01:37:13:  Max silent contamination: 100.0
+20-05-2023 01:37:13:  Searching fasta for selected markers
+20-05-2023 01:37:20:  Completeness: 80.45
+20-05-2023 01:37:20:  Contamination: 3.76
+20-05-2023 01:37:20:  Max silent contamination: 100.0
+20-05-2023 01:37:21:  Searching fasta for selected markers
+20-05-2023 01:37:33:  Completeness: 87.97
+20-05-2023 01:37:33:  Contamination: 28.2
+20-05-2023 01:37:33:  Max silent contamination: 100.0
+20-05-2023 01:37:33:  Searching fasta for selected markers
+20-05-2023 01:37:38:  Completeness: 81.2
+20-05-2023 01:37:38:  Contamination: 0.0
+20-05-2023 01:37:38:  Max silent contamination: 100.0
+20-05-2023 01:37:39:  Searching fasta for selected markers
+20-05-2023 01:37:41:  Completeness: 79.7
+20-05-2023 01:37:41:  Contamination: 0.38
+20-05-2023 01:37:41:  Max silent contamination: 100.0
+20-05-2023 01:37:41:  Searching fasta for selected markers
+20-05-2023 01:37:49:  Completeness: 80.83
+20-05-2023 01:37:49:  Contamination: 6.39
+20-05-2023 01:37:49:  Max silent contamination: 100.0
+20-05-2023 01:37:50:  Searching fasta for selected markers
+20-05-2023 01:37:57:  Completeness: 80.83
+20-05-2023 01:37:57:  Contamination: 1.13
+20-05-2023 01:37:57:  Max silent contamination: 100.0
+20-05-2023 01:37:57:  Searching fasta for selected markers
+20-05-2023 01:38:07:  Completeness: 81.2
+20-05-2023 01:38:07:  Contamination: 4.51
+20-05-2023 01:38:07:  Max silent contamination: 100.0
+20-05-2023 01:38:07:  Searching fasta for selected markers
+20-05-2023 01:38:15:  Completeness: 81.2
+20-05-2023 01:38:15:  Contamination: 5.64
+20-05-2023 01:38:15:  Max silent contamination: 100.0
+20-05-2023 01:38:16:  Searching fasta for selected markers
+20-05-2023 01:38:27:  Completeness: 87.22
+20-05-2023 01:38:27:  Contamination: 25.19
+20-05-2023 01:38:27:  Max silent contamination: 100.0
+20-05-2023 01:38:27:  Searching fasta for selected markers
+20-05-2023 01:38:35:  Completeness: 80.45
+20-05-2023 01:38:35:  Contamination: 3.01
+20-05-2023 01:38:35:  Max silent contamination: 100.0
+20-05-2023 01:38:35:  Searching fasta for selected markers
+20-05-2023 01:38:43:  Completeness: 80.45
+20-05-2023 01:38:43:  Contamination: 3.01
+20-05-2023 01:38:43:  Max silent contamination: 100.0
+20-05-2023 01:38:43:  Searching fasta for selected markers
+20-05-2023 01:38:55:  Completeness: 87.59
+20-05-2023 01:38:55:  Contamination: 29.7
+20-05-2023 01:38:56:  Max silent contamination: 100.0
+20-05-2023 01:38:56:  Searching fasta for selected markers
+20-05-2023 01:39:03:  Completeness: 80.83
+20-05-2023 01:39:03:  Contamination: 2.63
+20-05-2023 01:39:03:  Max silent contamination: 100.0
+20-05-2023 01:39:03:  Searching fasta for selected markers
+20-05-2023 01:39:10:  Completeness: 80.45
+20-05-2023 01:39:10:  Contamination: 4.89
+20-05-2023 01:39:10:  Max silent contamination: 100.0
+20-05-2023 01:39:10:  Searching fasta for selected markers
+20-05-2023 01:39:16:  Completeness: 80.45
+20-05-2023 01:39:16:  Contamination: 1.5
+20-05-2023 01:39:16:  Max silent contamination: 100.0
+20-05-2023 01:39:16:  Searching fasta for selected markers
+20-05-2023 01:39:21:  Completeness: 79.7
+20-05-2023 01:39:21:  Contamination: 1.5
+20-05-2023 01:39:21:  Max silent contamination: 100.0
+20-05-2023 01:39:22:  Searching fasta for selected markers
+20-05-2023 01:39:30:  Completeness: 82.71
+20-05-2023 01:39:30:  Contamination: 12.03
+20-05-2023 01:39:30:  Max silent contamination: 100.0
+20-05-2023 01:39:30:  Searching fasta for selected markers
+20-05-2023 01:39:36:  Completeness: 79.7
+20-05-2023 01:39:36:  Contamination: 2.26
+20-05-2023 01:39:36:  Max silent contamination: 100.0
+20-05-2023 01:39:37:  Searching fasta for selected markers
+20-05-2023 01:39:40:  Completeness: 80.08
+20-05-2023 01:39:40:  Contamination: 0.38
+20-05-2023 01:39:40:  Max silent contamination: 100.0
+20-05-2023 01:39:40:  Searching fasta for selected markers
+20-05-2023 01:39:52:  Completeness: 87.59
+20-05-2023 01:39:52:  Contamination: 28.95
+20-05-2023 01:39:52:  Max silent contamination: 100.0
+20-05-2023 01:39:52:  Searching fasta for selected markers
+20-05-2023 01:39:54:  Completeness: 80.08
+20-05-2023 01:39:54:  Contamination: 0.38
+20-05-2023 01:39:55:  Max silent contamination: 100.0
+20-05-2023 01:39:55:  For bin bin.76.fa we found 1 merging combinations
+20-05-2023 01:39:55:  For bin bin.376.fa we found 2 merging combinations
+20-05-2023 01:39:55:  Searching fasta for selected markers
+20-05-2023 01:40:02:  Completeness: 88.72
+20-05-2023 01:40:02:  Contamination: 1.5
+20-05-2023 01:40:02:  Max silent contamination: 100.0
+20-05-2023 01:40:02:  For bin bin.10.fa we found 1 merging combinations
+20-05-2023 01:40:02:  For bin bin.142.fa we found 1 merging combinations
+20-05-2023 01:40:02:  Created 0 merged bins

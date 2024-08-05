@@ -1,0 +1,195 @@
+#
+
+#Snakefile for individual assemblies of xanthoria metagenomes
+
+import pandas as pd
+import re
+from os.path import join
+#configfile: "code/params/config.yaml"
+
+#load table with metadata
+input_table = pd.read_csv("data/metadata/fastq_files_metadata.txt", sep="\t").set_index("run_id", drop=False)
+selected_table = input_table.loc[input_table['species'] == 'Xanthoria_parietina']
+SAMPLES = selected_table.index.tolist()
+#SAMPLES=["GTX0465","GTX0466"]
+
+rule all:
+    input:
+    	expand("analysis_and_temp_files/03_assembly/coassembly/{sample}.bam",sample=SAMPLES),
+    	"analysis_and_temp_files/03_assembly/coassembly/binning_done.tmp",
+    	"analysis_and_temp_files/03_assembly/coassembly/checkm_qa.tab",
+    	"analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_list.txt",
+    	"analysis_and_temp_files/03_assembly/coassembly/gtdb_out/touch.tmp",
+    	"analysis_and_temp_files/03_assembly/coassembly/gtdb_out/gtdbtk.bac120.user_msa.fasta.iqtree",
+    	"analysis_and_temp_files/03_assembly/coassembly/eukcc_out/eukcc.csv",
+    	"analysis_and_temp_files/03_assembly/coassembly/euk_drep/data_tables/Ndb.csv"
+
+
+# coassembly
+rule megahit:
+    input:
+        fq1=expand("data/fastq/{sample}_trimmed.1.fq.gz",sample=SAMPLES),
+        fq2=expand("data/fastq/{sample}_trimmed.2.fq.gz",sample=SAMPLES)
+    output: "analysis_and_temp_files/03_assembly/coassembly_done.tmp"
+    params:
+        mem = "129G",
+        queue="tsl-medium",
+        time="7-0:0:0"
+    threads: 25	
+    shell: "bash code/coassembly.sh"
+
+#align reads
+rule align:
+    input:
+        fq1="data/fastq/{sample}_trimmed.1.fq.gz",
+        fq2="data/fastq/{sample}_trimmed.2.fq.gz",
+        index="analysis_and_temp_files/03_assembly/coassembly_done.tmp"
+    output: "analysis_and_temp_files/03_assembly/coassembly/{sample}.bam"
+    params:
+        mem = "80G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20	
+    shell: "code/align_read.sh analysis_and_temp_files/03_assembly/coassembly/coassembly_index {input.fq1} {input.fq2} analysis_and_temp_files/03_assembly/coassembly/{wildcards.sample} {threads}"
+
+
+#bin 
+rule metabat:
+    input: 
+        assembly="analysis_and_temp_files/03_assembly/coassembly_done.tmp",
+        bam=expand("analysis_and_temp_files/03_assembly/coassembly/{sample}.bam",sample=SAMPLES)
+    output: 
+        bins="analysis_and_temp_files/03_assembly/coassembly/binning_done.tmp",
+        cov="analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.cov"
+    params:
+        mem = "100G",
+        queue="tsl-medium",
+        time="3-0:0:0"
+    threads: 20	    
+    shell: "code/metabat.sh analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa {threads} {input.bam} "
+
+#detect prokaryotic MAGs
+rule checkm:
+    input: "analysis_and_temp_files/03_assembly/coassembly/binning_done.tmp"
+    output: "analysis_and_temp_files/03_assembly/coassembly/checkm_qa.tab"
+    params:
+        mem = "80G",
+        queue="tsl-medium",
+        time="3-0:0:0"
+    threads: 20	
+    shell: "code/checkm.sh analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat analysis_and_temp_files/03_assembly/coassembly/checkm_output_folder {output} {threads}"
+
+#make a list of prkaryotic MAGs
+rule list_prok_mags:
+    input: 
+    	i="analysis_and_temp_files/03_assembly/coassembly/checkm_qa.tab"
+    output: 
+    	for_gtdb="analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_list.txt",
+    	table="analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_table.txt",
+    	fastas="analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_fastas.txt",
+    params:
+        mem = "1G",
+        queue="tsl-short",
+        time="0:1:0"
+    threads: 1	
+    run:
+    	df=pd.read_csv(input.i, sep="\t")
+    	df['fasta'] = "analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/" + df['Bin Id'].astype(str) + ".fa"
+    	newdf = df[(df.Completeness >=50) & (df.Contamination<10)][["fasta","Bin Id"]]
+    	newdf.to_csv(output.for_gtdb, header=False, index=False,sep="\t")
+    	df['genome'] = df['fasta']
+    	df['completeness'] = df['Completeness']
+    	df['contamination'] = df['Contamination']
+    	df['length'] = df['Genome size (bp)']
+    	newdf2 = df[(df.Completeness >=50) & (df.Contamination<10)][["genome","completeness","contamination",'length']]
+    	newdf2.to_csv(output.table, header=True, index=False,sep=",")
+    	newdf3 = df[(df.Completeness >=50) & (df.Contamination<10)][["genome"]]
+    	newdf3.to_csv(output.fastas, header=False, index=False,sep="\t")
+
+#annotate with GTDB
+rule gtdb:
+    input: "analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_list.txt"
+    output: "analysis_and_temp_files/03_assembly/coassembly/gtdb_out/touch.tmp"
+    params:
+        mem = "340G",
+        queue="tsl-medium",
+        time="3-0:0:0"
+    threads: 20	
+    shell: "bash code/gtdb.sh {input} {output} --batchfile {threads}"
+
+#tree the prokaryotes
+rule gtdb_tree:
+    input: "analysis_and_temp_files/03_assembly/coassembly/gtdb_out/touch.tmp"   
+    output: "analysis_and_temp_files/03_assembly/coassembly/gtdb_out/gtdbtk.bac120.user_msa.fasta.iqtree"      
+    params:
+        mem = "25G",
+        queue="tsl-short"
+    threads: 20   
+    shell: "bash code/iqtree.sh analysis_and_temp_files/03_assembly/coassembly/gtdb_out/gtdbtk.bac120.user_msa.fasta  {threads} 1000"   
+
+
+#identify and qc eukaryotic MAGs
+rule eukcc:
+    input: "analysis_and_temp_files/03_assembly/coassembly/binning_done.tmp"
+    output: "analysis_and_temp_files/03_assembly/coassembly/eukcc_out/eukcc.csv"
+    params:
+        mem = "25G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20  	
+    shell: "bash code/eukcc.sh analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/ {output} analysis_and_temp_files/03_assembly/coassembly analysis_and_temp_files/03_assembly/coassembly/linktable.csv 20"
+
+
+rule list_euk_mags:
+    input: 
+        i="analysis_and_temp_files/03_assembly/coassembly/eukcc_out/eukcc.csv"
+    output: 
+        table="analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_table.txt",
+        fastas="analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_fastas.txt",
+    params:
+        mem = "1G",
+        queue="tsl-short",
+        time="0:1:0"
+    threads: 1	
+    run:
+    	df=pd.read_csv(input.i, sep="\t")
+    	df['genome'] = "analysis_and_temp_files/03_assembly/coassembly/final.contigs.fa.metabat/" + df['bin'].astype(str)
+    	newdf = df[(df.completeness >=50) & (df.contamination<10)][["genome","completeness","contamination"]]
+    	newdf.to_csv(output.table, header=True, index=False,sep=",")
+    	newdf2 = df[(df.completeness >=50) & (df.contamination<10)][["genome"]]
+    	newdf2.to_csv(output.fastas, header=False, index=False,sep="\t")
+
+
+    
+#dereplicate MAGs
+rule drep_bac:
+    input: 
+        table="analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_table.txt",
+        fastas="analysis_and_temp_files/03_assembly/coassembly/prokaryotic_MAGs_fastas.txt"
+    output: "analysis_and_temp_files/03_assembly/coassembly/bac_drep/data_tables/Ndb.csv"
+    params:
+        mem = "25G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20  	
+    shell: 
+        """
+        source package  cfe4697f-e720-4a2b-a5a2-6fe645f39f34
+        dRep dereplicate -p {threads} analysis_and_temp_files/03_assembly/coassembly/bac_drep -g {input.fastas}  -pa 0.80 -sa 0.95 -nc 0.40 -cm larger --genomeInfo {input.table} -comp 49 -con 21
+        """
+rule drep_euk:
+	input: 
+	    table="analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_table.txt",
+	    fastas="analysis_and_temp_files/03_assembly/coassembly/eukaryotic_MAGs_fastas.txt"
+	output: "analysis_and_temp_files/03_assembly/coassembly/euk_drep/data_tables/Ndb.csv"
+    params:
+        mem = "25G",
+        queue="tsl-short",
+        time="6:0:0"
+    threads: 20  	
+    shell: 
+        """
+        source package  cfe4697f-e720-4a2b-a5a2-6fe645f39f34
+        dRep dereplicate -p {threads} analysis_and_temp_files/03_assembly/coassembly/euk_drep -g {input.fastas}  -pa 0.80 -sa 0.95 -nc 0.40 -cm larger --genomeInfo {input.table} -comp 49 -con 21
+        """
+    

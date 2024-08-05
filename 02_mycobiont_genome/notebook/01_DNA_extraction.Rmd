@@ -1,0 +1,59 @@
+---
+title: "01_DNA_extraction.md"
+author: "Gulnara Tagridzhanova"
+date: "16/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/11_omics_manuscript/repo_public/2024-Multipartite-complexity-omics-Xanthoria/02_mycobiont_genome/notebook")
+```
+
+## 1. Selecting specimen
+* The goal was to select a specimen, for which we already have Illumina data (see `../../01_Xanthoria_metagenomics/analysis_and_temp_files/01_DNA_extraction`)
+* I picked two specimens GT0243 and GT0244
+  * They had very high concentrations in the first round of extractions (the ones used for Illumina sequencing). These DNA extractions are GTX0465 and GTX0466 respectively
+  * They both are already confirmed to be real X. parietina (see the tree in  `../../01_Xanthoria_metagenomics/analysis_and_temp_files/03_assembly`)
+* To confirm that the DNA in them is still intact, first extracted DNA using DNEasy kit
+  * DNA is still there: the yeilds were high (although lower than before)
+  * Compared the fragmentation level by running a gel of the new extractions (GTX0498-499) and the old extraction, done on from a specimen right after it was collected (GTX0468). The fragmentation was about the same (and, admittedly, high)
+* Both looked usable
+
+## 2. Extraction of GT0244: with apothecia
+* 24.04.2023
+* Used Nucleobond HMW Kit
+* Used 85 mg of dry lichen material. **NB:** material included numerous apothecia
+* Saved as GTX0500
+* Results
+  * Nanodrop: 37.8 ng/uL (260/280 = 1.80; 260/230 = 1.83)
+  * Qubit: 30.1 ng/uL
+  * Gel: single band, >15,000 bp, minimal smear
+  * Had to bring up concentration to 50 ng/uL
+    * Speedvaced ~140 uL of the initial DNA extraction
+    * Final volume: 70 uL
+    * Final DNA concentration ~52 ng/uL
+    * Final concentration of the buffer: 10mM Tris-Cl (initially, pH 8.5). Confirmed with Future Genomics that this is fine
+    
+## 3. Extraction of GT0243: without apothecia
+* 25.04.2023
+* Followed the same protocol as above
+* Used 88 mg of dry lichen material. **NB:** all visible apothecia were removed with a razor blade
+* Saved as GTX0501
+* Results
+  * Nanodrop: 27.5 ng/uL (260/280 = 1.82; 260/230 = 2.01)
+  * Qubit: 23.7 ng/uL
+  * Gel: single band, >15,000 bp, minimal smear
+  * Had to bring up concentration to 50 ng/uL
+    * Speedvaced ~90 uL of the initial DNA extraction
+    * Final volume: 45 uL
+    * Final DNA concentration ~75.8 ng/uL
+    * Final concentration of the buffer: 8.75 mM Tris-Cl (initially, pH 8.5). Confirmed with Future Genomics that this is fine
+
+## 4. Confirmed species via PCR
+* Standard fungal ITS primers (ITS1F/ITS4)
+* Standard PCR program (see `analysis_and_temp_files/01_DNA_extraction/One_Taq_ITS_test.xlsx`)
+* Ran on GTX0500 and GTX0501. (also added one Flurin's spore solution, to double-check his PCR)
+* Both blast as X. parietina. Sequences are of a decent quality
+* Compared GTX0500 and GTX0501 (newly produces) to the ITS from assembled metagenomes GTX0466 and GTX0465 (made from the same samples). GTX0500 and GTX0501 are identical to each other and to the ITS from the metagenome GTX0466 (the same sample as GTX0500). GTX0465 differs a bit (this checks out, as on the ITS tree produced to ID the metagenomic sample, GTX0465 was nested within the X. parietina clade, but had a longer branch)
+

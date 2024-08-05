@@ -1,0 +1,45 @@
+ID	Species	Group	Ecology	Taxonomy	filename
+Acastr1	Acarospora strigata	Fungi	Lichen	Ascomycota; Lecanoromycetes; Acarosporales	Acastr1_GeneCatalog_proteins_20160720.fasta
+Altal1	Alternaria alternata	Fungi	Non_lichen	Ascomycota; Dothideomycetes; Pleosporales	Altal1_GeneCatalog_proteins_20141010.fasta
+Amamu1	Amanita muscaria	Fungi	Non_lichen	Basidiomycota	Amamu1_GeneCatalog_proteins_20120806.fasta
+AOBU01	Cyphellophora europaea	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Chaetothyriales	AOBU01.fasta
+Artol1	Arthrobotrys oligospora	Fungi	Non_lichen	Ascomycota; Orbiliomycetes; Orbiliales	Artol1_GeneCatalog_proteins_20131209.fasta
+Ascim1	Ascobolus immersus	Fungi	Non_lichen	Ascomycota; Pezizomycetes; Pezizales	Ascim1_GeneCatalog_proteins_20121221.fasta
+Aspni	Aspergillus niger CBS 513.88	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Eurotiales	Aspni_DSM_1_GeneCatalog_proteins_20130526.fasta
+Aurpu	Aureobasidium pullulans var. melanogenum	Fungi	Non_lichen	Ascomycota; Dothideomycetes; Botryosphaeriales	Aurpu_var_mel1_GeneCatalog_proteins_20130418.fasta
+CAJPDR01	Alectoria fallacina	Fungi	Lichen	Ascomycota; Lecanoromycetes; Lecanorales	CAJPDR01_protein.fasta
+Capcor1	Capronia coronata	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Chaetothyriales	Capcor1_GeneCatalog_proteins_20160826.fasta
+Claba1	Cladophialophora bantiana CBS 173.52	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Chaetothyriales	Claba1_GeneCatalog_proteins_20160826.fasta
+Clagr3	Cladonia grayi	Fungi	Lichen	Ascomycota; Lecanoromycetes; Lecanorales	Clagr3_GeneCatalog_proteins_20111121.fasta
+Cocpo1	Coccidioides posadasii	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Onygenales	Cocpo1_1_GeneCatalog_proteins_20191103.fasta
+Dibbae1	Dibaeis baeomyces 	Fungi	Lichen	Ascomycota; Lecanoromycetes; Pertusariales	Dibbae1_GeneCatalog_proteins_20160727.fasta
+EndpusZ1	Endocarpon pusillum	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Verrucariales	EndpusZ1_GeneCatalog_proteins_20180130.fasta
+Erypu1	Erysiphe pulchra	Fungi	Non_lichen	Ascomycota; Leotiomycetes; Erysiphales	Erypu1_GeneCatalog_proteins_20210223.fasta
+Exoaq1	Exophiala aquamarina	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Chaetothyriales	Exoaq1_GeneCatalog_proteins_20160901.fasta
+Fonmu1	Fonsecaea multimorphosa	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Chaetothyriales	Fonmu1_GeneCatalog_proteins_20160827.fasta
+Fusgr1	Fusarium graminearum	Fungi	Non_lichen	Ascomycota; Sordariomycetes; Hypocreales	Fusgr1_GeneCatalog_proteins_20110524.fasta
+Grascr1	Graphis scripta	Fungi	Lichen	Ascomycota; Lecanoromycetes; Ostropales	Grascr1_GeneCatalog_proteins_20160731.fasta
+JALAHW01	Teloschistes peruensis	Fungi	Lichen	Ascomycota; Lecanoromycetes; Teloschistales	JALAHW01_protein.fasta
+JALAIA01	Xanthoria mediterranea	Fungi	Lichen	Ascomycota; Lecanoromycetes; Teloschistales	JALAIA01_protein.fasta
+JALAII01	Xanthoria aureola	Fungi	Lichen	Ascomycota; Lecanoromycetes; Teloschistales	JALAII01_protein.fasta
+JALAIK01	Xanthoria steineri	Fungi	Lichen	Ascomycota; Lecanoromycetes; Teloschistales	JALAIK01_protein.fasta
+JALAIP01	Caloplaca aegaea	Fungi	Lichen	Ascomycota; Lecanoromycetes; Teloschistales	JALAIP01_protein.fasta
+JAPDRQ01	Knufia sp. JES_112	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Chaetothyriales	JAPDRQ01_protein.fasta
+JAPETI01	Alyxoria varia	Fungi	Lichen	Ascomycota; Arthoniomycetes; Arthoniales	JAPETI01_protein.fasta
+JAPETN01	Candelaria pacifica	Fungi	Lichen	Ascomycota; Lichinomycetes; Candelariales	JAPETN01_protein.fasta
+JAPETP01	Candelina mexicana	Fungi	Lichen	Ascomycota; Lichinomycetes; Candelariales	JAPETP01_protein.fasta
+JAPETR01	Chrysothrix sp. TS-e1954	Fungi	Lichen	Ascomycota; Arthoniomycetes; Arthoniales	JAPETR01_protein.fasta
+JAPETW01	Lichina confinis	Fungi	Lichen	Ascomycota; Lichinomycetes; Lichinales	JAPETW01_protein.fasta
+JAPEUD01	Sarea resinae	Fungi	Non_lichen	Ascomycota; Lichinomycetes; Sareales	JAPEUD01_protein.fasta
+JAPEUF01	Thelocarpon impressellum	Fungi	Lichen	Ascomycota; Lichinomycetes; Thelocarpales	JAPEUF01_protein.fasta
+Monha1	Monacrosporium haptotylum	Fungi	Non_lichen	Ascomycota; Orbiliomycetes; Orbiliales	Monha1_GeneCatalog_proteins_20131210.fasta
+Morco1	Morchella importuna	Fungi	Non_lichen	Ascomycota; Pezizomycetes; Pezizales	Morco1_GeneCatalog_proteins_20140113.fasta
+Neucr	Neurospora crassa trp3	Fungi	Non_lichen	Ascomycota; Sordariomycetes; Sordariales	Neucr_trp3_1_GeneCatalog_proteins_20140324.fasta
+Penexp1	Penicillium expansum	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Eurotiales	Penexp1_GeneCatalog_proteins_20170706.fasta
+Phach1	Phaeomoniella chlamydospora	Fungi	Non_lichen	Ascomycota; Eurotiomycetes; Phaeomoniellales	Phach1_GeneCatalog_proteins_20150930.fasta
+Podan3	Podospora anserina	Fungi	Non_lichen	Ascomycota; Sordariomycetes; Sordariales	Podan3_GeneCatalog_proteins_20171013.fasta
+PseVKM4520	Pseudogymnoascus sp. VKM F-4520	Fungi	Non_lichen	Ascomycota; Leotiomycetes; Thelebolales	PseVKM4520_1_GeneCatalog_proteins_20210224.fasta
+SacceM3707	Saccharomyces cerevisiae	Fungi	Non_lichen	Ascomycota; Saccaromycetes; Saccharomycetales	SacceM3707_1_GeneCatalog_proteins_20120712.fasta
+Sclsc1	Sclerotinia sclerotiorum	Fungi	Non_lichen	Ascomycota; Leotiomycetes; Helotiales	Sclsc1_GeneCatalog_proteins_20110903.fasta
+Umbpus1	Lassalia pustulata	Fungi	Lichen	Ascomycota; Lecanoromycetes; Umbilicariales	Umbpus1_GeneCatalog_proteins_20180130.fasta
+Xanpar	Xanthoria parietina	Fungi	Lichen	Ascomycota; Lecanoromycetes; Teloschistales	Xanthoria_parietina_GTX0501.proteins.fasta

@@ -1,0 +1,12 @@
+Extraction Name	Sample ID	Sample description	Qubit concentration (ng/uL)	A260/A280	A260/A230	Volume shipped (uL)
+GTX0465	GT0243	tree bark 1	39.8	2.06	1.97	30
+GTX0466	GT0244	tree bark 2	36.9	2.1	1.92	30
+GTX0484	GT0249	tree bark 4	20	2.14	2.53	30
+GTX0468	GT0240	concrete 1	19.8	2.08	2.13	30
+GTX0486_487	GT0250	concrete 4	21.1	1.98	2.22	30
+GTX0491	GT0242	concrete 3	36	1.87	2.02	30
+GTX0481	GT0246	growth chamber 1	14.4	2.01	1.75	25
+GTX0472_482	GT0247	growth chamber 2	16	2.02	1.42	25
+GTX0473_483	GT0248	growth chamber 3	18.3	2.06	1.52	25
+GTX0493	GT0251	growth chamber 4	14			30
+GTX0494	GT0252	growth chamber 5	20.7			30

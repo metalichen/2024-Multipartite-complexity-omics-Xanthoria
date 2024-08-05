@@ -1,0 +1,31 @@
+scratch: "/tsl/scratch/gol22pin/03_transcriptomic_analysis/analysis_and_temp_files/"
+projroot: "/hpc-home/gol22pin/03_transcriptomic_analysis/"
+kraken_db: "/tsl/data/krakendb/kraken_for_lichen_project/"
+ref_genome_folder: "/tsl/data/externalData/ntalbot/lichen_project/external_genomes/"
+reads_folder: "/tsl/data/reads/ntalbot/"
+
+
+
+scratch_base: "/tsl/scratch/gol22pin/"
+kraken_nr_db: "/tsl/scratch/macleand/kraken_nr"
+kraken_chloro_db: "/tsl/scratch/macleand/kraken_chloro"
+tc_th_scratch: "/tsl/scratch/macleand/tc_th/"
+annotate_scratch: "/tsl/scratch/macleand/annotate/"
+thallus_scratch: "/tsl/scratch/macleand/thallus/"
+treb_ipro: "TrebA12_1/TrebA12_1_GeneCatalog_proteins_20200804_IPR.tab"
+chlor_ipro: "Chloso1602_1/Chloso1602_1_GeneCatalog_proteins_20200805_IPR.tab"
+astph_ipro: "Astpho2/Astpho2_GeneCatalog_proteins_20111209_IPR.tab"
+aspte_ipro: "Aspte1/Aspte1_GeneCatalog_proteins_20120919_IPR.tab"
+yeast: "lib/genomic_data/ortho/fungal/yeast_S288C.fasta"
+aspni: "lib/genomic_data/ortho/fungal/Aspergillus_nidulans.ASM1142v1.pep.all.fa"
+magna: "lib/genomic_data/ortho/fungal/Magnaporthe_oryzae.MG8.pep.all.fa"
+chlam: "lib/genomic_data/ortho/algal/Chlamydomonas_reinhardtii.Chlamydomonas_reinhardtii_v5.5.pep.all.fa"
+ostreo: "lib/genomic_data/ortho/algal/Ostreococcus_lucimarinus.ASM9206v1.pep.all.fa"
+xpa_eggnog: "xpa_eggnog_annots.txt"
+treb_eggnog: "treb_eggnog_annots.txt"
+chlor_eggnog: "chloso_eggnog_annots.txt"
+astph_eggnog: "astph_eggnog_annots.txt"
+aspte_eggnog: "aspte_eggnog_annots.txt"
+cp_eggnog: "cp1_eggnog_annots.txt"
+
+

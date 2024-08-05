@@ -1,0 +1,80 @@
+#Snakefile for mapping metatranscriptomic lichen data to the combine set of transcripts
+
+import pandas as pd
+import re
+
+
+SAMPLES=["XBC2","XBA1","XSA2_2","XSC1","XSE2","XBE1","XTA2","XSC2","XSA2","XBA2","XBC1","XTA1","XSA1","MP_I","XTC2","XTE2","XBE2","XMC2","MP_II","S_21XB1","KS21XB1","S_21XB3","S_42XB1","S_42XB2","S_42XB3","KS48XB1","KS48XB2","KS48XB3","KS9XB1","KS9XB2","KS9XB3"]
+
+rule all:
+    input:
+    	"analysis_and_temp_files/06_meta_mapping/kallisto_palign_report.txt",
+    	"analysis_and_temp_files/06_meta_mapping/kallisto_report.txt"
+
+rule kallisto:
+    input: 
+    	fq1="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.bbmapmerged.non_rRNA.1.fq.gz",
+    	fq2="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.bbmapmerged.non_rRNA.2.fq.gz"
+    output: 
+        abund="analysis_and_temp_files/06_meta_mapping/{sample}_kallisto/abundance.tsv",
+        report="analysis_and_temp_files/06_meta_mapping/{sample}_kallisto/run_info.json"
+    params:
+        mem = "30G",
+        queue="tsl-short"
+    threads: 20
+    shell: "bash code/kallisto.sh analysis_and_temp_files/06_meta_mapping/transcripts_all.idx 20 100 {input.fq1} {input.fq2} {output.abund}"    
+        
+        
+rule kallisto_palign_extract:
+    '''creates a file listing p_unique stat from each kallisto report'''
+    input:
+        i="analysis_and_temp_files/06_meta_mapping/{sample}_kallisto/run_info.json"
+    output: o=temp("analysis_and_temp_files/06_meta_mapping/{sample}_kallisto/p_unique.txt")
+    params:
+        mem = "1G",
+        queue="tsl-short"   
+    threads: 1
+    run:
+        with open (input.i,'r') as r:
+            data = json.loads(r.read())
+            count=str(data['p_unique'])
+            result=str(wildcards.sample+'\t'+count+'\n')
+        with open (output.o,'w') as out: out.write(result)
+    
+rule kallisto_palign_report:
+    '''creates a single report file of p_unique stat from each kallisto report'''
+    input: 
+        expand("analysis_and_temp_files/06_meta_mapping/{sample}_kallisto/p_unique.txt",sample=SAMPLES)
+    output:	"analysis_and_temp_files/06_meta_mapping/kallisto_palign_report.txt"
+    params:
+        mem = "1G",
+        queue="tsl-short"   
+    threads: 1
+    shell:
+        "cat {input} > {output}"
+
+
+rule add_sample_id:
+    '''adds a column to the kallisto report with a sample id'''
+    input: "analysis_and_temp_files/06_meta_mapping/{sample}_kallisto/abundance.tsv"
+    output: "analysis_and_temp_files/06_meta_mapping/{sample}_kallisto/abundance_add_id.tsv"
+    params:
+        mem = "1G",
+        queue="tsl-short"   
+    threads: 1
+    shell:
+        """awk 'BEGIN {{ FS = OFS = "\t" }} {{ $(NF+1) = "{wildcards.sample}"; print $0 }}' {input} | awk 'NR!=1 {{print}}' > {output}"""
+
+rule combine_reports:
+    input: 
+        expand("analysis_and_temp_files/06_meta_mapping/{sample}_kallisto/abundance_add_id.tsv",sample=SAMPLES)
+    output:	"analysis_and_temp_files/06_meta_mapping/kallisto_report.txt"
+    params:
+        mem = "1G",
+        queue="tsl-short"   
+    threads: 1
+    shell:
+        "cat {input} > {output}"
+       
+
+        

@@ -1,0 +1,80 @@
+#
+
+#Snakefile for quality control and trimming of rna-seq data
+
+import pandas as pd
+import re
+configfile: "code/params/config.yaml"
+
+#load table with metadata
+input_table = pd.read_csv("data/metadata/bmm_coculture_thallus.csv").set_index("run_id", drop=False)
+selected_table = input_table.loc[input_table['intended_for_denovo'] == 1]
+SAMPLES = selected_table.index.tolist()
+#SAMPLES=["S_42AB2","S_42AB3"]
+
+#define functions, by which I will get file locations for each ran from the table
+def fq1_from_sample(wildcards):
+  return input_table.loc[wildcards.sample, "fq1"]
+
+def fq2_from_sample(wildcards):
+  return input_table.loc[wildcards.sample, "fq2"]  
+  
+
+#fastQC on all files
+rule all:
+    input:
+    	config['scratch'] + "03_qc/fastqc_out/done",
+    	"analysis_and_temp_files/03_qc/rarefaction/rarefaction_{sample}.txt,
+    	expand("analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.1.fq.gz",sample=SAMPLES),
+    	expand("analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.bbmapmerged.non_rRNA.1.fq.gz",sample=SAMPLES)
+        
+
+rule fastqc:
+    output: config['scratch'] +"03_qc/fastqc_out/done"
+    params:
+        mem = "4G",
+        queue="tsl-long"
+    threads: 1	
+    shell: "bash code/fastqc_batch.sh {output}"
+		
+# trim the files selected for de novo assembly
+rule cutadapt:
+    input:
+        fq1=fq1_from_sample,
+        fq2=fq2_from_sample
+    output:
+        o1="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.1.fq.gz",
+        o2="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.2.fq.gz"
+    params:
+        mem = "20G",
+        queue="tsl-short"
+    threads: 2	
+    shell: "code/run_cutadapt.sh {output.o1} {output.o2} {input.fq1} {input.fq2} 2"
+
+rule sortmerna:
+    input:
+        fq1="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.1.fq.gz",
+        fq2="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.2.fq.gz"
+    output:
+        o1="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.bbmapmerged.non_rRNA.1.fq.gz",
+        o2="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.bbmapmerged.non_rRNA.2.fq.gz"
+    params:
+        mem = "40G",
+        queue="tsl-medium"
+    threads: 25	
+    shell: "code/sortmerna.sh {input.fq1} {input.fq2} {wildcards.sample} {output.o1} 22"
+    
+rule rarefaction:
+    input:
+        i1="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.bbmapmerged.non_rRNA.1.fq.gz",
+        i2="analysis_and_temp_files/03_qc/trimmed_reads/{sample}_trimmed.bbmapmerged.non_rRNA.2.fq.gz"
+    output: "analysis_and_temp_files/03_qc/rarefaction/rarefaction_{sample}.txt
+    params:
+        mem = "40G",
+        queue="tsl-medium"
+    threads: 25	
+    shell: "bbcountunique.sh in={input.i1} in2={input.i2} out={output}"
+    
+    
+    
+    

@@ -1,0 +1,76 @@
+/opt/software/conda_env/bin/quast -o analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG --threads 20 --fungus --circos --gene-finding --rna-finding --no-check --no-snps analysis_and_temp_files/02_binning/Xanthoria_MAG.fa
+
+Version: 5.0.2
+
+System information:
+  OS: Linux-3.10.0-1160.76.1.el7.x86_64-x86_64-with-centos-7.6.1810-Core (linux_64)
+  Python version: 3.6.7
+  CPUs number: 32
+
+Started: 2023-03-23 18:19:37
+
+Logging to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/quast.log
+
+CWD: /tsl/scratch/gol22pin/02_long_read_assemblies
+Main parameters: 
+  MODE: default, threads: 20, eukaryotic: true, minimum contig length: 500, minimum alignment length: 65, \
+  ambiguity: one, threshold for extensive misassembly size: 1000
+
+Contigs:
+  Pre-processing...
+  analysis_and_temp_files/02_binning/Xanthoria_MAG.fa ==> Xanthoria_MAG
+
+2023-03-23 18:19:45
+Running Basic statistics processor...
+  Contig files: 
+    Xanthoria_MAG
+  Calculating N50 and L50...
+    Xanthoria_MAG, N50 = 2319243, L50 = 6, Total length = 36379842, GC % = 45.55, # N's per 100 kbp =  0.00
+  Drawing Nx plot...
+    saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/basic_stats/Nx_plot.pdf
+  Drawing cumulative plot...
+    saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/basic_stats/cumulative_plot.pdf
+  Drawing GC content plot...
+    saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/basic_stats/GC_content_plot.pdf
+  Drawing Xanthoria_MAG GC content plot...
+    saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/basic_stats/Xanthoria_MAG_GC_content_plot.pdf
+Done.
+
+2023-03-23 18:19:51
+WARNING: GeneMark tool can't be started because of license limitations!
+
+NOTICE: Genes are not predicted by default. Use --gene-finding or --glimmer option to enable it.
+
+2023-03-23 18:19:51
+Running Barrnap...
+Logging to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/predicted_genes/barrnap.log...
+/opt/software/conda_env/lib/python3.6/site-packages/quast_libs/barrnap/bin/barrnap \
+--quiet -k euk --threads 20 analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/quast_corrected_input/Xanthoria_MAG.fa \
+> analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/predicted_genes/Xanthoria_MAG.rna.gff \
+2>> analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/predicted_genes/barrnap.log
+The tool returned non-zero. See analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/predicted_genes/barrnap.log for stderr.
+    Ribosomal RNA genes = 0
+    Predicted genes (GFF): /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/predicted_genes/Xanthoria_MAG.rna.gff
+Done.
+
+2023-03-23 18:19:52
+Creating large visual summaries...
+This may take a while: press Ctrl-C to skip this step..
+  1 of 2: Creating Icarus viewers...
+  2 of 2: Creating PDF with all tables and plots...
+Done
+
+2023-03-23 18:19:54
+RESULTS:
+  Text versions of total report are saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/report.txt, report.tsv, and report.tex
+  Text versions of transposed total report are saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/transposed_report.txt, transposed_report.tsv, and transposed_report.tex
+  HTML version (interactive tables and plots) is saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/report.html
+  PDF version (tables and plots) is saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/report.pdf
+  Icarus (contig browser) is saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/icarus.html
+  Log is saved to /tsl/scratch/gol22pin/02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/quast_Xanthoria_MAG/quast.log
+
+Finished: 2023-03-23 18:19:54
+Elapsed time: 0:00:17.244980
+NOTICEs: 1; WARNINGs: 1; non-fatal ERRORs: 0
+
+Thank you for using QUAST!

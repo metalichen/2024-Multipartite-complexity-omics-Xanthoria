@@ -1,0 +1,224 @@
+---
+title: "06_meta_mapping"
+author: "Gulnara Tagridzhanova"
+date: "10/08/2023"
+output: 
+  html_document:
+  code_folding: hide
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/03_transcriptomic_analysis/notebook")
+```
+
+* **Rationale:** Now the main focus of this sub-project is the metatranscriptomic data produced for Xanthoria
+
+## 1. Sample overview
+* 19 samples from 5 substrates and 4 sample types
+
+```{r, message = FALSE,warning=FALSE}
+library(tidyverse)
+samples<-read.delim("../data/metadata/found_samples_in_sequences_db_thallus.csv",sep=",")
+
+samples %>% group_by(growth_site,sample_focus) %>% summarize(n=n()) %>% 
+  pivot_wider(names_from = growth_site,values_from = n,values_fill = 0)
+
+```
+
+* Have 4 complete sets: 2 from bark, 1 from twigs, 1 from stone
+  * One complete set = 3 metatranscriptomes: thallus_centre, thallus_edge, apothecia
+```{r}
+samples %>% filter(sample_focus %in% c("apothecia","thallus_centre","thallus_edge")) %>%
+  group_by(sample_focus,thallus_id) %>% summarize(n=n()) %>% pivot_wider(names_from = sample_focus, values_from = n, values_fill = 0)
+
+```
+## 2. Creating combined transcript file
+* Included following for the mycobiont:
+  * mrna-transcripts from the funannotate annotation of GTX0501 nuclear MAG
+  * transcripts from the MitoFInder annotation of GTX0501 mitogenome
+* For other eukaryotes, included annotations of MAGs from from short-read metagenomic assemblies. Used funannotate-generated *.mrna-transcripts.fa 
+  * this didn't include short-read MAGs from Xanthoria mycobiont
+* For prokaryotes, used prokka-gnerated *.ffn file (Nucleotide FASTA file of all the prediction transcripts (CDS, rRNA, tRNA, tmRNA, misc_RNA))
+
+```
+cat ../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.mrna-transcripts.fa ../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501mito/GTX0501mito_MitoFinder_mitfi_Final_Results/GTX0501mito_mtDNA_contig_genes_NT.fasta  ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/prok/*/*.ffn ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.195_pred/predict_results/*.mrna-transcripts.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.376_pred/predict_results/*.mrna-transcripts.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.378_pred/predict_results/*.mrna-transcripts.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.64_pred/predict_results/*.mrna-transcripts.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/coassembly.bin.76_pred/predict_results/*.mrna-transcripts.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/GTX0465.bin.1_pred/predict_results/*.mrna-transcripts.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/GTX0466.bin.15_pred/predict_results/*.mrna-transcripts.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/GTX0468.bin.53_pred/predict_results/*.mrna-transcripts.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/GTX0493.bin.23_pred/predict_results/*.mrna-transcripts.fa ../01_Xanthoria_metagenomics/analysis_and_temp_files/06_annotate_mags/euk/GTX0486_487.bin.100_pred/predict_results/*.mrna-transcripts.fa > analysis_and_temp_files/06_meta_mapping/transcripts_all.fa
+```
+* This resulted in 701,881 transcripts
+* Indexed the list with kallisto
+```
+#!/bin/bash
+#SBATCH --time=6:00:00
+#SBATCH --cpus-per-task=20
+#SBATCH --job-name=annot
+#SBATCH --output=analysis_and_temp_files/06_meta_mapping/kallisto_index.log
+#SBATCH --mem=80G
+
+source kallisto-0.46.2
+kallisto index -i analysis_and_temp_files/06_meta_mapping/transcripts_all.idx analysis_and_temp_files/06_meta_mapping/transcripts_all.fa
+```
+
+## 3. Mapping
+* Prepped the Snakemake file to map all transcriptomes of interest. Saved it in `analysis_and_temp_files/06_meta_mapping/Snakemake_kallisto`
+* Before running it, needed to trim and filter Xanthoria pure culture transcriptomes (updated Snakefile and rarefaction reports in `03_qc`)
+* Made a single table with all mapping results, saved in `analysis_and_temp_files/06_meta_mapping/kallisto_report.txt`
+
+## 4. Overview
+* Add the column with the MAG, and add info about the taxonomy for each mag
+```{r,message=FALSE}
+kallisto<-read.delim("../analysis_and_temp_files/06_meta_mapping/kallisto_report.txt",header=F)
+colnames(kallisto)<-c("target_id","length","eff_length","est_counts","tpm","sample")
+
+#use the shortened version of the genome name from the locus tag to get the full version
+kallisto$locustag_base<-sub("\\_.*", "", kallisto$target_id)
+kallisto$genome<-str_replace(kallisto$locustag_base,"b",".bin.")
+kallisto$genome<-str_replace(kallisto$genome,"coassem","coassembly")
+kallisto$genome<-str_replace(kallisto$genome,"GTX0486","GTX0486_487")
+
+#combine nuclear and mito genomes of the mycobiont
+kallisto$genome[grepl("mito",kallisto$genome)]<-"XANPAGTX0501"
+
+#add taxonomi info from the mag table
+mag_info<-read.delim("../../01_Xanthoria_metagenomics/analysis_and_temp_files/04_phylogenomics/mags_stats.txt",header=T)
+mag_info$genome<-str_replace(mag_info$genome,".fa","")
+
+mag_info$type<-"Bacteria"
+mag_info$type[mag_info$classification=="Trebouxia"]<-"Trebouxia"
+mag_info$type[mag_info$phylum=="Ascomycota"]<-"other_fungi"
+
+#add a new line for the mycobiont genome
+mag_info <- mag_info %>% select(genome,type,classification,phylum,class,order,family,genus,species,domain)
+
+xanpa_info<-c("genome"="XANPAGTX0501","type"="Main fungus", "classification"="Lecanoromycetes",
+             "phylum"= "Ascomycota", "class"="Lecanoromycetes","order"="Teloschistales",
+             "family"="Teloschistaceae","genus"="Xanthoria","species"="Xanthoria parietina",
+             "domain"="Eukaryota")
+mag_info <- rbind(mag_info,xanpa_info)
+
+kallisto<-kallisto %>% left_join(mag_info)
+#write.table(kallisto,"../analysis_and_temp_files/06_meta_mapping/kallisto_report_add_info.txt",row.names = F,quote = F)
+
+```
+
+* In all samples, mycobiont is dominant
+```{r,message = FALSE,fig.width=10,fig.height=10}
+#kallisto<-read.delim("../analysis_and_temp_files/06_meta_mapping/kallisto_report_add_info.txt",header=T)
+metadata<-read.csv("../data/metadata/bmm_coculture_thallus.csv")
+
+kallisto_by_type <- kallisto %>% group_by(sample,type) %>% summarize(total_count=sum(tpm)) %>% mutate(freq = round(total_count / sum(total_count), 3)) %>% left_join(metadata,by=c("sample"="run_id"))
+
+ggplot(kallisto_by_type) + geom_bar(aes(x=total_count,y=sample,fill=type),position="stack", stat="identity") + facet_grid(pair~.,scales="free",space="free")+
+  xlab("total count") + theme_bw()+
+  theme(strip.text.y = element_text(angle = 0,size=7),
+        axis.text.y = element_text(size=7))
+
+```
+* Same graph, but with MP_I and MP_II samples removed
+```{r,message = FALSE,fig.width=8,fig.height=8}
+library(RColorBrewer)
+kallisto_by_type <- kallisto_by_type %>% mutate(pair2=case_when(pair=="xanthoria_parietina" ~ "Pure Culture",
+        pair=="apothecia" ~ "Thallus: apothecia",
+        pair=="thallus_centre" ~ "Thallus: center",
+       pair=="thallus_edge"  ~ "Thallus: edge",
+       pair=="whole_thallus"   ~ "Whole thallus, growth chamber",
+       T ~ ""))
+kallisto_by_type$type[kallisto_by_type$type=="other_fungi"]<-"Other fungi"
+kallisto_by_type$type<-factor(kallisto_by_type$type,levels=c("Main fungus","Trebouxia","Other fungi","Bacteria"))
+
+ggplot(kallisto_by_type %>% filter(pair2 != "Whole thallus, growth chamber")) + geom_bar(aes(x=total_count,y=sample,fill=type),position="stack", stat="identity") + facet_grid(pair2~.,scales="free",space="free")+
+  xlab("total count") + theme_bw()+
+  scale_fill_manual(values = c("Main fungus"=brewer.pal(8,"Dark2")[6],
+                               "Trebouxia"=brewer.pal(8,"Dark2")[5],
+                               "Other fungi"=brewer.pal(8,"Dark2")[2],
+                               "Bacteria"=brewer.pal(8,"Dark2")[3]))+
+  theme(strip.text.y = element_text(angle = 0,size=15),
+        #axis.text.y = element_text(size=10),
+        text= element_text(size=15),
+        legend.position="bottom")
+
+```
+
+* Bacteria present in all samples, including pure culture in more or less same small fraction
+* Trebouxia accounts for 8% in lichen samples from nature, but only 0.8% in the samples kept in the growth chamber
+* Reads from pure cultures had no transcripts assigned to Trebouxia or non-Xanthoria fungi. This is a good sign showing that classification works as expected. Some bacterial reads are to be expected
+```{r,message = FALSE,fig.width=5,fig.height=8}
+kallisto_by_type$type_sample <- "thallus_from_nature"
+kallisto_by_type$type_sample[kallisto_by_type$pair=="whole_thallus"] <- "thallus_from_lab"
+kallisto_by_type$type_sample[kallisto_by_type$pair=="xanthoria_parietina"] <- "pure_culture"
+
+kallisto_by_type %>% group_by(type,type_sample) %>% summarize(avg_percent=mean(freq)) %>% pivot_wider(names_from = type,values_from = avg_percent) 
+
+
+```
+* 
+
+## 5. Trebouxia by genome
+* In three out of four complete sets of samples, on Trebouxia genome (GTX0468.bin.53) is clearly dominant 
+* In XT1 (incomplete set), the dominant genome is different
+* Three others (including one complete set) don't have a dominant. Probably their strain of alga wasn't among the genomes, so the reads mapped to whatever algal transcripts fit better this particular gene
+```{r,message = FALSE,fig.width=10,fig.height=10}
+kallisto_treb <- kallisto %>% filter(type=="Trebouxia") %>% group_by(genome,sample) %>% summarize(total_count=sum(tpm)) %>% mutate(freq = round(total_count / sum(total_count), 3)) %>% left_join(metadata,by=c("sample"="run_id")) %>% left_join(samples,by=c("sample"="samples")) 
+
+#add info on thalli
+
+ggplot(kallisto_treb %>% filter(pair %in% c("apothecia","thallus_centre","thallus_edge"))) + geom_bar(aes(x=total_count,y=sample,fill=genome),position="stack", stat="identity") + facet_grid(thallus_id~.,scales="free",space="free")+
+  xlab("total count") + theme_bw()+
+  theme(strip.text.y = element_text(angle = 0,size=7),
+        axis.text.y = element_text(size=7))
+
+```
+
+## 6. Dominant bacteria
+```{r,message = FALSE,fig.width=10,fig.height=10}
+bac_taxonomy <- mag_info %>% filter(domain =="Bacteria") %>% select(classification,phylum,class,order,family,genus) %>% distinct()
+
+kallisto_bac_by_genus <- kallisto %>% filter(type=="Bacteria") %>% group_by(genus) %>% summarize(total_count=sum(tpm))  %>% arrange(desc(total_count)) %>% filter(genus!="Unknown") %>% left_join(bac_taxonomy)
+
+kallisto_bac_by_genus_2 <- kallisto %>% filter(type=="Bacteria") %>% group_by(genus,sample) %>% summarize(total_count=sum(tpm)) %>% filter(genus!="Unknown") %>% left_join(bac_taxonomy) %>%  left_join(metadata,by=c("sample"="run_id"))
+
+#add info on thalli
+
+ggplot(kallisto_bac_by_genus_2,aes(x=sample,y=genus,size=ifelse(total_count<10, NA, total_count),color=phylum))+geom_point(alpha=0.7)+
+  scale_size(range = c(1, 6),name = "Total count")+
+  facet_grid(.~pair,scales="free",space="free") + theme_bw()+
+  theme(axis.text.x = element_text(angle = 90,size=7),
+        axis.text.y = element_text(size=7),
+        strip.text = element_text(size=7))
+```
+
+### Side-quest: can I really find Sphingomonas in the pure culture data?
+* Checked the rRNA files for the presence of Sphingomonas 16S
+* Started with one:
+```
+cp  analysis_and_temp_files/03_qc/trimmed_reads/KS48XB1_trimmed.bbmapmerged.rRNA.fastq.gz analysis_and_temp_files/06_meta_mapping/
+gzip -d analysis_and_temp_files/06_meta_mapping/KS48XB1_trimmed.bbmapmerged.rRNA.fastq.gz 
+cat analysis_and_temp_files/06_meta_mapping/KS48XB1_trimmed.bbmapmerged.rRNA.fastq | awk '{if(NR%4==1) {printf(">%s\n",substr($0,2));} else if(NR%4==2) print;}' > analysis_and_temp_files/06_meta_mapping/KS48XB1_trimmed.bbmapmerged.rRNA.fa
+blastn -query analysis_and_temp_files/06_meta_mapping/Sphingomonas_genbank_16s.fa -subject analysis_and_temp_files/06_meta_mapping/KS48XB1_trimmed.bbmapmerged.rRNA.fa -outfmt 6 -out analysis_and_temp_files/06_meta_mapping/blastn_sphingomonas_KS48XB1.txt
+```
+* Resulted in 334 hits, top 6:
+
+```
+AB217471.1      A00783:750:HWNWGDSXY:1:2369:31159:8328  100.000 150     0       0       598     747     150     1       1.37e-73        278
+AB217471.1      A00783:750:HWNWGDSXY:1:2369:31159:8328  98.000  150     3       0       513     662     1       150     1.38e-68        261
+AB217471.1      A00783:750:HWNWGDSXY:1:1226:24460:29199 97.333  150     4       0       252     401     1       150     6.43e-67        255
+AB217471.1      A00917:652:HWV2JDSXY:1:2644:17282:13479 97.333  150     4       0       208     357     150     1       6.43e-67        255
+AB217471.1      A00917:652:HWV2JDSXY:1:1231:31901:35978 97.315  149     4       0       253     401     1       149     2.31e-66        254
+AB217471.1      A00917:652:HWV2JDSXY:1:1231:32045:35571 97.315  149     4       0       253     401     1       149     2.31e-66        254
+
+```
+* Picked three hits and blasted against NCBI
+  * Top hit blasts as Sphingomonas
+  * Random middle hit (evalue 3.12e-35) blasts as Rhodococcus (Actinomycetes)
+  * Bottom hit (evalue 6.90e-17) blasts as unclutured bacterium or chloroplast 16S
+* **Conclusion:** it seems that the most likely explantation is bacterial contamination of the cultures, NOT mismapping of reads
+
+## 7. Saved mycobiont info separately
+* Shared with Neha
+```{r, eval=F}
+myco <- kallisto %>% filter(type=="Main Fungus") %>% 
+select(target_id,length,eff_length,est_counts,tpm,sample)
+  
+  
+write.table(myco,"../analysis_and_temp_files/06_meta_mapping/kallisto_mycobiont_only.txt",row.names = F,quote = F)
+```
+

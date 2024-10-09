@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r,message=F}
 library(sleuth)
 library(tidyverse)
-samples<-read.delim("../data/metadata/found_samples_in_sequences_db_thallus.csv",sep=",")
+samples<-read.delim("../analysis_and_temp_files/03_qc/samples.csv",sep=",")
 
 kal_dirs2 <- data.frame("sample"=samples$run_id, "part"= samples$sample_focus,
                        substrate=samples$growth_site, thallus = samples$thallus_id,
@@ -58,7 +58,7 @@ ec_so  <- sleuth_fit(ec_so, ~thallus + part, 'full')
 ec_so <- sleuth_lrt(ec_so, 'reduced', 'full')
 ec_so <- sleuth_wt(ec_so, 'partthallus_edge')
 
-plot_pca(ec_so, color_by = 'part', text_labels = TRUE,use_filtered=T)
+plot_pca(ec_so, color_by = 'part', text_labels = TRUE,use_filtered=T,units="tpm")
 
 ec_table <- sleuth_results(ec_so, 'partthallus_edge')
 ec_sig <- ec_table %>% tibble::as_tibble() %>% 
@@ -88,7 +88,7 @@ plot_bootstrap(ec_so,
   
 ```{r,fig.show="hold"}
 library(kableExtra)
-funannot2<-read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t")
+funannot2<-read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/09_ortho/lichen_enriched_ortho_in_xanpa.tsv",sep="\t")
 
 center_ec_genes<-ec_sig %>% filter(change=="centre") %>%
   left_join(funannot2,by=c("target_id"="TranscriptID")) %>%
@@ -162,7 +162,7 @@ ca_so  <- sleuth_fit(ca_so, ~thallus + part, 'full')
 ca_so <- sleuth_lrt(ca_so, 'reduced', 'full')
 ca_so <- sleuth_wt(ca_so, 'partthallus_centre')
 
-plot_pca(ca_so, color_by = 'part', text_labels = TRUE,use_filtered=T)
+plot_pca(ca_so, color_by = 'part', text_labels = TRUE,use_filtered=T,units="tpm")
 
 ca_table <- sleuth_results(ca_so, 'partthallus_centre')
 ca_sig <- ca_table %>% tibble::as_tibble() %>% 
@@ -341,7 +341,7 @@ ea_sig <- ea_table %>% tibble::as_tibble() %>%
   filter( qval <= 0.05, grepl("GTX0501",target_id) ) %>% 
   arrange(desc(b)) %>% mutate(change = if_else(b > 1, "edge", ifelse(b< -1, "apothecium", "low_logFC")))
 
-plot_pca(ea_so, color_by = 'part', text_labels = TRUE,use_filtered=T)
+plot_pca(ea_so, color_by = 'part', text_labels = TRUE,use_filtered=T,units="tpm")
 
 table(ea_sig$change)
 ```
@@ -534,11 +534,19 @@ color_scheme<-c("apothecia"=brewer.pal(3,"Dark2")[1],
                 "thallus_centre"=brewer.pal(3,"Dark2")[2], 
                "thallus_edge" =brewer.pal(3,"Dark2")[3] )
 
-plot_pca(a_so, color_by = 'part', text_labels = TRUE,use_filtered=T)+
+plot_pca(a_so, color_by = 'part', text_labels = TRUE,use_filtered=T,units="tpm")+
   theme_bw()+theme(text=element_text(size=7))+
   scale_color_manual(values=color_scheme)
 ggsave('../results/tissue_pca.pdf',width = 4.5, height = 3)
 
+```
+
+* Get % of variance explained
+```{r}
+ppv <- plot_pc_variance(a_so,use_filtered=T,units="tpm")
+PCpc <- ppv$data$var
+names(PCpc) <- paste0("PC", seq(1:length(PCpc)))
+PCpc
 ```
 
 ### Upregulated in thallus
@@ -1025,7 +1033,7 @@ write.table(ap_a_genes$target_id,'../analysis_and_temp_files/09_dge_architecture
 
 #first half of the reference file: contig names and lengths
 library(Biostrings)
-fasta<-readDNAStringSet("../../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.scaffolds.fa")
+fasta<-readDNAStringSet("../../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.scaffolds.fa")
 df<-data.frame("name"=names(fasta),"length"=width(fasta))
 cat("## Chromosome lenghts\n",file='../analysis_and_temp_files/09_dge_architecture/reference.txt')
 write.table(df,'../analysis_and_temp_files/09_dge_architecture/reference.txt',col.names = F,row.names = F,quote = F,append=T,sep="\t")
@@ -1033,7 +1041,7 @@ cat("\n", file="../analysis_and_temp_files/09_dge_architecture/reference.txt",ap
 
 #second half of the reference file: gff
 cat("## refGene\n",file='../analysis_and_temp_files/09_dge_architecture/reference.txt',append=T)
-gff<-read.delim("../../02_long_read_assemblies/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.gff3", header=F, comment.char="#") 
+gff<-read.delim("../../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.gff3", header=F, comment.char="#") 
 
 gff2<-gff %>% filter(V3=="mRNA") %>% 
   mutate(target_id = str_match(V9,"ID=(.*);Parent")[,2]) %>% 

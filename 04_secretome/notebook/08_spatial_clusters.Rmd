@@ -1,0 +1,385 @@
+---
+title: "08_spatial_clusters"
+author: "Gulnara Tagridzhanova"
+date: "03/10/2024"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/11_omics_manuscript/repo_public/2024-Multipartite-complexity-omics-Xanthoria/04_secretome/notebook/")
+
+```
+
+## Map secreted proteins (and NLRs, for good measure) in the genome
+
+* Make bed files for the selected groups
+```{r}
+library(tidyverse)
+list_secr <- read.delim("../analysis_and_temp_files/01_predicting_effectors/all_secreted_list.txt",header=F)
+list_secr <- str_replace(list_secr$V1,"FUN","XANPAGTX0501")
+
+list_nlr <- read.delim("../../02_mycobiont_genome/analysis_and_temp_files/10_nlr/NLRs.txt")[1] %>% unique()
+
+funannot<- read.delim("../../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.annotations.txt")[,c(2,4:6)]
+
+secr_bed<-funannot %>% filter(TranscriptID %in% list_secr) 
+write.table(secr_bed[,-1],"../analysis_and_temp_files/08_spatial_clusters/GTX0501_secreted.bed",col.names = F,row.names = F,quote = F,sep="\t")
+
+nlr_bed<-funannot %>% filter(TranscriptID %in% list_nlr$TranscriptID)
+write.table(nlr_bed[,-1],"../analysis_and_temp_files/08_spatial_clusters/GTX0501_nlr.bed",col.names = F,row.names = F,quote = F,sep="\t")
+```
+* intersect these with the bed file
+```{r,eval=FALSE}
+sbatch --mem=10G -c 5 --partition=tsl-short --wrap="source package b0ed0698-358b-4c9b-9d21-603ea8d6e478; bedtools coverage -a ../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.bed -b analysis_and_temp_files/08_spatial_clusters/GTX0501_nlr.bed > analysis_and_temp_files/08_spatial_clusters/GTX0501_xanthoria_nuclear_mag_clean_sort_nlr_bedtools.txt"
+
+sbatch --mem=10G -c 5 --partition=tsl-short --wrap="source package b0ed0698-358b-4c9b-9d21-603ea8d6e478; bedtools coverage -a ../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.bed -b analysis_and_temp_files/08_spatial_clusters/GTX0501_secreted.bed > analysis_and_temp_files/08_spatial_clusters/GTX0501_xanthoria_nuclear_mag_clean_sort_secreted_bedtools.txt"
+```
+* Visualize
+```{r,fig.width=8,fig.height=8}
+library(tidyverse)
+library(ggnewscale)
+library(patchwork)
+library(GenomicRanges)
+
+#read in separately
+rep<-read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort_repeatcov.txt",header=F)[,c(1,2,7)]
+colnames(rep)<-c("contig","window_start","repeat_content")
+rep$repeat_content<- rep$repeat_content %>% as.numeric()
+repeat_range <- GRanges(seqnames=rep$contig,ranges=IRanges(rep$window_start, rep$window_start+9999),repeat_content = rep$repeat_content)
+
+nlr<-read.delim2("../analysis_and_temp_files/08_spatial_clusters/GTX0501_xanthoria_nuclear_mag_clean_sort_nlr_bedtools.txt",header=F)[,c(1,2,7)]
+colnames(nlr)<-c("contig","window_start","nlr")
+nlr$nlr<-as.numeric(nlr$nlr)
+nlr<-nlr %>% mutate(nlr_binary=if_else(nlr>0,1,0))
+
+secr<-read.delim2("../analysis_and_temp_files/08_spatial_clusters/GTX0501_xanthoria_nuclear_mag_clean_sort_secreted_bedtools.txt",header=F)[,c(1,2,7)]
+colnames(secr)<-c("contig","window_start","secr")
+secr$secr<-as.numeric(secr$secr)
+secr<-secr %>% mutate(secr_binary=if_else(secr>0,1,0))
+
+#make a df with repeat content
+df3 <- rep %>% left_join(secr %>% select(-secr)) %>% 
+  left_join(nlr %>% select(-nlr)) %>%
+  pivot_longer(-c(contig, window_start),names_to = "parameter",values_to = "value") 
+
+df3$parameter<-plyr::revalue(df3$parameter, c( "repeat_content"="CRepeat%","secr_binary"="BSecreted",
+        "nlr_binary"="ANLRs"))
+df3$contig<-reorder(df3$contig,df3$contig,FUN=function(x) -length(x))
+
+df3<-df3 %>% mutate(panel=case_when(
+  contig %in% c("Xp_GTX0501_1","Xp_GTX0501_2","Xp_GTX0501_3",  "Xp_GTX0501_4", 
+"Xp_GTX0501_5",  "Xp_GTX0501_6",  "Xp_GTX0501_7",  "Xp_GTX0501_8", 
+"Xp_GTX0501_9",  "Xp_GTX0501_10", "Xp_GTX0501_11", "Xp_GTX0501_12",
+"Xp_GTX0501_13", "Xp_GTX0501_14", "Xp_GTX0501_15", "Xp_GTX0501_16",
+"Xp_GTX0501_17", "Xp_GTX0501_18", "Xp_GTX0501_19") ~ 1,
+contig %in% c("Xp_GTX0501_19", "Xp_GTX0501_20","Xp_GTX0501_21", "Xp_GTX0501_22", "Xp_GTX0501_23", "Xp_GTX0501_24","Xp_GTX0501_25", "Xp_GTX0501_26", "Xp_GTX0501_27", "Xp_GTX0501_28","Xp_GTX0501_29", "Xp_GTX0501_30", "Xp_GTX0501_31", "Xp_GTX0501_32",
+"Xp_GTX0501_33", "Xp_GTX0501_34", "Xp_GTX0501_35", "Xp_GTX0501_36", "Xp_GTX0501_37", "Xp_GTX0501_38") ~ 2, T ~3))
+
+gg1<-df3 %>% filter(panel==1) |> 
+  ggplot() +
+  # apply the gradient to group 1
+geom_tile(aes(y=parameter,x=window_start,fill=value), 
+    filter(df3, parameter == "CRepeat%",panel==1)) +
+ scale_fill_gradientn(colours = c("purple", "orange"),guide = 'none')+
+  labs(fill = "Repeat%") +
+  # start a new scale
+new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df3, parameter == "BSecreted",panel==1))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df3, parameter == "BSecreted",panel==1))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#C49A00"),guide = 'none')+
+  # start a new scale
+  new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df3, parameter == "ANLRs",panel==1))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df3, parameter == "ANLRs",panel==1))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#00c094"),guide = 'none')+
+  scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"),expand = c(0, 0))+
+  labs(fill = "Culture-upregulated clusters") +  xlab("")+ylab("Contigs")+
+  facet_wrap(~contig,ncol=1)+
+  theme_classic()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(),strip.text.x = element_blank(),
+        axis.text.y = element_blank(),legend.position="bottom",
+        axis.line.y = element_blank(),axis.ticks.y = element_blank())
+
+gg2<-df3 %>% filter(panel==2) |> 
+  ggplot() +
+  # apply the gradient to group 1
+geom_tile(aes(y=parameter,x=window_start,fill=value), 
+    filter(df3, parameter == "CRepeat%",panel==2)) +
+ scale_fill_gradientn(colours = c("purple", "orange"),guide = 'none')+
+  labs(fill = "Repeat%") +
+  # start a new scale
+new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df3, parameter == "BSecreted",panel==2))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df3, parameter == "BSecreted",panel==2))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#C49A00"),guide = 'none')+
+  # start a new scale
+  new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df3, parameter == "ANLRs",panel==2))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df3, parameter == "ANLRs",panel==2))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#00c094"),guide = 'none')+
+  scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"),expand = c(0, 0))+
+  labs(fill = "Culture-upregulated clusters") +  xlab("")+ylab("Contigs")+
+  facet_wrap(~contig,ncol=1)+
+  theme_classic()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(),strip.text.x = element_blank(),
+        axis.text.y = element_blank(),legend.position="bottom",
+        axis.line.y = element_blank(),axis.ticks.y = element_blank())
+
+gg3<-df3 %>% filter(panel==3) |> 
+  ggplot() +
+  # apply the gradient to group 1
+geom_tile(aes(y=parameter,x=window_start,fill=value), 
+    filter(df3, parameter == "CRepeat%",panel==3)) +
+ scale_fill_gradientn(colours = c("purple", "orange"),guide = 'none')+
+  labs(fill = "Repeat%") +
+  # start a new scale
+new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df3, parameter == "BSecreted",panel==3))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df3, parameter == "BSecreted",panel==3))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#C49A00"),guide = 'none')+
+  # start a new scale
+  new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df3, parameter == "ANLRs",panel==3))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df3, parameter == "ANLRs",panel==3))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#00c094"),guide = 'none')+
+  scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"),expand = c(0, 0))+
+  labs(fill = "Culture-upregulated clusters") +  xlab("")+ylab("Contigs")+
+  facet_wrap(~contig,ncol=1)+
+  theme_classic()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(),strip.text.x = element_blank(),
+        axis.text.y = element_blank(),legend.position="bottom",
+        axis.line.y = element_blank(),axis.ticks.y = element_blank())
+#scale graph widths
+#max(df$window_start[df$panel==1]) / max(df$window_start[df$panel==3]) [1] 29.44444
+#max(df$window_start[df$panel==2]) / max(df$window_start[df$panel==3]) [1] 3.666667
+gg1+gg2+gg3 + plot_layout(guides = "collect",widths = c(29.4, 3.7, 1)) & theme(legend.position = 'bottom')
+  
+```
+
+* Save figure
+```{r}
+plot<-gg1+theme(axis.text = element_text(size=6),
+          axis.title = element_text(size=7),
+          legend.text = element_text(size=7),
+          legend.title = element_text(size=8))+
+  gg2+theme(axis.text = element_text(size=6),
+          axis.title = element_text(size=7),
+          legend.text = element_text(size=7),
+          legend.title = element_text(size=8))+
+  gg3 +theme(axis.text = element_text(size=6),
+          axis.title = element_text(size=7),
+          legend.text = element_text(size=7),
+          legend.title = element_text(size=8))+
+  plot_layout(guides = "collect",widths = c(29.4, 3.7, 1)) & theme(legend.position = 'bottom')
+ggsave('../results/secreted_nlrs_vs_repeats.pdf',plot, width = 5, height = 5)
+```
+
+* Only one NLRs (4%) are falling in the regions with repeat content >50%
+```{r}
+nlr_range <- GRanges(seqnames=nlr_bed$Contig,ranges=IRanges(nlr_bed$Start, nlr_bed$Stop),TranscriptID = nlr_bed$TranscriptID)
+
+repeat_nlr <- repeat_range[countOverlaps(repeat_range, nlr_range ) > 0]
+repeat_nlr2 <- repeat_nlr[repeat_nlr$repeat_content > 0.5]
+
+nlr_range[countOverlaps(nlr_range,repeat_nlr2) > 0]
+```
+
+* Only 8 secreted proteins (1%) are falling in the regions with repeat content >50%
+```{r}
+secreted_range <- GRanges(seqnames=secr_bed$Contig,ranges=IRanges(secr_bed$Start, secr_bed$Stop),TranscriptID = secr_bed$TranscriptID)
+
+repeat_secr <- repeat_range[countOverlaps(repeat_range, secreted_range ) > 0]
+repeat_secr2 <- repeat_secr[repeat_secr$repeat_content > 0.5]
+
+secreted_range[countOverlaps(secreted_range,repeat_secr2) > 0]
+```
+
+## Are secreted proteins clustered in the genome?
+* Used CROC
+* Prep files for CROC
+* Used the reference file produced in `../../03_transcriptomic_analysis/analysis_and_temp_files/09_dge_architecture/`
+* Ran CROC. Used defauls parameters:
+  * window_size=30000
+  * offset=10000
+  * pval=0.05
+  * min_genes=3
+  * multiple correction=Benjamini & Hochberg
+```{r,eval=F}
+perl croc.pl --reg  ~/Documents/Lichen_project_TSL/10_lichen_effectors/analysis_and_temp_files/01_predicting_effectors/all_secreted_list_fix_names.txt --ref  ~/Documents/Lichen_project_TSL/03_transcriptomic_analysis/analysis_and_temp_files/09_dge_architecture/reference.txt >> ~/Documents/Lichen_project_TSL/11_omics_manuscript/repo_public/2024-Multipartite-complexity-omics-Xanthoria/04_secretome/analysis_and_temp_files/08_spatial_clusters/secreted_croc.txt
+```
+* Translate CROC coordinates into bed format, so it is easier to visualize
+```{r,eval=F}
+#First, save CROC tables in a bed format
+croc<-read.delim2("../analysis_and_temp_files/08_spatial_clusters/secreted_croc.txt",header=F)
+write.table(croc[,c(1,4,5)],"../analysis_and_temp_files/08_spatial_clusters/secreted_croc.bed",col.names = F,row.names = F,quote = F,sep="\t")
+
+#intersec CROC file with the bed file
+sbatch --mem=10G -c 5 --partition=tsl-short --wrap="source package b0ed0698-358b-4c9b-9d21-603ea8d6e478; bedtools coverage -a ../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.bed -b analysis_and_temp_files/08_spatial_clusters/secreted_croc.bed> analysis_and_temp_files/08_spatial_clusters/GTX0501_xanthoria_nuclear_mag_clean_sort_secreted_croc_bedtools.txt"
+
+```
+* Plot separately
+```{r,fig.width=8,fig.height=8}
+#read in separately
+croc<-read.delim2("../analysis_and_temp_files/08_spatial_clusters/GTX0501_xanthoria_nuclear_mag_clean_sort_secreted_croc_bedtools.txt",header=F)[,c(1,2,7)]
+colnames(croc)<-c("contig","window_start","croc")
+croc$croc<-as.numeric(croc$croc)
+croc<-croc %>% mutate(croc_binary=if_else(croc>0,1,0))
+
+ggplot(croc,aes(y=fct_reorder(contig,window_start),x=window_start))+
+    geom_tile(aes(height=0.1),fill="black")+
+  geom_tile(aes(fill=croc_binary,alpha=croc_binary))+
+  xlab("")+ylab("")+
+  scale_alpha_continuous(range=c(0,1))+
+  scale_fill_gradient(low="#f0f0f0",high="#6402bf")+
+   scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"))+
+  theme_minimal()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+```
+
+* Plot together with separate genes
+```{r,fig.width=8,fig.height=8}
+
+#make a df with repeat content
+df4 <- rep %>% left_join(secr %>% select(-secr)) %>% 
+  left_join(croc %>% select(-croc)) %>%
+  pivot_longer(-c(contig, window_start),names_to = "parameter",values_to = "value") 
+
+df4$parameter<-plyr::revalue(df4$parameter, c( "repeat_content"="CRepeat%","secr_binary"="BSecreted",
+        "croc_binary"="ASpatial_cluster"))
+df4$contig<-reorder(df4$contig,df4$contig,FUN=function(x) -length(x))
+
+df4<-df4 %>% mutate(panel=case_when(
+  contig %in% c("Xp_GTX0501_1","Xp_GTX0501_2","Xp_GTX0501_3",  "Xp_GTX0501_4", 
+"Xp_GTX0501_5",  "Xp_GTX0501_6",  "Xp_GTX0501_7",  "Xp_GTX0501_8", 
+"Xp_GTX0501_9",  "Xp_GTX0501_10", "Xp_GTX0501_11", "Xp_GTX0501_12",
+"Xp_GTX0501_13", "Xp_GTX0501_14", "Xp_GTX0501_15", "Xp_GTX0501_16",
+"Xp_GTX0501_17", "Xp_GTX0501_18", "Xp_GTX0501_19") ~ 1,
+contig %in% c("Xp_GTX0501_19", "Xp_GTX0501_20","Xp_GTX0501_21", "Xp_GTX0501_22", "Xp_GTX0501_23", "Xp_GTX0501_24","Xp_GTX0501_25", "Xp_GTX0501_26", "Xp_GTX0501_27", "Xp_GTX0501_28","Xp_GTX0501_29", "Xp_GTX0501_30", "Xp_GTX0501_31", "Xp_GTX0501_32",
+"Xp_GTX0501_33", "Xp_GTX0501_34", "Xp_GTX0501_35", "Xp_GTX0501_36", "Xp_GTX0501_37", "Xp_GTX0501_38") ~ 2, T ~3))
+
+gg1<-df4 %>% filter(panel==1) |> 
+  ggplot() +
+  # apply the gradient to group 1
+geom_tile(aes(y=parameter,x=window_start,fill=value), 
+    filter(df3, parameter == "CRepeat%",panel==1)) +
+ scale_fill_gradientn(colours = c("purple", "orange"),guide = 'none')+
+  labs(fill = "Repeat%") +
+  # start a new scale
+new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df4, parameter == "BSecreted",panel==1))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df4, parameter == "BSecreted",panel==1))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#02ed22"),guide = 'none')+
+  # start a new scale
+  new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df4, parameter == "ASpatial_cluster",panel==1))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df4, parameter == "ASpatial_cluster",panel==1))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#045c10"),guide = 'none')+
+  scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"),expand = c(0, 0))+
+  labs(fill = "Spatial clusters") +  xlab("")+ylab("Contigs")+
+  facet_wrap(~contig,ncol=1)+
+  theme_classic()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(),strip.text.x = element_blank(),
+        axis.text.y = element_blank(),legend.position="bottom",
+        axis.line.y = element_blank(),axis.ticks.y = element_blank())
+
+gg2<-df4 %>% filter(panel==2) |> 
+  ggplot() +
+  # apply the gradient to group 1
+geom_tile(aes(y=parameter,x=window_start,fill=value), 
+    filter(df4, parameter == "CRepeat%",panel==2)) +
+ scale_fill_gradientn(colours = c("purple", "orange"),guide = 'none')+
+  labs(fill = "Repeat%") +
+  # start a new scale
+new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df4, parameter == "BSecreted",panel==2))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df4, parameter == "BSecreted",panel==2))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#02ed22"),guide = 'none')+
+  # start a new scale
+  new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df4, parameter == "ASpatial_cluster",panel==2))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df4, parameter == "ASpatial_cluster",panel==2))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#045c10"),guide = 'none')+
+  scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"),expand = c(0, 0))+
+  labs(fill = "Spatial clusters") +  xlab("")+ylab("Contigs")+
+  facet_wrap(~contig,ncol=1)+
+  theme_classic()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(),strip.text.x = element_blank(),
+        axis.text.y = element_blank(),legend.position="bottom",
+        axis.line.y = element_blank(),axis.ticks.y = element_blank())
+
+gg3<-df4 %>% filter(panel==3) |> 
+  ggplot() +
+  # apply the gradient to group 1
+geom_tile(aes(y=parameter,x=window_start,fill=value), 
+    filter(df4, parameter == "CRepeat%",panel==3)) +
+ scale_fill_gradientn(colours = c("purple", "orange"),guide = 'none')+
+  labs(fill = "Repeat%") +
+  # start a new scale
+new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df4, parameter == "BSecreted",panel==3))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df4, parameter == "BSecreted",panel==3))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#02ed22"),guide = 'none')+
+  # start a new scale
+  new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df4, parameter == "ASpatial_cluster",panel==3))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df4, parameter == "ASpatial_cluster",panel==3))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#045c10"),guide = 'none')+
+  scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"),expand = c(0, 0))+
+  labs(fill = "Spatial clusters") +  xlab("")+ylab("Contigs")+
+  facet_wrap(~contig,ncol=1)+
+  theme_classic()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(),strip.text.x = element_blank(),
+        axis.text.y = element_blank(),legend.position="bottom",
+        axis.line.y = element_blank(),axis.ticks.y = element_blank())
+#scale graph widths
+#max(df$window_start[df$panel==1]) / max(df$window_start[df$panel==3]) [1] 29.44444
+#max(df$window_start[df$panel==2]) / max(df$window_start[df$panel==3]) [1] 3.666667
+gg1+gg2+gg3 + plot_layout(guides = "collect",widths = c(29.4, 3.7, 1)) & theme(legend.position = 'bottom')
+```
+
+* Save figure
+```{r}
+plot<-gg1+theme(axis.text = element_text(size=6),
+          axis.title = element_text(size=7),
+          legend.text = element_text(size=7),
+          legend.title = element_text(size=8))+
+  gg2+theme(axis.text = element_text(size=6),
+          axis.title = element_text(size=7),
+          legend.text = element_text(size=7),
+          legend.title = element_text(size=8))+
+  gg3 +theme(axis.text = element_text(size=6),
+          axis.title = element_text(size=7),
+          legend.text = element_text(size=7),
+          legend.title = element_text(size=8))+
+  plot_layout(guides = "collect",widths = c(29.4, 3.7, 1)) & theme(legend.position = 'bottom')
+ggsave('../results/croc_clusters_vs_repeats.pdf',plot, width = 5, height = 5)
+```
+

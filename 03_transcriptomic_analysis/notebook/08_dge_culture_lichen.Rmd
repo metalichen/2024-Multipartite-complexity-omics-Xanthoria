@@ -87,7 +87,7 @@ so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_lrt(so, 'reduced', 'full')
 so <- sleuth_wt(so, 'conditionxanthoria_culture')
-plot_pca(so, color_by = 'condition', text_labels = TRUE,use_filtered=T)
+plot_pca(so, color_by = 'condition', text_labels = TRUE,use_filtered=T,units="tpm")
 
 sleuth_table <- sleuth_results(so, 'conditionxanthoria_culture')
 sig <- sleuth_table %>% tibble::as_tibble() %>% 
@@ -99,7 +99,7 @@ table(sig$change)
 
 * Save image
 ```{r}
-pca<-plot_pca(so, color_by = 'condition', text_labels = F,use_filtered=T)
+pca<-plot_pca(so, color_by = 'condition', text_labels = F,use_filtered=T,units="tpm")
 pca+theme_bw()+theme(text=element_text(size=7))
 ggsave('../results/lichen_culture_pca.pdf',width = 4.5, height = 3)
 
@@ -107,10 +107,17 @@ ggsave('../results/lichen_culture_pca.pdf',width = 4.5, height = 3)
 
 * PCA: exploring the variation explained by the different PCs
 ```{r}
-plot_pc_variance(so)
+plot_pc_variance(so,use_filtered=T,units="tpm")
 ```
 
-* The number of DGE are bigger than in edgeR. The inconsistency is expected, given that sleuth's b values aren't equivalent to logFC
+* Get numeric values
+```{r}
+ppv <- plot_pc_variance(so,use_filtered=T,units="tpm")
+PCpc <- ppv$data$var
+names(PCpc) <- paste0("PC", seq(1:length(PCpc)))
+PCpc
+```
+
 
 ### 2.3. Save gene lists
 ```{r}
@@ -1713,7 +1720,7 @@ croc_l %>% group_by(cluster) %>% summarize(n=n()) %>% arrange(desc(n)) %>% head(
 * Merge it with functional annotations and secreted status
 ```{r}
 croc_l2<-croc_l %>% left_join(funannot2) %>% 
-  select(cluster,TranscriptID, InterPro_new,secreted_consensus) 
+  select(cluster,TranscriptID, InterPro_new,secreted_consensus,antiSMASH) 
 
 croc_l2 %>% 
   kable(format = "html", col.names = colnames(croc_l2)) %>%
@@ -1731,5 +1738,245 @@ colnames(croc_c)<-c("contig","start","end","pval","TranscriptID","cluster")
 croc_c %>% group_by(cluster) %>% summarize(n=n()) %>% arrange(desc(n)) %>% head()
 ```
 
+### Only a small fraction if the clusters overlap with BGCs
+```{r}
+croc_l3<-croc_l2 %>% 
+   mutate(is_SM = ifelse(is.na(antiSMASH),"not_in_SM_cluster","in_SM_cluster")) %>%
+  group_by(cluster,is_SM) %>% summarize(n=n()) %>%
+   pivot_wider(values_from = n, values_fill = 0, names_from = is_SM)
+
+croc_c2<-croc_c %>% left_join(funannot2) %>% 
+  select(cluster,antiSMASH,TranscriptID, InterPro_new,secreted_consensus) 
+croc_c3<-croc_c2 %>% 
+   mutate(is_SM = ifelse(is.na(antiSMASH),"not_in_SM_cluster","in_SM_cluster")) %>%
+  group_by(cluster,is_SM) %>% summarize(n=n()) %>%
+   pivot_wider(values_from = n, values_fill = 0, names_from = is_SM)
+```
+
+* Out of `r nrow(croc_l3)` upregulated in lichens, `r croc_l3 %>% filter(in_SM_cluster>0) %>% nrow()` overlap with SM clusters
+* Out of `r nrow(croc_c3)` upregulated in lichens, `r croc_c3 %>% filter(in_SM_cluster>0) %>% nrow()` overlap with SM clusters
+
+### Little overlap with high repeat content regions
+* Translate CROC coordinates into bed format, so it is easier to visualize
+```{r,eval=F}
+#First, save CROC tables in a bed format
+croc_l<-read.delim2("../analysis_and_temp_files/08_dge_culture_lichen/croc_lichen_upregulated.txt",header=F)
+write.table(croc_l[,c(1,4,5)],"../analysis_and_temp_files/08_dge_culture_lichen/GTX0501_lichen_upregulated_croc.bed",col.names = F,row.names = F,quote = F,sep="\t")
+
+croc_c<-read.delim2("../analysis_and_temp_files/08_dge_culture_lichen/croc_culture_upregulated.txt",header=F)
+write.table(croc_c[,c(1,4,5)],"../analysis_and_temp_files/08_dge_culture_lichen/GTX0501_culture_upregulated_croc.bed",col.names = F,row.names = F,quote = F,sep="\t")
+
+#intersec CROC file with the bed file
+sbatch --mem=10G -c 5 --partition=tsl-short --wrap="source package b0ed0698-358b-4c9b-9d21-603ea8d6e478; bedtools coverage -a ../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.bed -b analysis_and_temp_files/08_dge_culture_lichen/GTX0501_lichen_upregulated_croc.bed > analysis_and_temp_files/08_dge_culture_lichen/GTX0501_xanthoria_nuclear_mag_clean_sort_lichen_upregulated_croc_bedtools.txt"
+
+sbatch --mem=10G -c 5 --partition=tsl-short --wrap="source package b0ed0698-358b-4c9b-9d21-603ea8d6e478; bedtools coverage -a ../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort.bed -b analysis_and_temp_files/08_dge_culture_lichen/GTX0501_culture_upregulated_croc.bed > analysis_and_temp_files/08_dge_culture_lichen/GTX0501_xanthoria_nuclear_mag_clean_sort_culture_upregulated_croc_bedtools.txt"
+```
+* Plot separately
+```{r,fig.width=8,fig.height=8}
+#read in separately
+croc_l<-read.delim2("../analysis_and_temp_files/08_dge_culture_lichen/GTX0501_xanthoria_nuclear_mag_clean_sort_lichen_upregulated_croc_bedtools.txt",header=F)[,c(1,2,7)]
+colnames(croc_l)<-c("contig","window_start","croc")
+croc_l$croc<-as.numeric(croc_l$croc)
+croc_l<-croc_l %>% mutate(croc_binary_l=if_else(croc>0,1,0))
+
+croc_c<-read.delim2("../analysis_and_temp_files/08_dge_culture_lichen/GTX0501_xanthoria_nuclear_mag_clean_sort_culture_upregulated_croc_bedtools.txt",header=F)[,c(1,2,7)]
+colnames(croc_c)<-c("contig","window_start","croc")
+croc_c$croc<-as.numeric(croc_c$croc)
+croc_c<-croc_c %>% mutate(croc_binary_c=if_else(croc>0,1,0))
+```
+* Plot lichen upregulated
+```{r,fig.width=8,fig.height=8}
+ggplot(croc_l,aes(y=fct_reorder(contig,window_start),x=window_start))+
+    geom_tile(aes(height=0.1),fill="black")+
+  geom_tile(aes(fill=croc_binary_l,alpha=croc_binary_l))+
+  xlab("")+ylab("")+
+  scale_alpha_continuous(range=c(0,1))+
+  scale_fill_gradient(low="#f0f0f0",high="#F8766D")+
+   scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"))+
+  theme_minimal()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+```
+* Plot culture upregulated
+```{r,fig.width=8,fig.height=8}
+ggplot(croc_c,aes(y=fct_reorder(contig,window_start),x=window_start))+
+  geom_tile(aes(height=0.1),fill="black")+
+    geom_tile(aes(fill=croc_binary_c,alpha=croc_binary_c))+
+  xlab("")+ylab("")+
+  scale_alpha_continuous(range=c(0,1))+
+  scale_fill_gradient(low="#f0f0f0",high="#619CFF")+
+   scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"))+
+  theme_minimal()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+```
+
+* Plot together with repeat content
+```{r,fig.width=8,fig.height=8}
+library(ggnewscale)
+library(patchwork)
+rep<-read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/06_annotate_lecanoro/GTX0501_xanthoria_nuclear_mag_clean_sort_repeatcov.txt",header=F)[,c(1,2,7)]
+colnames(rep)<-c("contig","window_start","repeat_content")
+rep$repeat_content<- rep$repeat_content %>% as.numeric()
+
+df2 <- rep %>% left_join(croc_l %>% select(-croc)) %>% 
+  left_join(croc_c %>% select(-croc)) %>%
+  pivot_longer(-c(contig, window_start),names_to = "parameter",values_to = "value") 
+
+df2$parameter<-plyr::revalue(df2$parameter, c( "repeat_content"="CRepeat%","croc_binary_l"="BLichen_upregulated",
+        "croc_binary_c"="ACulture_upregulated"))
+df2$contig<-reorder(df2$contig,df2$contig,FUN=function(x) -length(x))
+
+df2<-df2 %>% mutate(panel=case_when(
+  contig %in% c("Xp_GTX0501_1","Xp_GTX0501_2","Xp_GTX0501_3",  "Xp_GTX0501_4", 
+"Xp_GTX0501_5",  "Xp_GTX0501_6",  "Xp_GTX0501_7",  "Xp_GTX0501_8", 
+"Xp_GTX0501_9",  "Xp_GTX0501_10", "Xp_GTX0501_11", "Xp_GTX0501_12",
+"Xp_GTX0501_13", "Xp_GTX0501_14", "Xp_GTX0501_15", "Xp_GTX0501_16",
+"Xp_GTX0501_17", "Xp_GTX0501_18", "Xp_GTX0501_19") ~ 1,
+contig %in% c("Xp_GTX0501_19", "Xp_GTX0501_20","Xp_GTX0501_21", "Xp_GTX0501_22", "Xp_GTX0501_23", "Xp_GTX0501_24","Xp_GTX0501_25", "Xp_GTX0501_26", "Xp_GTX0501_27", "Xp_GTX0501_28","Xp_GTX0501_29", "Xp_GTX0501_30", "Xp_GTX0501_31", "Xp_GTX0501_32",
+"Xp_GTX0501_33", "Xp_GTX0501_34", "Xp_GTX0501_35", "Xp_GTX0501_36", "Xp_GTX0501_37", "Xp_GTX0501_38") ~ 2, T ~3))
+
+gg1<-df2 %>% filter(panel==1) |> 
+  ggplot() +
+  # apply the gradient to group 1
+geom_tile(aes(y=parameter,x=window_start,fill=value), 
+    filter(df2, parameter == "CRepeat%",panel==1)) +
+ scale_fill_gradientn(colours = c("purple", "orange"),guide = 'none')+
+  labs(fill = "Repeat%") +
+  # start a new scale
+new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df2, parameter == "BLichen_upregulated",panel==1))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df2, parameter == "BLichen_upregulated",panel==1))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#F8766D"),guide = 'none')+
+  # start a new scale
+  new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df2, parameter == "ACulture_upregulated",panel==1))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df2, parameter == "ACulture_upregulated",panel==1))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#619CFF"),guide = 'none')+
+  scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"),expand = c(0, 0))+
+  labs(fill = "Culture-upregulated clusters") +  xlab("")+ylab("Contigs")+
+  facet_wrap(~contig,ncol=1)+
+  theme_classic()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(),strip.text.x = element_blank(),
+        axis.text.y = element_blank(),legend.position="bottom",
+        axis.line.y = element_blank(),axis.ticks.y = element_blank())
+
+gg2<-df2 %>% filter(panel==2) |> 
+  ggplot() +
+  # apply the gradient to group 1
+geom_tile(aes(y=parameter,x=window_start,fill=value), 
+    filter(df2, parameter == "CRepeat%",panel==2)) +
+ scale_fill_gradientn(colours = c("purple", "orange"),guide = 'none')+
+  labs(fill = "Repeat%") +
+  # start a new scale
+new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df2, parameter == "BLichen_upregulated",panel==2))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df2, parameter == "BLichen_upregulated",panel==2))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#F8766D"),guide = 'none')+
+  # start a new scale
+  new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df2, parameter == "ACulture_upregulated",panel==2))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df2, parameter == "ACulture_upregulated",panel==2))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#619CFF"),guide = 'none')+
+  scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"),expand = c(0, 0))+
+  labs(fill = "Culture-upregulated clusters") +  xlab("")+ylab("Contigs")+
+  facet_wrap(~contig,ncol=1)+
+  theme_classic()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(),strip.text.x = element_blank(),
+        axis.text.y = element_blank(),legend.position="bottom",
+        axis.line.y = element_blank(),axis.ticks.y = element_blank())
+
+gg3<-df2 %>% filter(panel==3) |> 
+  ggplot() +
+  # apply the gradient to group 1
+geom_tile(aes(y=parameter,x=window_start,fill=value), 
+    filter(df2, parameter == "CRepeat%",panel==3)) +
+ scale_fill_gradientn(colours = c("purple", "orange"),guide = 'none')+
+  labs(fill = "Repeat%") +
+  # start a new scale
+new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df2, parameter == "BLichen_upregulated",panel==3))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df2, parameter == "BLichen_upregulated",panel==3))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#F8766D"),guide = 'none')+
+  # start a new scale
+  new_scale_fill() +
+  geom_tile(aes(y=parameter,x=window_start,height=0.25),fill="black", filter(df2, parameter == "ACulture_upregulated",panel==3))+
+    geom_tile(aes(y=parameter,x=window_start,fill=value,alpha=value), filter(df2, parameter == "ACulture_upregulated",panel==3))+
+  scale_alpha_continuous(range=c(0,1),guide = 'none')+
+  scale_fill_gradientn(colours = c("white","#619CFF"),guide = 'none')+
+  scale_x_continuous(breaks = c(0,1000000,2000000,3000000,4000000),
+                     labels = c("0","1 Mbp","2 Mbp","3 Mbp","4 Mbp"),expand = c(0, 0))+
+  labs(fill = "Culture-upregulated clusters") +  xlab("")+ylab("Contigs")+
+  facet_wrap(~contig,ncol=1)+
+  theme_classic()+
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(),strip.text.x = element_blank(),
+        axis.text.y = element_blank(),legend.position="bottom",
+        axis.line.y = element_blank(),axis.ticks.y = element_blank())
+
+#scale graph widths
+#max(df$window_start[df$panel==1]) / max(df$window_start[df$panel==3]) [1] 29.44444
+#max(df$window_start[df$panel==2]) / max(df$window_start[df$panel==3]) [1] 3.666667
+gg1+gg2+gg3 + plot_layout(guides = "collect",widths = c(29.4, 3.7, 1)) & theme(legend.position = 'bottom')
+  
+```
+* Save figure
+```{r}
+plot<-gg1+theme(axis.text = element_text(size=6),
+          axis.title = element_text(size=7),
+          legend.text = element_text(size=7),
+          legend.title = element_text(size=8))+
+  gg2+theme(axis.text = element_text(size=6),
+          axis.title = element_text(size=7),
+          legend.text = element_text(size=7),
+          legend.title = element_text(size=8))+
+  gg3 +theme(axis.text = element_text(size=6),
+          axis.title = element_text(size=7),
+          legend.text = element_text(size=7),
+          legend.title = element_text(size=8))+
+  plot_layout(guides = "collect",widths = c(29.4, 3.7, 1)) & theme(legend.position = 'bottom')
+ggsave('../results/croc_clusters_vs_repeats.pdf',plot, width = 5, height = 5)
+```
+
+* How many clusters overlap with high-repeat content regions? to chose the cut-off, made a histogram
+```{r}
+ggplot(rep,aes(x=repeat_content))+geom_histogram()
+```
+
+* Will go with 0.5 cutoff
+* 8 (9%) lichen upregulated clusters overlap with high repeat content regions
+```{r}
+library(GenomicRanges)
+croc_l<-read.delim2("../../03_transcriptomic_analysis/analysis_and_temp_files/08_dge_culture_lichen/croc_lichen_upregulated.txt",header=F)
+croc_c<-read.delim2("../../03_transcriptomic_analysis/analysis_and_temp_files/08_dge_culture_lichen/croc_culture_upregulated.txt",header=F)
+
+repeat_range <- GRanges(seqnames=rep$contig,ranges=IRanges(rep$window_start, rep$window_start+9999),repeat_content = rep$repeat_content)
+
+croc_l_range <-  GRanges(seqnames=croc_l$V1,ranges=IRanges(croc_l$V4, croc_l$V5),genes=croc_l$V9)
+croc_c_range <-  GRanges(seqnames=croc_c$V1,ranges=IRanges(croc_c$V4, croc_c$V5),genes=croc_c$V9)
+
+repeat_croc_l <- repeat_range[countOverlaps(repeat_range, croc_l_range ) > 0]
+repeat_croc_l2 <- repeat_croc_l[repeat_croc_l$repeat_content > 0.5]
+
+croc_l_range[countOverlaps(croc_l_range,repeat_croc_l2) > 0]
+```
+
+* 2 culture-upregulated clusters (4%) overlap with high repeat content regions
+```{r}
+library(GenomicRanges)
+repeat_croc_c <- repeat_range[countOverlaps(repeat_range, croc_c_range ) > 0]
+repeat_croc_c2 <- repeat_croc_l[repeat_croc_c$repeat_content > 0.5]
+
+croc_c_range[countOverlaps(croc_c_range,repeat_croc_c2) > 0]
+```
 
 

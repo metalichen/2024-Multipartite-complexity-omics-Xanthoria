@@ -1,0 +1,9 @@
+jgi|Astpho2|1429|e_gw1.00025.45.1_t
+jgi|Astpho2|9748|e_gw1.00149.198.1_t
+jgi|Astpho2|5305|gw1.00075.61.1_t
+jgi|Astpho2|5306|Aster-x0247
+jgi|Astpho2|1237|fgenesh1_pg.00023_%23_10_t
+jgi|Astpho2|3402|e_gw1.00054.83.1_t
+jgi|Astpho2|5104|gw1.00073.74.1_t
+jgi|Astpho2|3214|Aster-x0570
+jgi|Astpho2|3996|e_gw1.00063.318.1_t

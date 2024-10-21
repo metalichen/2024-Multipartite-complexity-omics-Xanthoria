@@ -9,8 +9,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/01_Xanthoria_metagenomics/notebook")
-
 ```
 
 **Summary:** Here I assemble Xanthoria metagenomes. After treeing the ITS, I discovered one of the samples (GTX0491) is in fact X. calcicola, which is similar to X. parietina. I co-assembled and co-binned the remaining 8 metagenomes (which are confirmed as X. parietina). In parallel, I assembled and binned metagenomes individually, to check which approach results in better MAG quality. In the end, since each approach recovered MAGs missed by the other approach, I combined the two to get the final MAG list
@@ -34,7 +32,7 @@ tree <- root(tree, outgroup = "JQ301685.1", resolve.root = TRUE)
 tree <- ladderize(tree)
 
 ##rename the tree
-names<-read.delim2("../../02_long_read_assemblies/analysis_and_temp_files/04_xanthoria_mag/its_id.txt",header = F) ##read names from the genbank
+names<-read.delim2("../../02_mycobiont_genome/analysis_and_temp_files/04_xanthoria_mag/its_id.txt",header = F) ##read names from the genbank
 
 fasta<-readDNAStringSet("../analysis_and_temp_files/03_assembly/its_all.fa")
 fasta_names<-data.frame("full_name"=names(fasta))
@@ -47,6 +45,9 @@ tree$tip.label<-names[[1]][match(tree$tip.label, names[[2]])] ##rename
 eco<-read.delim2("../analysis_and_temp_files/01_DNA_extraction/metagenomic_dna_roundup.txt")
 eco$substrate<-sub('[0-9]+', '', eco$Sample.description) %>% trimws() %>% str_replace(" ","_") 
 
+#save tree
+write.tree(tree,"../analysis_and_temp_files/03_assembly/its_all.fa_aligned.phyl_renamed.treefile")
+
 #make a vector for color
 df<-data.frame(Extraction.Name=tree$tip.label) %>% left_join(added_names) %>% left_join(eco) %>%
   mutate(color=ifelse(substrate=="tree_bark","orange",
@@ -54,6 +55,24 @@ df<-data.frame(Extraction.Name=tree$tip.label) %>% left_join(added_names) %>% le
                              ifelse(substrate=="growth_chamber","red","black"))))
 plot(tree,tip.color=df$color)
 ```
+
+* For making a figure, decided to drop 80% of X. parietina leaves, since they are too many
+```{r, message = FALSE,warning=FALSE,fig.width=14,fig.height=50}
+parietina<-names %>% filter(grepl("parietina",V1)) 
+parietina_drop<-parietina[sample(nrow(parietina), round(nrow(parietina)*0.8)), ]
+
+tree2<-drop.tip(tree,parietina_drop$V1)
+#save tree
+write.tree(tree2,"../analysis_and_temp_files/03_assembly/its_all.fa_aligned.phyl_reduced.treefile")
+
+df<-data.frame(Extraction.Name=tree2$tip.label) %>% left_join(added_names) %>% left_join(eco) %>%
+  mutate(color=ifelse(substrate=="tree_bark","orange",
+                      ifelse(substrate=="concrete","blue",
+                             ifelse(substrate=="growth_chamber","red","black"))))
+plot(tree2,tip.color=df$color)
+
+```
+
 
 ## 2. Co-assembly
 * Used Megahit for co-assemblying all 8 metagenomes identified as X. parietina. This requeired 249 GB RAM

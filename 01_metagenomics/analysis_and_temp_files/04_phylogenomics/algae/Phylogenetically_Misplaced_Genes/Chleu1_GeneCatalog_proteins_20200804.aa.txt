@@ -1,0 +1,17 @@
+jgi|Chleu1|453|rna-CEUSTIGMA_g2409.t1
+jgi|Chleu1|8008|rna-CEUSTIGMA_g6398.t1
+jgi|Chleu1|8007|rna-CEUSTIGMA_g6397.t1
+jgi|Chleu1|5051|rna-CEUSTIGMA_g4343.t1
+jgi|Chleu1|12095|rna-CEUSTIGMA_g9368.t1
+jgi|Chleu1|1844|rna-CEUSTIGMA_g11701.t1
+jgi|Chleu1|10861|rna-CEUSTIGMA_g1604.t1
+jgi|Chleu1|8194|rna-CEUSTIGMA_g6561.t1
+jgi|Chleu1|3751|rna-CEUSTIGMA_g12844.t1
+jgi|Chleu1|5918|rna-CEUSTIGMA_g13624.t1
+jgi|Chleu1|8411|rna-CEUSTIGMA_g1093.t1
+jgi|Chleu1|84|rna-CEUSTIGMA_g84.t1
+jgi|Chleu1|12854|rna-CEUSTIGMA_g9912.t1
+jgi|Chleu1|12650|rna-CEUSTIGMA_g2060.t1
+jgi|Chleu1|3880|rna-CEUSTIGMA_g3878.t1
+jgi|Chleu1|9260|rna-CEUSTIGMA_g7324.t1
+jgi|Chleu1|11472|rna-CEUSTIGMA_g8922.t1

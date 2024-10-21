@@ -9,7 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/01_Xanthoria_metagenomics/notebook")
+
 
 ```
 
@@ -585,6 +585,15 @@ gtdb2<-checkm %>% inner_join(gtdb2,by=c("Genome"="user_genome")) %>% select(-bin
 
 as_tibble(rbind(eukcc,gtdb2))
 
+```
+
+#### Bacteria unique to growth chamber
+* The two unique genera is LMUY01 (appears in all) and Friedmanniella (Propionibacteriaceae, also the only unique family)
+```{r}
+data %>% filter(presence==1,genus!="Unknown") %>% group_by(genus,metagenome_label) %>% 
+  summarize(freq=n()) %>% pivot_wider(names_from = metagenome_label,values_from = freq,values_fill = 0) %>% filter(Concrete==0,`Growth Chamber`>0,`Tree Bark`==0) %>%
+  left_join(mag_stats %>% select(genus,domain,phylum,class,order,family) %>% distinct()) %>%
+  select(genus,`Growth Chamber`,family,phylum,class,order) 
 ```
 
 #### Algal strains in different samples

@@ -1,0 +1,61 @@
+2024-02-20 17:14:40 : Started OrthoFinder version 2.5.4
+Command Line: /opt/anaconda_orthofinder/bin/orthofinder -f fasta/ -t 32
+
+WorkingDirectory_Base: /tsl/scratch/nep23rer/lichen_GT/Phylogenomics/Cleaned/fungi2/fasta/OrthoFinder/Results_Feb20/WorkingDirectory/
+
+Species used: 
+0: AOBU01_aa.fasta
+1: Acastr1_GeneCatalog_proteins_20160720.aa.fasta
+2: Altal1_GeneCatalog_proteins_20141010.aa.fasta
+3: Amamu1_GeneCatalog_proteins_20120806.aa.fasta
+4: Artol1_GeneCatalog_proteins_20131209.aa.fasta
+5: Ascim1_GeneCatalog_proteins_20121221.aa.fasta
+6: Aspni_DSM_1_GeneCatalog_proteins_20130526.aa.fasta
+7: Aurpu_var_mel1_GeneCatalog_proteins_20130418.aa.fasta
+8: CAJPDR01_protein.fasta
+9: Capcor1_GeneCatalog_proteins_20160826.aa.fasta
+10: Claba1_GeneCatalog_proteins_20160826.aa.fasta
+11: Clagr3_GeneCatalog_proteins_20111121.aa.fasta
+12: Cocpo1_1_GeneCatalog_proteins_20191103.aa.fasta
+13: Dibbae1_GeneCatalog_proteins_20160727.aa.fasta
+14: EndpusZ1_GeneCatalog_proteins_20180130.aa.fasta
+15: Erypu1_GeneCatalog_proteins_20210223.aa.fasta
+16: Exoaq1_GeneCatalog_proteins_20160901.aa.fasta
+17: Fonmu1_GeneCatalog_proteins_20160827.aa.fasta
+18: Fusgr1_GeneCatalog_proteins_20110524.aa.fasta
+19: GTX0466.bin.15.proteins.fasta
+20: GTX0486_487.bin.100.proteins.fasta
+21: GTX0494.bin.19.proteins.fasta
+22: Grascr1_GeneCatalog_proteins_20160731.aa.fasta
+23: JALAHW01_protein.fasta
+24: JALAIA01_protein.fasta
+25: JALAII01_protein.fasta
+26: JALAIK01_protein.fasta
+27: JALAIP01_protein.fasta
+28: JAPDRQ01_protein.fasta
+29: JAPETI01_protein.fasta
+30: JAPETN01_protein.fasta
+31: JAPETP01_protein.fasta
+32: JAPETR01_protein.fasta
+33: JAPETW01_protein.fasta
+34: JAPEUD01_protein.fasta
+35: JAPEUF01_protein.fasta
+36: Monha1_GeneCatalog_proteins_20131210.aa.fasta
+37: Morco1_GeneCatalog_proteins_20140113.aa.fasta
+38: Neucr_trp3_1_GeneCatalog_proteins_20140324.aa.fasta
+39: Penexp1_GeneCatalog_proteins_20170706.aa.fasta
+40: Phach1_GeneCatalog_proteins_20150930.aa.fasta
+41: Podan3_GeneCatalog_proteins_20171013.aa.fasta
+42: PseVKM4520_1_GeneCatalog_proteins_20210224.aa.fasta
+43: SacceM3707_1_GeneCatalog_proteins_20120712.aa.fasta
+44: Sclsc1_GeneCatalog_proteins_20110903.aa.fasta
+45: Umbpus1_GeneCatalog_proteins_20180130.aa.fasta
+46: Xanthoria_parietina_GTX0501.proteins.fasta
+47: coassembly.bin.376.proteins.fasta
+48: coassembly.bin.378.proteins.fasta
+49: coassembly.bin.64.proteins.fasta
+50: coassembly.bin.76.proteins.fasta
+
+FN_Orthogroups: /tsl/scratch/nep23rer/lichen_GT/Phylogenomics/Cleaned/fungi2/fasta/OrthoFinder/Results_Feb20/WorkingDirectory/clusters_OrthoFinder_I1.5.txt_id_pairs.txt
+WorkingDirectory_Trees: /tsl/scratch/nep23rer/lichen_GT/Phylogenomics/Cleaned/fungi2/fasta/OrthoFinder/Results_Feb20/WorkingDirectory/
+2024-02-20 21:11:09 : OrthoFinder run completed

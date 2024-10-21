@@ -624,6 +624,50 @@ dotplot(paf_filtered,order_by=&quot;qstart&quot;,label_seqs=T,dashes=F,xlab=&quo
   theme(axis.text = element_text(size=6),axis.title = element_text(size=8))
 ggsave(&#39;../results/genome_align.pdf&#39;,plot, width = 6, height = 6)</code></pre>
 </div>
+<div id="prepare-list-of-genes-used-for-phylogenomic-trees" class="section level2">
+<h2>4. Prepare list of genes used for phylogenomic trees</h2>
+<ul>
+<li>Fungal tree</li>
+</ul>
+<pre class="r"><code>singlecopy&lt;-read.delim(&quot;../analysis_and_temp_files/04_phylogenomics/fungi/Orthogroups/Orthogroups_SingleCopyOrthologues.txt&quot;,header=F)
+
+all_ortho&lt;-read.delim(&quot;../analysis_and_temp_files/04_phylogenomics/fungi/Orthogroups/Orthogroups.tsv&quot;)
+
+singlecopy_table&lt;-all_ortho %&gt;% filter(Orthogroup %in% singlecopy$V1)
+
+#rename columns
+tree_names_f$new_name2&lt;-paste(tree_names_f$short,tree_names_f$new_name,sep=&quot; &quot;)
+tree_names_f$original2&lt;-str_replace(tree_names_f$original,&quot;01_protein.faa&quot;,&quot;01_protein&quot;)
+singlecopy_table &lt;-singlecopy_table %&gt;% pivot_longer(-Orthogroup,names_to = &quot;genome&quot;, values_to = &quot;gene&quot;) %&gt;%
+  left_join(tree_names_f %&gt;% select(original2,new_name2),by=c(&quot;genome&quot;=&quot;original2&quot;))%&gt;%
+  mutate(new_name2=ifelse(genome==&quot;Xanthoria_parietina_GTX0501.proteins&quot;,&quot;Xanthoria parietina genome from this paper&quot;,new_name2)) %&gt;%
+  pivot_wider(-genome,names_from = new_name2,values_from = gene)</code></pre>
+<pre><code>## Warning: Specifying the `id_cols` argument by position was deprecated in tidyr 1.3.0.
+## ℹ Please explicitly name `id_cols`, like `id_cols = -genome`.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<pre class="r"><code>write.table(singlecopy_table,&quot;../analysis_and_temp_files/04_phylogenomics/fungi/Orthogroups/single_copy_info.txt&quot;,quote=F,sep=&quot;\t&quot;,row.names = F)</code></pre>
+<ul>
+<li>Algal tree</li>
+</ul>
+<pre class="r"><code>singlecopy&lt;-read.delim(&quot;../analysis_and_temp_files/04_phylogenomics/algae/Orthogroups/Orthogroups_SingleCopyOrthologues.txt&quot;,header=F)
+
+all_ortho&lt;-read.delim(&quot;../analysis_and_temp_files/04_phylogenomics/algae/Orthogroups/Orthogroups.tsv&quot;)
+
+singlecopy_table&lt;-all_ortho %&gt;% filter(Orthogroup %in% singlecopy$V1)
+
+#rename columns
+tree_names_a$new_name2&lt;-paste(tree_names_a$short,tree_names_a$new_name,sep=&quot; &quot;)
+tree_names_a$original2&lt;-str_replace(tree_names_a$original,&quot;01_protein.faa&quot;,&quot;01_protein&quot;)
+singlecopy_table &lt;-singlecopy_table %&gt;% pivot_longer(-Orthogroup,names_to = &quot;genome&quot;, values_to = &quot;gene&quot;) %&gt;%
+  left_join(tree_names_a %&gt;% select(original,new_name2),by=c(&quot;genome&quot;=&quot;original&quot;))%&gt;%
+  pivot_wider(-genome,names_from = new_name2,values_from = gene)</code></pre>
+<pre><code>## Warning: Specifying the `id_cols` argument by position was deprecated in tidyr 1.3.0.
+## ℹ Please explicitly name `id_cols`, like `id_cols = -genome`.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<pre class="r"><code>write.table(singlecopy_table,&quot;../analysis_and_temp_files/04_phylogenomics/algae/Orthogroups/single_copy_info.txt&quot;,quote=F,sep=&quot;\t&quot;,row.names = F)</code></pre>
+</div>
 
 
 

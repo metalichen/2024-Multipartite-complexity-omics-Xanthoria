@@ -1,0 +1,8 @@
+jgi|Volca2_1|5644|Vocar.0002s0407.1
+jgi|Volca2_1|13318|Vocar.0006s0013.1
+jgi|Volca2_1|10645|Vocar.0004s0048.1
+jgi|Volca2_1|9075|Vocar.0030s0093.1
+jgi|Volca2_1|9507|Vocar.0032s0131.1
+jgi|Volca2_1|4482|Vocar.0017s0122.1
+jgi|Volca2_1|1795|Vocar.0001s1613.1
+jgi|Volca2_1|14436|Vocar.0007s0228.1

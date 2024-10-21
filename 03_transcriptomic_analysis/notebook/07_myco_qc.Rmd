@@ -137,7 +137,10 @@ htmap<-heatmap.2(exp_matrix, Colv=as.dendrogram(hc_cols),Rowv=as.dendrogram(hc_r
 * Samples mostly group together based on the time point, with one exception
 * KS21XB1 is a bit different from the rest 21 dpi samples
 
-## 4. Next steps:
+## 4. ANI between the mycobiont transcriptome and the reference genome
+
+
+## 5. Next steps:
 * Compare all culture samples against all lichen samples (except for MP_I and MP_II)
 * For the lichen samples, do pairwise comparisons between apothecia, edge, and center. Include all samples (except for MP_I and MP_II), even from incomplete sets
 * For the culture samples, do pairwise comparisons between time points

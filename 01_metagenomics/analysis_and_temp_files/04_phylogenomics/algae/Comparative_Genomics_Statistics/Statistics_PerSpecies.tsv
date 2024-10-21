@@ -1,0 +1,100 @@
+	Astpho2_GeneCatalog_proteins_20111209.aa	Auxeprot1_GeneCatalog_proteins_20170909.aa	Batpra1_GeneCatalog_proteins_20180426.aa	Botrbrau1_GeneCatalog_proteins_20200805.aa	Chabra1_GeneCatalog_proteins_20200807.aa	Chleu1_GeneCatalog_proteins_20200804.aa	Chlorella_NC64A.best_proteins	Chloso1228_1_GeneCatalog_proteins_20200805.aa	Coccomyxa_C169_v2_filtered_proteins	GTX0465.bin.1.proteins	GTX0468.bin.53.proteins	GTX0493.bin.23.proteins	TrebA12_1_GeneCatalog_proteins_20200804.aa	Ulvmu1_GeneCatalog_proteins_20200803.aa	Volca2_1_GeneCatalog_proteins_20200117.aa	coassembly.bin.195.proteins	trebgel_BUSCO_proteins	trebus_BUSCO_proteins
+Number of genes	10025	7013	7900	23685	35672	14061	9791	12169	9629	11095	13816	12591	13918	12920	13076	12669	832	1488
+Number of genes in orthogroups	9443	6062	6161	18059	31668	12303	9416	11141	8467	10679	13097	12131	10551	9701	10891	11981	832	1488
+Number of unassigned genes	582	951	1739	5626	4004	1758	375	1028	1162	416	719	460	3367	3219	2185	688	0	0
+Percentage of genes in orthogroups	94.2	86.4	78.0	76.2	88.8	87.5	96.2	91.6	87.9	96.3	94.8	96.3	75.8	75.1	83.3	94.6	100.0	100.0
+Percentage of unassigned genes	5.8	13.6	22.0	23.8	11.2	12.5	3.8	8.4	12.1	3.7	5.2	3.7	24.2	24.9	16.7	5.4	0.0	0.0
+Number of orthogroups containing species	6660	5051	4631	7917	6248	7569	6726	7235	6186	7530	8207	8251	7555	6002	7514	8065	789	1458
+Percentage of orthogroups containing species	38.4	29.1	26.7	45.7	36.0	43.6	38.8	41.7	35.7	43.4	47.3	47.6	43.6	34.6	43.3	46.5	4.5	8.4
+Number of species-specific orthogroups	117	32	113	1061	1312	485	68	228	124	12	24	12	186	415	315	20	0	0
+Number of genes in species-specific orthogroups	479	140	419	5425	21457	1776	213	885	506	48	58	30	527	2266	1174	42	0	0
+Percentage of genes in species-specific orthogroups	4.8	2.0	5.3	22.9	60.2	12.6	2.2	7.3	5.3	0.4	0.4	0.2	3.8	17.5	9.0	0.3	0.0	0.0
+
+
+Number of genes per-species in orthogroup	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups	Number of orthogroups
+'0	10682	12291	12711	9425	11094	9773	10616	10107	11156	9812	9135	9091	9787	11340	9828	9277	16553	15884
+'1	5141	4398	3817	4233	3428	5286	5396	5598	4975	5657	5526	5914	5839	4629	5920	5702	749	1428
+'2	1068	493	586	2026	1419	1464	863	987	815	1275	1670	1623	1188	858	1024	1619	37	30
+'3	248	97	137	718	490	395	231	306	209	352	589	426	286	216	274	451	3	0
+'4	82	24	45	356	210	165	86	124	72	118	209	137	101	95	112	140	0	0
+'5	43	16	13	163	105	105	55	69	38	47	83	53	46	61	53	59	0	0
+'6	20	6	15	102	78	40	31	33	20	26	39	31	28	28	33	32	0	0
+'7	14	4	5	57	56	24	14	28	17	17	29	17	26	27	23	21	0	0
+'8	10	3	4	56	37	18	10	14	12	6	18	13	10	13	15	14	0	0
+'9	9	6	0	29	21	14	6	14	5	8	9	10	5	13	7	5	0	0
+'10	5	1	0	29	19	6	5	6	2	7	3	6	9	8	8	9	0	0
+11-15	12	2	1	65	91	23	17	30	11	13	20	14	10	24	27	9	0	0
+16-20	4	0	2	27	49	11	2	11	6	1	4	4	3	6	7	0	0	0
+21-50	2	1	5	47	131	18	10	12	4	3	8	3	4	19	11	4	0	0
+51-100	2	0	0	8	65	0	0	2	0	0	0	0	0	5	0	0	0	0
+101-150	0	0	1	1	19	0	0	1	0	0	0	0	0	0	0	0	0	0
+151-200	0	0	0	0	13	0	0	0	0	0	0	0	0	0	0	0	0	0
+201-500	0	0	0	0	15	0	0	0	0	0	0	0	0	0	0	0	0	0
+501-1000	0	0	0	0	2	0	0	0	0	0	0	0	0	0	0	0	0	0
+'1001+	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+
+Number of genes per-species in orthogroup	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups	Percentage of orthogroups
+'0	61.6	70.9	73.3	54.3	64.0	56.4	61.2	58.3	64.3	56.6	52.7	52.4	56.4	65.4	56.7	53.5	95.5	91.6
+'1	29.6	25.4	22.0	24.4	19.8	30.5	31.1	32.3	28.7	32.6	31.9	34.1	33.7	26.7	34.1	32.9	4.3	8.2
+'2	6.2	2.8	3.4	11.7	8.2	8.4	5.0	5.7	4.7	7.4	9.6	9.4	6.9	4.9	5.9	9.3	0.2	0.2
+'3	1.4	0.6	0.8	4.1	2.8	2.3	1.3	1.8	1.2	2.0	3.4	2.5	1.6	1.2	1.6	2.6	0.0	0.0
+'4	0.5	0.1	0.3	2.1	1.2	1.0	0.5	0.7	0.4	0.7	1.2	0.8	0.6	0.5	0.6	0.8	0.0	0.0
+'5	0.2	0.1	0.1	0.9	0.6	0.6	0.3	0.4	0.2	0.3	0.5	0.3	0.3	0.4	0.3	0.3	0.0	0.0
+'6	0.1	0.0	0.1	0.6	0.4	0.2	0.2	0.2	0.1	0.1	0.2	0.2	0.2	0.2	0.2	0.2	0.0	0.0
+'7	0.1	0.0	0.0	0.3	0.3	0.1	0.1	0.2	0.1	0.1	0.2	0.1	0.1	0.2	0.1	0.1	0.0	0.0
+'8	0.1	0.0	0.0	0.3	0.2	0.1	0.1	0.1	0.1	0.0	0.1	0.1	0.1	0.1	0.1	0.1	0.0	0.0
+'9	0.1	0.0	0.0	0.2	0.1	0.1	0.0	0.1	0.0	0.0	0.1	0.1	0.0	0.1	0.0	0.0	0.0	0.0
+'10	0.0	0.0	0.0	0.2	0.1	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.1	0.0	0.0	0.1	0.0	0.0
+11-15	0.1	0.0	0.0	0.4	0.5	0.1	0.1	0.2	0.1	0.1	0.1	0.1	0.1	0.1	0.2	0.1	0.0	0.0
+16-20	0.0	0.0	0.0	0.2	0.3	0.1	0.0	0.1	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+21-50	0.0	0.0	0.0	0.3	0.8	0.1	0.1	0.1	0.0	0.0	0.0	0.0	0.0	0.1	0.1	0.0	0.0	0.0
+51-100	0.0	0.0	0.0	0.0	0.4	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+101-150	0.0	0.0	0.0	0.0	0.1	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+151-200	0.0	0.0	0.0	0.0	0.1	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+201-500	0.0	0.0	0.0	0.0	0.1	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+501-1000	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+'1001+	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+
+Number of genes per-species in orthogroup	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes	Number of genes
+'0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+'1	5141	4398	3817	4233	3428	5286	5396	5598	4975	5657	5526	5914	5839	4629	5920	5702	749	1428
+'2	2136	986	1172	4052	2838	2928	1726	1974	1630	2550	3340	3246	2376	1716	2048	3238	74	60
+'3	744	291	411	2154	1470	1185	693	918	627	1056	1767	1278	858	648	822	1353	9	0
+'4	328	96	180	1424	840	660	344	496	288	472	836	548	404	380	448	560	0	0
+'5	215	80	65	815	525	525	275	345	190	235	415	265	230	305	265	295	0	0
+'6	120	36	90	612	468	240	186	198	120	156	234	186	168	168	198	192	0	0
+'7	98	28	35	399	392	168	98	196	119	119	203	119	182	189	161	147	0	0
+'8	80	24	32	448	296	144	80	112	96	48	144	104	80	104	120	112	0	0
+'9	81	54	0	261	189	126	54	126	45	72	81	90	45	117	63	45	0	0
+'10	50	10	0	290	190	60	50	60	20	70	30	60	90	80	80	90	0	0
+11-15	150	29	14	817	1141	289	218	374	133	160	240	168	126	313	330	118	0	0
+16-20	72	0	36	479	869	191	36	194	107	16	68	75	50	107	119	0	0	0
+21-50	56	30	202	1394	4202	501	260	319	117	68	213	78	103	579	317	129	0	0
+51-100	172	0	0	548	4460	0	0	126	0	0	0	0	0	366	0	0	0	0
+101-150	0	0	107	133	2327	0	0	105	0	0	0	0	0	0	0	0	0	0
+151-200	0	0	0	0	2227	0	0	0	0	0	0	0	0	0	0	0	0	0
+201-500	0	0	0	0	4509	0	0	0	0	0	0	0	0	0	0	0	0	0
+501-1000	0	0	0	0	1297	0	0	0	0	0	0	0	0	0	0	0	0	0
+'1001+	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+
+Number of genes per-species in orthogroup	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes	Percentage of genes
+'0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+'1	51.3	62.7	48.3	17.9	9.6	37.6	55.1	46.0	51.7	51.0	40.0	47.0	42.0	35.8	45.3	45.0	90.0	96.0
+'2	21.3	14.1	14.8	17.1	8.0	20.8	17.6	16.2	16.9	23.0	24.2	25.8	17.1	13.3	15.7	25.6	8.9	4.0
+'3	7.4	4.1	5.2	9.1	4.1	8.4	7.1	7.5	6.5	9.5	12.8	10.2	6.2	5.0	6.3	10.7	1.1	0.0
+'4	3.3	1.4	2.3	6.0	2.4	4.7	3.5	4.1	3.0	4.3	6.1	4.4	2.9	2.9	3.4	4.4	0.0	0.0
+'5	2.1	1.1	0.8	3.4	1.5	3.7	2.8	2.8	2.0	2.1	3.0	2.1	1.7	2.4	2.0	2.3	0.0	0.0
+'6	1.2	0.5	1.1	2.6	1.3	1.7	1.9	1.6	1.2	1.4	1.7	1.5	1.2	1.3	1.5	1.5	0.0	0.0
+'7	1.0	0.4	0.4	1.7	1.1	1.2	1.0	1.6	1.2	1.1	1.5	0.9	1.3	1.5	1.2	1.2	0.0	0.0
+'8	0.8	0.3	0.4	1.9	0.8	1.0	0.8	0.9	1.0	0.4	1.0	0.8	0.6	0.8	0.9	0.9	0.0	0.0
+'9	0.8	0.8	0.0	1.1	0.5	0.9	0.6	1.0	0.5	0.6	0.6	0.7	0.3	0.9	0.5	0.4	0.0	0.0
+'10	0.5	0.1	0.0	1.2	0.5	0.4	0.5	0.5	0.2	0.6	0.2	0.5	0.6	0.6	0.6	0.7	0.0	0.0
+11-15	1.5	0.4	0.2	3.4	3.2	2.1	2.2	3.1	1.4	1.4	1.7	1.3	0.9	2.4	2.5	0.9	0.0	0.0
+16-20	0.7	0.0	0.5	2.0	2.4	1.4	0.4	1.6	1.1	0.1	0.5	0.6	0.4	0.8	0.9	0.0	0.0	0.0
+21-50	0.6	0.4	2.6	5.9	11.8	3.6	2.7	2.6	1.2	0.6	1.5	0.6	0.7	4.5	2.4	1.0	0.0	0.0
+51-100	1.7	0.0	0.0	2.3	12.5	0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0	2.8	0.0	0.0	0.0	0.0
+101-150	0.0	0.0	1.4	0.6	6.5	0.0	0.0	0.9	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+151-200	0.0	0.0	0.0	0.0	6.2	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+201-500	0.0	0.0	0.0	0.0	12.6	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+501-1000	0.0	0.0	0.0	0.0	3.6	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+'1001+	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0

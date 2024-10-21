@@ -9,7 +9,6 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = "/Users/gol22pin/Documents/Lichen_project_TSL/01_Xanthoria_metagenomics/notebook")
 
 ```
 
@@ -370,5 +369,39 @@ ggsave('../results/genome_align.pdf',plot, width = 6, height = 6)
 ```
 
 
+## 4. Prepare list of genes used for phylogenomic trees
+* Fungal tree
+```{r}
+singlecopy<-read.delim("../analysis_and_temp_files/04_phylogenomics/fungi/Orthogroups/Orthogroups_SingleCopyOrthologues.txt",header=F)
 
+all_ortho<-read.delim("../analysis_and_temp_files/04_phylogenomics/fungi/Orthogroups/Orthogroups.tsv")
 
+singlecopy_table<-all_ortho %>% filter(Orthogroup %in% singlecopy$V1)
+
+#rename columns
+tree_names_f$new_name2<-paste(tree_names_f$short,tree_names_f$new_name,sep=" ")
+tree_names_f$original2<-str_replace(tree_names_f$original,"01_protein.faa","01_protein")
+singlecopy_table <-singlecopy_table %>% pivot_longer(-Orthogroup,names_to = "genome", values_to = "gene") %>%
+  left_join(tree_names_f %>% select(original2,new_name2),by=c("genome"="original2"))%>%
+  mutate(new_name2=ifelse(genome=="Xanthoria_parietina_GTX0501.proteins","Xanthoria parietina genome from this paper",new_name2)) %>%
+  pivot_wider(-genome,names_from = new_name2,values_from = gene)
+
+write.table(singlecopy_table,"../analysis_and_temp_files/04_phylogenomics/fungi/Orthogroups/single_copy_info.txt",quote=F,sep="\t",row.names = F)
+```
+* Algal tree
+```{r}
+singlecopy<-read.delim("../analysis_and_temp_files/04_phylogenomics/algae/Orthogroups/Orthogroups_SingleCopyOrthologues.txt",header=F)
+
+all_ortho<-read.delim("../analysis_and_temp_files/04_phylogenomics/algae/Orthogroups/Orthogroups.tsv")
+
+singlecopy_table<-all_ortho %>% filter(Orthogroup %in% singlecopy$V1)
+
+#rename columns
+tree_names_a$new_name2<-paste(tree_names_a$short,tree_names_a$new_name,sep=" ")
+tree_names_a$original2<-str_replace(tree_names_a$original,"01_protein.faa","01_protein")
+singlecopy_table <-singlecopy_table %>% pivot_longer(-Orthogroup,names_to = "genome", values_to = "gene") %>%
+  left_join(tree_names_a %>% select(original,new_name2),by=c("genome"="original"))%>%
+  pivot_wider(-genome,names_from = new_name2,values_from = gene)
+
+write.table(singlecopy_table,"../analysis_and_temp_files/04_phylogenomics/algae/Orthogroups/single_copy_info.txt",quote=F,sep="\t",row.names = F)
+```

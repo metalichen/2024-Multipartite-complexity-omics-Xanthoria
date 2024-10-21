@@ -1,0 +1,2 @@
+jgi|Auxeprot1|4879|XM_011403963.1
+jgi|Auxeprot1|5121|XM_011398065.1

@@ -1,0 +1,28 @@
+2023-09-08 15:24:22 : Started OrthoFinder version 2.5.4
+Command Line: /opt/anaconda_orthofinder/bin/orthofinder -f fasta/
+
+WorkingDirectory_Base: /hpc-home/nep23rer/lichen_GT/Phylogenomics/Cleaned/alga/fasta/OrthoFinder/Results_Sep08_2/WorkingDirectory/
+
+Species used: 
+0: Astpho2_GeneCatalog_proteins_20111209.aa.fasta
+1: Auxeprot1_GeneCatalog_proteins_20170909.aa.fasta
+2: Batpra1_GeneCatalog_proteins_20180426.aa.fasta
+3: Botrbrau1_GeneCatalog_proteins_20200805.aa.fasta
+4: Chabra1_GeneCatalog_proteins_20200807.aa.fasta
+5: Chleu1_GeneCatalog_proteins_20200804.aa.fasta
+6: Chlorella_NC64A.best_proteins.fasta
+7: Chloso1228_1_GeneCatalog_proteins_20200805.aa.fasta
+8: Coccomyxa_C169_v2_filtered_proteins.fasta
+9: GTX0465.bin.1.proteins.fasta
+10: GTX0468.bin.53.proteins.fasta
+11: GTX0493.bin.23.proteins.fasta
+12: TrebA12_1_GeneCatalog_proteins_20200804.aa.fasta
+13: Ulvmu1_GeneCatalog_proteins_20200803.aa.fasta
+14: Volca2_1_GeneCatalog_proteins_20200117.aa.fasta
+15: coassembly.bin.195.proteins.fasta
+16: trebgel_BUSCO_proteins.fasta
+17: trebus_BUSCO_proteins.fasta
+
+FN_Orthogroups: /hpc-home/nep23rer/lichen_GT/Phylogenomics/Cleaned/alga/fasta/OrthoFinder/Results_Sep08_2/WorkingDirectory/clusters_OrthoFinder_I1.5.txt_id_pairs.txt
+WorkingDirectory_Trees: /hpc-home/nep23rer/lichen_GT/Phylogenomics/Cleaned/alga/fasta/OrthoFinder/Results_Sep08_2/WorkingDirectory/
+2023-09-08 17:50:46 : OrthoFinder run completed

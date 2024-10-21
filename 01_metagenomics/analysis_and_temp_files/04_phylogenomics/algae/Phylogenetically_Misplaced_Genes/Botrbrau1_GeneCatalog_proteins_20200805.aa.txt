@@ -1,0 +1,15 @@
+jgi|Botrbrau1|19785|Bobra.0124s0033.1
+jgi|Botrbrau1|4789|Bobra.0325s0011.1
+jgi|Botrbrau1|9707|Bobra.0388s0002.1
+jgi|Botrbrau1|4870|Bobra.0032s0026.1
+jgi|Botrbrau1|21052|Bobra.0144s0053.1
+jgi|Botrbrau1|21053|Bobra.0144s0053.2
+jgi|Botrbrau1|13083|Bobra.0187s0043.2
+jgi|Botrbrau1|12672|Bobra.67_1s0036.1
+jgi|Botrbrau1|13082|Bobra.0187s0043.1
+jgi|Botrbrau1|21539|Bobra.174_2s0042.1
+jgi|Botrbrau1|22936|Bobra.0030s0013.1
+jgi|Botrbrau1|11477|Bobra.0360s0004.2
+jgi|Botrbrau1|11476|Bobra.0360s0004.1
+jgi|Botrbrau1|756|Bobra.0181s0015.1
+jgi|Botrbrau1|5342|Bobra.0346s0016.1

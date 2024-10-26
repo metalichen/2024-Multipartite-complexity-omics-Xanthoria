@@ -138,6 +138,60 @@ htmap<-heatmap.2(exp_matrix, Colv=as.dendrogram(hc_cols),Rowv=as.dendrogram(hc_r
 * KS21XB1 is a bit different from the rest 21 dpi samples
 
 ## 4. ANI between the mycobiont transcriptome and the reference genome
+#### between RNA data and our genome
+* Assemble transcriptomes (Trinity-v2.14.0) of one culture and one lichen samples and calculate ANIs between them and the predicted transcriptome from the genome
+```
+mkdir analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/
+source package /tsl/software/testing/bin/trinity-2.14.0
+
+Trinity  --seqType fq --max_memory 40G --left ../03_transcriptomic_analysis/analysis_and_temp_files/03_qc/trimmed_reads/KS48XB1_trimmed.bbmapmerged.non_rRNA.1.fq.gz  --right ../03_transcriptomic_analysis/analysis_and_temp_files/03_qc/trimmed_reads/KS48XB1_trimmed.bbmapmerged.non_rRNA.2.fq.gz --CPU 20 --output analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_trinity
+
+Trinity  --seqType fq --max_memory 40G --left ../03_transcriptomic_analysis/analysis_and_temp_files/03_qc/trimmed_reads/XBE1_trimmed.bbmapmerged.non_rRNA.1.fq.gz  --right ../03_transcriptomic_analysis/analysis_and_temp_files/03_qc/trimmed_reads/XBE1_trimmed.bbmapmerged.non_rRNA.2.fq.gz --CPU 20 --output analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_trinity
+```
+* Selected only those transcripts that map on to the reference genome
+```
+#align with BLAT
+source package /tgac/software/testing/bin/blat-37x1 
+blat analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_trinity.Trinity.fasta analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.mrna-transcripts.fa -out=psl -noHead analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_blat.psl
+
+#get list of transcripts that map by selecting the column with cut (48780 lines)
+cut -f14 analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_blat.psl > analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_transcripts_headers_mapped_to_GTX501.txt
+
+#remove duplicates with awk (21219 lines)
+awk -i inplace '!seen[$0]++' analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_transcripts_headers_mapped_to_GTX501.txt
+
+#extract fastas with seqtk v1.4-r130
+source package d6c2932f-b01d-4039-8736-a2e15d4867e2 
+seqtk subseq analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_trinity.Trinity.fasta analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_transcripts_headers_mapped_to_GTX501.txt > analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_transcripts_headers_mapped_to_GTX501.fasta
+
+```
+* Compared filtered transcripts to the predicted transcriptome with FastANI:  99.2197% identical
+```
+fastANI -r analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_transcripts_headers_mapped_to_GTX501.fasta -q analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.mrna-transcripts.fa -o analysis_and_temp_files/06_annotate_lecanoro/GTX0501_XBE1_ani.txt
+```
+* Treat the same culture sample
+```
+#align with BLAT
+source package /tgac/software/testing/bin/blat-37x1 
+blat analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_trinity.Trinity.fasta analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.mrna-transcripts.fa -out=psl  analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_blat.psl
+
+#get list of transcripts that map by selecting the column with cut (48780 lines)
+cut -f14 analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_blat.psl > analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_transcripts_headers_mapped_to_GTX501.txt
+
+#remove duplicates with awk (21219 lines)
+awk -i inplace '!seen[$0]++' analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_transcripts_headers_mapped_to_GTX501.txt
+
+#extract fastas with seqtk v1.4-r130
+source package d6c2932f-b01d-4039-8736-a2e15d4867e2 
+seqtk subseq analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_trinity.Trinity.fasta analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_transcripts_headers_mapped_to_GTX501.txt > analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_transcripts_headers_mapped_to_GTX501.fasta
+
+fastANI -r analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_transcripts_headers_mapped_to_GTX501.fasta -q analysis_and_temp_files/06_annotate_lecanoro/GTX0501_pred/annotate_results/Xanthoria_parietina_GTX0501.mrna-transcripts.fa -o analysis_and_temp_files/06_annotate_lecanoro/GTX0501_KS48XB1_filtered_ani.txt
+```
+* This time, ANI = 99.28, almost the same
+* Compared two transcriptomes to each other: 99.05% identical
+```
+fastANI -r analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/KS48XB1_transcripts_headers_mapped_to_GTX501.fasta -q analysis_and_temp_files/06_annotate_lecanoro/trinity_assemblies/XBE1_transcripts_headers_mapped_to_GTX501.fasta -o analysis_and_temp_files/06_annotate_lecanoro/XBE1_KS48XB1_filtered_ani.txt
+```
 
 
 ## 5. Next steps:

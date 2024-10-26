@@ -1,0 +1,95 @@
+full	id	new_name	source
+PP054355.1 Rhizoplaca chrysoleuca voucher 18-59131 (KUN) RNA polymerase II second largest subunit (RPB2) gene, partial cds	PP054355.1	PP054355.1 Rhizoplaca chrysoleuca	literature
+OR242366.1 Roccellinastrum spongoideum isolate LW05 RNA polymerase II second largest subunit (rpb2) gene, partial cds	OR242366.1	OR242366.1 Roccellinastrum spongoideum	literature
+OR242365.1 Cenozosia excorticata isolate LW10 RNA polymerase II second largest subunit (rpb2) gene, partial cds	OR242365.1	OR242365.1 Cenozosia excorticata	literature
+MW522909.1 Bacidia rosella voucher M-0311930 DNA-directed RNA polymerase II second largest subunit (RPB2) gene, partial cds	MW522909.1	MW522909.1 Bacidia rosella	literature
+OP245173.1 Diorygma karnatakense voucher CRG668RATM05 RNA polymerase II largest subunit (RPB2) gene, partial cds	OP245173.1	OP245173.1 Diorygma karnatakense	literature
+ON677408.1 Neohormodochis septispora voucher HKAS:124172 RNA polymerase II second largest subunit (RPB2) gene, partial cds	ON677408.1	ON677408.1 Neohormodochis septispora	literature
+OP198714.1 Micarea lignaria voucher Svensson 3818 (UPS) DNA-dependent RNA polymerase II second largest subunit (RPB2) gene, partial cds	OP198714.1	OP198714.1 Micarea lignaria	literature
+MW654135.1 Emmanuelia lobulifera isolate 18-61328 RNA polymerase II second largest subunit (RPB2) gene, partial cds	MW654135.1	MW654135.1 Emmanuelia lobulifera	literature
+OK665631.1 Lecanora polytropa voucher KRAM:Flakus 29524 DNA-directed RNA polymerase II subunit (rpb2) gene, partial cds	OK665631.1	OK665631.1 Lecanora polytropa	literature
+MT831995.1 Porina leptalea voucher Ertz 23175 (BR) RNA polymerase II second largest subunit (RPB2) gene, partial cds	MT831995.1	MT831995.1 Porina leptalea	literature
+MT831994.1 Gyalecta amsterdamensis voucher Ertz 21404 (BR) RNA polymerase II second largest subunit (RPB2) gene, partial cds	MT831994.1	MT831994.1 Gyalecta amsterdamensis	literature
+MT180072.1 Cetrariella delisei voucher LA31978 RNA polymerase II largest subunit (RPB2) gene, partial cds	MT180072.1	MT180072.1 Cetrariella delisei	literature
+MT215163.1 Pycnothelia mascarena isolate CL206 RNA polymerase II second largest subunit (rpb2) gene, partial cds	MT215163.1	MT215163.1 Pycnothelia mascarena	literature
+DQ992425.1 Peltigera hydrophila isolate AFTOL 1838 DNA-dependent RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ992425.1	DQ992425.1 Peltigera hydrophila	literature
+MN612606.1 Graphis scripta isolate 8987 RNA polymerase II second largest subunit (RPB2) gene, partial cds	MN612606.1	MN612606.1 Graphis scripta	literature
+MN311953.1 Caloplaca xerica isolate F493 RNA polymerase II second largest subunit (RPB2) gene, partial cds	MN311953.1	MN311953.1 Caloplaca xerica	literature
+MG592345.1 Buellia zoharyi strain AS13 RNA polymerase II second largest subunit (RPB2) gene, partial cds	MG592345.1	MG592345.1 Buellia zoharyi	literature
+KF662440.1 Lecidea sphaerella voucher Z. Palice 4621 (FR) second largest subunit RNA polymerase II (RPB2) gene, partial cds	KF662440.1	KF662440.1 Lecidea sphaerella	literature
+JX420890.1 Thelotrema macrosporum bio-material DNA4013 RNA polymerase II second largest subunit (RPB2) gene, partial cds	JX420890.1	JX420890.1 Thelotrema macrosporum	literature
+KY633999.1 Thamnolia subuliformis isolate IB16 DNA-dependent RNA polymerase II second largest subunit (RPB2) gene, partial cds	KY633999.1	KY633999.1 Thamnolia subuliformis	literature
+DQ992474.1 Alectoria ochroleuca RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ992474.1	DQ992474.1 Alectoria ochroleuca	literature
+DQ992477.1 Rhizocarpon oederi RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ992477.1	DQ992477.1 Rhizocarpon oederi	literature
+DQ992478.1 Stictis urceolatum RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ992478.1	DQ992478.1 Stictis urceolatum	literature
+DQ992467.1 Ochrolechia sp. AFTOL 318 DNA-dependent RNA polymerase II second largest subunit-like (RPB2) gene, partial sequence	DQ992467.1	DQ992467.1 Ochrolechia sp.	literature
+DQ992458.1 Phlyctis argena isolate AFTOL 1375 DNA-dependent RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ992458.1	DQ992458.1 Phlyctis argena	literature
+DQ992434.1 Loxospora ochrophaea isolate AFTOL 879 DNA-dependent RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ992434.1	DQ992434.1 Loxospora ochrophaea	literature
+HM244818.1 Thelotrema saxatile voucher Lendemer 6389 (PH) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244818.1	HM244818.1 Thelotrema saxatile	literature
+HM244806.1 Ostropa barbara voucher Wedin & Baloch SW071 (S) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244806.1	HM244806.1 Ostropa barbara	literature
+HM244808.1 Porina aenea voucher Arup & Baloch SW154 (S) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244808.1	HM244808.1 Porina aenea	literature
+HM244807.1 Gyalecta fagicola voucher Delin L-163179 (UPS) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244807.1	HM244807.1 Gyalecta fagicola	literature
+HM244800.1 Odontotrema cassiopes voucher Baloch s.n. (S) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244800.1	HM244800.1 Odontotrema cassiopes	literature
+HM244790.1 Cryptodiscus pini voucher Baloch & Arup SW175 (S) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244790.1	HM244790.1 Cryptodiscus pini	literature
+HM244777.1 Absconditella sphagnorum voucher Palice 11146 (S) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244777.1	HM244777.1 Absconditella sphagnorum	literature
+DQ973089.1 Ophioparma lapponica isolate AFTOL-ID 1707 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ973089.1	DQ973089.1 Ophioparma lapponica	literature
+DQ973077.1 Erioderma verruculosum isolate AFTOL-ID 337 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ973077.1	DQ973077.1 Erioderma verruculosum	literature
+DQ912399.1 Xanthoria polycarpa isolate AFTOL-ID 200 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ912399.1	DQ912399.1 Xanthoria polycarpa	literature
+DQ902342.1 Pertusaria hemisphaerica isolate AFTOL-ID 959 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ902342.1	DQ902342.1 Pertusaria hemisphaerica	literature
+DQ883754.1 Heterodermia vulgaris isolate AFTOL-ID 320 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ883754.1	DQ883754.1 Heterodermia vulgaris	literature
+KU844461.1 Baeomyces rufus isolate T1359 RNA polymerase II second largest subunit (RPB2) gene, partial cds	KU844461.1	KU844461.1 Baeomyces rufus	literature
+KU844455.1 Placopsis illita isolate KS164 RNA polymerase II second largest subunit (RPB2) gene, partial cds	KU844455.1	KU844455.1 Placopsis illita	literature
+MH327871.1 Cyanodermella banksiae culture CPC:32105 DNA-directed RNA polymerase II second largest subunit (rpb2) gene, partial cds	MH327871.1	MH327871.1 Cyanodermella banksiae	literature
+DQ247793.1 Glomerobolus gelineus isolate AFTOL-ID 1349 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ247793.1	DQ247793.1 Glomerobolus gelineus	literature
+ON492049.1 Glyphis atrofusca isolate P14630 DNA-directed RNA polymerase II subunit (RPB2) gene, partial cds	ON492049.1	ON492049.1 Glyphis atrofusca	literature
+ON492048.1 Allographa consanguinea isolate P14629 DNA-directed RNA polymerase II subunit (RPB2) gene, partial cds	ON492048.1	ON492048.1 Allographa consanguinea	literature
+ON492044.1 Fissurina sp. 3 IM-2023 isolate P14178 DNA-directed RNA polymerase II subunit (RPB2) gene, partial cds	ON492044.1	ON492044.1 Fissurina sp.	literature
+ON492045.1 Diploschistes sp. 1 IDM-2022 isolate P14430 DNA-directed RNA polymerase II subunit (RPB2) gene, partial cds	ON492045.1	ON492045.1 Diploschistes sp.	literature
+ON807609.1 Ebollia kunmingensis voucher HKAS:124175 RNA polymerase II second largest subunit (RPB2) gene, partial cds	ON807609.1	ON807609.1 Ebollia kunmingensis	literature
+ON807608.1 Ostropomyces thailandicus voucher MFLU:21-0116 RNA polymerase II second largest subunit (RPB2) gene, partial cds	ON807608.1	ON807608.1 Ostropomyces thailandicus	literature
+MT832000.1 Thelopsis corticola voucher Sanderson 2202 (BM) RNA polymerase II second largest subunit (RPB2) gene, partial cds	MT832000.1	MT832000.1 Thelopsis corticola	literature
+JX420946.1 Chapsa aff. laceratula Luecking 24009 bio-material DNA5638 RNA polymerase II second largest subunit (RPB2) gene, partial cds	JX420946.1	JX420946.1 Chapsa aff.	literature
+JX420925.1 Ocellularia allosporoides bio-material DNA4736 RNA polymerase II second largest subunit (RPB2) gene, partial cds	JX420925.1	JX420925.1 Ocellularia allosporoides	literature
+JX420907.1 Melanotrema lynceodes bio-material DNA4154 RNA polymerase II second largest subunit (RPB2) gene, partial cds	JX420907.1	JX420907.1 Melanotrema lynceodes	literature
+JX420863.1 Chroodiscus parvisporus bio-material DNA2680 RNA polymerase II second largest subunit (RPB2) gene, partial cds	JX420863.1	JX420863.1 Chroodiscus parvisporus	literature
+KX999147.1 Cyanodermella oleoligni strain DTO 301-G1 RNA polymerase II second largest subunit (RPB2) gene, partial cds	KX999147.1	KX999147.1 Cyanodermella oleoligni	literature
+HM244815.1 Stictis confusa voucher Wedin 7105 (UPS) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244815.1	HM244815.1 Stictis confusa	literature
+HM244814.1 Stictis brunnescens voucher Wedin 7651 (UPS) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244814.1	HM244814.1 Stictis brunnescens	literature
+HM244798.1 Gyalidea praetermissa voucher Svensson 949 (herb. Svensson) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244798.1	HM244798.1 Gyalidea praetermissa	literature
+HM244791.1 Cryptodiscus rhopaloides voucher Laessoe 12881 (S) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244791.1	HM244791.1 Cryptodiscus rhopaloides	literature
+HM244789.1 Cryptodiscus pallidus voucher Baloch & Wedin SW174 (S) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244789.1	HM244789.1 Cryptodiscus pallidus	literature
+HM244788.1 Cryptodiscus gloeocapsa voucher Tibell 23543 (UPS) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244788.1	HM244788.1 Cryptodiscus gloeocapsa	literature
+HM244786.1 Coenogonium pineti voucher Thor 19164 (UPS) RNA polymerase II second largest subunit (RPB2) gene, partial cds	HM244786.1	HM244786.1 Coenogonium pineti	literature
+KR017521.1 Xylographa pallens isolate T1133 RNA polymerase II second largest subunit (RPB2) gene, partial cds	KR017521.1	KR017521.1 Xylographa pallens	literature
+KR017496.1 Schizoxylon albescens isolate L547 RNA polymerase II second largest subunit (RPB2) gene, partial cds	KR017496.1	KR017496.1 Schizoxylon albescens	literature
+LC322059.1 Huriopsis xanthophaea RPB2 gene for RNA polymerase II second largest subunit, partial cds, specimen_voucher: CBM: Watanuki L01491	LC322059.1	LC322059.1 Huriopsis xanthophaea	literature
+LC322058.1 Pyxine subcinerea RPB2 gene for RNA polymerase II second largest subunit, partial cds, specimen_voucher: APUL: Yamamoto 18042802	LC322058.1	LC322058.1 Pyxine subcinerea	literature
+LC322051.1 Dirinaria sp. RPB2 gene for RNA polymerase II second largest subunit, partial cds, specimen_voucher: CBM: Izumu 1510	LC322051.1	LC322051.1 Dirinaria sp.	literature
+LC322043.1 Calicium chlorosporum RPB2 gene for RNA polymerase II second largest subunit, partial cds, specimen_voucher: APUL: Yamamoto 24031674	LC322043.1	LC322043.1 Calicium chlorosporum	literature
+LC322040.1 Buellia subnexa RPB2 gene for RNA polymerase II second largest subunit, partial cds, specimen_voucher: CBM: Watanuki L01037	LC322040.1	LC322040.1 Buellia subnexa	literature
+OQ867277.1 Culbersonia nubila voucher v.d. Boom 54629 (herb. v.d. Boom) DNA-dependent RNA polymerase II second largest subunit (RPB2) gene, partial cds	OQ867277.1	OQ867277.1 Culbersonia nubila	literature
+MT610735.1 Pseudothelomma occidentale voucher Fryday 10069 (MSC) RNA polymerase II second largest subunit (RPB2) gene, partial cds	MT610735.1	MT610735.1 Pseudothelomma occidentale	literature
+MT610733.1 Burrowsia cataractae voucher Fryday 11591 (PRE) RNA polymerase II second largest subunit (RPB2) gene, partial cds	MT610733.1	MT610733.1 Burrowsia cataractae	literature
+DQ973086.1 Tholurna dissimilis isolate AFTOL-ID 1695 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ973086.1	DQ973086.1 Tholurna dissimilis	literature
+DQ912394.1 Rinodina tephraspis isolate AFTOL-ID 1314 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ912394.1	DQ912394.1 Rinodina tephraspis	literature
+DQ912393.1 Physconia muscigena isolate AFTOL-ID 220 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ912393.1	DQ912393.1 Physconia muscigena	literature
+DQ912392.1 Phaeophyscia orbicularis isolate AFTOL-ID 1308 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ912392.1	DQ912392.1 Phaeophyscia orbicularis	literature
+JQ301788.1 Physcia dubia isolate Gaya 81 RNA polymerase II second largest subunit (RPB2) gene, partial cds	JQ301788.1	JQ301788.1 Physcia dubia	literature
+DQ992419.1 Candelaria concolor isolate AFTOL 1706 DNA-dependent RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ992419.1	DQ992419.1 Candelaria concolor	literature
+MH468793.1 Pycnora sorophora RNA polymerase II second largest subunit (RPB2) gene, partial cds	MH468793.1	MH468793.1 Pycnora sorophora	literature
+DQ992427.1 Candelariella terrigena isolate AFTOL 227 DNA-dependent RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ992427.1	DQ992427.1 Candelariella terrigena	literature
+DQ912380.1 Candelariella reflexa isolate AFTOL-ID 1271 RNA polymerase II second largest subunit (RPB2) gene, partial cds	DQ912380.1	DQ912380.1 Candelariella reflexa	literature
+KJ766967.1 Candelariella placodizans isolate AFTOL-ID 1367 RNA polymerase II second largest subunit (RPB2) gene, partial cds	KJ766967.1	KJ766967.1 Candelariella placodizans	literature
+KJ766950.1 Candelina submexicana isolate AFTOL-ID 4371 RNA polymerase II second largest subunit (RPB2) gene, partial cds	KJ766950.1	KJ766950.1 Candelina submexicana	literature
+KF862712.1 Chaenotheca xyloxena RNA polymerase II (RPB2) gene, partial cds	KF862712.1	KF862712.1 Chaenotheca xyloxena	literature
+KF158006.1 Sclerophora sanguinea strain CBS 100924 DNA-dependent RNA polymerase II second largest subunit (RPB2) gene, partial cds	KF158006.1	KF158006.1 Sclerophora sanguinea	literature
+MW401765.1 Watsoniomyces obsoletus voucher POWELL 4724 DNA-directed RNA polymerase II second largest subunit (RPB2) gene, partial cds	MW401765.1	MW401765.1 Watsoniomyces obsoletus	literature
+OQ110707.1 Lichina intermedia isolate s1552_hap26 RNA polymerase II second largest subunit (RPB2) gene, partial cds	OQ110707.1	OQ110707.1 Lichina intermedia	literature
+OP348229.1 Peltula confusa voucher HMAS-L_154709 RNA polymerase II second largest subunit (RPB2) gene, partial cds	OP348229.1	OP348229.1 Peltula confusa	literature
+DQ832328.1 Lichinella iodopulchra isolate AFTOL-ID 896 second largest RNA polymerase II (RPB2) gene, partial cds	DQ832328.1	DQ832328.1 Lichinella iodopulchra	literature
+LC513885.1 Sarea resinae AH1164 rpb2 gene for DNA-directed RNA polymerase II subunit 2, partial cds	LC513885.1	LC513885.1 Sarea resinae	literature
+LC513882.1 Sarea difformis AH1309 rpb2 gene for DNA-directed RNA polymerase II subunit 2, partial cds	LC513882.1	LC513882.1 Sarea difformis	literature
+OP082177.1 Aspergillus niger strain IHEM 9709 RNA polymerase II second largest subunit (RPB2) gene, partial cds	OP082177.1	OP082177.1 Aspergillus niger	literature
+GTX0486b100 rpb2 reverse complement	GTX0486b10	GTX0486_487.bin.100	Xanthoria metagenomes
+cob378 rpb2 reverse complement	cob378	coassembly.bin.378	Xanthoria metagenomes
+cob376 rpb2	cob376	coassembly.bin.376	Xanthoria metagenomes

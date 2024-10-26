@@ -371,7 +371,7 @@ ggsave('../results/genome_align.pdf',plot, width = 6, height = 6)
 
 ## 4. Prepare list of genes used for phylogenomic trees
 * Fungal tree
-```{r}
+```{r,eval=F}
 singlecopy<-read.delim("../analysis_and_temp_files/04_phylogenomics/fungi/Orthogroups/Orthogroups_SingleCopyOrthologues.txt",header=F)
 
 all_ortho<-read.delim("../analysis_and_temp_files/04_phylogenomics/fungi/Orthogroups/Orthogroups.tsv")
@@ -389,7 +389,7 @@ singlecopy_table <-singlecopy_table %>% pivot_longer(-Orthogroup,names_to = "gen
 write.table(singlecopy_table,"../analysis_and_temp_files/04_phylogenomics/fungi/Orthogroups/single_copy_info.txt",quote=F,sep="\t",row.names = F)
 ```
 * Algal tree
-```{r}
+```{r,eval=F}
 singlecopy<-read.delim("../analysis_and_temp_files/04_phylogenomics/algae/Orthogroups/Orthogroups_SingleCopyOrthologues.txt",header=F)
 
 all_ortho<-read.delim("../analysis_and_temp_files/04_phylogenomics/algae/Orthogroups/Orthogroups.tsv")
@@ -405,3 +405,123 @@ singlecopy_table <-singlecopy_table %>% pivot_longer(-Orthogroup,names_to = "gen
 
 write.table(singlecopy_table,"../analysis_and_temp_files/04_phylogenomics/algae/Orthogroups/single_copy_info.txt",quote=F,sep="\t",row.names = F)
 ```
+
+## 6. Identify taxonomy of the three fungal MAGs that fall into Lecanoromycetes and Lichinmycetes
+* Tried pulling out protein coding marker genes from MAGs
+  * couldn't use ITS, since it was absent from all three MAGs (checked by blasting ITS of Physconia thorstenii DQ862496.1; got no hits)
+
+#### EF1: weird results
+* Used Alectoria sarmentosa TEF1 sequence from GenBank (JN009675.1)
+* Blasted it
+```
+source package 37f0ffda-9f66-4391-87e2-38ccd398861d 
+blastn -query analysis_and_temp_files/04_phylogenomics/alectoria_ef1_genbank.fa -subject analysis_and_temp_files/04_phylogenomics/coassembly.bin.378_cleaned_sorted.fa -outfmt 6
+>JN009675.1      coassemb378_2028        86.920  474     62      0       1       474     5060    5533    1.06e-150       532
+>JN009675.1      coassemb378_2028        86.585  246     33      0       527     772     5531    5776    2.56e-72        272
+
+blastn -query analysis_and_temp_files/04_phylogenomics/alectoria_ef1_genbank.fa -subject analysis_and_temp_files/04_phylogenomics/coassembly.bin.376_cleaned_sorted.fa -outfmt 6
+>JN009675.1      coassemb376_2030        83.407  904     131     17      8       903     2677    1785    0.0     821
+
+blastn -query analysis_and_temp_files/04_phylogenomics/alectoria_ef1_genbank.fa -subject analysis_and_temp_files/04_phylogenomics/GTX0486_487.bin.100_cleaned_sorted.fa -outfmt 6
+>JN009675.1      GTX0486b100_164 86.498  474     60      2       1       472     3266    3737    2.19e-146       518
+>JN009675.1      GTX0486b100_164 86.327  373     51      0       531     903     3741    4113    4.95e-113       407
+
+```
+* Blasted resulting sequences against NCBI:
+  * coassemb376_2030: closest match to Physconia
+  * coassemb378_2028: matches Dothideomycetes
+  * GTX0486b100_164: matches Dothideomycetes
+* For one MAG (coassemb376) this results match the phylogenomic tree, but for the others, they are very different
+
+#### RPB2: consistent results
+* Tried two RPB2 sequences as queries:
+  * DNA sequence of Heterodermia obscurata (LC322052.1)
+  * AA sequnce of Waynea californica (AYN25505.1)
+* DNA sequence only got a hit from coassembly.bin.376, but AA sequence got hit for all three
+```
+blastn -query analysis_and_temp_files/04_phylogenomics/heterodermia_rpb2_genebank.fa  -subject analysis_and_temp_files/04_phylogenomics/MAGs/euk/coassembly.bin.376.fa -outfmt 6
+> LC322052.1      k141_1468450    84.778  854     126     3       935     1786    7557    8408    0.0     854
+
+tblastn -query  analysis_and_temp_files/04_phylogenomics/waynea_rpb2_genbank.faa -subject analysis_and_temp_files/04_phylogenomics/MAGs/euk/coassembly.bin.376.fa -outfmt 6 -evalue 1
+> AYN25505.1      k141_1468450    71.703  364     103     0       1       364     6338    7429    2.07e-179       551
+
+tblastn -query  analysis_and_temp_files/04_phylogenomics/waynea_rpb2_genbank.faa  -subject analysis_and_temp_files/04_phylogenomics/MAGs/euk/coassembly.bin.378.fa -outfmt 6 -evalue 1
+
+> AYN25505.1      k141_2685327    73.352  364     95      2       1       364     13848   12763   0.0     572
+> AYN25505.1      k141_3972520    29.111  371     202     6       1       364     18611   19561   8.48e-41        153
+> AYN25505.1      k141_1584016    32.143  112     73      3       29      137     7367    7702    2.41e-09        58.9
+
+tblastn -query  analysis_and_temp_files/04_phylogenomics/waynea_rpb2_genbank.faa  -subject analysis_and_temp_files/04_phylogenomics/MAGs/euk/GTX0486_487.bin.100.fa -outfmt 6 -evalue 1
+> AYN25505.1      k141_12697      75.890  365     86      2       1       364     62915   61824   0.0     580
+> AYN25505.1      k141_769398     29.111  371     202     7       1       364     19094   20044   6.38e-45        165
+> AYN25505.1      k141_369495     32.609  92      60      2       49      138     47916   47641   9.60e-07        50.4
+```
+
+* Results of blastin against NCBI gave results consistent with phylogenomics:
+  * coassembly.bin.376: blasts as Physceaceae
+  * coassembly.bin.378: top hit blasts as Cryptodiscus from Ostropales
+  * GTX0486_487.bin.100: top hit blasts as Candellina
+* Clipped the sequences out of the MAGs. The last two needed to be reverse-complemented
+```
+samtools faidx analysis_and_temp_files/04_phylogenomics/MAGs/euk/coassembly.bin.376.fa k141_1468450:6338-8408 >  analysis_and_temp_files/04_phylogenomics/coassembly.bin.376.rpb2.fa
+
+samtools faidx analysis_and_temp_files/04_phylogenomics/MAGs/euk/coassembly.bin.378.fa k141_2685327:12763-13848 > analysis_and_temp_files/04_phylogenomics/coassembly.bin.378.rpb2.fa
+
+samtools faidx  analysis_and_temp_files/04_phylogenomics/MAGs/euk/GTX0486_487.bin.100.fa k141_12697:61824-62915 > analysis_and_temp_files/04_phylogenomics/GTX0486_487.bin.100.rpb2.fa
+```
+
+#### Collect RPB2 sequences from literature
+* Collected sequences from Lichinomycetes (sensu lato) and Lecanoromycetes. Added Aspergillus niger as an outgroup
+
+#### Aligned and made a tree
+```
+bash code/align.sh analysis_and_temp_files/04_phylogenomics/rpb2.fa 20
+bash code/iqtree.sh analysis_and_temp_files/04_phylogenomics/rpb2.fa_aligned.phyl 20 10000
+```
+
+#### Check the tree
+* Read in
+```{r}
+library(ape)
+library(dendextend)
+library(tidyverse)
+library(Biostrings)
+
+tree<-read.tree("../analysis_and_temp_files/04_phylogenomics/rpb2.fa_aligned.phyl.treefile")
+tree <- root(tree, outgroup = "OP082177.1", resolve.root = TRUE)
+tree <- ladderize(tree)
+```
+* Rename the tips
+```{r}
+fa<-readDNAStringSet("../analysis_and_temp_files/04_phylogenomics/rpb2.fa")
+df<-data.frame("full"=names(fa))
+df$id<-str_split_i(df$full," ",1)
+df$new_name<-paste(word(df$full,1),word(df$full,2),word(df$full,3),sep=" ")
+df$new_name[df$id=="GTX0486b100"]<-"GTX0486_487.bin.100"
+df$id[df$id=="GTX0486b100"]<-"GTX0486b10"
+df$new_name[df$id=="cob378"]<-"coassembly.bin.378"
+df$new_name[df$id=="cob376"]<-"coassembly.bin.376"
+df$source<-"literature"
+df$source[df$id %in% c("GTX0486b10","cob378","cob376")]<-"Xanthoria metagenomes"
+```
+* draw the tree
+```{r,fig.width=14,fig.height=20}
+
+tree_names<-data.frame("id"=tree$tip.label)
+tree_names <- tree_names %>% left_join(df)
+tree$tip.label<-tree_names[[3]][match(tree$tip.label, tree_names[[1]])]
+
+#make a vector to highlight mags
+col<-data.frame("new_name"=tree$tip.label) %>% left_join(tree_names)
+
+ggtree(tree,ladderize = TRUE,right = T) %<+% col+
+  geom_tiplab(pch=16,size=3,aes(col=source))+
+  scale_color_manual(values=c("Xanthoria metagenomes" = "red","literature"="black"))+ xlim(0, 1.2)
+```
+
+* Save renamed tree file and the table for sequence names
+```{r}
+ape::write.tree(tree,"../analysis_and_temp_files/04_phylogenomics//rpb2.fa_aligned.phyl.renamed.treefile")
+write.table(df,"../analysis_and_temp_files/04_phylogenomics/rpb2_ref_ids.txt",sep="\t",quote = F, row.names = F)
+```
+    
